@@ -214,7 +214,8 @@ footer.footer2 a:hover { text-decoration:underline; }
 
 .sweet-loading{ margin: 0 auto;z-index: 5000;width: 100%;position: absolute;left: 50%;}
 
-.react-datepicker__input-container {margin-left:10px;}
+.datePicker {margin-left:10px;max-width: 100px;}
+.errorMsg {color:red;margin: 0px;}
 
 
 

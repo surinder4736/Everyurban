@@ -27,6 +27,13 @@ class Profile extends Component {
         super(props);
 		this.state = 
 		{
+			ExpTitleMessage:'',
+			ExpLocationMessage:'',
+			ExpDescriptionMessage:'',
+			ExpDateMessage:'',
+			EduTitleMessage:'',
+			EduProgramMessage:'',
+			EduDateMessage:'',	
 			PortfolioValidateMessage:'', 
 			isStudent:false,
 			educationEditForm:{
@@ -102,6 +109,7 @@ class Profile extends Component {
 	//function to convert the date string in month year format
 	convertDateStringToMonthYear(strDate){
 		let dt=new Date(strDate);
+		if(strDate!=null){
 		var month = new Array();
 		month[0] = "January";
 		month[1] = "February";
@@ -116,6 +124,11 @@ class Profile extends Component {
 		month[10] = "November";
 		month[11] = "December";
 		return month[dt.getMonth()]+" "+dt.getFullYear();
+		}
+		else
+		{
+			return "Current";
+		}
 	}
 	validatePortfolio=()=>
 	{
@@ -158,6 +171,41 @@ class Profile extends Component {
 		console.log(this.state.educationEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
+		debugger;
+		let curObj=this;
+		let title=this.state.educationEditForm.title;
+		let program=this.state.educationEditForm.program;
+		let start_date=this.state.educationEditForm.start_date;
+		let end_date=this.state.educationEditForm.end_date;
+		
+		curObj.setState({EduTitleMessage:'',EduProgramMessage:'',EduDateMessage:''});
+		debugger;
+		let allValid=true;
+		if(validator.isEmpty(title))
+		{
+			curObj.setState({EduTitleMessage:'Please enter title'});
+			allValid=false;
+		}
+		if(validator.isEmpty(program))
+		{
+			curObj.setState({EduProgramMessage:'Please enter program'});
+			allValid=false;
+		}
+		
+		debugger;
+		if(start_date==new Date('01/01/1970'))
+		{
+			curObj.setState({EduDateMessage:'Please enter start date'});
+			allValid=false;
+		}
+		if((end_date!=new Date('01/01/1970'))&& end_date!="" && end_date!=null)
+		{
+			if(new Date(start_date) > new Date(end_date)){
+			curObj.setState({EduDateMessage:'Start Date must be less than End Date'});
+			allValid=false;
+			}
+		}
+		if(allValid){
 		if(this.state.educationEditForm.id>0)
 		{
 			dispatch(educationAction.editEducation({userId:this.props.user.id,education:this.state.educationEditForm}))
@@ -166,6 +214,7 @@ class Profile extends Component {
 		{
 			dispatch(educationAction.addEducation({userId:this.props.user.id,education:this.state.educationEditForm}))
 		}
+		}
 	}
 
 	clickExperienceSaveHandler=(e)=>{
@@ -173,13 +222,55 @@ class Profile extends Component {
 		console.log(this.state.experienceEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
-		if(this.state.experienceEditForm.id>0)
+		debugger;
+		let curObj=this;
+		let title=this.state.experienceEditForm.title;
+		let location=this.state.experienceEditForm.location;
+		let description=this.state.experienceEditForm.description;
+		let start_date=this.state.experienceEditForm.start_date;
+		let end_date=this.state.experienceEditForm.end_date;
+		
+		curObj.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:''});
+		debugger;
+		let allValid=true;
+		if(validator.isEmpty(title))
 		{
-			dispatch(experienceAction.editExperience({userId:this.props.user.id,experience:this.state.experienceEditForm}))
+			curObj.setState({ExpTitleMessage:'Please enter title'});
+			allValid=false;
 		}
-		else
+		if(validator.isEmpty(location))
 		{
-			dispatch(experienceAction.addExperience({userId:this.props.user.id,experience:this.state.experienceEditForm}))
+			curObj.setState({ExpLocationMessage:'Please enter location'});
+			allValid=false;
+		}
+		if(validator.isEmpty(description))
+		{
+			curObj.setState({ExpDescriptionMessage:'Please enter description'});
+			allValid=false;
+		}
+		debugger;
+		if(start_date==new Date('01/01/1970'))
+		{
+			curObj.setState({ExpDateMessage:'Please enter start date'});
+			allValid=false;
+		}
+		if((end_date!=new Date('01/01/1970')) && end_date!="" && end_date!=null)
+		{
+			if(new Date(start_date) > new Date(end_date)){
+			curObj.setState({ExpDateMessage:'Start Date must be less than End Date'});
+			allValid=false;
+			}
+		}
+		if(allValid)
+		{
+			if(this.state.experienceEditForm.id>0)
+			{
+				dispatch(experienceAction.editExperience({userId:this.props.user.id,experience:this.state.experienceEditForm}))
+			}
+			else
+			{
+				dispatch(experienceAction.addExperience({userId:this.props.user.id,experience:this.state.experienceEditForm}))
+			}
 		}
 	}
 	clickProfileSaveHandler=(e)=>{
@@ -188,7 +279,17 @@ class Profile extends Component {
 		
 		const{dispatch}=this.props;
 		e.preventDefault();
-		//if(this.validatePortfolio()==true)
+		let curObj=this;
+		let portfolio=this.state.profileEditForm.portfolio;
+		curObj.setState({PortfolioValidateMessage:''});
+		if(validator.isEmpty(portfolio)===true){
+			curObj.setState({PortfolioValidateMessage:'Please enter portfolio'});
+		}
+		if(validator.isURL(portfolio)===false)
+		{
+			curObj.setState({PortfolioValidateMessage:'Please enter a valid url'});	
+		}
+		if(validator.isEmpty(portfolio)===false && validator.isURL(portfolio)===true)
 		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
 	}
     componentWillReceiveProps(nextProps){
@@ -710,24 +811,26 @@ class Profile extends Component {
           <div className="form-group">
             <label htmlFor="experience-title-text" className="col-form-label">Title</label>
 			<input placeholder="Enter Title" type="text" onChange={this.changeExperienceTitle} className="form-control"  id="experience-title-text" value={this.state.experienceEditForm.title}/>
-
+			<div className="errorMsg">{this.state.ExpTitleMessage}</div>
           </div>
 		  <div className="form-group">
             <label htmlFor="experience-location-text" className="col-form-label">Location</label>
 			<input placeholder="Enter Location" type="text" onChange={this.changeExperienceLocation} className="form-control"  id="experience-location-text" value={this.state.experienceEditForm.location}/>
-
+			<div className="errorMsg">{this.state.ExpLocationMessage}</div>
           </div>
 		  <div className="form-group">
             <label htmlFor="experience-description-text" className="col-form-label">Description</label>
 			<textarea placeholder="Enter Description" onChange={this.changeExperienceDescription} className="form-control"  id="experience-description-text" rows="5" value={this.state.experienceEditForm.description}/>
-
+			<div className="errorMsg">{this.state.ExpDescriptionMessage}</div>
           </div>
 		  <div className="form-group">
             <label className="col-form-label">Duration</label>
 			{/* <input type="text"  onChange={this.changeExperienceStartDate} className="form-control"  id="experience-start-date" value={this.state.experienceEditForm.start_date}/> */}
 			<div className="clearfix">
-				<DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate}   id="experience-start-date"  />
-				<DatePicker locale="us" placeholderText="End Date" selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate}   id="experience-end-date"  />
+				<DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
+				<DatePicker locale="us" placeholderText="End Date" selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  />
+				<input onChange={this.markTillNow} type="checkbox"/>Till Now
+				<div className="errorMsg">{this.state.ExpDateMessage}</div>
 			</div>	
 			{/* <input type="text"  onChange={this.changeExperienceEndDate} className="form-control"  id="experience-end-date" value={this.state.experienceEditForm.end_date}/> */}
 				
@@ -760,12 +863,12 @@ class Profile extends Component {
           <div className="form-group">
             <label htmlFor="education-title-text" className="col-form-label">Title</label>
 			<input placeholder="Enter Title" type="text" onChange={this.changeEducationTitle} className="form-control"  id="education-title-text" value={this.state.educationEditForm.title}/>
-
+			<div className="errorMsg">{this.state.EduTitleMessage}</div>
           </div>
 		  <div className="form-group">
             <label htmlFor="education-Program-text" className="col-form-label">Program</label>
 			<input placeholder="Enter Program" type="text" onChange={this.changeEducationProgram} className="form-control"  id="education-program-text" value={this.state.educationEditForm.program}/>
-
+			<div className="errorMsg">{this.state.EduProgramMessage}</div>
           </div>
 		  
 		  <div className="form-group">
@@ -773,8 +876,9 @@ class Profile extends Component {
 			{/* <input type="text"  onChange={this.changeEducationStartDate} className="form-control"  id="education-start-date" value={this.state.educationEditForm.start_date}/> */}
 			{/* <input type="text"  onChange={this.changeEducationEndDate} className="form-control"  id="education-end-date" value={this.state.educationEditForm.end_date}/> */}
 			<div className="clearfix">
-				<DatePicker locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
-				<DatePicker locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
+				<DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
+				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
+				<div className="errorMsg">{this.state.EduDateMessage}</div>
 			</div>	
           </div>
         </form>
@@ -802,11 +906,12 @@ class Profile extends Component {
       </div>
       <div className="modal-body">
         <form>
-          
+		
           <div className="form-group">
             <label htmlFor="popup-text" className="col-form-label">Enter full URL of your portfolio</label>
 			<input placeholder="Enter full URL of your portfolio" type="text" onChange={this.changePortfolio} className="form-control"  id="popup-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.portfolio:null}/>
-          </div>
+			<div className="errorMsg">{this.state.PortfolioValidateMessage}</div>
+		  </div>
         </form>
       </div>
       <div className="modal-footer">
@@ -931,6 +1036,20 @@ class Profile extends Component {
 		languageEditForm.proficiency=e.target.value;
 		this.setState({languageEditForm:languageEditForm});
 	}
+	//Mark till now function
+	markTillNow=(e)=>{
+		debugger;
+		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
+		if(e.currentTarget.checked)
+		{
+			experienceEditForm.end_date=null;
+		}
+		else
+		{
+			//experienceEditForm.end_date=
+		}
+		this.setState({experienceEditForm:experienceEditForm});
+	}
 	showLanguageEditor=(e)=>
 	{
 		e.preventDefault();
@@ -943,6 +1062,8 @@ class Profile extends Component {
 
 	showEducation=(e)=>
 	{
+		this.setState({EduTitleMessage:'',EduProgramMessage:'',EduDateMessage:''});
+		
 		console.log(e.currentTarget.getAttribute('data-id'));
 		let edu_id=e.currentTarget.getAttribute('data-id');
 
@@ -963,7 +1084,7 @@ class Profile extends Component {
 			dtEnd1.setFullYear(dtEnd.getFullYear());
 			dtEnd1.setDate(dtEnd.getDate());
 			
-			let edu_end_date=dtEnd1;//e.currentTarget.getAttribute('data-end_date');
+			let edu_end_date=e.currentTarget.getAttribute('data-end_date')==null?null:dtEnd1;//e.currentTarget.getAttribute('data-end_date');
 			this.setState({mode:'edit',educationEditForm:{
 				id:edu_id,
 				title:edu_title,
@@ -990,6 +1111,8 @@ class Profile extends Component {
 
 	showExperience=(e)=>
 	{
+		this.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:''});
+		
 		console.log(e.currentTarget.getAttribute('data-id'));
 		let exp_id=e.currentTarget.getAttribute('data-id');
 
@@ -1005,6 +1128,7 @@ class Profile extends Component {
 			dtStart1.setMonth(dtStart.getMonth());
 			dtStart1.setFullYear(dtStart.getFullYear());
 			dtStart1.setDate(dtStart.getDate());
+			debugger;
 			let dtEnd=new Date(e.currentTarget.getAttribute('data-end_date'));
 			let exp_start_date=dtStart1;//e.currentTarget.getAttribute('data-start_date');
 			let dtEnd1=new Date();
@@ -1012,7 +1136,7 @@ class Profile extends Component {
 			dtEnd1.setFullYear(dtEnd.getFullYear());
 			dtEnd1.setDate(dtEnd.getDate());
 			
-			let exp_end_date=dtEnd1;//e.currentTarget.getAttribute('data-end_date');
+			let exp_end_date=e.currentTarget.getAttribute('data-end_date')==null?null:dtEnd1;//e.currentTarget.getAttribute('data-end_date');
 			
 			this.setState({mode:'edit',experienceEditForm:{
 				id:exp_id,
@@ -1086,7 +1210,7 @@ class Profile extends Component {
 							<div>
 								<h3>{this.state.userData.profile!=null?this.state.userData.profile.firstName +' '+this.state.userData.profile.lastName:null} <span class="flag flag-us"></span></h3>
 								<h4>{this.state.userData.profile!=null?this.state.userData.profile.address+', '+this.state.userData.profile.country:null} </h4>
-								{this.state.mode=='edit'&& 
+								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
 								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
 							</div>
 							<div>
