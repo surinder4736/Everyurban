@@ -156,8 +156,8 @@ footer.footer2 a:hover { text-decoration:underline; }
 }
 .__react_component_tooltip{width: 200px;text-align: left;word-wrap: none;}
 .profile-top { background:url("../Images/profile-bg.jpg") no-repeat 50% 50%; background-size:cover; padding-top:100px; }
-.profile-top .dp { margin-bottom:-100px; position:relative; z-index:10; }
-.profile-top .dp img { position:relative; z-index:11; }
+.profile-top .dp { margin-bottom:-100px; position:relative; z-index:10; min-height: 311px}
+.profile-top .dp img { position:relative; z-index:11; height:311px;}
 .profile-top .dp a { position:absolute; z-index:12; left:0; bottom:0; width:100%; height:40px; line-height:40px; text-align:center; color:#fff; background:rgba(0,0,0,0.5); opacity:0; }
 .profile-top .dp:hover a { opacity:1; }
 .profile-top .dp a:hover { background:rgba(0,0,0,0.9); }
