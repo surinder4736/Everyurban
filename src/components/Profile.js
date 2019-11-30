@@ -40,6 +40,8 @@ class Profile extends Component {
 			CountryValidateMessage:'',
 			AboutValidateMessage:'',	
 			PortfolioValidateMessage:'',
+			LanguageNameMessage:'',
+			LanguageProficiencyMessage:'',
 			LanguageExistsMessage:'', 
 			isStudent:false,
 			educationEditForm:{
@@ -168,21 +170,33 @@ class Profile extends Component {
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
+		this.setState({LanguageNameMessage:'',LanguageExistsMessage:'',LanguageProficiencyMessage:''});
 		let language=this.state.languageEditForm.name;
-		
-		var saveLanguage=true;
-		//loop through language for duplicate
-		this.state.userData.languages.map(element => {
+		let proficiency=this.state.languageEditForm.proficiency;
+		if(validator.isEmpty(language))
+		{
+			this.setState({LanguageNameMessage:'Please select name'});
+		}
+		if(validator.isEmpty(proficiency))
+		{
+			this.setState({LanguageProficiencyMessage:'Please select proficiency'});
+		}
+		if(!(validator.isEmpty(language))&& !(validator.isEmpty(proficiency)))
+		{
+			var saveLanguage=true;
+			//loop through language for duplicate
+			this.state.userData.languages.map(element => {
 			if(element.name==language){
 			//return <p>{ element.name+' | '+ element.proficiency} </p>	
-			saveLanguage=false;
+				saveLanguage=false;
 			this.setState({LanguageExistsMessage:'Language already added in your profile'});
 			//alert('Language already exists in your profile');
 		}
 			});
 			if(saveLanguage){
-		dispatch(languageAction.addLanguage({userId:this.props.user.id,language:this.state.languageEditForm}))
+				dispatch(languageAction.addLanguage({userId:this.props.user.id,language:this.state.languageEditForm}))
 			}
+		}
 	}
 
 
@@ -769,6 +783,7 @@ class Profile extends Component {
           <div className="form-group">
             <label htmlFor="language-name-text" className="col-form-label">Name</label>
 			<select placeholder="Choose a Language..." onChange={this.changeLanguageName} className="form-control"  id="language-name-text" value={this.state.languageEditForm.name}>
+			<option value=""> Select Name</option>
 				<option value="Afrikanns">Afrikanns</option>
   				<option value="Albanian">Albanian</option>
 				<option value="Arabic">Arabic</option>
@@ -842,18 +857,20 @@ class Profile extends Component {
 				<option value="Welsh">Welsh</option>
 				<option value="Xhosa">Xhosa</option>
 			</select>
-
+			<div className="errorMsg">{this.state.LanguageNameMessage}</div>
           </div>
 		  <div className="form-group">
             <label htmlFor="language-proficiency-text" className="col-form-label">Proficiency</label>
 			<select onChange={this.changeLanguageProficiency} className="form-control"  id="language-proficiency-text" value={this.state.languageEditForm.proficiency}>
-
+			<option value=""> Select Proficiency</option>
 <option value="Basic"> Basic (write in this language decently)</option>
 <option value="Conversational"> Conversational (write and speak language well)</option>
 <option value="Fluent"> Fluent (Write and peak language almost perfectly)</option>
 <option value="Native"> Native (Mother tongue/first language)</option>
 				</select>
-			<div className="errorMsg">{this.state.LanguageExistsMessage}</div>	
+			<div className="errorMsg">{this.state.LanguageProficiencyMessage}</div>
+			<div className="errorMsg">{this.state.LanguageExistsMessage}</div>
+				
           </div>
         </form>
       </div>
@@ -1141,7 +1158,7 @@ class Profile extends Component {
 	showLanguageEditor=(e)=>
 	{
 		e.preventDefault();
-		this.setState({LanguageExistsMessage:''});
+		this.setState({LanguageNameMessage:'',LanguageExistsMessage:'',LanguageProficiencyMessage:''});
 	}
 	showEditPortfolio=(e)=>{
 		
