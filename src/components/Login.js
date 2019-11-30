@@ -63,13 +63,17 @@ componentDidMount(){
 }
 
 	componentWillReceiveProps(nextProps){
+	//	debugger
 		const{user}=nextProps;
 		if(nextProps.user!==this.props.user){
-			if(user!=null && user.auth===true){
+			if(user!=null && user.auth===true && user.is_email_verified==="true"){
 			const uid=user.unique_userid;
 			const randomID=user.random_id;
 			window.location.href=`/profile/${uid}/${randomID}`;
 			this.setState({messageServerside:''});
+			}
+			else if(user!=null && user.auth===true && user.is_email_verified==="false"){
+				this.setState({messageServerside:'Please verify your email to login.'});
 			}
 
 		  else if(user!=null && user.message==="Unauthorized"){

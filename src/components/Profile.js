@@ -8,7 +8,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import {connect} from 'react-redux';
 import PropTypes, { array, node } from 'prop-types';
 import userAction from '../actions/user';
-import Header from './Header';
 import jQuery from 'jquery';
 import ReactTooltip from 'react-tooltip';
 import MenuComponent from './MenuComponent';
@@ -23,6 +22,7 @@ import Swal from 'sweetalert2';
 import {APIURL, BASE_URL} from '../Config/config'
 import 'sweetalert2/src/sweetalert2.scss';
 import { PROFILE_EDIT_SUCCESS } from '../types';
+import ProfileHeader from './ProfileHeader';
 const axios = require("axios");
 
 const{logout} = userAction;
@@ -1408,6 +1408,17 @@ class Profile extends Component {
 		this.setState({isStudent:e.currentTarget.checked});
 		this.markProfileAsStudent(e.currentTarget.checked);
 	}
+
+	clickFinalSave(e){
+		e.preventDefault();
+		Swal.fire({
+			title: 'Success!',
+			text: 'You have successfully saved your profile',
+			icon: 'success',
+			confirmButtonText: 'Close'		
+		});
+	}
+
     render() {
 			const{profile:{profile}}=this.props;
 			const{render}=this.state;
@@ -1425,7 +1436,7 @@ class Profile extends Component {
 		return ( 
             <div>
             {/* Header components open */}
-         <Header />
+         <ProfileHeader />
         <MenuComponent />
             {/* Header components end */}
 			<div className='sweet-loading'>
@@ -1460,7 +1471,7 @@ class Profile extends Component {
 								<div class="button">
 									<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#"><i class="fas fa-edit"></i> Edit Profile</a>
 									<span> | </span>
-									<a href="#" ><i class="far fa-save"></i> Save</a>
+									<a href="#" onClick={this.clickFinalSave.bind(this)} ><i class="far fa-save"></i> Save</a>
 								</div>
 							</div>
 						</div>
