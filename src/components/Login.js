@@ -73,7 +73,7 @@ componentDidMount(){
 			this.setState({messageServerside:''});
 			}
 			else if(user!=null && user.auth===true && user.is_email_verified==="false"){
-				this.setState({messageServerside:'Sorry email is not verified'});
+				this.setState({messageServerside:'Please verify your email to login.'});
 			}
 
 		  else if(user!=null && user.message==="Unauthorized"){
