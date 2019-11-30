@@ -514,7 +514,8 @@ class Profile extends Component {
 		  <div className="form-group">
             <label htmlFor="country-text" className="col-form-label">Country:</label>
 			<select onChange={this.changeCountry} type="text" className="form-control" id="country-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.country:null}>
-			<option value="Afghanistan">Afghanistan</option>
+				<option value="">Please select country</option>
+				<option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
