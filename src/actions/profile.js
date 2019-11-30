@@ -76,7 +76,45 @@ const profileAction = {
                 });
             };
         }
+    },
+    markProfileAsCompleted(data){
+        if(data.profile.id>0)
+        {
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.put(`${APIURL}users/${data.userId}/${data.profile.id}/profile`,data.profile)
+                .then(response => {//debugger;
+                    //var data=response.data;
+                    //dispatch(editProfileSuccess(data));
+                    dispatch(requestSuccess());
+                    
+            }).catch((error) => {//debugger;
+                dispatch(requestFailure());
+                //dispatch(editProfileError({message:error.response.data,dt:new Date()}));
+            });
+        };
+        }
+        
+    },
+    //mark profile as student
+    markProfileAsStudent(data){
+        if(data.profile.id>0)
+        {
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.put(`${APIURL}users/${data.userId}/${data.profile.id}/profile`,data.profile)
+                .then(response => {//debugger;
+                    //var data=response.data;
+                    //dispatch(editProfileSuccess(data));
+                    dispatch(requestSuccess());
+                    
+            }).catch((error) => {//debugger;
+                dispatch(requestFailure());
+                //dispatch(editProfileError({message:error.response.data,dt:new Date()}));
+            });
+        };
+        }
+        
     }
-
 }
 export default profileAction;
