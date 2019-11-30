@@ -1244,7 +1244,7 @@ class Profile extends Component {
 		else
 		{
 			//exp_data={id:exp_id,title:}
-			this.setState({mode:'edit',experienceEditForm:{
+			this.setState({mode:'edit',educationEditForm:{
 				id:null,
 				title:"",
 				program:"",
@@ -1324,6 +1324,17 @@ class Profile extends Component {
 		console.log('checkbox clicked');
 		this.setState({isStudent:e.currentTarget.checked})
 	}
+
+	clickFinalSave(e){
+		e.preventDefault();
+		Swal.fire({
+			title: 'Success!',
+			text: 'You have successfully saved your profile',
+			icon: 'success',
+			confirmButtonText: 'Close'		
+		});
+	}
+
     render() {
 			const{profile:{profile}}=this.props;
 			const{render}=this.state;
@@ -1376,7 +1387,7 @@ class Profile extends Component {
 								<div class="button">
 									<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#"><i class="fas fa-edit"></i> Edit Profile</a>
 									<span> | </span>
-									<a href="#" ><i class="far fa-save"></i> Save</a>
+									<a href="#" onClick={this.clickFinalSave.bind(this)} ><i class="far fa-save"></i> Save</a>
 								</div>
 							</div>
 						</div>
