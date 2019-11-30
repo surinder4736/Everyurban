@@ -48,7 +48,8 @@ const experienceAction = {
                     dispatch(addExperienceSuccess(data));
                 
             }).catch((error) => {
-                dispatch(addExperienceError({message:error.response.data,dt:new Date()}));
+                //dispatch(addExperienceError({message:error.response.data,dt:new Date()}));
+                dispatch(addExperienceError({message:error.message,dt:new Date()}));
             });
         };
     },

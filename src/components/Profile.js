@@ -40,23 +40,29 @@ class Profile extends Component {
 			ExpDateMessage:'',
 			EduTitleMessage:'',
 			EduProgramMessage:'',
-			EduDateMessage:'',	
-			PortfolioValidateMessage:'', 
+			EduDateMessage:'',
+			FistNameValidateMessage:'',
+			LastNameValidateMessage:'',
+			AddressValidateMessage:'',
+			CountryValidateMessage:'',
+			AboutValidateMessage:'',	
+			PortfolioValidateMessage:'',
+			LanguageExistsMessage:'', 
 			isStudent:false,
 			educationEditForm:{
 				id:null,
 				title:"",
 				program:"",
-				start_date:"",
-				end_date:""
+				start_date:null,
+				end_date:null
 			},
 			experienceEditForm:{
 				id:null,
 				title:"",
 				location:"",
 				description:"",
-				start_date:"",
-				end_date:""
+				start_date:null,
+				end_date:null
 			},
 			languageEditForm:{
 				id:null,
@@ -179,7 +185,22 @@ class Profile extends Component {
 		console.log(this.state.languageEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
+		let curObj=this;
+		let language=this.state.languageEditForm.name;
+		
+		var saveLanguage=true;
+		//loop through language for duplicate
+		this.state.userData.languages.map(element => {
+			if(element.name==language){
+			//return <p>{ element.name+' | '+ element.proficiency} </p>	
+			saveLanguage=false;
+			this.setState({LanguageExistsMessage:'Language already added in your profile'});
+			//alert('Language already exists in your profile');
+		}
+			});
+			if(saveLanguage){
 		dispatch(languageAction.addLanguage({userId:this.props.user.id,language:this.state.languageEditForm}))
+			}
 	}
 
 
@@ -211,7 +232,7 @@ class Profile extends Component {
 		}
 		
 		debugger;
-		if(start_date==new Date('01/01/1970'))
+		if(start_date==new Date('01/01/1970')||start_date=="" ||start_date==null)
 		{
 			curObj.setState({EduDateMessage:'Please enter start date'});
 			allValid=false;
@@ -267,7 +288,7 @@ class Profile extends Component {
 			allValid=false;
 		}
 		debugger;
-		if(start_date==new Date('01/01/1970'))
+		if(start_date==new Date('01/01/1970')||start_date=="" ||start_date==null)
 		{
 			curObj.setState({ExpDateMessage:'Please enter start date'});
 			allValid=false;
@@ -291,8 +312,53 @@ class Profile extends Component {
 			}
 		}
 	}
-	clickProfileSaveHandler=(e)=>{
-		console.log('save handler called');
+	clickProfileSaveHandler=(e)=>
+	{
+		console.log('Profile save handler called');
+		console.log(this.state.profileEditForm);
+		
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let curObj=this;
+		let firstName=this.state.profileEditForm.firstName;
+		let lastName=this.state.profileEditForm.lastName;
+		let address=this.state.profileEditForm.address;
+		let country=this.state.profileEditForm.country;
+		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
+		if(validator.isEmpty(firstName)===true){
+			curObj.setState({FistNameValidateMessage:'Please enter First Name'});
+		}
+		if(validator.isEmpty(lastName)===true){
+			curObj.setState({LastNameValidateMessage:'Please enter Last Name'});
+		}
+		if(validator.isEmpty(address)===true){
+			curObj.setState({AddressValidateMessage:'Please enter Address'});
+		}
+		if(validator.isEmpty(country)===true){
+			curObj.setState({CountryValidateMessage:'Please select Country'});
+		}
+		if(validator.isEmpty(firstName)===false && validator.isEmpty(lastName)===false && validator.isEmpty(address)===false && validator.isEmpty(country)===false)
+		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
+	}
+	clickAboutSaveHandler=(e)=>{
+		console.log('About save handler called');
+		console.log(this.state.profileEditForm);
+		
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let curObj=this;
+		let about=this.state.profileEditForm.about;
+		curObj.setState({AboutValidateMessage:''});
+		if(validator.isEmpty(about)===true){
+			curObj.setState({AboutValidateMessage:'Please enter portfolio'});
+		}
+		
+		if(validator.isEmpty(about)===false )
+		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
+	}
+
+	clickPortfolioSaveHandler=(e)=>{
+		console.log('Portfolio save handler called');
 		console.log(this.state.profileEditForm);
 		
 		const{dispatch}=this.props;
@@ -310,6 +376,8 @@ class Profile extends Component {
 		if(validator.isEmpty(portfolio)===false && validator.isURL(portfolio)===true)
 		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
 	}
+
+
     componentWillReceiveProps(nextProps){
         if(nextProps.user!=this.props.user){
             window.location.href="/Login";
@@ -417,15 +485,18 @@ class Profile extends Component {
           <div className="form-group">
             <label htmlFor="firstName-text" className="col-form-label">First Name:</label>
 			<input placeholder="Enter First Name" onChange={this.changeFirstName} type="text" className="form-control" id="firstName-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.firstName:null}/>
-          </div>
+			<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
+		  </div>
 		  <div className="form-group">
             <label htmlFor="lastName-text" className="col-form-label">Last Name:</label>
 			<input placeholder="Enter Last Name" onChange={this.changeLastName} type="text" className="form-control" id="lastName-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.lastName:null}/>
-          </div>
+			<div className="errorMsg">{this.state.LastNameValidateMessage}</div>
+		  </div>
 		  <div className="form-group">
             <label htmlFor="address-text" className="col-form-label">Address:</label>
 			<textarea placeholder="Enter Address" onChange={this.changeAddress} className="form-control" id="address-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.address:null}></textarea>
-          </div>
+			<div className="errorMsg">{this.state.AddressValidateMessage}</div>
+		  </div>
 		  <div className="form-group">
             <label htmlFor="country-text" className="col-form-label">Country:</label>
 			<select onChange={this.changeCountry} type="text" className="form-control" id="country-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.country:null}>
@@ -674,7 +745,8 @@ class Profile extends Component {
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
 			</select>
-          </div>
+			<div className="errorMsg">{this.state.CountryValidateMessage}</div>
+		  </div>
         </form>
       </div>
       <div className="modal-footer">
@@ -712,7 +784,7 @@ class Profile extends Component {
       <div className="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         {(this.state.profileEditForm.about.length)>99 &&
-		<button onClick={this.clickProfileSaveHandler}type="button"  class="btn btn-primary">Update</button>
+		<button onClick={this.clickAboutSaveHandler}type="button"  class="btn btn-primary">Update</button>
 		}
 		</div>
 	</div>
@@ -822,7 +894,7 @@ class Profile extends Component {
 <option value="Fluent"> Fluent (Write and peak language almost perfectly)</option>
 <option value="Native"> Native (Mother tongue/first language)</option>
 				</select>
-
+			<div className="errorMsg">{this.state.LanguageExistsMessage}</div>	
           </div>
         </form>
       </div>
@@ -869,8 +941,8 @@ class Profile extends Component {
 			{/* <input type="text"  onChange={this.changeExperienceStartDate} className="form-control"  id="experience-start-date" value={this.state.experienceEditForm.start_date}/> */}
 			<div className="clearfix">
 				<DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
-				<DatePicker locale="us" placeholderText="End Date" selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  />
-				<input onChange={this.markTillNow} type="checkbox"/>Till Now
+				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  />
+				<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Till Now
 				<div className="errorMsg">{this.state.ExpDateMessage}</div>
 			</div>	
 			{/* <input type="text"  onChange={this.changeExperienceEndDate} className="form-control"  id="experience-end-date" value={this.state.experienceEditForm.end_date}/> */}
@@ -919,6 +991,8 @@ class Profile extends Component {
 			<div className="clearfix">
 				<DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
 				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
+				<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Till Now
+				
 				<div className="errorMsg">{this.state.EduDateMessage}</div>
 			</div>	
           </div>
@@ -957,7 +1031,7 @@ class Profile extends Component {
       </div>
       <div className="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button onClick={this.clickProfileSaveHandler}type="button" class="btn btn-primary">Update</button>
+        <button onClick={this.clickPortfolioSaveHandler}type="button" class="btn btn-primary">Update</button>
       </div>
     </div>
   </div>
@@ -1091,13 +1165,28 @@ class Profile extends Component {
 		}
 		this.setState({experienceEditForm:experienceEditForm});
 	}
+	//Mark till now education function
+	markEducationTillNow=(e)=>{
+		debugger;
+		let educationEditForm= Object.assign({},this.state.educationEditForm);
+		if(e.currentTarget.checked)
+		{
+			educationEditForm.end_date=null;
+		}
+		else
+		{
+			//experienceEditForm.end_date=
+		}
+		this.setState({educationEditForm:educationEditForm});
+	}
 	showLanguageEditor=(e)=>
 	{
 		e.preventDefault();
+		this.setState({LanguageExistsMessage:''});
 	}
 	showEditPortfolio=(e)=>{
 		
-		//this.setState({mode:'edit',profileEditForm:this.state.userData.profile});
+		this.setState({mode:'edit',profileEditForm:this.state.userData.profile});
 		e.preventDefault();
 	}
 
@@ -1141,8 +1230,8 @@ class Profile extends Component {
 				id:null,
 				title:"",
 				program:"",
-				start_date:"",
-				end_date:""
+				start_date:null,
+				end_date:null
 			}});
 		}
 		//this.setState({mode:'edit',experienceEditForm:this.state.userData.profile});
@@ -1196,8 +1285,8 @@ class Profile extends Component {
 				title:"",
 				location:"",
 				description:"",
-				start_date:"",
-				end_date:""
+				start_date:null,
+				end_date:null
 			}});
 		}
 		//this.setState({mode:'edit',experienceEditForm:this.state.userData.profile});
