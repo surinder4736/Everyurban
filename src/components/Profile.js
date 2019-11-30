@@ -6,9 +6,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import {connect} from 'react-redux';
-import PropTypes, { array } from 'prop-types';
+import PropTypes, { array, node } from 'prop-types';
 import userAction from '../actions/user';
 import Header from './Header';
+import jQuery from 'jquery';
 import ReactTooltip from 'react-tooltip';
 import MenuComponent from './MenuComponent';
 import ProfileFooter from './ProfileFooter';
@@ -16,17 +17,23 @@ import profileAction from '../actions/profile';
 import languageAction from '../actions/language';
 import experienceAction from '../actions/experience';
 import educationAction from '../actions/education';
+import NoImage from '../Images/no-image.png'
 import validator from 'validator';
 import Swal from 'sweetalert2';
+import {APIURL, BASE_URL} from '../Config/config'
 import 'sweetalert2/src/sweetalert2.scss';
 import { PROFILE_EDIT_SUCCESS } from '../types';
+const axios = require("axios");
 
 const{logout} = userAction;
 class Profile extends Component {
     constructor(props) {
         super(props);
 		this.state = 
-		{
+		{	file:null,
+			render:true,
+			dt:new Date(),
+			initailImage:NoImage,
 			ExpTitleMessage:'',
 			ExpLocationMessage:'',
 			ExpDescriptionMessage:'',
@@ -157,8 +164,19 @@ class Profile extends Component {
 		const{dispatch}=this.props;
 		dispatch(profileAction.getProfile({userId:this.props.user.id}));
 		//this.nv.addEventListener(PROFILE_EDIT_SUCCESS,(data)=>{console.log('profile edit success captured');console.log(data)})
-	}
-	
+		jQuery(function(){
+			jQuery("#upload_link").on('click', function(e){
+					e.preventDefault();
+					jQuery("#upload:hidden").trigger('click');
+			});
+
+	});
+	setTimeout(()=>{
+		this.setState({render:true,dt:new Date()});
+	},2000);
+
+
+	}	
     clickLogoutHandle(e){
         const{dispatch}=this.props;
         e.preventDefault();
@@ -440,7 +458,30 @@ class Profile extends Component {
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
 		}
 	}
-	
+
+	selectImages(e){
+		//this.setState({file:});
+		const{profile:{profile}}=this.props;
+		let formData = new FormData();
+		formData.append("file",e.target.files[0]);
+		const config = {
+				headers: {
+					'content-type': 'multipart/form-data',
+				}
+		}
+		axios.post(`${APIURL}users/${profile.userId}/${profile.id}/upload`,formData,config)
+				.then((response) => {
+					let userData=Object.assign({},this.state.userData);
+					userData.profile.photo=response.data.data.photo;
+					this.setState({userData});
+				  
+				}).catch((error) => {
+				 console.log(error);
+					return error;
+		    });
+	}
+
+
 	renderNameEditor(){
 		return(
 			<div className="modal fade" id="nameEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1283,8 +1324,19 @@ class Profile extends Component {
 		this.setState({isStudent:e.currentTarget.checked})
 	}
     render() {
+			const{profile:{profile}}=this.props;
+			const{render}=this.state;
+			let imageUrl=null;
+			if(profile!=null && profile!=undefined && profile.photo!==""){
+				imageUrl=`${BASE_URL}/images/${profile.photo}`;
+			}else{
+				imageUrl=this.state.initailImage;
+			}
 		console.log('check state');
 		console.log(this.state.userData); 
+		if(render===false){
+			return( <section class="profile-top" />);
+		}
 		return ( 
             <div>
             {/* Header components open */}
@@ -1305,31 +1357,32 @@ class Profile extends Component {
 			<div class="container">
 				<div class="d-md-flex align-items-end">
 					<div class="col-lg-3 col-md-4 col-xs-12">
-						<div class="dp">
-							<img src="images/dp.jpg" alt=""/>
-							<a href="#"><i class="fas fa-pencil-alt"></i> Change Picture</a>
-							
-						</div>
+						<div class="dp" >
+							<img src={imageUrl}  alt=""/>
+							<input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
+							<a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a>
+							</div>
 					</div>
 					<div class="col-lg-9 col-md-8 col-xs-12">
 						<div class="right">
 							<div>
-								<h3>{this.state.userData.profile!=null?this.state.userData.profile.firstName +' '+this.state.userData.profile.lastName:null} <span class="flag flag-us"></span></h3>
+								<h3>{this.state.userData.profile!=null?this.state.userData.profile.firstName +' '+this.state.userData.profile.lastName:null} </h3>
 								<h4>{this.state.userData.profile!=null?this.state.userData.profile.address+', '+this.state.userData.profile.country:null} </h4>
 								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
-								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right" style={{marginTop:'-56px',marginRight:'-70px',color:'white'}}  ><i class="fas fa-edit"></i>Edit</a>}
 							</div>
 							<div>
 								<div class="button">
 									<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#"><i class="fas fa-edit"></i> Edit Profile</a>
 									<span> | </span>
-									<a href="#"><i class="far fa-save"></i> Save</a>
+									<a href="#" ><i class="far fa-save"></i> Save</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</section>
 		{/* Profile bottom Section */}
         <section class="profile-bot">
@@ -1339,7 +1392,7 @@ class Profile extends Component {
 						<div class="about">
 							<div class="clearfix">
 								<h5 class="float-left">About</h5>
-								<span id="questionMark" data-tip="Tell us a bit about yourself. A small blurb about who you are, interests and why you are passionate about architecture. We suggest including your LinkedIn if you have one!" className=" float-left fas fa-question"></span>
+								<span id="questionMark" data-tip="Tell us a bit about yourself. A small blurb about who you are, interests and why you are passionate about architecture. We suggest including your LinkedIn if you have one!" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>	
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
@@ -1355,7 +1408,7 @@ class Profile extends Component {
 							<h5 class="float-left lang">
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-								<span id="questionMark" data-tip="Tell us about your language proficiency" className=" float-left fas fa-question"></span>
+								<span id="questionMark" data-tip="Tell us about your language proficiency" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
 							{this.state.userData.languages.map(element => {
@@ -1363,7 +1416,7 @@ class Profile extends Component {
 							})}
 							<hr/>
 							<div class="clearfix">
-							<h5 class="float-left">Portfolio</h5><span id="questionMark" data-tip="Tool" className="float-left fas fa-question"></span>
+							<h5 class="float-left">Portfolio</h5><span id="questionMark" data-tip="Tool" className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
 							<p>Type your portfolio link below</p>
@@ -1379,9 +1432,9 @@ class Profile extends Component {
 							<div class="clearfix">
 								<h5 class="float-left">Experience</h5>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
-								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-1" ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"    />Student</div>}
+								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"    />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && this.state.isStudent==false ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
-								<span id="questionMark" data-tip="Click on add new to add a new one. Alternatively you can edit existing one" className=" float-left fas fa-question"></span>
+								<span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip="Click on add new to add a new one. Alternatively you can edit existing one" className=" float-left fas fa-question"></span>
 							<ReactTooltip/>
 							</div>
 							{this.state.userData.experiances.map(element => {
@@ -1404,7 +1457,7 @@ class Profile extends Component {
 							<div class="clearfix">
 								<h5 class="float-left">Education</h5>
 								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
-								<span id="questionMark" data-tip="Click on add new to add a new one. Alternatively you can edit existing one" className=" float-left fas fa-question"></span>
+								<span id="questionMark" data-tip="Click on add new to add a new one. Alternatively you can edit existing one" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
 							{console.log(this.state.userData.educations)}{this.state.userData.educations.map(element => {
@@ -1433,6 +1486,7 @@ class Profile extends Component {
 		{this.renderLanguageModal()}
 		{this.renderExperienceModal()}
 		{this.renderEducationModal()}
+		
 		
 		
 		</div>
