@@ -24,6 +24,13 @@ function language(state = initialState, action) {
         case actionTypes.PROFILE_LANGUAGE_EDIT_ERROR:
                 st=Object.assign({},state,action.data)
                 return st;
+        case actionTypes.PROFILE_LANGUAGE_DELETE_SUCCESS:
+            st=Object.assign({},state,action.data)
+            return st;
+        case actionTypes.PROFILE_LANGUAGE_DELETE_ERROR:
+                st=Object.assign({},state,action.data)
+                return st;
+        
         default:
           return state
       }

@@ -217,6 +217,8 @@ footer.footer2 a:hover { text-decoration:underline; }
 .datePicker {margin-left:10px;max-width: 100px;}
 .errorMsg {color:red;margin: 0px;}
 .form-group {margin-bottom: 0.1rem;}
+.languageList{padding-left: 0;}
+.languageList li {list-style: none;display: -webkit-inline-box;}
 
 
 

@@ -83,7 +83,7 @@ class Profile extends Component {
 				portfolio:"",
 				isCompleted:null,
 				userId:0,
-			
+				isStudent:null
 
 			},
 			mode:'view',
@@ -370,7 +370,22 @@ class Profile extends Component {
 		if(validator.isEmpty(about)===false )
 		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
 	}
-
+	deleteLanguage=(e)=>
+	{
+		console.log('Delete Language called');
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let langId=e.currentTarget.getAttribute('data-id');
+		if(langId>0)
+		{
+			let conf=window.confirm('Are you sure to delete the language entry?');
+			if(conf)
+			{
+				//dispatch language delete element
+				dispatch(languageAction.deleteLanguage({userId:this.props.user.id,id:langId}));
+			}
+		}
+	}
 	clickPortfolioSaveHandler=(e)=>{
 		console.log('Portfolio save handler called');
 		console.log(this.state.profileEditForm);
@@ -390,6 +405,61 @@ class Profile extends Component {
 		if(validator.isEmpty(portfolio)===false && validator.isURL(portfolio)===true)
 		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
 	}
+    markProfileAsStudent=(student)=>{
+		/*if(student==true)
+		{*/
+			debugger;
+			const{dispatch}=this.props;
+			let editdata=this.state.userData.profile
+			editdata.isStudent=true;
+			this.setState({profileEditForm:editdata});
+			setTimeout(()=>{dispatch(profileAction.markProfileAsStudent({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
+
+		//}
+	}
+
+	completeThisProfile=()=>{
+		debugger;
+		//call save profile with is completed
+		let profileComplete=true;
+		if(this.state.userData.profile.firstName=='' || this.state.userData.profile.firstName==null)
+		{
+			profileComplete=false;
+		}
+		if(this.state.userData.profile.lastName=='' || this.state.userData.profile.lastName==null)
+		{
+			profileComplete=false;
+		}
+		if(this.state.userData.profile.country=='' || this.state.userData.profile.country==null)
+		{
+			profileComplete=false;
+		}
+		if(this.state.userData.profile.about=='' || this.state.userData.profile.about==null)
+		{
+			profileComplete=false;
+		}
+		if(this.state.userData.languages.length<1)
+		{
+			profileComplete=false;
+		}
+		if(this.state.userData.experiances.length<1)
+		{
+			profileComplete=false;
+		}
+		if(this.state.userData.educations.length<1)
+		{
+			profileComplete=false;
+		}
+		if(profileComplete && (this.state.userData.profile.isCompleted!=true))
+		{
+			const{dispatch}=this.props;
+			let editdata=this.state.userData.profile
+			editdata.isCompleted=true;
+			this.setState({profileEditForm:editdata});
+			setTimeout(()=>{dispatch(profileAction.markProfileAsCompleted({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
+		}
+
+	}
 
 
     componentWillReceiveProps(nextProps){
@@ -405,6 +475,7 @@ class Profile extends Component {
 				this.setState({userData:nextProps.profile})
 				//this.setState({userData:{'profile':nextProps.profile}})
 				
+
 			}
 			
 			//const{dispatch}=this.props;
@@ -457,6 +528,8 @@ class Profile extends Component {
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
 		}
+		debugger;
+		this.completeThisProfile();
 	}
 
 	selectImages(e){
@@ -960,7 +1033,7 @@ class Profile extends Component {
 			<div className="clearfix">
 				<DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
 				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  />
-				<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Till Now
+				&nbsp;&nbsp;<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Current
 				<div className="errorMsg">{this.state.ExpDateMessage}</div>
 			</div>	
 			{/* <input type="text"  onChange={this.changeExperienceEndDate} className="form-control"  id="experience-end-date" value={this.state.experienceEditForm.end_date}/> */}
@@ -1009,7 +1082,7 @@ class Profile extends Component {
 			<div className="clearfix">
 				<DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
 				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
-				<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Till Now
+				&nbsp;&nbsp;<input defaultChecked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Current
 				
 				<div className="errorMsg">{this.state.EduDateMessage}</div>
 			</div>	
@@ -1244,7 +1317,7 @@ class Profile extends Component {
 		else
 		{
 			//exp_data={id:exp_id,title:}
-			this.setState({mode:'edit',experienceEditForm:{
+			this.setState({mode:'edit',educationEditForm:{
 				id:null,
 				title:"",
 				program:"",
@@ -1322,7 +1395,8 @@ class Profile extends Component {
 	}
 	changeStudent=(e)=>{
 		console.log('checkbox clicked');
-		this.setState({isStudent:e.currentTarget.checked})
+		this.setState({isStudent:e.currentTarget.checked});
+		this.markProfileAsStudent(e.currentTarget.checked);
 	}
     render() {
 			const{profile:{profile}}=this.props;
@@ -1412,9 +1486,12 @@ class Profile extends Component {
 								<span id="questionMark" data-tip="Tell us about your language proficiency" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
+							<ul className="languageList">
+								
 							{this.state.userData.languages.map(element => {
-							return <p>{ element.name+' | '+ element.proficiency} </p>	
+							return <li>{ element.name+' | '+element.proficiency} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteLanguage} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
 							})}
+							</ul>
 							<hr/>
 							<div class="clearfix">
 							<h5 class="float-left">Portfolio</h5><span id="questionMark" data-tip="Tool" className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
