@@ -1273,6 +1273,16 @@ class Profile extends Component {
 	showLanguageEditor=(e)=>
 	{
 		e.preventDefault();
+		let lang_id=e.currentTarget.getAttribute('data-id');
+		if(lang_id==null)
+		{
+			this.setState({mode:'edit',languageEditForm:{
+				id:null,
+				name:"",
+				proficiency:"",
+				
+			}});
+		}
 		this.setState({LanguageNameMessage:'',LanguageExistsMessage:'',LanguageProficiencyMessage:''});
 	}
 	showEditPortfolio=(e)=>{
