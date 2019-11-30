@@ -140,7 +140,7 @@ componentDidMount() {
 					<a href="#"><i className="fab fa-twitter"></i></a>
 					<a href="#"><i className="fab fa-linkedin-in"></i></a>
 				</div>
-				<p>EveryUrban 2018. All rights reserved.</p>
+				<p>EveryUrban 2019. All rights reserved.</p>
 			</div>
 		</footer>
 

@@ -7,36 +7,25 @@ class ProfileFooter extends Component {
     }
     render() { 
         return ( <div>
-            <footer class="footer2">
-			<div class="container">
-				<div class="d-md-flex justify-content-between">
-					<div>
-						<img src={footerLogo} alt=""/>
-						<small>EveryUrban 2018. All rights reserved.</small>
-					</div>
-					<div>
-						<a href="#">About</a>
-						<a href="#">Blog</a>
-						<a href="#">Feedback</a>
-					</div>
-					<div>
-						<a href="#">Community</a>
-						<a href="#">Trust &amp; Safety</a>
-						<a href="#">Help &amp; Support</a>
-					</div>
-					<div>
-						<a href="#">Terms of Service</a>
-						<a href="#">Privacy Policy</a>
-						<a href="#">Accessibility</a>
-					</div>
-					<div>
-						<a href="#">Cookies Policy</a>
-						<a href="#">Enterprise Solutions</a>
-						<a href="#">Hiring Headquaters</a>
-					</div>
+           <footer>
+			<div className="container">
+			<div className="useful-link">
+					<a href="#">About<span id="vh">|</span></a> 
+					<a href="#">Terms of Service<span id="vh">|</span></a>  
+					<a href="#">Privacy Policy<span id="vh">|</span></a>  
+					<a href="#">Contact</a>
 				</div>
+				<img src={footerLogo} alt=""/>
+				<div className="social">
+					<a href="#"><i className="fab fa-facebook-f"></i></a>
+					<a href="#"><i className="fab fa-instagram"></i></a>
+					<a href="#"><i className="fab fa-twitter"></i></a>
+					<a href="#"><i className="fab fa-linkedin-in"></i></a>
+				</div>
+				<p>EveryUrban 2019. All rights reserved.</p>
 			</div>
 		</footer>
+
         </div> );
     }
 }
