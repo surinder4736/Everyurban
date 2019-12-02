@@ -143,7 +143,7 @@ componentDidMount(){
 								<span id="viewPass" title={this.state.title} className={this.state.passwordViewMode==false?'far fa-eye':'fa fa-eye-slash'} onClick={this.handlePasswordViewMode.bind(this)}></span>
 								<div className="errorMsg">{this.state.message1}</div>
 								<button className="btn gradient" onKeyDown={this.pressEnterKey} onClick={this.clickLoginHandle}>LOG IN</button>
-								<a href="/ForgetPassword">Forgot your username or password?</a>
+								<a href="/ForgetPassword">Forgot your password?</a>
 								<a className="create" href="/Signup">Create Your Account <img src={createLogo} alt=""/></a>
 							</div>
 						</div>

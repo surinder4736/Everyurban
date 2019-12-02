@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 import { ScaleLoader } from 'react-spinners';
 
-import DatePicker from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css";
-
+// import DatePicker from "react-datepicker"; 
+// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/entry.nostyle';
 import {connect} from 'react-redux';
 import PropTypes, { array, node } from 'prop-types';
 import userAction from '../actions/user';
@@ -83,12 +84,12 @@ class Profile extends Component {
 				portfolio:"",
 				isCompleted:null,
 				userId:0,
-				isStudent:null
+				isStudent:false
 
 			},
 			mode:'view',
 			userData:
-			{
+		  {
 				profile:{
 			id:1,
 			firstName:"",
@@ -99,6 +100,7 @@ class Profile extends Component {
 			address:"",
 			portfolio:"",
 			isCompleted:null,
+			isStudent:false,
 			userId:1,
 			createdAt:"",
 			message:"",
@@ -116,11 +118,22 @@ class Profile extends Component {
 			[
 				
 			]
-		}	
+		},
+		blurbTex:{
+			about:"Tell us a little about yourself. Your background, hobbies and passions as well as your journey into architecture, what inspires you and what you see for the future of architecture. ",
+			language:"In this section it is mandatory to share your level of proﬁciency in English as well as any other languages to help us better our communication with you. ",
+			portfolio:"Your portfolio is where you showcase your creativity. This will give a developer an idea of your capabilities outside of just their project and can bring you more prospects.",
+			experience:"Showcase your experience as an architect here. List any past projects and events you have taken part relating to architecture. ",
+			education:"Outline your education in this section including the name of the institution, graduation year, country and program details."
 		}
 		
+		}
 		
+
 	}
+
+	
+
 	//function to convert the date string in month year format
 	convertDateStringToMonthYear(strDate){
 		let dt=new Date(strDate);
@@ -411,7 +424,8 @@ class Profile extends Component {
 			debugger;
 			const{dispatch}=this.props;
 			let editdata=this.state.userData.profile
-			editdata.isStudent=true;
+			editdata.isStudent=student;
+			this.setState({profileEditForm:editdata.isStudent});
 			this.setState({profileEditForm:editdata});
 			setTimeout(()=>{dispatch(profileAction.markProfileAsStudent({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
 
@@ -1031,8 +1045,14 @@ class Profile extends Component {
             <label className="col-form-label">Duration</label>
 			{/* <input type="text"  onChange={this.changeExperienceStartDate} className="form-control"  id="experience-start-date" value={this.state.experienceEditForm.start_date}/> */}
 			<div className="clearfix">
-				<DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
-				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  />
+				<div className="row">
+				<div className="col-sm-6"><label>Start Date</label></div><div className="col-sm-6"> <label>End Date</label>	</div>
+				</div>
+		<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" />
+		
+		&nbsp;&nbsp;<DatePicker  placeholderText="End Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy"  value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} calendarClassName="react-calendar"  clearAriaLabel clearIcon className="react-date-picker"  id="experience-end-date"  /> 
+				{/* <DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
+				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  /> */}
 				&nbsp;&nbsp;<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Current
 				<div className="errorMsg">{this.state.ExpDateMessage}</div>
 			</div>	
@@ -1080,8 +1100,14 @@ class Profile extends Component {
 			{/* <input type="text"  onChange={this.changeEducationStartDate} className="form-control"  id="education-start-date" value={this.state.educationEditForm.start_date}/> */}
 			{/* <input type="text"  onChange={this.changeEducationEndDate} className="form-control"  id="education-end-date" value={this.state.educationEditForm.end_date}/> */}
 			<div className="clearfix">
-				<DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
-				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
+			<div className="row">
+				<div className="col-sm-6"><label>Start Date</label></div><div className="col-sm-6"> <label>End Date</label>	</div>
+				</div>
+			<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy" calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  value={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
+			&nbsp;&nbsp;
+				<DatePicker calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy" placeholderText="End Date" value={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
+				{/* <DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
+				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  /> */}
 				&nbsp;&nbsp;<input defaultChecked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Current
 				
 				<div className="errorMsg">{this.state.EduDateMessage}</div>
@@ -1417,6 +1443,7 @@ class Profile extends Component {
 			icon: 'success',
 			confirmButtonText: 'Close'		
 		});
+		//window.location.reload();
 	}
 
     render() {
@@ -1488,7 +1515,7 @@ class Profile extends Component {
 						<div class="about">
 							<div class="clearfix">
 								<h5 class="float-left">About</h5>
-								<span id="questionMark" data-tip="Tell us a bit about yourself. A small blurb about who you are, interests and why you are passionate about architecture. We suggest including your LinkedIn if you have one!" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+								<span id="questionMark" data-tip={this.state.blurbTex.about} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>	
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
@@ -1504,7 +1531,7 @@ class Profile extends Component {
 							<h5 class="float-left lang">
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-								<span id="questionMark" data-tip="Tell us about your language proficiency" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+								<span id="questionMark" data-tip={this.state.blurbTex.language} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
 							<ul className="languageList">
@@ -1515,7 +1542,7 @@ class Profile extends Component {
 							</ul>
 							<hr/>
 							<div class="clearfix">
-							<h5 class="float-left">Portfolio</h5><span id="questionMark" data-tip="Tool" className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+							<h5 class="float-left">Portfolio</h5><span id="questionMark" data-tip={this.state.blurbTex.portfolio} className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
 							<p>Type your portfolio link below</p>
@@ -1531,9 +1558,9 @@ class Profile extends Component {
 							<div class="clearfix">
 								<h5 class="float-left">Experience</h5>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
-								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"    />&nbsp;Student</div>}
-								{(this.state.mode=='edit' && this.state.isStudent==false ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
-								<span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip="Click on add new to add a new one. Alternatively you can edit existing one" className=" float-left fas fa-question"></span>
+								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
+								{(this.state.mode=='edit' && this.state.isStudent==this.state.userData.profile.isStudent ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
+								<span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>
 							<ReactTooltip/>
 							</div>
 							{this.state.userData.experiances.map(element => {
@@ -1556,7 +1583,7 @@ class Profile extends Component {
 							<div class="clearfix">
 								<h5 class="float-left">Education</h5>
 								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
-								<span id="questionMark" data-tip="Click on add new to add a new one. Alternatively you can edit existing one" className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+								<span id="questionMark" data-tip={this.state.blurbTex.education} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
 							<ReactTooltip/>
 							</div>
 							{console.log(this.state.userData.educations)}{this.state.userData.educations.map(element => {

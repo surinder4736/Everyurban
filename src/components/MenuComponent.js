@@ -3,11 +3,8 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 import logo from '../Images/logo.png';
-
 import './NavMenu.css';
 var jQuery= require('jquery');
-//import { logo } from './img/logo.png'; // relative path to image 
-
 class MenuComponent extends Component {
   constructor (props) {
     super(props);
@@ -41,9 +38,17 @@ class MenuComponent extends Component {
 				<li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Resources</a>
 				</li>
+				{(window.location.pathname.indexOf('/profile')>-1) ||
+				<div>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-user-plus"></i> Sign Up</a>
+					<a class="nav-link" href="/SignUp"><i class="fas fa-user-plus"></i> Sign Up</a>
 				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="/Login"><i class="fas fa-user"></i> Login</a>
+				</li>
+				</div>
+				}
 				<li class="nav-item">
 					<a class="nav-link" href="#"><i class="fas fa-file-alt"></i> Terms of Service</a>
 				</li>
