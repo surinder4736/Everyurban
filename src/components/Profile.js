@@ -428,7 +428,7 @@ class Profile extends Component {
 			this.setState({profileEditForm:editdata.isStudent});
 			this.setState({profileEditForm:editdata});
 			setTimeout(()=>{dispatch(profileAction.markProfileAsStudent({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
-
+			this.completeThisProfile();		
 		//}
 	}
 
@@ -452,11 +452,11 @@ class Profile extends Component {
 		{
 			profileComplete=false;
 		}
-		if(this.state.userData.languages.length<1)
+     if(this.state.userData.profile.isStudent==false && this.state.userData.experiances.length<=0)
 		{
 			profileComplete=false;
 		}
-		if(this.state.userData.experiances.length<1)
+		if(this.state.userData.languages.length<1)
 		{
 			profileComplete=false;
 		}
@@ -464,11 +464,11 @@ class Profile extends Component {
 		{
 			profileComplete=false;
 		}
-		if(profileComplete && (this.state.userData.profile.isCompleted!=true))
+		if((this.state.userData.profile.isCompleted!=profileComplete))
 		{
 			const{dispatch}=this.props;
 			let editdata=this.state.userData.profile
-			editdata.isCompleted=true;
+			editdata.isCompleted=profileComplete;
 			this.setState({profileEditForm:editdata});
 			setTimeout(()=>{dispatch(profileAction.markProfileAsCompleted({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
 		}
@@ -488,7 +488,7 @@ class Profile extends Component {
 				console.log(nextProps.profile)
 				this.setState({userData:nextProps.profile})
 				//this.setState({userData:{'profile':nextProps.profile}})
-				
+				this.completeThisProfile();		
 
 			}
 			
@@ -542,8 +542,7 @@ class Profile extends Component {
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
 		}
-		debugger;
-		this.completeThisProfile();
+		
 	}
 
 	selectImages(e){
@@ -1559,7 +1558,7 @@ class Profile extends Component {
 								<h5 class="float-left">Experience</h5>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
-								{(this.state.mode=='edit' && this.state.isStudent==this.state.userData.profile.isStudent ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
+								{(this.state.mode=='edit' ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
 								<span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>
 							<ReactTooltip/>
 							</div>
