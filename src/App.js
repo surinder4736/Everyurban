@@ -9,6 +9,7 @@ import VerifySuccess from './components/VerifySuccess';
 import Profile from './components/Profile';
 import ChangePassword from './components/ChangePassword';
 import SuccessPasswordChange from './components/SuccessPasswordChange';
+import UserList from './components/UserList';
 export default class App extends Component {
  // static displayName = App.name;
 
@@ -22,6 +23,7 @@ export default class App extends Component {
         <Route exact path='/resetpassword/:unique_userid' component={ChangePassword} />
         <Route exact path='/users/verifysuccess/:email' component={VerifySuccess} />
         <Route exact path='/passwordchange' component={SuccessPasswordChange} />
+        <Route exact path='/admin' component={UserList} />
         <Route  path='/profile/:profileUrl/:random' component={Profile} />
         <Route exact path='*'  />
       </Layout>
