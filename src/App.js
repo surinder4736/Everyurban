@@ -10,6 +10,7 @@ import Profile from './components/Profile';
 import ChangePassword from './components/ChangePassword';
 import SuccessPasswordChange from './components/SuccessPasswordChange';
 import UserList from './components/UserList';
+import ViewProfile from './components/ViewProfile';
 export default class App extends Component {
  // static displayName = App.name;
 
@@ -25,6 +26,7 @@ export default class App extends Component {
         <Route exact path='/passwordchange' component={SuccessPasswordChange} />
         <Route exact path='/admin' component={UserList} />
         <Route  path='/profile/:profileUrl/:random' component={Profile} />
+        <Route  path='/profileview/:profileUrl/:random' component={ViewProfile} />
         <Route exact path='*'  />
       </Layout>
     );
