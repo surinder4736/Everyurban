@@ -10,6 +10,7 @@ import MenuComponent from './MenuComponent';
 import ProfileFooter from './ProfileFooter';
 import 'sweetalert2/src/sweetalert2.scss';
 import DataTable from 'react-data-table-component';
+import { push } from 'react-router-redux';
 import Moment from 'moment';
 
 const{logout} = userAction;
@@ -25,7 +26,11 @@ class UserList extends Component {
     }
 	
 	render() {
-        const{AdminUserList}=this.props;
+        const{AdminUserList,user,dispatch}=this.props;
+        // if(user.auth===undefined && (user.isadmin===undefined || user.isadmin===false)){
+        //   window.location.href=`/`;
+        //   return(<div></div>);
+        // }
         let columndata=[];
         var data;
         if(AdminUserList!=null){
