@@ -32,7 +32,6 @@ class Profile extends Component {
         super(props);
 		this.state = 
 		{	file:null,
-			render:true,
 			dt:new Date(),
 			initailImage:NoImage,
 			ExpTitleMessage:'',
@@ -184,11 +183,6 @@ class Profile extends Component {
 			});
 
 	});
-	setTimeout(()=>{
-		this.setState({render:true,dt:new Date()});
-	},2000);
-
-
 	}	
     clickLogoutHandle(e){
         const{dispatch}=this.props;
@@ -343,7 +337,7 @@ class Profile extends Component {
 	{
 		console.log('Profile save handler called');
 		console.log(this.state.profileEditForm);
-		
+		debugger
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
@@ -464,13 +458,14 @@ class Profile extends Component {
 		{
 			profileComplete=false;
 		}
-		if((this.state.userData.profile.isCompleted!=profileComplete))
+		if((this.state.userData.profile.isCompleted != null && this.state.userData.profile.isCompleted!=profileComplete))
 		{
 			const{dispatch}=this.props;
 			let editdata=this.state.userData.profile
 			editdata.isCompleted=profileComplete;
-			this.setState({profileEditForm:editdata});
-			setTimeout(()=>{dispatch(profileAction.markProfileAsCompleted({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
+			this.setState({profileEditForm:editdata},()=>{
+				dispatch(profileAction.markProfileAsCompleted({userId:this.props.user.id,profile:this.state.profileEditForm}));
+			});
 		}
 
 	}
@@ -486,9 +481,11 @@ class Profile extends Component {
 			if(nextProps.profile!=null && nextProps.profile!=undefined)
 			{
 				console.log(nextProps.profile)
-				this.setState({userData:nextProps.profile})
+				this.setState({userData:nextProps.profile},()=>{
+					this.completeThisProfile();	
+				});
 				//this.setState({userData:{'profile':nextProps.profile}})
-				this.completeThisProfile();		
+					
 
 			}
 			
@@ -1447,7 +1444,6 @@ class Profile extends Component {
 
     render() {
 			const{profile:{profile}}=this.props;
-			const{render}=this.state;
 			let imageUrl=null;
 			if(profile!=null && profile!=undefined && profile.photo!==""){
 				imageUrl=`${BASE_URL}/images/${profile.photo}`;
@@ -1456,9 +1452,6 @@ class Profile extends Component {
 			}
 		console.log('check state');
 		console.log(this.state.userData); 
-		if(render===false){
-			return( <section class="profile-top" />);
-		}
 		return ( 
             <div>
             {/* Header components open */}
