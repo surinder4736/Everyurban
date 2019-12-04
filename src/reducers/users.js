@@ -24,7 +24,8 @@ const initialState = {
   AdminSurveyList:{},
   sendOtp:{},
   verifyOtp:{},
-  resetPassword:{}
+  resetPassword:{},
+  AdminUserList:{}
 }
 //define a reducer with an initialized state action
 function users(state = initialState, action) {
@@ -56,7 +57,12 @@ function users(state = initialState, action) {
              case actionTypes.CHANGE_PASSWORD_ERROR:
                st = Object.assign({}, state, {user:action.data}) 
                return st;
-
+               case actionTypes.ADMIN_USER_LIST_SUCCESS:
+                st = Object.assign({}, state, {AdminUserList:action.data})
+                return st;
+                case actionTypes.ADMIN_USER_LIST_ERROR:
+                st = Object.assign({}, state, {AdminUserList:null})
+                return st;
         default:
           return state
       }
