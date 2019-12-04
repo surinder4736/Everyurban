@@ -38,7 +38,7 @@ class MenuComponent extends Component {
 				<li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Resources</a>
 				</li>
-				{(window.location.pathname.indexOf('/profile')>-1) ||
+				{(window.location.pathname.indexOf('/profile')>-1) || (window.location.pathname.indexOf('/admin')>-1) ||
 				<div>
 				<li class="nav-item">
 					<a class="nav-link" href="/SignUp"><i class="fas fa-user-plus"></i> Sign Up</a>

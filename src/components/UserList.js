@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {connect} from 'react-redux';
 import PropTypes, { array } from 'prop-types';
 import userAction from '../actions/user';
-import Header from './Header';
+import Header from './ProfileHeader';
 import MenuComponent from './MenuComponent';
 import ProfileFooter from './ProfileFooter';
 import 'sweetalert2/src/sweetalert2.scss';
