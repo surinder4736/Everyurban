@@ -24,6 +24,7 @@ import {APIURL, BASE_URL} from '../Config/config'
 import 'sweetalert2/src/sweetalert2.scss';
 import { PROFILE_EDIT_SUCCESS } from '../types';
 import ProfileHeader from './ProfileHeader';
+import ProfileViewHeader from './ProfileViewModeHeader';
 const axios = require("axios");
 
 const{logout} = userAction;
@@ -1457,7 +1458,9 @@ class Profile extends Component {
 		return ( 
             <div>
             {/* Header components open */}
-         <ProfileHeader />
+						{user.unique_userid==profileUrl && <ProfileHeader profileUrl={profileUrl}/>}
+						{user.unique_userid!=profileUrl &&
+						<ProfileViewHeader /> }
         <MenuComponent />
             {/* Header components end */}
 			<div className='sweet-loading'>

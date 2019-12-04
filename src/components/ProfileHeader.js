@@ -40,19 +40,21 @@ class ProfileHeader extends Component {
         
 	}
 
-  render(){
-		//debugger
-	const{user}=this.props;	
+  render() {
+    const{user,profileUrl}=this.props;
     return(
 			<header>
 			<div className="container">
 				<div className="d-flex justify-content-between align-items-center">
-					<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
-					
+        
+        	<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
+        
 					<a href="#" className="logo"><img src={logo} alt="" /></a>
-					<div className="button" >
+				
+        	<div className='button' >
 						<a href="#" style={{cursor:'pointer'}} onClick={this.logOutHandle.bind(this)} className="signup">Logout</a>
 				    </div>
+        
 				</div>
 			</div>
 		</header>
