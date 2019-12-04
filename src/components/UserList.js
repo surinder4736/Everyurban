@@ -27,10 +27,14 @@ class UserList extends Component {
 	
 	render() {
         const{AdminUserList,user,dispatch}=this.props;
-        // if(user.auth===undefined && (user.isadmin===undefined || user.isadmin===false)){
-        //   window.location.href=`/`;
-        //   return(<div></div>);
-        // }
+        if(user.auth===undefined){
+          window.location.href=`/`;
+          return(<div></div>);
+        }
+        else if(user.isadmin==false){
+          window.location.href=`/`;
+          return(<div></div>);
+        }
         let columndata=[];
         var data;
         if(AdminUserList!=null){
