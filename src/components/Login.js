@@ -63,14 +63,17 @@ componentDidMount(){
 }
 
 	componentWillReceiveProps(nextProps){
-	//	debugger
+	
 		const{user}=nextProps;
 		if(nextProps.user!==this.props.user){
-			if(user!=null && user.auth===true && user.is_email_verified==="true"){
+			if(user!=null && user.auth===true && user.is_email_verified==="true" && user.isadmin===false){
 			const uid=user.unique_userid;
 			const randomID=user.random_id;
 			window.location.href=`/profile/${uid}/${randomID}`;
 			this.setState({messageServerside:''});
+			}else if(user!=null && user.auth===true && user.is_email_verified==="true" && user.isadmin===true){
+				window.location.href="/admin";
+				console.log("Admin Login");
 			}
 			else if(user!=null && user.auth===true && user.is_email_verified==="false"){
 				this.setState({messageServerside:'Please verify your email to login.'});
