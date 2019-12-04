@@ -46,6 +46,14 @@ const ChangePasswordError=(data)=>{
     return {type:actionTypes.CHANGE_PASSWORD_ERROR,data,dt:new Date()}
 }
 
+const getAdminuserListSuccess=(data)=>{
+    return {type:actionTypes.ADMIN_USER_LIST_SUCCESS,data,dt:new Date()}
+}
+
+const getAdminuserListError=(data)=>{
+    return {type:actionTypes.ADMIN_USER_LIST_ERROR,data,dt:new Date()}
+}
+
 const userAction = {
      
     logout(){
@@ -139,6 +147,25 @@ const userAction = {
                 dispatch(ChangePasswordError({message:error.response.data,dt:new Date()}));
             });
         };
-    }
+    },
+
+    getAdminuserList(){
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.get(`${APIURL}user/userList` )
+                .then(response => {
+                    var data=response.data;
+                    dispatch(getAdminuserListSuccess(data));
+                    dispatch(requestSuccess());
+                
+            }).catch((error) => {
+                console.log('error in getting profile');
+                console.log(error);
+                dispatch(requestFailure());
+                dispatch(getAdminuserListError({message:error.response!=undefined?error.response.data:error.message,dt:new Date()}));
+            });
+            
+        };
+    },
 }
 export default userAction;
