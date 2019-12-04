@@ -460,7 +460,7 @@ class Profile extends Component {
 		{
 			profileComplete=false;
 		}
-		if((this.state.userData.profile.isCompleted != null && this.state.userData.profile.isCompleted!=profileComplete))
+		if(( this.state.userData.profile.isCompleted!=profileComplete))
 		{
 			const{dispatch}=this.props;
 			let editdata=this.state.userData.profile
