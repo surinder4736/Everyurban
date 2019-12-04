@@ -27,14 +27,14 @@ class UserList extends Component {
 	
 	render() {
         const{AdminUserList,user,dispatch}=this.props;
-        if(user.auth===undefined){
+        if(user.auth===undefined || user.isadmin===false){
           window.location.href=`/`;
           return(<div></div>);
         }
-        else if(user.isadmin==false){
-          window.location.href=`/`;
-          return(<div></div>);
-        }
+        // else if(user.isadmin==false){
+        //   window.location.href=`/`;
+        //   return(<div></div>);
+        // }
         let columndata=[];
         var data;
         if(AdminUserList!=null){
@@ -49,7 +49,7 @@ class UserList extends Component {
                           email:item.email,
                           verified:item.is_email_verified,
                           profileStatus:item.UserProfile.isCompleted==true?'true':'false',
-                          link:"profile/"+item.unique_userid+"/"+item.random_id    
+                          link:"profileview/"+item.unique_userid+"/"+item.random_id    
                       }
                       columndata.push(Objdata);	
                   }
