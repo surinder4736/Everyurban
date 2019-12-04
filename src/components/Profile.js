@@ -174,8 +174,9 @@ class Profile extends Component {
 		}
 	}
 	componentDidMount(){
-		const{dispatch}=this.props;
-		dispatch(profileAction.getProfile({userId:this.props.user.id}));
+		const{dispatch,user}=this.props;
+		const { profileUrl } = this.props.match.params;
+		dispatch(profileAction.getProfile({userId:profileUrl}));
 		//this.nv.addEventListener(PROFILE_EDIT_SUCCESS,(data)=>{console.log('profile edit success captured');console.log(data)})
 		jQuery(function(){
 			jQuery("#upload_link").on('click', function(e){
@@ -1446,7 +1447,8 @@ class Profile extends Component {
 	}
 
     render() {
-			const{profile:{profile}}=this.props;
+			const{profile:{profile},user}=this.props;
+			const { profileUrl } = this.props.match.params;
 			const{render}=this.state;
 			let imageUrl=null;
 			if(profile!=null && profile!=undefined && profile.photo!==""){
@@ -1482,7 +1484,7 @@ class Profile extends Component {
 						<div class="dp" >
 							<img src={imageUrl}  alt=""/>
 							<input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
-							<a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a>
+		{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> }
 							</div>
 					</div>
 					<div class="col-lg-9 col-md-8 col-xs-12">
@@ -1493,13 +1495,15 @@ class Profile extends Component {
 								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
 								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right" style={{marginTop:'-56px',marginRight:'-70px',color:'white'}}  ><i class="fas fa-edit"></i>Edit</a>}
 							</div>
-							<div>
-								<div class="button">
-									<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#"><i class="fas fa-edit"></i> Edit Profile</a>
-									<span> | </span>
-									<a href="#" onClick={this.clickFinalSave.bind(this)} ><i class="far fa-save"></i> Save</a>
+							{user.unique_userid==profileUrl &&
+								<div>
+									<div class="button">
+										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#"><i class="fas fa-edit"></i> Edit Profile</a>
+										<span> | </span>
+										<a href="#" onClick={this.clickFinalSave.bind(this)} ><i class="far fa-save"></i> Save</a>
+									</div>
 								</div>
-							</div>
+							}
 						</div>
 					</div>
 				</div>
@@ -1514,7 +1518,7 @@ class Profile extends Component {
 						<div class="about">
 							<div class="clearfix">
 								<h5 class="float-left">About</h5>
-								<span id="questionMark" data-tip={this.state.blurbTex.about} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.about} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>	
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
@@ -1530,7 +1534,7 @@ class Profile extends Component {
 							<h5 class="float-left lang">
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-								<span id="questionMark" data-tip={this.state.blurbTex.language} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.language} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>
 							</div>
 							<ul className="languageList">
@@ -1541,25 +1545,30 @@ class Profile extends Component {
 							</ul>
 							<hr/>
 							<div class="clearfix">
-							<h5 class="float-left">Portfolio</h5><span id="questionMark" data-tip={this.state.blurbTex.portfolio} className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+							<h5 class="float-left">Portfolio</h5>
+							{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.portfolio} className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>
 							</div>
-							<p>Type your portfolio link below</p>
-							<form action="#">
+							{user.unique_userid==profileUrl && <p>Type your portfolio link below</p> }
+							{user.unique_userid==profileUrl && <form action="#">
 								<input type="text" placeholder="https://portfolio-link.xyz" value={this.state.userData.profile!=null?this.state.userData.profile.portfolio:null}/>
 								{this.state.mode=='edit'&&<button data-toggle="modal" data-target="#profileEditor" data-whatever="@mdo" onClick={this.showEditPortfolio}><i class="fas fa-link"></i></button>}
-							</form>
+							</form>}
+							{user.unique_userid!=profileUrl && 
+								<a href={this.state.userData.profile!=null?this.state.userData.profile.portfolio:null}>{this.state.userData.profile!=null?this.state.userData.profile.portfolio:''}</a>
+							}
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-8 col-xs-12">
 						<div class="spacer"></div>
+						{(user.unique_userid==profileUrl || this.state.userData.experiances.length>0) &&
 						<div class="card">
 							<div class="clearfix">
 								<h5 class="float-left">Experience</h5>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
-								<span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>
+								{user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
 							<ReactTooltip/>
 							</div>
 							{this.state.userData.experiances.map(element => {
@@ -1578,11 +1587,12 @@ class Profile extends Component {
 							
 							{/* <a href="#" class="view">View More</a> */}
 						</div>
+						}
 						<div class="card">
 							<div class="clearfix">
 								<h5 class="float-left">Education</h5>
 								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
-								<span id="questionMark" data-tip={this.state.blurbTex.education} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.education} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>
 							</div>
 							{console.log(this.state.userData.educations)}{this.state.userData.educations.map(element => {

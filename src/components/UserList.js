@@ -49,7 +49,7 @@ class UserList extends Component {
                           email:item.email,
                           verified:item.is_email_verified,
                           profileStatus:item.UserProfile.isCompleted==true?'true':'false',
-                          link:"profileview/"+item.unique_userid+"/"+item.random_id    
+                          link:"profile/"+item.unique_userid+"/"+item.random_id    
                       }
                       columndata.push(Objdata);	
                   }
