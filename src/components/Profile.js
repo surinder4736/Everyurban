@@ -1519,7 +1519,7 @@ class Profile extends Component {
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
 							</div>
-		<p>{this.state.userData.profile!=null?this.state.userData.profile.about:null}</p>
+						<p style={{wordBreak:'break-word'}}>{this.state.userData.profile!=null?this.state.userData.profile.about:null}</p>
 							<hr/>
 							{/*<h5>Linked Account</h5>
 							<a href="#"><i class="fab fa-facebook"></i> Facebook</a>
