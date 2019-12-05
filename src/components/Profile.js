@@ -1580,13 +1580,15 @@ class Profile extends Component {
 
 	clickFinalSave(e){
 		e.preventDefault();
+		let curobj=this;
 		Swal.fire({
 			title: 'Success!',
 			text: 'You have successfully saved your profile',
 			icon: 'success',
 			confirmButtonText: 'Close'		
 		}).then(()=>{
-		window.location.reload();
+		//window.location.reload();
+		curobj.setState({mode:'view'})
 		});
 	
 	}
