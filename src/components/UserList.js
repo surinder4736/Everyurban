@@ -42,14 +42,15 @@ class UserList extends Component {
           if(userData!=null)
           userData.forEach(item => {
                   if(item!=null && item.UserProfile!=null){
-                      let Objdata={id:item.id,first:item.UserProfile.firstName,last:item.UserProfile.lastName,
+                    debugger
+                      let Objdata={id:item.id,first:item.UserProfile.firstName,last:item.UserProfile.lastName,role_type:item.role_type,
                           country:item.UserProfile.country,
                           date:Moment(item.UserProfile.createdAt).format('MM/DD/YYYY'),
                           userid:item.unique_userid,
                           email:item.email,
                           verified:item.is_email_verified,
                           profileStatus:item.UserProfile.isCompleted==true?'true':'false',
-                          link:"profile/"+item.unique_userid+"/"+item.random_id    
+                          link:(item.role_type=="developer") ? "N/A" : "profile/"+item.unique_userid+"/"+item.random_id    
                       }
                       columndata.push(Objdata);	
                   }
@@ -107,7 +108,14 @@ class UserList extends Component {
                 },
                 {
                   name: 'Link',
-                  cell: row => <div><a href={row.link} target='_blank'>Profile View</a></div>,
+                  cell: row => <div>
+                    {row.link=="N/A" && 
+                    <a href="#" style={{pointerEvents:'none'}}>N/A</a>
+                  }
+                  {row.link!="N/A" &&
+                    <a href={row.link} target='_blank'>Profile View</a>
+                  }
+                    </div>,
                 },
             ]}
             data={columndata}

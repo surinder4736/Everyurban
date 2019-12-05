@@ -27,6 +27,13 @@ function experience(state = initialState, action) {
         case actionTypes.EXPERIENCE_EDIT_SUCCESS:
                 st=Object.assign({},state,action.data)
                 return st;
+        case actionTypes.EXPERIENCE_REMOVE_ERROR:
+                st=Object.assign({},state,action.data)
+                return st;
+        case actionTypes.EXPERIENCE_REMOVE_SUCCESS:
+                st=Object.assign({},state,action.data)
+                return st;        
+        //REMOVE        
         default:
           return state
       }

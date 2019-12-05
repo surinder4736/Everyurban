@@ -158,7 +158,7 @@ class Signup extends Component {
 					<div className="right">
 						<div className="d-flex align-items-center justify-content-center">
 							<div>
-								<h2>Sign Up</h2>
+								<h2 style={{margin:'0 0 9px'}}>Sign Up</h2>
 								<div className="errorMsg" style={{height:'20px'}}>{this.state.messageServerside}</div>
 								<input type="email" onChange={this.txtEmailChangeHandle.bind(this)} value={this.state.email} placeholder="Email Address" />
 								<div className="errorMsg">{this.state.emailValidate}</div>
@@ -177,7 +177,7 @@ class Signup extends Component {
 										<div className="checkmark"></div>
 										I'm an architect
 									</label>
-									<div className="errorMsg" style={{height:'20px'}}>{this.state.roleValidate}</div>
+									<div className="errorMsg" style={{height:'12px'}}>{this.state.roleValidate}</div>
 								</div>
 								
 								<div class="toc">
