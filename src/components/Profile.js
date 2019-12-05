@@ -261,6 +261,11 @@ class Profile extends Component {
 			curObj.setState({EduProgramMessage:'Please enter program'});
 			allValid=false;
 		}
+		if(validator.isEmpty(location))
+		{
+			curObj.setState({EduProgramMessage:'Please enter location'});
+			allValid=false;
+		}
 		
 		if(start_date==new Date('01/01/1970')||start_date=="" ||start_date==null)
 		{
@@ -531,14 +536,15 @@ class Profile extends Component {
 			});
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
-			// let experienceEditForm= Object.assign({},this.state.experienceEditForm);
-			// experienceEditForm.location="";
-			// experienceEditForm.title="";
-			// experienceEditForm.description="";
-			// experienceEditForm.program="";
-			// experienceEditForm.start_date=null;
-			// experienceEditForm.end_date=null;
-			// this.setState({experienceEditForm:experienceEditForm});
+			let experienceEditForm= Object.assign({},this.state.experienceEditForm);
+			experienceEditForm.id=null;
+			experienceEditForm.location="";
+			experienceEditForm.title="";
+			experienceEditForm.description="";
+			experienceEditForm.program="";
+			experienceEditForm.start_date=null;
+			experienceEditForm.end_date=null;
+			this.setState({experienceEditForm:experienceEditForm});
 		}
 		if(nextProps.education!=this.props.education)
 		{
@@ -550,14 +556,15 @@ class Profile extends Component {
 			});
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
-			// let educationEditForm= Object.assign({},this.state.educationEditForm);
-			// educationEditForm.location="";
-			// educationEditForm.title="";
-			// educationEditForm.description="";
-			// educationEditForm.program="";
-			// educationEditForm.start_date=null;
-			// educationEditForm.end_date=null;
-			// this.setState({educationEditForm:educationEditForm});
+			let educationEditForm= Object.assign({},this.state.educationEditForm);
+			educationEditForm.id=null;
+			educationEditForm.location="";
+			educationEditForm.title="";
+			educationEditForm.description="";
+			educationEditForm.program="";
+			educationEditForm.start_date=null;
+			educationEditForm.end_date=null;
+			this.setState({educationEditForm:educationEditForm});
 		}
 		if(nextProps.language!=this.props.language)
 		{
