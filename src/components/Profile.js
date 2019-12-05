@@ -38,6 +38,7 @@ class Profile extends Component {
 			ExpTitleMessage:'',
 			ExpLocationMessage:'',
 			ExpDescriptionMessage:'',
+			ExpProgramMessage:'',
 			ExpDateMessage:'',
 			EduTitleMessage:'',
 			EduProgramMessage:'',
@@ -66,6 +67,7 @@ class Profile extends Component {
 			experienceEditForm:{
 				id:null,
 				title:"",
+				program:"",
 				location:"",
 				description:"",
 				start_date:null,
@@ -296,8 +298,9 @@ class Profile extends Component {
 		let description=this.state.experienceEditForm.description;
 		let start_date=this.state.experienceEditForm.start_date;
 		let end_date=this.state.experienceEditForm.end_date;
+		let program=this.state.experienceEditForm.program;
 		
-		curObj.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:''});
+		curObj.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
 		debugger;
 		let allValid=true;
 		if(validator.isEmpty(title))
@@ -308,6 +311,11 @@ class Profile extends Component {
 		if(validator.isEmpty(location))
 		{
 			curObj.setState({ExpLocationMessage:'Please enter location'});
+			allValid=false;
+		}
+		if(validator.isEmpty(program))
+		{
+			curObj.setState({ExpProgramMessage:'Please enter program'});
 			allValid=false;
 		}
 		if(validator.isEmpty(description))
@@ -523,6 +531,14 @@ class Profile extends Component {
 			});
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
+			// let experienceEditForm= Object.assign({},this.state.experienceEditForm);
+			// experienceEditForm.location="";
+			// experienceEditForm.title="";
+			// experienceEditForm.description="";
+			// experienceEditForm.program="";
+			// experienceEditForm.start_date=null;
+			// experienceEditForm.end_date=null;
+			// this.setState({experienceEditForm:experienceEditForm});
 		}
 		if(nextProps.education!=this.props.education)
 		{
@@ -534,6 +550,14 @@ class Profile extends Component {
 			});
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
+			// let educationEditForm= Object.assign({},this.state.educationEditForm);
+			// educationEditForm.location="";
+			// educationEditForm.title="";
+			// educationEditForm.description="";
+			// educationEditForm.program="";
+			// educationEditForm.start_date=null;
+			// educationEditForm.end_date=null;
+			// this.setState({educationEditForm:educationEditForm});
 		}
 		if(nextProps.language!=this.props.language)
 		{
@@ -1035,6 +1059,11 @@ class Profile extends Component {
 			<div className="errorMsg">{this.state.ExpTitleMessage}</div>
           </div>
 		  <div className="form-group">
+            <label htmlFor="experience-Program-text" className="col-form-label">Program</label>
+			<input placeholder="Enter Program" type="text" onChange={this.changeExperienceProgram} className="form-control"  id="experience-program-text" value={this.state.experienceEditForm.program}/>
+			<div className="errorMsg">{this.state.ExpProgramMessage}</div>
+          </div>
+		  <div className="form-group">
             <label htmlFor="experience-location-text" className="col-form-label">Location</label>
 			<input placeholder="Enter Location" type="text" onChange={this.changeExperienceLocation} className="form-control"  id="experience-location-text" value={this.state.experienceEditForm.location}/>
 			<div className="errorMsg">{this.state.ExpLocationMessage}</div>
@@ -1227,6 +1256,11 @@ class Profile extends Component {
 		experienceEditForm.description=e.target.value;
 		this.setState({experienceEditForm:experienceEditForm});
 	}
+	changeExperienceProgram=(e)=>{
+		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
+		experienceEditForm.program=e.target.value;
+		this.setState({experienceEditForm:experienceEditForm});
+	}
 	changeExperienceStartDate=(e)=>{
 		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
 		//experienceEditForm.start_date=
@@ -1395,7 +1429,7 @@ class Profile extends Component {
 
 	showExperience=(e)=>
 	{
-		this.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:''});
+		this.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
 		
 		console.log(e.currentTarget.getAttribute('data-id'));
 		let exp_id=e.currentTarget.getAttribute('data-id');
@@ -1405,6 +1439,7 @@ class Profile extends Component {
 			let exp_title=e.currentTarget.getAttribute('data-title');
 			let exp_location=e.currentTarget.getAttribute('data-location');
 			let exp_description=e.currentTarget.getAttribute('data-description');
+			let exp_program=e.currentTarget.getAttribute('data-program');
 			// let exp_start_date=e.currentTarget.getAttribute('data-start_date');
 			// let exp_end_date=e.currentTarget.getAttribute('data-end_date');
 			let dtStart=new Date(e.currentTarget.getAttribute('data-start_date'));
@@ -1426,6 +1461,7 @@ class Profile extends Component {
 				id:exp_id,
 				title:exp_title,
 				location:exp_location,
+				program:exp_program,
 				description:exp_description,
 				start_date:exp_start_date,
 				end_date:exp_end_date
@@ -1600,8 +1636,8 @@ class Profile extends Component {
 							return<div> <article>
 								
 								<div class="clearfix">
-							<h6>{element.title} | {element.location}</h6>
-							{this.state.mode=='edit'&&<a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+							<h6>{element.title} | {element.program}</h6>
+							{this.state.mode=='edit'&&<a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
 								</div>
 								<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 								<p>{element.description}</p>
@@ -1623,10 +1659,11 @@ class Profile extends Component {
 							{console.log(this.state.userData.educations)}{this.state.userData.educations.map(element => {
 							return <div><article>
 								<div class="clearfix">
-							<h6 class="float-left">{element.title}</h6>
+							<h6 class="float-left">{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&&<a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
 								</div>
-							<p class="location"><span>{element.program}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
+							<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
+							<p>{element.description}</p>
 							</article>
 							<hr/>
 							</div>
