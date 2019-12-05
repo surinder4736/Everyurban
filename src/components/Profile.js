@@ -41,6 +41,8 @@ class Profile extends Component {
 			ExpDateMessage:'',
 			EduTitleMessage:'',
 			EduProgramMessage:'',
+			EduLocationMessage:'',
+			EduDescriptionMessage:'',
 			EduDateMessage:'',
 			FistNameValidateMessage:'',
 			LastNameValidateMessage:'',
@@ -56,6 +58,8 @@ class Profile extends Component {
 				id:null,
 				title:"",
 				program:"",
+				location:"",
+				description:"",
 				start_date:null,
 				end_date:null
 			},
@@ -237,6 +241,8 @@ class Profile extends Component {
 		let curObj=this;
 		let title=this.state.educationEditForm.title;
 		let program=this.state.educationEditForm.program;
+		let location=this.state.educationEditForm.location;
+		let description=this.state.educationEditForm.description;
 		let start_date=this.state.educationEditForm.start_date;
 		let end_date=this.state.educationEditForm.end_date;
 		
@@ -254,7 +260,6 @@ class Profile extends Component {
 			allValid=false;
 		}
 		
-		debugger;
 		if(start_date==new Date('01/01/1970')||start_date=="" ||start_date==null)
 		{
 			curObj.setState({EduDateMessage:'Please enter start date'});
@@ -1046,9 +1051,9 @@ class Profile extends Component {
 				<div className="row">
 				<div className="col-sm-6"><label>Start Date</label></div><div className="col-sm-6"> <label>End Date</label>	</div>
 				</div>
-		<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" />
+		<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" />
 		
-		&nbsp;&nbsp;<DatePicker  placeholderText="End Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy"  value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} calendarClassName="react-calendar"  clearAriaLabel clearIcon className="react-date-picker"  id="experience-end-date"  /> 
+		&nbsp;&nbsp;<DatePicker  placeholderText="End Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy"  value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} calendarClassName="react-calendar"  clearAriaLabel clearIcon className="react-date-picker"  id="experience-end-date"  /> 
 				{/* <DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
 				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  /> */}
 				&nbsp;&nbsp;<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Current
@@ -1092,7 +1097,16 @@ class Profile extends Component {
 			<input placeholder="Enter Program" type="text" onChange={this.changeEducationProgram} className="form-control"  id="education-program-text" value={this.state.educationEditForm.program}/>
 			<div className="errorMsg">{this.state.EduProgramMessage}</div>
           </div>
-		  
+		  <div className="form-group">
+            <label htmlFor="experience-location-text" className="col-form-label">Location</label>
+			<input placeholder="Enter Location" type="text" onChange={this.changeEducationLocation} className="form-control"  id="experience-location-text" value={this.state.educationEditForm.location}/>
+			<div className="errorMsg">{this.state.EduLocationMessage}</div>
+          </div>
+		  <div className="form-group">
+            <label htmlFor="experience-description-text" className="col-form-label">Description</label>
+			<textarea placeholder="Enter Description" onChange={this.changeEducationDescription} className="form-control"  id="experience-description-text" rows="5" value={this.state.educationEditForm.description}/>
+			<div className="errorMsg">{this.state.EduDescriptionMessage}</div>
+          </div>
 		  <div className="form-group">
             <label className="col-form-label">Duration</label>
 			{/* <input type="text"  onChange={this.changeEducationStartDate} className="form-control"  id="education-start-date" value={this.state.educationEditForm.start_date}/> */}
@@ -1101,9 +1115,9 @@ class Profile extends Component {
 			<div className="row">
 				<div className="col-sm-6"><label>Start Date</label></div><div className="col-sm-6"> <label>End Date</label>	</div>
 				</div>
-			<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy" calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  value={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
+			<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  value={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
 			&nbsp;&nbsp;
-				<DatePicker calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/dd/yyyy" placeholderText="End Date" value={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
+				<DatePicker calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" placeholderText="End Date" value={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
 				{/* <DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
 				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  /> */}
 				&nbsp;&nbsp;<input defaultChecked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Current
@@ -1184,6 +1198,17 @@ class Profile extends Component {
 		dt.setMonth(e.getMonth());
 		
 		educationEditForm.end_date=dt;//e.target.value;
+		this.setState({educationEditForm:educationEditForm});
+	}
+
+	changeEducationLocation=(e)=>{
+		let educationEditForm= Object.assign({},this.state.educationEditForm);
+		educationEditForm.location=e.target.value;
+		this.setState({educationEditForm:educationEditForm});
+	}
+	changeEducationDescription=(e)=>{
+		let educationEditForm= Object.assign({},this.state.educationEditForm);
+		educationEditForm.description=e.target.value;
 		this.setState({educationEditForm:educationEditForm});
 	}
 	/*experience change handlers */
@@ -1326,6 +1351,8 @@ class Profile extends Component {
 		{
 			let edu_title=e.currentTarget.getAttribute('data-title');
 			let edu_program=e.currentTarget.getAttribute('data-program');
+			let edu_location=e.currentTarget.getAttribute('data-location');
+			let edu_description=e.currentTarget.getAttribute('data-description');
 			//debugger;
 			let dtStart=new Date(e.currentTarget.getAttribute('data-start_date'));
 			let dtStart1=new Date();
@@ -1344,6 +1371,8 @@ class Profile extends Component {
 				id:edu_id,
 				title:edu_title,
 				program:edu_program,
+				location:edu_location,
+				description:edu_description,
 				start_date:edu_start_date,
 				end_date:edu_end_date
 			}});
@@ -1595,7 +1624,7 @@ class Profile extends Component {
 							return <div><article>
 								<div class="clearfix">
 							<h6 class="float-left">{element.title}</h6>
-							{this.state.mode=='edit'&&<a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+							{this.state.mode=='edit'&&<a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
 								</div>
 							<p class="location"><span>{element.program}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 							</article>
