@@ -1440,8 +1440,10 @@ class Profile extends Component {
 			text: 'You have successfully saved your profile',
 			icon: 'success',
 			confirmButtonText: 'Close'		
+		}).then(()=>{
+		window.location.reload();
 		});
-		//window.location.reload();
+	
 	}
 
     render() {
@@ -1489,14 +1491,14 @@ class Profile extends Component {
 								<h3>{this.state.userData.profile!=null?this.state.userData.profile.firstName +' '+this.state.userData.profile.lastName:null} </h3>
 								<h4>{this.state.userData.profile!=null?this.state.userData.profile.address+', '+this.state.userData.profile.country:null} </h4>
 								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
-								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right" style={{marginTop:'-56px',marginRight:'-70px',color:'white'}}  ><i class="fas fa-edit"></i>Edit</a>}
+								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit"  ><i class="fas fa-edit"></i><span>Edit</span></a>}
 							</div>
 							{user.unique_userid==profileUrl &&
 								<div>
 									<div class="button">
-										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#"><i class="fas fa-edit"></i> Edit Profile</a>
+										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#" class="profile-edit"><i class="fas fa-edit"></i><span class="span">Edit Profile</span></a>
 										<span> | </span>
-										<a href="#" onClick={this.clickFinalSave.bind(this)} ><i class="far fa-save"></i> Save</a>
+										<a href="#" onClick={this.clickFinalSave.bind(this)} class="profile-save"><i class="far fa-save"></i><span class="span">Save</span> </a>
 									</div>
 								</div>
 							}
@@ -1517,7 +1519,7 @@ class Profile extends Component {
 								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.about} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>	
 								{this.state.mode=='edit'&& 
-								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 							</div>
 						<p style={{wordBreak:'break-word'}}>{this.state.userData.profile!=null?this.state.userData.profile.about:null}</p>
 							<hr/>
@@ -1563,7 +1565,7 @@ class Profile extends Component {
 								<h5 class="float-left">Experience</h5>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
-								{(this.state.mode=='edit' ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
+								{(this.state.mode=='edit' ) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
 								{user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
 							<ReactTooltip/>
 							</div>
@@ -1572,7 +1574,7 @@ class Profile extends Component {
 								
 								<div class="clearfix">
 							<h6>{element.title} | {element.location}</h6>
-							{this.state.mode=='edit'&&<a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+							{this.state.mode=='edit'&&<a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 								</div>
 								<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 								<p>{element.description}</p>
@@ -1587,7 +1589,7 @@ class Profile extends Component {
 						<div class="card">
 							<div class="clearfix">
 								<h5 class="float-left">Education</h5>
-								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
+								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
 								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.education} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>
 							</div>
@@ -1595,7 +1597,7 @@ class Profile extends Component {
 							return <div><article>
 								<div class="clearfix">
 							<h6 class="float-left">{element.title}</h6>
-							{this.state.mode=='edit'&&<a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+							{this.state.mode=='edit'&&<a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 								</div>
 							<p class="location"><span>{element.program}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 							</article>
