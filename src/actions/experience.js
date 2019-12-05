@@ -24,6 +24,13 @@ const addExperienceError=(data)=>{
     return{type:actionTypes.EXPERIENCE_ADD_ERROR}
 }
 
+const removeExperienceSuccess=(data)=>{
+    return{type:actionTypes.EXPERIENCE_REMOVE_SUCCESS}
+}
+const removeExperienceError=(data)=>{
+    return{type:actionTypes.EXPERIENCE_REMOVE_ERROR}
+}
+
 const experienceAction = {
      
     /*getProfile(data){
@@ -63,6 +70,19 @@ const experienceAction = {
                 
             }).catch((error) => {
                 dispatch(editExperienceError({message:error.response.data,dt:new Date()}));
+            });
+        };
+    },
+    removeExperience(data){
+        return (dispatch) => {
+        dispatch(beginRequest());
+            axios.delete(`${APIURL}users/${data.userId}/${data.experienceid}/experiance/`,data.experience)
+                .then(response => {
+                    var data=response.data;
+                    dispatch(removeExperienceSuccess(data));
+                
+            }).catch((error) => {
+                dispatch(removeExperienceError({message:error.response.data,dt:new Date()}));
             });
         };
     }

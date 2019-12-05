@@ -27,6 +27,12 @@ function education(state = initialState, action) {
         case actionTypes.EDUCATION_EDIT_SUCCESS:
                 st=Object.assign({},state,action.data)
                 return st;
+        case actionTypes.EDUCATION_REMOVE_ERROR:
+                  st=Object.assign({},state,action.data)
+                  return st;
+        case actionTypes.EDUCATION_REMOVE_SUCCESS:
+                  st=Object.assign({},state,action.data)
+                  return st;                
         default:
           return state
       }

@@ -22,6 +22,7 @@ import validator from 'validator';
 import Swal from 'sweetalert2';
 import {APIURL, BASE_URL} from '../Config/config'
 import 'sweetalert2/src/sweetalert2.scss';
+import { confirmAlert } from 'react-confirm-alert';
 import { PROFILE_EDIT_SUCCESS } from '../types';
 import ProfileHeader from './ProfileHeader';
 import ProfileViewHeader from './ProfileViewModeHeader';
@@ -1434,6 +1435,39 @@ class Profile extends Component {
 		e.preventDefault();
 	}
 
+	removeEducation=(e)=>
+	{
+		console.log('Experience Remove handler called');
+		console.log(this.state.educationEditForm);
+		e.preventDefault();
+		console.log(e.currentTarget.getAttribute('data-id'));
+		let exp_id=e.currentTarget.getAttribute('data-id');
+		let curobj=this;
+		if(exp_id!=null)
+		{
+			confirmAlert({
+				title: 'Remove Education',
+				message: 'Are you sure to remove education',
+				buttons: [
+				  {
+					label: 'Yes',
+					onClick: () => curobj.removeEducationById(curobj.props.user.id,exp_id)
+				  },
+				  {
+					label: 'No',
+					onClick: () => curobj.removeConfirmpopup(exp_id)
+				  }
+				]
+			  });
+			
+		}
+	}
+
+	removeEducationById(userid,exp_id){
+		const{dispatch}=this.props;
+		dispatch(educationAction.removeEducation({userId:userid,educationid:exp_id}));
+	}
+
 	showExperience=(e)=>
 	{
 		this.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
@@ -1490,6 +1524,45 @@ class Profile extends Component {
 		//this.setState({mode:'edit'});
 		e.preventDefault();
 	}
+
+	removeExperience=(e)=>
+	{
+		console.log('Experience Remove handler called');
+		console.log(this.state.experienceEditForm);
+		const{dispatch}=this.props;
+		e.preventDefault();
+		console.log(e.currentTarget.getAttribute('data-id'));
+		let exp_id=e.currentTarget.getAttribute('data-id');
+		let curobj=this;
+		if(exp_id!=null)
+		{
+			confirmAlert({
+				title: 'Remove Experience',
+				message: 'Are you sure to remove experience',
+				buttons: [
+				  {
+					label: 'Yes',
+					onClick: () => curobj.removeExperienceById(curobj.props.user.id,exp_id)
+				  },
+				  {
+					label: 'No',
+					onClick: () => curobj.removeConfirmpopup(exp_id)
+				  }
+				]
+			  });
+			
+		}
+	}
+
+	removeExperienceById(userid,exp_id){
+		const{dispatch}=this.props;
+		dispatch(experienceAction.removeExperience({userId:userid,experienceid:exp_id}));
+	}
+
+	removeConfirmpopup(id){
+		console.log(id);
+	}
+
 	showEditAbout=(e)=>{
 		this.setState({mode:'edit',profileEditForm:this.state.userData.profile});
 		
@@ -1636,7 +1709,7 @@ class Profile extends Component {
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
-								{(this.state.mode=='edit' && this.state.isStudent==false) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
+								{(this.state.mode=='edit' && this.state.isStudent==false && this.state.userData.profile.isStudent==false) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i>Add New</a>}
 								{user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
 							<ReactTooltip/>
 							</div>
@@ -1645,7 +1718,7 @@ class Profile extends Component {
 								
 								<div class="clearfix">
 							<h6>{element.title} | {element.program}</h6>
-							{this.state.mode=='edit'&&<a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+							{this.state.mode=='edit'&& <div><a onClick={this.removeExperience} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i>Delete</a> <a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i>Edit</a></div>}
 								</div>
 								<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 								<p>{element.description}</p>
@@ -1667,7 +1740,7 @@ class Profile extends Component {
 							return <div><article>
 								<div class="clearfix">
 							<h6 class="float-left">{element.title} | {element.program}</h6>
-							{this.state.mode=='edit'&&<a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a>}
+							{this.state.mode=='edit'&& <div><a onClick={this.removeEducation} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i>Delete</a><a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i>Edit</a></div>}
 								</div>
 							<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 							<p>{element.description}</p>

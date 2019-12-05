@@ -24,6 +24,13 @@ const addEducationError=(data)=>{
     return{type:actionTypes.EDUCATION_ADD_ERROR}
 }
 
+const removeEducationSuccess=(data)=>{
+    return{type:actionTypes.EDUCATION_REMOVE_SUCCESS}
+}
+const removeEducationError=(data)=>{
+    return{type:actionTypes.EDUCATION_REMOVE_ERROR}
+}
+
 const educationAction = {
      
     /*getProfile(data){
@@ -62,6 +69,19 @@ const educationAction = {
                 
             }).catch((error) => {
                 dispatch(editEducationError({message:error.response.data,dt:new Date()}));
+            });
+        };
+    },
+    removeEducation(data){
+        return (dispatch) => {
+        dispatch(beginRequest());
+            axios.delete(`${APIURL}users/${data.userId}/${data.educationid}/education/`,data.education)
+                .then(response => {
+                    var data=response.data;
+                    dispatch(removeEducationSuccess(data));
+                
+            }).catch((error) => {
+                dispatch(removeEducationError({message:error.response.data,dt:new Date()}));
             });
         };
     }
