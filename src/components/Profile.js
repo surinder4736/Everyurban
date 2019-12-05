@@ -98,8 +98,8 @@ class Profile extends Component {
 		  {
 				profile:{
 			id:1,
-			firstName:"",
-			lastName:"",
+			firstName:"Every",
+			lastName:"Urban",
 			about:"",
 			photo:"",
 			country:"",
@@ -239,7 +239,7 @@ class Profile extends Component {
 		console.log(this.state.educationEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
-		debugger;
+		// debugger;
 		let curObj=this;
 		let title=this.state.educationEditForm.title;
 		let program=this.state.educationEditForm.program;
@@ -249,7 +249,7 @@ class Profile extends Component {
 		let end_date=this.state.educationEditForm.end_date;
 		
 		curObj.setState({EduTitleMessage:'',EduProgramMessage:'',EduDateMessage:''});
-		debugger;
+		// debugger;
 		let allValid=true;
 		if(validator.isEmpty(title))
 		{
@@ -296,7 +296,7 @@ class Profile extends Component {
 		console.log(this.state.experienceEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
-		debugger;
+		// debugger;
 		let curObj=this;
 		let title=this.state.experienceEditForm.title;
 		let location=this.state.experienceEditForm.location;
@@ -306,7 +306,7 @@ class Profile extends Component {
 		let program=this.state.experienceEditForm.program;
 		
 		curObj.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
-		debugger;
+		// debugger;
 		let allValid=true;
 		if(validator.isEmpty(title))
 		{
@@ -328,7 +328,7 @@ class Profile extends Component {
 			curObj.setState({ExpDescriptionMessage:'Please enter description'});
 			allValid=false;
 		}
-		debugger;
+		// debugger;
 		if(start_date==new Date('01/01/1970')||start_date=="" ||start_date==null)
 		{
 			curObj.setState({ExpDateMessage:'Please enter start date'});
@@ -435,7 +435,7 @@ class Profile extends Component {
     markProfileAsStudent=(student)=>{
 		/*if(student==true)
 		{*/
-			debugger;
+			// debugger;
 			const{dispatch}=this.props;
 			let editdata=this.state.userData.profile
 			editdata.isStudent=student;
@@ -447,7 +447,7 @@ class Profile extends Component {
 	}
 
 	completeThisProfile=()=>{
-		debugger;
+		// debugger;
 		//call save profile with is completed
 		let profileComplete=true;
 		if(this.state.userData.profile.firstName=='' || this.state.userData.profile.firstName==null)
@@ -628,7 +628,7 @@ class Profile extends Component {
 			<div className="errorMsg">{this.state.LastNameValidateMessage}</div>
 		  </div>
 		  <div className="form-group">
-            <label htmlFor="address-text" className="col-form-label">Address:</label>
+            <label htmlFor="address-text" className="col-form-label">City:</label>
 			<textarea placeholder="Enter Address" onChange={this.changeAddress} className="form-control" id="address-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.address:null}></textarea>
 			<div className="errorMsg">{this.state.AddressValidateMessage}</div>
 		  </div>
@@ -1334,7 +1334,7 @@ class Profile extends Component {
 	}
 	//Mark till now function
 	markTillNow=(e)=>{
-		debugger;
+		// debugger;
 		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
 		if(e.currentTarget.checked)
 		{
@@ -1348,7 +1348,7 @@ class Profile extends Component {
 	}
 	//Mark till now education function
 	markEducationTillNow=(e)=>{
-		debugger;
+		// debugger;
 		let educationEditForm= Object.assign({},this.state.educationEditForm);
 		if(e.currentTarget.checked)
 		{
@@ -1454,7 +1454,7 @@ class Profile extends Component {
 			dtStart1.setMonth(dtStart.getMonth());
 			dtStart1.setFullYear(dtStart.getFullYear());
 			dtStart1.setDate(dtStart.getDate());
-			debugger;
+			// debugger;
 			let dtEnd=new Date(e.currentTarget.getAttribute('data-end_date'));
 			let exp_start_date=dtStart1;//e.currentTarget.getAttribute('data-start_date');
 			let dtEnd1=new Date();
@@ -1558,8 +1558,8 @@ class Profile extends Component {
 					<div class="col-lg-9 col-md-8 col-xs-12">
 						<div class="right">
 							<div>
-								<h3>{this.state.userData.profile!=null?this.state.userData.profile.firstName +' '+this.state.userData.profile.lastName:null} </h3>
-								<h4>{this.state.userData.profile!=null?this.state.userData.profile.address+', '+this.state.userData.profile.country:null} </h4>
+								<h3>{this.state.userData.profile!=null && this.state.userData.profile.firstName!=""?this.state.userData.profile.firstName:'N/A'} {this.state.userData.profile!=null && this.state.userData.profile.lastName!=""?this.state.userData.profile.lastName:' N/A'} </h3>
+								<h4>{this.state.userData.profile!=null && this.state.userData.profile.address!=""?this.state.userData.profile.address+', ':''} {this.state.userData.profile!=null && this.state.userData.profile.country!=""?this.state.userData.profile.country:''} </h4>
 								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
 								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right" style={{marginTop:'-56px',marginRight:'-70px',color:'white'}}  ><i class="fas fa-edit"></i>Edit</a>}
 							</div>
@@ -1629,7 +1629,7 @@ class Profile extends Component {
 					</div>
 					<div class="col-lg-9 col-md-8 col-xs-12">
 						<div class="spacer"></div>
-						{(user.unique_userid==profileUrl || this.state.userData.experiances.length>0) &&
+						
 						<div class="card">
 							<div class="clearfix">
 								<h5 class="float-left">Experience</h5>
@@ -1655,7 +1655,6 @@ class Profile extends Component {
 							
 							{/* <a href="#" class="view">View More</a> */}
 						</div>
-						}
 						<div class="card">
 							<div class="clearfix">
 								<h5 class="float-left">Education</h5>
