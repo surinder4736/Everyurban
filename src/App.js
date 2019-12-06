@@ -11,6 +11,7 @@ import ChangePassword from './components/ChangePassword';
 import SuccessPasswordChange from './components/SuccessPasswordChange';
 import UserList from './components/UserList';
 import ViewProfile from './components/ViewProfile';
+import DeveloperMessage from './components/DeveloperMessage';
 export default class App extends Component {
  // static displayName = App.name;
 
@@ -25,6 +26,7 @@ export default class App extends Component {
         <Route exact path='/users/verifysuccess/:email' component={VerifySuccess} />
         <Route exact path='/passwordchange' component={SuccessPasswordChange} />
         <Route exact path='/admin' component={UserList} />
+        <Route exact path='/developer' component={DeveloperMessage} />
         <Route  path='/profile/:profileUrl/:random' component={Profile} />
         <Route  path='/profileview/:profileUrl/:random' component={ViewProfile} />
         <Route exact path='*'  />
