@@ -12,16 +12,16 @@ const requestFailure=()=>{
     return {type:actionTypes.REQUEST_FAILURE};
 }
 const editExperienceSuccess=(data)=>{
-    return{type:actionTypes.EXPERIENCE_EDIT_SUCCESS}
+    return{type:actionTypes.EXPERIENCE_EDIT_SUCCESS,data}
 }
 const editExperienceError=(data)=>{
-    return{type:actionTypes.EXPERIENCE_EDIT_ERROR}
+    return{type:actionTypes.EXPERIENCE_EDIT_ERROR,data}
 }
 const addExperienceSuccess=(data)=>{
-    return{type:actionTypes.EXPERIENCE_ADD_SUCCESS}
+    return{type:actionTypes.EXPERIENCE_ADD_SUCCESS,data}
 }
 const addExperienceError=(data)=>{
-    return{type:actionTypes.EXPERIENCE_ADD_ERROR}
+    return{type:actionTypes.EXPERIENCE_ADD_ERROR,data}
 }
 
 const removeExperienceSuccess=(data)=>{

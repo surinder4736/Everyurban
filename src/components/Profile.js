@@ -529,43 +529,65 @@ class Profile extends Component {
 		}
 		if(nextProps.experience!=this.props.experience)
 		{
-			Swal.fire({
-				title: 'Success!',
-				text: 'Experience has been saved successfully.',
-				icon: 'success',
-				confirmButtonText: 'OK'		
-			});
-			const{dispatch}=this.props;//debugger
-			dispatch(profileAction.getProfile({userId:this.props.user.id}));
-			let experienceEditForm= Object.assign({},this.state.experienceEditForm);
-			experienceEditForm.id=null;
-			experienceEditForm.location="";
-			experienceEditForm.title="";
-			experienceEditForm.description="";
-			experienceEditForm.program="";
-			experienceEditForm.start_date=null;
-			experienceEditForm.end_date=null;
-			this.setState({experienceEditForm:experienceEditForm});
+			if(nextProps.experience.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'Experience has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Success!',
+					text: 'Experience has been saved successfully.',
+					icon: 'success',
+					confirmButtonText: 'OK'		
+				});
+				const{dispatch}=this.props;//debugger
+				dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				let experienceEditForm= Object.assign({},this.state.experienceEditForm);
+				experienceEditForm.id=null;
+				experienceEditForm.location="";
+				experienceEditForm.title="";
+				experienceEditForm.description="";
+				experienceEditForm.program="";
+				experienceEditForm.start_date=null;
+				experienceEditForm.end_date=null;
+				this.setState({experienceEditForm:experienceEditForm});
+			}
+			
 		}
 		if(nextProps.education!=this.props.education)
 		{
-			Swal.fire({
-				title: 'Success!',
-				text: 'Education has been saved successfully.',
-				icon: 'success',
-				confirmButtonText: 'OK'		
-			});
-			const{dispatch}=this.props;//debugger
-			dispatch(profileAction.getProfile({userId:this.props.user.id}));
-			let educationEditForm= Object.assign({},this.state.educationEditForm);
-			educationEditForm.id=null;
-			educationEditForm.location="";
-			educationEditForm.title="";
-			educationEditForm.description="";
-			educationEditForm.program="";
-			educationEditForm.start_date=null;
-			educationEditForm.end_date=null;
-			this.setState({educationEditForm:educationEditForm});
+			if(nextProps.education.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'Education has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Success!',
+					text: 'Education has been saved successfully.',
+					icon: 'success',
+					confirmButtonText: 'OK'		
+				});
+				const{dispatch}=this.props;//debugger
+				dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				let educationEditForm= Object.assign({},this.state.educationEditForm);
+				educationEditForm.id=null;
+				educationEditForm.location="";
+				educationEditForm.title="";
+				educationEditForm.description="";
+				educationEditForm.program="";
+				educationEditForm.start_date=null;
+				educationEditForm.end_date=null;
+				this.setState({educationEditForm:educationEditForm});
+			}
+			
 		}
 		if(nextProps.language!=this.props.language)
 		{
@@ -1062,7 +1084,7 @@ class Profile extends Component {
         <form>
           
           <div className="form-group">
-            <label htmlFor="experience-title-text" className="col-form-label">Title</label>
+            <label htmlFor="experience-title-text" className="col-form-label">Job/Event</label>
 			<input placeholder="Enter Title" type="text" onChange={this.changeExperienceTitle} className="form-control"  id="experience-title-text" value={this.state.experienceEditForm.title}/>
 			<div className="errorMsg">{this.state.ExpTitleMessage}</div>
           </div>
@@ -1125,7 +1147,7 @@ class Profile extends Component {
         <form>
           
           <div className="form-group">
-            <label htmlFor="education-title-text" className="col-form-label">Title</label>
+            <label htmlFor="education-title-text" className="col-form-label">School/Universit</label>
 			<input placeholder="Enter Title" type="text" onChange={this.changeEducationTitle} className="form-control"  id="education-title-text" value={this.state.educationEditForm.title}/>
 			<div className="errorMsg">{this.state.EduTitleMessage}</div>
           </div>
@@ -1590,7 +1612,6 @@ class Profile extends Component {
 		//window.location.reload();
 		curobj.setState({mode:'view'})
 		});
-	
 	}
 
     render() {
@@ -1711,7 +1732,7 @@ class Profile extends Component {
 							<div class="clearfix">
 								<h5 class="float-left">Experience</h5>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
-								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
+								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && this.state.isStudent==false && this.state.userData.profile.isStudent==false) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
 								{user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
@@ -1724,8 +1745,8 @@ class Profile extends Component {
 							<h6>{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&& <div><a onClick={this.removeExperience} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a> <a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
-								<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
-								<p>{element.description}</p>
+								<p class="location"><span class="experienceDetail">{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
+								<p class="experienceDetail" style={{whiteSpace:'pre-line'}}>{element.description}</p>
 								{/*<a class="more" href="#">See more</a>*/}
 							</article>
 							<hr/></div>	
@@ -1746,8 +1767,8 @@ class Profile extends Component {
 							<h6 class="float-left">{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&& <div><a onClick={this.removeEducation} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
-							<p class="location"><span>{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
-							<p>{element.description}</p>
+							<p class="location"><span class="educationDetail">{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
+							<p class="educationDetail">{element.description}</p>
 							</article>
 							<hr/>
 							</div>

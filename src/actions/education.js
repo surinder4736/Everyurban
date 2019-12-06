@@ -12,10 +12,10 @@ const requestFailure=()=>{
     return {type:actionTypes.REQUEST_FAILURE};
 }
 const editEducationSuccess=(data)=>{
-    return{type:actionTypes.EDUCATION_EDIT_SUCCESS}
+    return{type:actionTypes.EDUCATION_EDIT_SUCCESS,data}
 }
 const editEducationError=(data)=>{
-    return{type:actionTypes.EDUCATION_EDIT_ERROR}
+    return{type:actionTypes.EDUCATION_EDIT_ERROR,data}
 }
 const addEducationSuccess=(data)=>{
     return{type:actionTypes.EDUCATION_ADD_SUCCESS}
