@@ -69,12 +69,17 @@ componentDidMount(){
 			if(user!=null && user.auth===true && user.is_email_verified==="true" && user.isadmin===false){
 			const uid=user.unique_userid;
 			const randomID=user.random_id;
-			window.location.href=`/profile/${uid}/${randomID}`;
+			 if(user.role_type!=undefined && user.role_type!="developer"){
+				window.location.href=`/profile/${uid}/${randomID}`;
+			 }else{
+				window.location.href=`/developer`;
+			 }
 			this.setState({messageServerside:''});
 			}else if(user!=null && user.auth===true && user.is_email_verified==="true" && user.isadmin===true){
 				window.location.href="/admin";
 				console.log("Admin Login");
 			}
+
 			else if(user!=null && user.auth===true && user.is_email_verified==="false"){
 				this.setState({messageServerside:'Please verify your email to login.'});
 			}

@@ -27,7 +27,8 @@ class VerifySuccess extends Component {
                 <div className="box">
                     <img src={logo} />
                 <h1>
-                Sorry user email already verified so please go for login.
+                Sorry this email already verified.<br></br> 
+                Please login and start updating your profile.
             </h1>
            
             <p>
@@ -50,15 +51,15 @@ class VerifySuccess extends Component {
                     <img src={logo} />
                 {user.role_type!="architect" &&
                 <h1>
-                 Thank you for confirming your E-mail.<br></br>
-                 To start recieving projects,please complete your profile.
+                Thank you for verifying your email.<br></br>
+                Someone will get in touch with you soon.
                 </h1>
                 }
 
                 {user.role_type=="architect" &&
                 <h1>
-                Thank you for verifying your email.<br></br>
-                Someone will get in touch with you soon
+                Thank you for confirming your E-mail.<br></br>
+                To start recieving projects,please complete your profile.
                 </h1>
                 }
            
