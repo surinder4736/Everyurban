@@ -5,6 +5,7 @@ import { ScaleLoader } from 'react-spinners';
 // import DatePicker from "react-datepicker"; 
 // import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from 'react-date-picker';
+import MonthPickerInput from  'react-month-picker-input';
 import 'react-date-picker/dist/entry.nostyle';
 import {connect} from 'react-redux';
 import PropTypes, { array, node } from 'prop-types';
@@ -26,6 +27,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { PROFILE_EDIT_SUCCESS } from '../types';
 import ProfileHeader from './ProfileHeader';
 import ProfileViewHeader from './ProfileViewModeHeader';
+require('react-month-picker-input/dist/react-month-picker-input.css');
 const axios = require("axios");
 
 const{logout} = userAction;
@@ -56,6 +58,7 @@ class Profile extends Component {
 			LanguageProficiencyMessage:'',
 			LanguageExistsMessage:'', 
 			isStudent:false,
+			date: new Date(),
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -1070,6 +1073,9 @@ class Profile extends Component {
 		)
 	}
 	renderExperienceModal(){
+		let dt=new Date();
+		let currentMonth=(dt.getMonth());
+		let currentYear=dt.getFullYear();
 		return(
 			<div className="modal fade" id="experienceEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
@@ -1110,12 +1116,34 @@ class Profile extends Component {
 				<div className="row">
 				<div className="col-sm-6"><label>Start Date</label></div><div className="col-sm-6"> <label>End Date</label>	</div>
 				</div>
-		<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" />
-		
-		&nbsp;&nbsp;<DatePicker  placeholderText="End Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy"  value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} calendarClassName="react-calendar"  clearAriaLabel clearIcon className="react-date-picker"  id="experience-end-date"  /> 
+				<div className="row">
+				<MonthPickerInput
+					year={currentYear}
+					month={currentMonth}
+					closeOnSelect={true}
+					popperPlacement='top'
+					onChange={function(maskedValue, selectedYear, selectedMonth) {
+						console.log(maskedValue, selectedYear, selectedMonth);
+						}}
+					value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceStartDate}
+				/>
+		{/* <DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" /> */}
+		&nbsp;&nbsp;<MonthPickerInput
+					year={currentYear}
+					month={currentMonth}
+					closeOnSelect={true}
+					popperPlacement='top'
+					onChange={function(maskedValue, selectedYear, selectedMonth) {
+						console.log(maskedValue, selectedYear, selectedMonth);
+						}}
+					value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate}
+				/>
+		{/* &nbsp;&nbsp;<DatePicker  placeholderText="End Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy"  value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} calendarClassName="react-calendar"  clearAriaLabel clearIcon className="react-date-picker"  id="experience-end-date"  />  */}
 				{/* <DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
 				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  /> */}
 				&nbsp;&nbsp;<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Current
+				</div>
+				
 				<div className="errorMsg">{this.state.ExpDateMessage}</div>
 			</div>	
 			{/* <input type="text"  onChange={this.changeExperienceEndDate} className="form-control"  id="experience-end-date" value={this.state.experienceEditForm.end_date}/> */}
@@ -1133,6 +1161,11 @@ class Profile extends Component {
 		)
 	}
 	renderEducationModal(){
+		let dt=new Date();
+		 let startDate=this.state.educationEditForm.start_date;
+		 dt=new Date(startDate);
+		let currentMonth=(dt.getMonth());
+		let currentYear=dt.getFullYear();
 		return(
 			<div className="modal fade" id="educationEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
@@ -1174,12 +1207,35 @@ class Profile extends Component {
 			<div className="row">
 				<div className="col-sm-6"><label>Start Date</label></div><div className="col-sm-6"> <label>End Date</label>	</div>
 				</div>
-			<DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  value={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
+				<div className="row">
+				<MonthPickerInput
+					year={currentYear}
+					month={currentMonth}
+					closeOnSelect={true}
+					onChange={function(maskedValue, selectedYear, selectedMonth) {
+						console.log(maskedValue, selectedYear, selectedMonth);
+						}}
+					value={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}
+				/>
+		{/* <DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" /> */}
+		&nbsp;&nbsp;<MonthPickerInput
+					year={currentYear}
+					month={currentMonth}
+					closeOnSelect={true}
+					onChange={function(maskedValue, selectedYear, selectedMonth) {
+						console.log(maskedValue, selectedYear, selectedMonth);
+						}}
+					value={this.state.experienceEditForm.end_date}  onChange={this.changeEducationEndDate}
+				/>
+		{/* &nbsp;&nbsp;<DatePicker  placeholderText="End Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy"  value={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} calendarClassName="react-calendar"  clearAriaLabel clearIcon className="react-date-picker"  id="experience-end-date"  />  */}
+				{/* <DatePicker locale="us"  placeholderText="Start Date" selected={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} className="datePicker"   id="experience-start-date"  />
+				<DatePicker locale="us" placeholderText="End Date"  selected={this.state.experienceEditForm.end_date}  onChange={this.changeExperienceEndDate} className="datePicker"  id="experience-end-date"  /> */}
+				&nbsp;&nbsp;<input defaultChecked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} checked={this.state.experienceEditForm.end_date=="" || this.state.experienceEditForm.end_date==null} onChange={this.markTillNow} type="checkbox"/>Current
+				</div>
+			{/* <DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  value={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
 			&nbsp;&nbsp;
 				<DatePicker calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"  monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" placeholderText="End Date" value={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  />
-				{/* <DatePicker className="datePicker" locale="us"  placeholderText="Start Date" selected={this.state.educationEditForm.start_date}  onChange={this.changeEducationStartDate}   id="education-start-date"  />
-				<DatePicker className="datePicker" locale="us" placeholderText="End Date" selected={this.state.educationEditForm.end_date}  onChange={this.changeEducationEndDate}   id="education-end-date"  /> */}
-				&nbsp;&nbsp;<input defaultChecked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Current
+				&nbsp;&nbsp;<input defaultChecked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} checked={this.state.educationEditForm.end_date=="" || this.state.educationEditForm.end_date==null} onChange={this.markEducationTillNow} type="checkbox"/>Current */}
 				
 				<div className="errorMsg">{this.state.EduDateMessage}</div>
 			</div>	
@@ -1241,20 +1297,25 @@ class Profile extends Component {
 	
 	changeEducationStartDate=(e)=>{
 		let educationEditForm= Object.assign({},this.state.educationEditForm);
+		// let dt=new Date();//e.getFullYear()+'-'+e.getMonth()+'-'+e.getDate();
+		// //dt.setDate(e.getDate());
+		// dt.setFullYear(e.getFullYear());
+		// dt.setMonth(e.getMonth());
 		let dt=new Date();//e.getFullYear()+'-'+e.getMonth()+'-'+e.getDate();
-		dt.setDate(e.getDate());
-		dt.setFullYear(e.getFullYear());
-		dt.setMonth(e.getMonth());
-		
+		let Month=e.split('/')[0];
+		let Year=e.split('/')[1];
+		dt.setFullYear(Year);
+		dt.setMonth(parseInt(Month)-1);
 		educationEditForm.start_date=dt;//e.target.value;
 		this.setState({educationEditForm:educationEditForm});
 	}
 	changeEducationEndDate=(e)=>{
 		let educationEditForm= Object.assign({},this.state.educationEditForm);
 		let dt=new Date();//e.getFullYear()+'-'+e.getMonth()+'-'+e.getDate();
-		dt.setDate(e.getDate());
-		dt.setFullYear(e.getFullYear());
-		dt.setMonth(e.getMonth());
+		let Month=e.split('/')[0];
+		let Year=e.split('/')[1];
+		dt.setFullYear(Year);
+		dt.setMonth(Month);
 		
 		educationEditForm.end_date=dt;//e.target.value;
 		this.setState({educationEditForm:educationEditForm});
@@ -1295,21 +1356,22 @@ class Profile extends Component {
 		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
 		//experienceEditForm.start_date=
 		let dt=new Date();//e.getFullYear()+'-'+e.getMonth()+'-'+e.getDate();
-		dt.setDate(e.getDate());
-		dt.setFullYear(e.getFullYear());
-		dt.setMonth(e.getMonth());
-		//alert(dt);
+		let Month=e.split('/')[0];
+		let Year=e.split('/')[1];
+		dt.setFullYear(Year);
+		dt.setMonth(Month-1);
 		experienceEditForm.start_date=dt;
 		//debugger;
 		this.setState({experienceEditForm:experienceEditForm});
 	}
 	changeExperienceEndDate=(e)=>{
 		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
-		//experienceEditForm.end_date=e.target.value;
-		let dt=new Date();//e.getFullYear()+'-'+e.getMonth()+'-'+e.getDate();
-		dt.setDate(e.getDate());
-		dt.setFullYear(e.getFullYear());
-		dt.setMonth(e.getMonth());
+		let dt=new Date();
+		// dt.setDate(e.getDate());
+		let Month=e.split('/')[0];
+		let Year=e.split('/')[1];
+		dt.setFullYear(Year);
+		dt.setMonth(Month);
 		experienceEditForm.end_date=dt;
 		this.setState({experienceEditForm:experienceEditForm});
 	}
@@ -1741,7 +1803,7 @@ class Profile extends Component {
 							{this.state.userData.experiances.map(element => {
 							return<div> <article>
 								
-								<div class="clearfix">
+							<div class="clearfix">
 							<h6>{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&& <div><a onClick={this.removeExperience} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a> <a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
@@ -1768,7 +1830,7 @@ class Profile extends Component {
 							{this.state.mode=='edit'&& <div><a onClick={this.removeEducation} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
 							<p class="location"><span class="educationDetail">{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
-							<p class="educationDetail">{element.description}</p>
+							<p class="educationDetail" style={{whiteSpace:'pre-line'}}>{element.description}</p>
 							</article>
 							<hr/>
 							</div>
