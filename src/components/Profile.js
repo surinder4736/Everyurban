@@ -341,7 +341,7 @@ class Profile extends Component {
 		}
 		if(validator.isEmpty(program))
 		{
-			curObj.setState({ExpProgramMessage:'Please enter program'});
+			curObj.setState({ExpProgramMessage:'Please enter position'});
 			allValid=false;
 		}
 		if(validator.isEmpty(description))
@@ -1129,7 +1129,7 @@ class Profile extends Component {
 			<div className="errorMsg">{this.state.ExpTitleMessage}</div>
           </div>
 		  <div className="form-group">
-            <label htmlFor="experience-Program-text" className="col-form-label">Program</label>
+            <label htmlFor="experience-Program-text" className="col-form-label">Position</label>
 			<input placeholder="Enter Program" type="text" onChange={this.changeExperienceProgram} className="form-control"  id="experience-program-text" value={this.state.experienceEditForm.program}/>
 			<div className="errorMsg">{this.state.ExpProgramMessage}</div>
           </div>
@@ -1208,7 +1208,7 @@ class Profile extends Component {
         <form>
           
           <div className="form-group">
-            <label htmlFor="education-title-text" className="col-form-label">School/Universit</label>
+            <label htmlFor="education-title-text" className="col-form-label">School/University</label>
 			<input placeholder="Enter Title" type="text" onChange={this.changeEducationTitle} className="form-control"  id="education-title-text" value={this.state.educationEditForm.title}/>
 			<div className="errorMsg">{this.state.EduTitleMessage}</div>
           </div>
@@ -1829,7 +1829,7 @@ class Profile extends Component {
 						
 						<div class="card">
 							<div class="clearfix">
-								<h5 class="float-left">Experience</h5>
+								<h6 class="float-left">Experience</h6>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
@@ -1855,7 +1855,7 @@ class Profile extends Component {
 						</div>
 						<div class="card">
 							<div class="clearfix">
-								<h5 class="float-left">Education</h5>
+								<h6 class="float-left">Education</h6>
 								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
 								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.education} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
 							<ReactTooltip/>
