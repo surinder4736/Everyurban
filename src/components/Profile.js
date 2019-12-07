@@ -1089,22 +1089,27 @@ class Profile extends Component {
 </div>
 		)
 	}
+	SetEduExpStartEndDate(editForm){
+		let objForm= Object.assign({},editForm);
+		let dt=new Date(objForm.end_date);
+		let obj={}
+		obj.endDateMonth=dt.getMonth();
+		obj.endDateYear=dt.getFullYear();
+		if(objForm.end_date==null){
+			obj.endDateMonth=null;
+			obj.endDateYear=null;
+		}
+		let sdt=new Date(objForm.start_date);
+		obj.startDateMonth=sdt.getMonth();
+		obj.startDateYear=sdt.getFullYear();
+		if(objForm.start_date==null){
+			obj.startDateMonth=null;
+			obj.startDateYear=null;
+		}
+		return obj;
+	}
 	renderExperienceModal(){
-		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
-		let dt=new Date(experienceEditForm.end_date);
-		let endDateMonth=dt.getMonth();
-		let endDateYear=dt.getFullYear();
-		if(this.state.experienceEditForm.end_date==null){
-			endDateMonth=null;
-			endDateYear=null;
-		}
-		let sdt=new Date(experienceEditForm.start_date);
-		let startDateMonth=sdt.getMonth();
-		let startDateYear=sdt.getFullYear();
-		if(this.state.experienceEditForm.start_date==null){
-			startDateMonth=null;
-			startDateYear=null;
-		}
+		let objDate=this.SetEduExpStartEndDate(this.state.experienceEditForm);
 		return(
 			<div className="modal fade" id="experienceEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
@@ -1148,8 +1153,8 @@ class Profile extends Component {
 				<div className="row">
 					<div className="col-md-4">
 				<MonthPickerInput
-					year={startDateYear}
-					month={startDateMonth}
+					year={objDate.startDateYear}
+					month={objDate.startDateMonth}
 					closeOnSelect={true}
 					popperPlacement='top'
 					value={this.state.experienceEditForm.start_date}
@@ -1157,8 +1162,8 @@ class Profile extends Component {
 				/></div>
 		{/* <DatePicker placeholderText="Start Date" monthPlaceholder="MM" dayPlaceholder="DD" yearPlaceholder="YYYY" format="MM/yyyy" value={this.state.experienceEditForm.start_date}  onChange={this.changeExperienceStartDate} calendarClassName="react-calendar"  clearAriaLabel	clearIcon className="react-date-picker"   id="experience-start-date" /> */}
 		<div className="col-md-4"> <MonthPickerInput
-					year={endDateYear}
-					month={endDateMonth}
+					year={objDate.endDateYear}
+					month={objDate.endDateMonth}
 					closeOnSelect={true}
 					popperPlacement='top'
 					value={this.state.experienceEditForm.end_date}
@@ -1188,24 +1193,7 @@ class Profile extends Component {
 		)
 	}
 	renderEducationModal(){
-		
-		// let startDate=this.state.educationEditForm.start_date;
-		 //dt=new Date(startDate);
-		 let educationEditForm= Object.assign({},this.state.educationEditForm);
-		 let dt=new Date(educationEditForm.end_date);
-		 let endDateMonth=dt.getMonth();
-		 let endDateYear=dt.getFullYear();
-		 if(this.state.educationEditForm.end_date==null){
-			 endDateMonth=null;
-			 endDateYear=null;
-		 }
-		 let sdt=new Date(educationEditForm.start_date);
-		 let startDateMonth=sdt.getMonth();
-		 let startDateYear=sdt.getFullYear();
-		 if(this.state.educationEditForm.start_date==null){
-			 startDateMonth=null;
-			 startDateYear=null;
-		 }
+		let objDate=this.SetEduExpStartEndDate(this.state.educationEditForm);
 		return(
 			<div className="modal fade" id="educationEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
@@ -1250,8 +1238,8 @@ class Profile extends Component {
 				<div className="row">
 				<div className="col-md-4">
 				<MonthPickerInput
-					year={startDateYear}
-					month={startDateMonth}
+					year={objDate.startDateYear}
+					month={objDate.startDateMonth}
 					popperPlacement='top'
 					closeOnSelect={true}
 					value={this.state.educationEditForm.start_date} 
@@ -1262,8 +1250,8 @@ class Profile extends Component {
 		
 		<div className="col-md-4">
      <MonthPickerInput
-					year={endDateYear}
-					month={endDateMonth}
+					year={objDate.endDateYear}
+					month={objDate.endDateMonth}
 					closeOnSelect={true}
 					popperPlacement='top'
 					value={this.state.educationEditForm.end_date} 
