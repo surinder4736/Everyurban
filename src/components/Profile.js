@@ -1844,7 +1844,7 @@ class Profile extends Component {
 							<h6>{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&& <div><a onClick={this.removeExperience} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a> <a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
-								<p class="location"><span class="experienceDetail">{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
+								<p class="location"><span class="experienceDetail">{element.location}</span><span class="experienceDetail">{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 								<p class="experienceDetail" style={{whiteSpace:'pre-line'}}>{element.description}</p>
 								{/*<a class="more" href="#">See more</a>*/}
 							</article>
@@ -1866,7 +1866,7 @@ class Profile extends Component {
 							<h6 class="float-left">{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&& <div><a onClick={this.removeEducation} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
-							<p class="location"><span class="educationDetail">{element.location}</span><span>{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
+							<p class="location"><span class="educationDetail">{element.location}</span><span class="educationDetail">{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
 							<p class="educationDetail" style={{whiteSpace:'pre-line'}}>{element.description}</p>
 							</article>
 							<hr/>
