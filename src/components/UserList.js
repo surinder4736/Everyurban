@@ -47,7 +47,7 @@ class UserList extends Component {
                           country:item.UserProfile.country,
                           date:Moment(item.UserProfile.createdAt).format('MM/DD/YYYY'),
                           userid:item.unique_userid,
-                          email:item.email,
+                          email:item.email,role_type:item.role_type,
                           verified:item.is_email_verified,
                           profileStatus:item.UserProfile.isCompleted==true?'true':'false',
                           link:(item.role_type=="developer") ? "N/A" : "profile/"+item.unique_userid+"/"+item.random_id    
@@ -94,6 +94,11 @@ class UserList extends Component {
                 {
                   name: 'Email',
                   selector: 'email',
+                  sortable: true,
+                },
+                {
+                  name: 'Type',
+                  selector: 'role_type',
                   sortable: true,
                 },
                 {
