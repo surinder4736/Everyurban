@@ -325,7 +325,6 @@ class Profile extends Component {
 		let program=this.state.experienceEditForm.program;
 		
 		curObj.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
-		debugger;
 		let allValid=true;
 		if(validator.isEmpty(title))
 		{
@@ -376,7 +375,6 @@ class Profile extends Component {
 	{
 		console.log('Profile save handler called');
 		console.log(this.state.profileEditForm);
-		debugger
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
@@ -1398,7 +1396,6 @@ class Profile extends Component {
 	}
 	//Mark till now function
 	markTillNow=(e)=>{
-		debugger;
 		let experienceEditForm= Object.assign({},this.state.experienceEditForm);
 
 		if(e.currentTarget.checked)
@@ -1415,7 +1412,7 @@ class Profile extends Component {
 
 	//Mark till now education function
 	markEducationTillNow=(e)=>{
-		debugger;
+
 		let educationEditForm= Object.assign({},this.state.educationEditForm);
 		if(e.target.checked)
 		{
@@ -1662,7 +1659,6 @@ class Profile extends Component {
 	}
 
     render() {
-			debugger
 			const{profile:{profile},user}=this.props;
 			const { profileUrl } = this.props.match.params;
 			let countryName=this.state.userData.profile.country;
