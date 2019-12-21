@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import userAction from '../actions/user';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import logo from '../Images/logo.png'
+import logo from '../Images/logo.png';
+import Jquery from 'jquery';
 const{verifyemail} = userAction;
 class VerifySuccess extends Component {
     constructor(props) {
@@ -16,14 +17,16 @@ class VerifySuccess extends Component {
              }
              dispatch(verifyemail(data));
          }
-    
+         if(window.location.pathname==`/users/verifysuccess/${this.props.match.params.email}`){
+            Jquery("body").css("background", "#dcdcdc");
+        }
     }
     
     renderUpdatedMessage(){
         return(
             <section className="container">
-               <div className="row">
-               <div class="col-md-6 offset-md-3 mt-4 shadow-sm p-3 mb-5 bg-white rounded ">
+               <div className="row container m-0">
+               <div class="col-md-6 offset-md-3 shadow-sm p-3 mb-5 bg-white rounded " style={{margin:'198px auto'}}>
                 <div className="box">
                     <img src={logo} />
                 <h1>
@@ -45,8 +48,8 @@ class VerifySuccess extends Component {
         const{user}=this.props;
         return(
             <section className="container">
-               <div className="row">
-               <div class="col-md-6 offset-md-3 mt-4 shadow-sm p-3 mb-5 bg-white rounded ">
+               <div className="row container m-0">
+               <div class="col-md-6 offset-md-3 shadow-sm p-3 mb-5 bg-white rounded " style={{margin:'198px auto'}}>
                 <div className="box">
                     <img src={logo} />
                 {user.role_type!="architect" &&
@@ -76,7 +79,7 @@ class VerifySuccess extends Component {
     render() { 
         const{user}=this.props;
         debugger
-        return( <div style={{background:'lightgray', backgroundSize:'' ,height:'700px'}}>
+        return( <div>
            {(user!=null && user.is_email_verified=="false") ? this.renderSuccessVerify() : this.renderUpdatedMessage()} 
         </div> );
     }
