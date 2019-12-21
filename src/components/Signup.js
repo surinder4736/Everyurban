@@ -19,6 +19,9 @@ class Signup extends Component {
         super(props);
         this.state = {messageServerside:'',passwordViewMode:false,conPwdViewMode:false,title:'Password Show',email:'',password:'',roleType:'',termsConditon:false,emailValidate:'',passValidate:'',roleValidate:'',termsValidate:'' }
 				this.handlePasswordEnter=this.handlePasswordEnter.bind(this);
+				if(window.location.pathname=="/Signup"){
+					Jquery("body").css("background", "#dcdcdc");
+				}
 			}
 	
 	componentDidMount(){
@@ -50,13 +53,13 @@ class Signup extends Component {
 			this.setState({roleType:event.target.value, roleValidate:''});
 		}		
 		//TermsCondition Change
-		checkTermsCondition(event){
-			if (event.target.checked == true) {
-			this.setState({termsConditon:true,termsValidate:''});
-			}else{
-				this.setState({termsConditon: false,termsValidate:''});
-			}
-		}
+		// checkTermsCondition(event){
+		// 	if (event.target.checked == true) {
+		// 	this.setState({termsConditon:true,termsValidate:''});
+		// 	}else{
+		// 		this.setState({termsConditon: false,termsValidate:''});
+		// 	}
+		// }
 		//SignUp Button click Handle
 		signUpClickHandle(e){
 			e.preventDefault();
@@ -83,11 +86,11 @@ class Signup extends Component {
 			if(validator.isEmpty(roleTypes)){
 				curObj.setState({roleValidate:'Please Choose your Role'});
 			}
-			if(this.state.termsConditon===false){
-				curObj.setState({termsValidate:'Please accept terms and privacy'});
-			}
+			// if(this.state.termsConditon===false){
+			// 	curObj.setState({termsValidate:'Please accept terms and privacy'});
+			// }
 
-			if(validator.isEmpty(emailId)===false && strongRegex.test(password)===true && validator.isEmail(emailId)===true && validator.isEmpty(password)===false && validator.isEmpty(roleTypes)===false && this.state.termsConditon===true){
+			if(validator.isEmpty(emailId)===false && strongRegex.test(password)===true && validator.isEmail(emailId)===true && validator.isEmpty(password)===false && validator.isEmpty(roleTypes)===false){
 				const {dispatch} = this.props;
 				const data={
 						email:emailId,
@@ -141,7 +144,7 @@ class Signup extends Component {
 	}
 
     render() { 
-        return ( <div style={{background:'#dcdcdc',paddingBottom:'60px'}}>
+        return ( <div style={{paddingBottom:'60px'}}>
             <Hamberg />
             <MenuComponent />
             <section id="login">
@@ -182,11 +185,11 @@ class Signup extends Component {
 								
 								<div class="toc">
 									<label for="toc">
-										<input id="toc" type="checkbox" value="" checked={this.state.termsConditon} onChange={this.checkTermsCondition.bind(this)} />
-										<div className="checkmark"></div>
+										{/* <input id="toc" type="checkbox" value="" checked={this.state.termsConditon} onChange={this.checkTermsCondition.bind(this)} /> */}
+										{/* <div className="checkmark"></div> */}
 										I have read and agree the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>.
 									</label>
-								<div className="errorMsg" style={{height:'20px'}}>{this.state.termsValidate}</div>
+								{/* <div className="errorMsg" style={{height:'20px'}}>{this.state.termsValidate}</div> */}
 								</div>
 								<button className="btn gradient" onKeyDown={this.handlePasswordEnter} onClick={this.signUpClickHandle.bind(this)}>SIGN UP</button>
 								<a className="create" style={{margin:'11px 0 0 '}} href="/Login">Have an account? Log In <img src={createLogo} alt=""/></a>
