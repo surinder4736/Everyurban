@@ -21,8 +21,8 @@ class DeveloperMessage extends Component {
                 <div className="box">
                     <img src={logo} />
                 <h1>
-                Thank you for verifying your email.<br></br>
-                Someone will get in touch with you soon
+                Thank you for successfully creating your account with us.<br></br>
+                Someone will get in touch with you soon.
                 </h1>
              <p>
              <a href="/">Back to Home</a>
