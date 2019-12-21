@@ -1805,7 +1805,7 @@ class Profile extends Component {
 					<div class="col-lg-3 col-md-4 col-xs-12">
 						<div class="about">
 							<div class="clearfix">
-								<h5 class="float-left">About</h5>
+								<h5 class="float-left" style={{fontSize:'23px'}}>About</h5>
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 							</div>
@@ -1817,7 +1817,7 @@ class Profile extends Component {
 							<a href="#"><i class="fab fa-dribbble"></i> Dribbble</a>
 							<hr/>*/}
 							<div className="clearfix">
-							<h5 class="float-left lang">
+							<h5 class="float-left lang" style={{fontSize:'23px'}}>
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 															</div>
@@ -1829,7 +1829,7 @@ class Profile extends Component {
 							</ul>
 							<hr/>
 							<div class="clearfix">
-							<h5 class="float-left">Portfolio</h5>
+							<h5 class="float-left" style={{fontSize:'23px'}}>Portfolio</h5>
 							</div>
 							{user.unique_userid==profileUrl && <p>Type your portfolio link below</p> }
 							{user.unique_userid==profileUrl && <form action="#">
@@ -1845,8 +1845,8 @@ class Profile extends Component {
 						<div class="spacer"></div>
 						
 						<div class="card">
-							<div class="clearfix">
-								<h6 class="float-left mb-3">Experience</h6>
+							<div class="clearfix mb-3">
+								<h6 class="float-left" style={{fontSize:'26px'}}>Experience</h6>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
@@ -1872,7 +1872,7 @@ class Profile extends Component {
 						</div>
 						<div class="card">
 							<div class="clearfix mb-3">
-								<h6 class="float-left">Education</h6>
+								<h6 class="float-left" style={{fontSize:'26px'}}>Education</h6>
 								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
 							
 							</div>
