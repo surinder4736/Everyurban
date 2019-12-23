@@ -668,7 +668,7 @@ class Profile extends Component {
 		  </div>
 		  <div className="form-group">
             <label htmlFor="address-text" className="col-form-label">City:</label>
-			<textarea placeholder="Enter Address" onChange={this.changeAddress} className="form-control" id="address-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.address:null}></textarea>
+			<textarea placeholder="Enter City" onChange={this.changeAddress} className="form-control" id="address-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.address:null}></textarea>
 			<div className="errorMsg">{this.state.AddressValidateMessage}</div>
 		  </div>
 		  <div className="form-group">
@@ -1174,7 +1174,7 @@ class Profile extends Component {
           
           <div className="form-group">
             <label htmlFor="education-title-text" className="col-form-label">School/University</label>
-			<input placeholder="Enter Title" type="text" onChange={this.changeEducationTitle} className="form-control"  id="education-title-text" value={this.state.educationEditForm.title}/>
+			<input placeholder="Enter School/University" type="text" onChange={this.changeEducationTitle} className="form-control"  id="education-title-text" value={this.state.educationEditForm.title}/>
 			<div className="errorMsg">{this.state.EduTitleMessage}</div>
           </div>
 		  <div className="form-group">
@@ -1804,7 +1804,7 @@ class Profile extends Component {
 							return<div> <article>
 								
 							<div class="clearfix">
-							<h6>{element.title} | {element.program}</h6>
+							<h6 class="float-left">{element.title} | {element.program}</h6>
 							{this.state.mode=='edit'&& <div><a onClick={this.removeExperience} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a> <a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
 								</div>
 								<p class="location"><span class="experienceDetail">{element.location}</span><span class="experienceDetail">{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
