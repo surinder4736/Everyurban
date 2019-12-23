@@ -891,7 +891,12 @@ class Profile extends Component {
     <div className="modal-content">
       <div className="modal-header">
         <h5 className="modal-title" id="exampleModalLabel">About</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+				
+        <div className="tooltp" style={{textAlign:'right',width:'100%'}}>
+        	<span id="questionMark" data-tip={this.state.blurbTex.about} className="fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+				<ReactTooltip place="bottom" />
+				</div>
+				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -925,7 +930,11 @@ class Profile extends Component {
     <div className="modal-content">
       <div className="modal-header">
         <h5 className="modal-title" id="languageEditorLabel">Language</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+				<div className="tooltp" style={{textAlign:'right',width:'100%'}}>
+        	<span id="questionMark" data-tip={this.state.blurbTex.language} className="fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+				<ReactTooltip place="bottom" />
+				</div>
+				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -1061,9 +1070,14 @@ class Profile extends Component {
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="experienceEditorLabel">Experience</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+			<h5 className="modal-title" id="experienceEditorLabel">Experience</h5>
+			<div className="tooltp" style={{textAlign:'right',width:'100%'}}>
+        <sapn style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className="fas fa-question">
+				</sapn>
+				<ReactTooltip place="bottom" />
+				</div>
+				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
@@ -1071,12 +1085,12 @@ class Profile extends Component {
           
           <div className="form-group">
             <label htmlFor="experience-title-text" className="col-form-label">Job/Event</label>
-			<input placeholder="Enter Title" type="text" onChange={this.changeExperienceTitle} className="form-control"  id="experience-title-text" value={this.state.experienceEditForm.title}/>
+			<input placeholder="Enter Job/Event" type="text" onChange={this.changeExperienceTitle} className="form-control"  id="experience-title-text" value={this.state.experienceEditForm.title}/>
 			<div className="errorMsg">{this.state.ExpTitleMessage}</div>
           </div>
 		  <div className="form-group">
             <label htmlFor="experience-Program-text" className="col-form-label">Position</label>
-			<input placeholder="Enter Program" type="text" onChange={this.changeExperienceProgram} className="form-control"  id="experience-program-text" value={this.state.experienceEditForm.program}/>
+			<input placeholder="Enter Position" type="text" onChange={this.changeExperienceProgram} className="form-control"  id="experience-program-text" value={this.state.experienceEditForm.program}/>
 			<div className="errorMsg">{this.state.ExpProgramMessage}</div>
           </div>
 		  <div className="form-group">
@@ -1086,7 +1100,7 @@ class Profile extends Component {
           </div>
 		  <div className="form-group">
             <label htmlFor="experience-description-text" className="col-form-label">Description</label>
-			<textarea placeholder="Enter Description" onChange={this.changeExperienceDescription} className="form-control"  id="experience-description-text" rows="5" value={this.state.experienceEditForm.description}/>
+			<textarea placeholder="Enter Description" onChange={this.changeExperienceDescription} className="form-control"  id="experience-description-text" rows="3" value={this.state.experienceEditForm.description}/>
 			<div className="errorMsg">{this.state.ExpDescriptionMessage}</div>
           </div>
 		  <div className="form-group">
@@ -1146,7 +1160,12 @@ class Profile extends Component {
     <div className="modal-content">
       <div className="modal-header">
         <h5 className="modal-title" id="experienceEditorLabel">Education</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+				
+      <div className="tooltp" style={{textAlign:'right',width:'100%'}}>
+        <span id="questionMark" data-tip={this.state.blurbTex.education} className=" fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+				<ReactTooltip place="bottom" />
+				</div>
+			  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -1170,7 +1189,7 @@ class Profile extends Component {
           </div>
 		  <div className="form-group">
             <label htmlFor="experience-description-text" className="col-form-label">Description</label>
-			<textarea placeholder="Enter Description" onChange={this.changeEducationDescription} className="form-control"  id="experience-description-text" rows="5" value={this.state.educationEditForm.description}/>
+			<textarea placeholder="Enter Description" onChange={this.changeEducationDescription} className="form-control"  id="experience-description-text" rows="3" value={this.state.educationEditForm.description}/>
 			<div className="errorMsg">{this.state.EduDescriptionMessage}</div>
           </div>
 		  <div className="form-group">
@@ -1238,7 +1257,11 @@ class Profile extends Component {
     <div className="modal-content">
       <div className="modal-header">
         <h5 className="modal-title" id="profileEditorLabel">Portfolio</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+				<div className="tooltp" style={{textAlign:'right',width:'100%'}}>
+        	<span id="questionMark" data-tip={this.state.blurbTex.portfolio} className="fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
+				<ReactTooltip place="bottom" />
+				</div>
+			  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -1728,9 +1751,7 @@ class Profile extends Component {
 					<div class="col-lg-3 col-md-4 col-xs-12">
 						<div class="about">
 							<div class="clearfix">
-								<h5 class="float-left">About</h5>
-								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.about} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
-							<ReactTooltip/>	
+								<h5 class="float-left" style={{fontSize:'23px'}}>About</h5>
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 							</div>
@@ -1742,12 +1763,10 @@ class Profile extends Component {
 							<a href="#"><i class="fab fa-dribbble"></i> Dribbble</a>
 							<hr/>*/}
 							<div className="clearfix">
-							<h5 class="float-left lang">
+							<h5 class="float-left lang" style={{fontSize:'23px'}}>
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.language} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
-							<ReactTooltip/>
-							</div>
+															</div>
 							<ul className="languageList">
 								
 							{this.state.userData.languages.map(element => {
@@ -1756,9 +1775,7 @@ class Profile extends Component {
 							</ul>
 							<hr/>
 							<div class="clearfix">
-							<h5 class="float-left">Portfolio</h5>
-							{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.portfolio} className="float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
-							<ReactTooltip/>
+							<h5 class="float-left" style={{fontSize:'23px'}}>Portfolio</h5>
 							</div>
 							{user.unique_userid==profileUrl && <p>Type your portfolio link below</p> }
 							{user.unique_userid==profileUrl && <form action="#">
@@ -1774,14 +1791,14 @@ class Profile extends Component {
 						<div class="spacer"></div>
 						
 						<div class="card">
-							<div class="clearfix">
-								<h6 class="float-left">Experience</h6>
+							<div class="clearfix mb-3">
+								<h6 class="float-left" style={{fontSize:'26px'}}>Experience</h6>
 								{console.log('experiances')}{console.log(this.state.userData.experiances)}
 								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
 								{(this.state.mode=='edit' && this.state.isStudent==false && this.state.userData.profile.isStudent==false) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
-								{user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
-							<ReactTooltip/>
+								{/* {user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
+							<ReactTooltip/> */}
 							</div>
 							{this.state.userData.experiances.map(element => {
 							return<div> <article>
@@ -1800,11 +1817,10 @@ class Profile extends Component {
 							{/* <a href="#" class="view">View More</a> */}
 						</div>
 						<div class="card">
-							<div class="clearfix">
-								<h6 class="float-left">Education</h6>
+							<div class="clearfix mb-3">
+								<h6 class="float-left" style={{fontSize:'26px'}}>Education</h6>
 								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
-								{user.unique_userid==profileUrl && <span id="questionMark" data-tip={this.state.blurbTex.education} className=" float-left fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>}
-							<ReactTooltip/>
+							
 							</div>
 							{console.log(this.state.userData.educations)}{this.state.userData.educations.map(element => {
 							return <div><article>

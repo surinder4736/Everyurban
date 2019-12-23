@@ -20,6 +20,9 @@ class Login extends Component {
 		this.txtUserChange=this.txtUserChange.bind(this);
 		this.txtPasswordChange=this.txtPasswordChange.bind(this);
 		this.pressEnterKey=this.pressEnterKey.bind(this);
+		if(window.location.pathname=="/Login"){
+			Jquery("body").css("background", "#dcdcdc");
+		}
 	}
 
 	txtUserChange(event){
@@ -127,7 +130,7 @@ componentDidMount(){
     render() { 
 			const{messageServerside}=this.state;
         return ( 
-            <div style={{background:'#dcdcdc',paddingBottom:'60px'}}>
+            <div style={{paddingBottom:'60px'}}>
             <Hamberg />
            <MenuComponent />
            <section id="login">

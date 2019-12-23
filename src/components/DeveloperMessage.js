@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import userAction from '../actions/user';
 import {connect} from 'react-redux';
+import Jquery from 'jquery';
 import PropTypes from 'prop-types';
 import logo from '../Images/logo.png'
 class DeveloperMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        if(window.location.pathname=="/developer"){
+            Jquery("body").css("background", "#dcdcdc");
+        }
     }
     
     renderMessage(){
         return(
             <section className="container">
-               <div className="row">
-               <div class="col-md-6 offset-md-3 mt-4 shadow-sm p-3 mb-5 bg-white rounded ">
+               <div className="row container m-0">
+               <div class="col-md-6 offset-md-3  shadow-sm p-3 mb-5 bg-white rounded " style={{margin:'198px auto'}}>
                 <div className="box">
                     <img src={logo} />
                 <h1>
-                Thank you for verifying your email.<br></br>
-                Someone will get in touch with you soon
+                Thank you for successfully creating your account with us.<br></br>
+                Someone will get in touch with you soon.
                 </h1>
              <p>
              <a href="/">Back to Home</a>
@@ -33,7 +37,7 @@ class DeveloperMessage extends Component {
     render() { 
         const{user}=this.props;
         debugger
-        return( <div style={{background:'lightgray',height:'700px' }}>
+        return( <div>
            {this.renderMessage()} 
         </div> );
     }
