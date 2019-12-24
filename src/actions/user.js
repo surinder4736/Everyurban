@@ -29,6 +29,13 @@ const verifyError=(data)=>{
     return {type:actionTypes.VERIFYEMAIL_ERROR,data};
 }
 
+const isEmailVerifySuccess=(data)=>{
+    return {type:actionTypes.IS_EMAIL_VERIFY_SUCCESS, data};
+}
+const isEmailVerifyError=(data)=>{
+    return {type:actionTypes.IS_EMAIL_VERIFY_ERROR,data};
+}
+
 
 const ResetPasswordSuccess=(data)=>{
     return {type:actionTypes.RESET_PASSWORD_SUCCESS,data,dt:new Date()}
@@ -110,16 +117,15 @@ const userAction = {
             axios.post(`${APIURL}user/verifyEmail`,data)
                 .then(response => {
                     var data=response.data;
-                    dispatch(verifySuccess(data));
+                    dispatch(isEmailVerifySuccess(data));
                    // requestSuccess();
                 
             }).catch((error) => {
-                dispatch(verifyError({message:error.response.data,dt:new Date()}));
+                dispatch(isEmailVerifyError({message:error.response.data,dt:new Date()}));
                    //dispatch(requestFailure());
             });
         };
     },
-
 
     resetPassword(data){
         return (dispatch) => {

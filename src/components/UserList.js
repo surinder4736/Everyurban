@@ -41,7 +41,7 @@ class UserList extends Component {
           let userData=AdminUserList.user;
           if(userData!=null)
           userData.forEach(item => {
-                  if(item!=null && item.UserProfile!=null){
+                  if(item!=null && item.UserProfile!=null && item.isadmin===false){
                     debugger
                       let Objdata={id:item.id,first:item.UserProfile.firstName,last:item.UserProfile.lastName,role_type:item.role_type,
                           country:item.UserProfile.country,
