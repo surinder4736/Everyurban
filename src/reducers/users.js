@@ -10,6 +10,7 @@ const initialState = {
   answerForm:{},
   workingForm:{},
   workingSecondForm:{},
+  isEmailVerified:{},
   studentForm:{},
   time:new Date(),
   reportData:{},
@@ -63,6 +64,14 @@ function users(state = initialState, action) {
                 case actionTypes.ADMIN_USER_LIST_ERROR:
                 st = Object.assign({}, state, {AdminUserList:null})
                 return st;
+
+                case actionTypes.IS_EMAIL_VERIFY_SUCCESS:
+                st = Object.assign({}, state, {isEmailVerified:action.data})
+                return st;
+                case actionTypes.IS_EMAIL_VERIFY_ERROR:
+                st = Object.assign({}, state, {isEmailVerified:null})
+                return st;
+
         default:
           return state
       }

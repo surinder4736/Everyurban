@@ -8,8 +8,9 @@ const{verifyemail} = userAction;
 class VerifySuccess extends Component {
     constructor(props) {
         super(props);
-        this.state = { getParam:'',renderContent:'' }
+        this.state = { getParam:'',renderContent:'',changeStatus:'' }
          this.state.getParam=this.props.match.params.email;
+         //const{dispatch,user}=this.props;
          const{dispatch}=this.props;
          if(this.state.getParam!=null){
              const data={
@@ -21,19 +22,36 @@ class VerifySuccess extends Component {
             Jquery("body").css("background", "#dcdcdc");
         }
     }
-    
+
+    componentWillReceiveProps(nextProps){
+        const{isEmailVerified:{user}}=nextProps;
+        if(user!=null && user!=this.props.isEmailVerified.user){
+            this.setState({ changeStatus: user.is_email_verified });
+        }    
+    }
+
     renderUpdatedMessage(){
+        const{isEmailVerified}=this.props;
         return(
             <section className="container">
                <div className="row container m-0">
                <div class="col-md-6 offset-md-3 shadow-sm p-3 mb-5 bg-white rounded " style={{margin:'198px auto'}}>
                 <div className="box">
                     <img src={logo} />
+                    {isEmailVerified.user.role_type!="architect" && 
+                <h1>
+                Sorry this email already verified.<br></br> 
+                Someone will get in touch with you soon.
+            </h1>
+                    }
+           
+           {isEmailVerified.user.role_type=="architect" && 
                 <h1>
                 Sorry this email already verified.<br></br> 
                 Please login and start updating your profile.
             </h1>
-           
+                    }
+
             <p>
              <a href="/Login">Back to Login</a>
             </p>
@@ -45,21 +63,24 @@ class VerifySuccess extends Component {
     }
 
     renderSuccessVerify(){
-        const{user}=this.props;
+        const{isEmailVerified}=this.props;
+        debugger
         return(
             <section className="container">
                <div className="row container m-0">
                <div class="col-md-6 offset-md-3 shadow-sm p-3 mb-5 bg-white rounded " style={{margin:'198px auto'}}>
                 <div className="box">
                     <img src={logo} />
-                {user.role_type!="architect" &&
+                    {/* Developer email verification message */}
+                    
+                {isEmailVerified.user.role_type!="architect" &&
                 <h1>
                 Thank you for verifying your email.<br></br>
                 Someone will get in touch with you soon.
                 </h1>
                 }
-
-                {user.role_type=="architect" &&
+                 {/* Architect email verification message */}
+                {isEmailVerified.user.role_type=="architect" &&
                 <h1>
                 Thank you for confirming your E-mail.<br></br>
                 To start recieving projects,please complete your profile.
@@ -77,11 +98,25 @@ class VerifySuccess extends Component {
     }
 
     render() { 
-        const{user}=this.props;
+        try{
+        const{changeStatus}=this.state;
         debugger
         return( <div>
-           {(user!=null && user.is_email_verified=="false") ? this.renderSuccessVerify() : this.renderUpdatedMessage()} 
+           {changeStatus=="false" ? this.renderSuccessVerify() : this.renderUpdatedMessage()} 
         </div> );
+        }catch(err){
+            return(
+                <section className="container">
+               <div className="row container m-0">
+               <div class="col-md-6 offset-md-3 shadow-sm p-3 mb-5 bg-white rounded " style={{margin:'198px auto'}}>
+                <div className="box">
+                    <h1>Sorry this Something went wrong</h1>
+                  </div>
+                  </div>
+                  </div>
+                  </section>
+            )
+        }
     }
 }
 
@@ -90,7 +125,7 @@ VerifySuccess.propTypes = {
 };
 function mapStateToProps(state) {
     return {
-      user: state.users.user,
+        isEmailVerified: state.users.isEmailVerified,
     };
   }
 export default connect(mapStateToProps)(VerifySuccess);
