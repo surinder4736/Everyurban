@@ -168,22 +168,22 @@ class Signup extends Component {
 								<input id="inputPassword"  onKeyDown={this.handlePasswordEnter}  type={this.state.passwordViewMode==false?'password':''}  onChange={this.txtPasswordChangeHandle.bind(this)} value={this.state.password} placeholder="Password" style={{width:''}} />{' '}<span id="viewPass" title={this.state.title} className={this.state.passwordViewMode==false?'far fa-eye':'fa fa-eye-slash'} onClick={this.handlePasswordViewMode.bind(this)}></span>
 								 <span id="questionMark" data-tip="Password must be atleast 7 characters and must contain atleast 1 numeric or special character" className="fas fa-question"></span>
 								<ReactTooltip  />
-								<div className="errorMsg">{this.state.passValidate}</div>
+								<div className="errorMsg" style={{height:'20px'}}>{this.state.passValidate}</div>
 								<div className="radios">
 									<label for="builder">
 										<input type="radio" checked={this.state.roleType=="developer"} onChange={this.checkRoleHandle.bind(this)} name="type" id="builder" value="developer"  />
 										<div class="checkmark"></div>
 										I'm a developer/builder
 									</label>
-									<label for="architect">
+									<label for="architect" style={{marginBottom:'-3px'}}>
 										<input type="radio" checked={this.state.roleType=="architect"} onChange={this.checkRoleHandle.bind(this)} name="type" id="architect" value="architect" />
 										<div className="checkmark"></div>
 										I'm an architect
 									</label>
-									<div className="errorMsg" style={{height:'12px'}}>{this.state.roleValidate}</div>
+									<div className="errorMsg" style={{height:'3px'}}>{this.state.roleValidate}</div>
 								</div>
 								
-								<div class="toc">
+								<div class="toc" style={{margin: '6px auto'}}>
 									<label for="toc">
 										{/* <input id="toc" type="checkbox" value="" checked={this.state.termsConditon} onChange={this.checkTermsCondition.bind(this)} /> */}
 										{/* <div className="checkmark"></div> */}
