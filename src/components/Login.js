@@ -11,6 +11,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+import LoginBody from 'react-body-classname';
+import './bodyStyle.css';
 const{login} = userAction;
 class Login extends Component {
     constructor(props) {
@@ -20,9 +22,8 @@ class Login extends Component {
 		this.txtUserChange=this.txtUserChange.bind(this);
 		this.txtPasswordChange=this.txtPasswordChange.bind(this);
 		this.pressEnterKey=this.pressEnterKey.bind(this);
-		if(window.location.pathname=="/Login"){
-			Jquery("body").css("background", "#dcdcdc");
-		}
+		// document.body.className="loginBodyBgColor";
+
 	}
 
 	txtUserChange(event){
@@ -130,7 +131,8 @@ componentDidMount(){
     render() { 
 			const{messageServerside}=this.state;
         return ( 
-            <div style={{paddingBottom:'60px'}}>
+					<LoginBody className="loginBodyBgColor">
+            <div>
             <Hamberg />
            <MenuComponent />
            <section id="login">
@@ -164,6 +166,7 @@ componentDidMount(){
 			</div>
 		</section>
             </div>
+						</LoginBody>
          );
     }
 }
