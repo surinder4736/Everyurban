@@ -9,14 +9,14 @@ import PropTypes from 'prop-types';
 import userAction from '../actions/user';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+import ForgetPassBody from 'react-body-classname';
 const{resetPassword} = userAction;
 class ForgetPassword extends Component {
     constructor(props) {
         super(props);
 				this.state = {email:'', emailValidate:'',messageServerside:''}
 				this.pressEnterKey=this.pressEnterKey.bind(this);
-	}
-	
+		}
 	txtEmailChangeHandle(event){
 	this.setState({ email:event.target.value,emailValidate:'',serversideMesg:''});
 	}
@@ -73,7 +73,8 @@ class ForgetPassword extends Component {
 
     render() { 
         return (
-            <div style={{background:'#dcdcdc',paddingBottom:'60px'}}>
+					<ForgetPassBody className="forgotPassBgColor">
+            <div>
             <Hamberg />
            <MenuComponent />
            <section id="login">
@@ -103,7 +104,7 @@ class ForgetPassword extends Component {
 			</div>
 		</section>
             </div>
-
+						</ForgetPassBody>
          );
     }
 }

@@ -3,6 +3,7 @@ import userAction from '../actions/user';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../Images/logo.png';
+import VerifySuccessBody from 'react-body-classname';
 import Jquery from 'jquery';
 const{verifyemail} = userAction;
 class VerifySuccess extends Component {
@@ -18,9 +19,7 @@ class VerifySuccess extends Component {
              }
              dispatch(verifyemail(data));
          }
-         if(window.location.pathname==`/users/verifysuccess/${this.props.match.params.email}`){
-            Jquery("body").css("background", "#dcdcdc");
-        }
+        
     }
 
     componentWillReceiveProps(nextProps){
@@ -101,9 +100,13 @@ class VerifySuccess extends Component {
         try{
         const{changeStatus}=this.state;
         debugger
-        return( <div>
+        return(
+            <VerifySuccessBody className="verifySuccess">
+        <div> 
            {changeStatus=="false" ? this.renderSuccessVerify() : this.renderUpdatedMessage()} 
-        </div> );
+        </div>
+            </VerifySuccessBody>
+             );
         }catch(err){
             return(
                 <section className="container">

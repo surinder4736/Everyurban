@@ -10,7 +10,9 @@ import validator from 'validator';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
+import SignUpBody from 'react-body-classname';
 import 'sweetalert2/src/sweetalert2.scss';
+import './bodyStyle.css';
 //const Swal = require('sweetalert2');
 
 const{register} = userAction;
@@ -19,16 +21,12 @@ class Signup extends Component {
         super(props);
         this.state = {messageServerside:'',passwordViewMode:false,conPwdViewMode:false,title:'Password Show',email:'',password:'',roleType:'',termsConditon:false,emailValidate:'',passValidate:'',roleValidate:'',termsValidate:'' }
 				this.handlePasswordEnter=this.handlePasswordEnter.bind(this);
-				if(window.location.pathname=="/Signup"){
-					Jquery("body").css("background", "#dcdcdc");
-				}
 			}
 	
 	componentDidMount(){
 		Jquery("input:password").focusin(function(){
 		Jquery("#viewPass").css("display", "block");
 		 });
-		 
 	}
   //Password Show/Hide in TextBox
 	handlePasswordViewMode(e){
@@ -144,7 +142,9 @@ class Signup extends Component {
 	}
 
     render() { 
-        return ( <div style={{paddingBottom:'60px'}}>
+        return ( 
+					<SignUpBody className="signUpBodyBgColor">
+				<div>
             <Hamberg />
             <MenuComponent />
             <section id="login">
@@ -201,7 +201,9 @@ class Signup extends Component {
 				</div>
 			</div>
 		</section>
-        </div> );
+        </div> 
+				</SignUpBody>
+				);
     }
 }
 

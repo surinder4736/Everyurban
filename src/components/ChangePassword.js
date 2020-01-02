@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import userAction from '../actions/user';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+import ChangePasswordBody from 'react-body-classname';
 const{changePassword} = userAction;
 class ChangePassword extends Component {
     constructor(props) {
@@ -93,7 +94,8 @@ class ChangePassword extends Component {
 
     render() { 
         return (
-            <div style={{background:'#dcdcdc',paddingBottom:'60px'}}>
+          <ChangePasswordBody className="changePassBgColor">
+            <div>
             <Hamberg />
            <MenuComponent />
            <section id="login">
@@ -125,7 +127,7 @@ class ChangePassword extends Component {
 			</div>
 		</section>
             </div>
-
+          </ChangePasswordBody>
          );
     }
 }
