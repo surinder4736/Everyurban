@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
-import logo from '../Images/logo.png';
+import aboutusIcon from '../Images/logo-icon-black.png';
 import './NavMenu.css';
 var jQuery= require('jquery');
 class MenuComponent extends Component {
@@ -27,7 +27,7 @@ class MenuComponent extends Component {
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Support</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i><img src="images/logo-icon-black.png" alt=""/></i> About Us</a>
+					<a class="nav-link" href="#"><i><img src={aboutusIcon} alt=""/></i> About Us</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#"><i class="fas fa-users"></i> Social Media</a>
