@@ -18,10 +18,6 @@ export class Home extends Component {
 componentDidMount() {
   
 }
-handleClickLogin(e){
-	e.preventDefault();
-	window.location.href="/Login";
-}
 
   render () {
     return (
@@ -38,7 +34,7 @@ handleClickLogin(e){
 						<div>
 							<h2>CREATING THE CITY OF YOUR DREAMS IS AT YOUR FINGERTIPS</h2>
 							<h1>Revolutionizing the process<br />of urban development</h1>
-							<a className="btn gradient" href="#" onClick={this.handleClickLogin.bind(this)}>Get Started</a>
+							<a className="btn gradient" href="/Login" >Get Started</a>
 						</div>
 					</div>
 				</div>
