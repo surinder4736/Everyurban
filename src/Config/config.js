@@ -1,7 +1,7 @@
 
 //import { ENV } from './env';
 const ENV = process.env.NODE_ENV || 'development';
-console.log(process.env.NODE_ENV)
+console.log("Server Mode:"+process.env.NODE_ENV)
 const envVars=require(`./config.${ENV}.js`);
 export const isProduction = ENV === 'production';
 export const isDebug = ENV === 'development' ;
