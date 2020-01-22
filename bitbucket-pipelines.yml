@@ -1,0 +1,29 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:10.15.3
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - node
+        deployment: production
+        script: # Modify the commands below to build your repository.
+          - npm install
+          - pipe: atlassian/google-app-engine-deploy:0.6.0
+            variables:
+              KEY_FILE: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDX1yLeq0xA4tt6\neRPpeHAH9w3+wPeYtEe+HhcCITvzR5S06NkNwmx2EOPOUzelyMXml7fYekxPlOni\n4YjnN0xtbKjSfIVRxkQRIhiqGeyKxR0rW2+Tav0KMhv0UWpW7FCrKSo7aLrXYSWv\nPwtwDf9ECBZ2ffvtYnl1TNuLi/asZNdsYTgNckwVHWQeo/lXdMW/RdEavuJauEAQ\nXG1Ggk+qHj0ZyYM1Ho1cRHV+oqEKo4wF93P7p/BT8o/dD7QQyOtrV0vKitepOoEu\ncZgpksvJsYyBS+MiFx9l8zM4M+w2EGxOe7Vb7ypnBp+TFX9cRP+UCvyI0QUz60Gp\ngwVHkxGPAgMBAAECggEAMKblTMTW/N9F8r7dDqjfs+Pr6ysrBGhKrZ+RtyCvp0BQ\n1FCSMIhNM3XOK8FVT1DIzxgO0ESM8/lQmRwWZGvyFc5C5aM81/h1elkxrxIF4Cfb\nUd0b8uJQZF50L6e0bSB6dIJkaxzJ1Oeoe26eEOWOzxJ1ocL3KQSj9R1cdYGYmjX8\nlUjF1QCwpFsfrgpKVQtrTzHi9/Kl9vEOBKv254b4WlL95drAhXKZ/ZoiBpesQPJ/\nn8ymsk5TiAZFyKksrNSGWkksUYqB6kk4CBxhAz15e+D/l4ljnMiFzfYF1abU+Wb/\n/Fy6FEIn0ryGKOLgU/Diw/euZAUDisyHNu+s+5H4VQKBgQD9czbSma5OmiCSAwzr\nbhNw8Vgmm00DGEC/mcqmqlpJDQnbdMafANxeMfAsHuBGWlrQCOn7x8Vrsv2XAYo1\nMeMNQ6E4GEAkoa0+iMEKqxAw5f2M6jmKa0O9pIqB5IzWg5jhmnvq1jr1Gb8GTX4B\nMk4FQh3zv7/9uuZ/c85XWlCDkwKBgQDaAw35Ue3qlykmIrr2mQBrKFDOI4kqGqtV\nxJz1795gpw4w4czyZL6M6hYvJFdxTTCO9hcNheVzGAgDCixWkiRhezi9UpERBzzP\nseiTq4qFTuCxEc7jjhuTNJwaq3VWl5A4kE4uniJsIl/e17jdoGq1k5IraAFy6zo4\nSyledUevlQKBgQDOMR5nxTlGnyNiRnMLUdklKGODvRKxMtjyR6bTYoHjLmVXkbBJ\nCUU+qLfw3QmukrGQz7+z43lcPhkK8ejDkBtc3ilZ3njIlHPCDTWnfTXF4kYdjyxS\nzSMmNKeuNwbROex1ld28Vp9Oaay77u1VAdzxcDG37MbAIH6HL+qtrD8WWwKBgCBA\nOW37l8WPbQ/uLVhTlANGKIYGLcFjxprehhW/0Vbc/7VtgeMN0j6IVpXMu37QW3Ga\nqBhhCWt4T58bfymjXuxozSD8uOca+f0DpZNK2igUXhrztnZlTGD/dGRhnu8bZsNn\nXZl53T+/6gzOPtPSalbIKORw813rvGYdgFYv5VXtAoGBAJRQ/f9yC7V6O+1Rc85D\n0+qupYrmuQFVNpcrKgwB+ppuDL/ZXw3T6oWWXLA2/4mnEnOXOcYy7mU8B2H6D1SR\nsRq2PGF/sIzW8AW6QroLEMBjWfYh+9wt0dxmJnaanaTPALTPiqU//iW2qnir6Bkr\nJVVwtdMnQqMrVQ05h/B+mwAl\n-----END PRIVATE KEY-----\n'
+              PROJECT: 'heroic-calculus-263602'
+              # DEPLOYABLES: '<string>' # Optional
+              # VERSION: '<string>' # Optional.
+              # BUCKET: '<string>' # Optional.
+              # IMAGE: '<string>' # Optional.
+              # PROMOTE: '<boolean>' # Optional
+              # STOP_PREVIOUS_VERSION: '<boolean>' # Optional.
+              # EXTRA_ARGS: '<string>' # Optional.
+              # DEBUG: '<boolean>' # Optional.
+              # CLOUD_BUILD_TIMEOUT: '<integer>' # Optional
+
