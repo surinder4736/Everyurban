@@ -24,14 +24,14 @@ componentDidMount() {
       <div>
         <Header />
         <MenuComponent />
-        {/* Slider */}
-    <section id="banner" className="carousel slide" data-ride="carousel">
-			<div className="carousel-inner">
+				{/* Slider */}
+				<section id="banner" >
+			 <div className="banner-background" style={{backgroundImage:`url(${banner})`}}>
+			  <div className="carousel slide" data-ride="carousel">
+				<div className="carousel-inner">
 				<div className="carousel-item active">
-        {/* style="background-image:url('images/banner.jpg');" */}
-					<div class="overlay" style={{backgroundImage:`url(${banner})`}} >
-        
-						<div>
+        	<div className="overlay"  >
+        		<div >
 							<h2>CREATING THE CITY OF YOUR DREAMS IS AT YOUR FINGERTIPS</h2>
 							<h1>Revolutionizing the process<br />of urban development</h1>
 							<a className="btn gradient" href="/Login" >Get Started</a>
@@ -39,16 +39,32 @@ componentDidMount() {
 					</div>
 				</div>
 				<div className="carousel-item">
-					<div className="overlay" style={{backgroundImage:`url(${banner})`}} >
+					<div className="overlay"  >
 						<div>
-							<h2>CREATING THE CITY OF YOUR DREAMS IS AT YOUR FINGERTIPS</h2>
-							<h1>Revolutionizing the process<br />of urban development</h1>
+							<h2>We Aim to Create Cities Designed for People</h2>
+							<h1>Crowdsourcing ideas for <br />next generation urban <br /> space development</h1>
 							<a className="btn gradient" href="#">Get Started</a>
 						</div>
 					</div>
 				</div>
+
+				<div className="carousel-item">
+					<div className="overlay"  >
+						<div>
+							<h2>A place where Developers, Architects, Cities and the Community come together</h2>
+							<h1> EveryUrban is a platform that helps<br/> make urban planning and master <br/> planned developments social.</h1>
+							<a className="btn gradient" href="#">Get Started</a>
+						</div>
+					</div>
+				</div>
+			
+
 			</div>
-		</section>
+			</div>
+			</div>
+			</section>
+   
+
       {/* Aim Section */}
       <section className="aim">
 			<div className="container">
