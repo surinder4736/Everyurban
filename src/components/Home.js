@@ -91,18 +91,18 @@ componentDidMount() {
       <section className="people">
 			<div className="container">
 				<ul className="nav nav-tabs" role="tablist">
-					<li className="nav-item">
+					{/* <li className="nav-item">
 						<a className="nav-link active" id="people-tab" data-toggle="tab" href="#people" role="tab" aria-controls="people" aria-selected="true">PEOPLE</a>
+					</li> */}
+					<li className="nav-item">
+						<a className="nav-link active" id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="developers" aria-selected="false">DEVELOPERS</a>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="developers" aria-selected="false">DEVELOPERS</a>
-					</li>
-					<li className="nav-item">
-						<a className="nav-link" id="city-tab" data-toggle="tab" href="#city" role="tab" aria-controls="city" aria-selected="false">CITY</a>
+						<a className="nav-link" id="city-tab" data-toggle="tab" href="#city" role="tab" aria-controls="city" aria-selected="false">ARCHITECTS</a>
 					</li>
 				</ul>
 				<div className="tab-content">
-					<div className="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
+					{/* <div className="tab-pane fade " id="people" role="tabpanel" aria-labelledby="people-tab">
 						<div className="d-md-flex align-items-center">
 							<div className="col-md-5">
 								<img src={people} alt=""/>
@@ -113,14 +113,15 @@ componentDidMount() {
 							</div>
 						</div>
 					</div>
-					<div className="tab-pane fade" id="developers" role="tabpanel" aria-labelledby="developers-tab">
+					 */}
+					<div className="tab-pane fade show active" id="developers" role="tabpanel" aria-labelledby="developers-tab">
 						<div className="d-md-flex align-items-center">
 							<div className="col-md-5">
 								<img src={people} alt=""/>
 							</div>
 							<div className="col-md-7">
 								<h2 className="text-md-left text-center">DEVELOPERS</h2>
-								<p className="text-md-left text-center">People can voice their opinions to the developers directly Give real-time feedback on the development concepts Make requests for what they want their neighbourhood to offer Leverage their wants and needs to developers Quick transparent communication between people - developers - city</p>
+								<p className="text-md-left text-center"> EveryUrban helps developers scale, grow and maximize their businesses through collaboration with Architects around the world to create the best living communities for generations to come. </p>
 							</div>
 						</div>
 					</div>
@@ -130,8 +131,8 @@ componentDidMount() {
 								<img src={people} alt=""/>
 							</div>
 							<div className="col-md-7">
-								<h2 className="text-md-left text-center">CITY</h2>
-								<p className="text-md-left text-center">People can voice their opinions to the developers directly Give real-time feedback on the development concepts Make requests for what they want their neighbourhood to offer Leverage their wants and needs to developers Quick transparent communication between people - developers - city</p>
+								<h2 className="text-md-left text-center">ARCHITECTS</h2>
+								<p className="text-md-left text-center">EveryUrban helps Architects connect with real development projects, gain experience while maintaining creative freedom and making money. </p>
 							</div>
 						</div>
 					</div>
@@ -156,7 +157,7 @@ componentDidMount() {
 					<a href="#"><i className="fab fa-twitter"></i></a>
 					<a href="#"><i className="fab fa-linkedin-in"></i></a>
 				</div>
-				<p>EveryUrban 2019. All rights reserved.</p>
+				<p>EveryUrban 2020. All rights reserved.</p>
 			</div>
 		</footer>
 
