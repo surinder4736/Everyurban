@@ -21,13 +21,13 @@ class MenuComponent extends Component {
 					<a class="nav-link active" href="/"><i class="fas fa-home"></i> Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-lightbulb"></i> How it works</a>
+					<a class="nav-link" href="/howitwork"><i class="fas fa-lightbulb"></i> How it works</a>
 				</li>
 				{/* <li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Support</a>
 				</li> */}
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i><img src={aboutusIcon} alt=""/></i> About Us</a>
+					<a class="nav-link" href="/aboutus"><i><img src={aboutusIcon} alt=""/></i> About Us</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Resources</a>

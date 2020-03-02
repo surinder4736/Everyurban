@@ -91,56 +91,46 @@ componentDidMount() {
       <section className="people">
 			<div className="container">
 				<ul className="nav nav-tabs" role="tablist">
-					{/* <li className="nav-item">
-						<a className="nav-link active" id="people-tab" data-toggle="tab" href="#people" role="tab" aria-controls="people" aria-selected="true">PEOPLE</a>
-					</li> */}
+					
 					<li className="nav-item">
-						<a className="nav-link active" id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="developers" aria-selected="false">DEVELOPERS</a>
+						<a className="nav-link active" id="city-tab" data-toggle="tab" href="#city" role="tab" aria-controls="city" aria-selected="false">ARCHITECTS</a>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" id="city-tab" data-toggle="tab" href="#city" role="tab" aria-controls="city" aria-selected="false">ARCHITECTS</a>
+						<a className="nav-link " id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="developers" aria-selected="false">DEVELOPERS</a>
 					</li>
 				</ul>
 				<div className="tab-content">
-					{/* <div className="tab-pane fade " id="people" role="tabpanel" aria-labelledby="people-tab">
-						<div className="d-md-flex align-items-center">
-							<div className="col-md-5">
-								<img src={people} alt=""/>
-							</div>
-							<div className="col-md-7">
-								<h2 className="text-md-left text-center">PEOPLE</h2>
-								<p className="text-md-left text-center">People can voice their opinions to the developers directly Give real-time feedback on the development concepts Make requests for what they want their neighbourhood to offer Leverage their wants and needs to developers Quick transparent communication between people - developers - city</p>
-							</div>
-						</div>
-					</div>
-					 */}
-					<div className="tab-pane fade show active" id="developers" role="tabpanel" aria-labelledby="developers-tab">
-						<div className="d-md-flex align-items-center">
-							<div className="col-md-5">
-								<img src={people} alt=""/>
-							</div>
-							<div className="col-md-7">
-								<h2 className="text-md-left text-center">DEVELOPERS</h2>
-								<p className="text-md-left text-center"> EveryUrban helps developers scale, grow and maximize their businesses through collaboration with Architects around the world to create the best living communities for generations to come. </p>
-							</div>
-						</div>
-					</div>
-					<div className="tab-pane fade" id="city" role="tabpanel" aria-labelledby="city-tab">
+						<div className="tab-pane fade show active" id="city" role="tabpanel" aria-labelledby="city-tab">
 						<div className="d-md-flex align-items-center">
 							<div className="col-md-5">
 								<img src={people} alt=""/>
 							</div>
 							<div className="col-md-7">
 								<h2 className="text-md-left text-center">ARCHITECTS</h2>
-								<p className="text-md-left text-center">EveryUrban helps Architects connect with real development projects, gain experience while maintaining creative freedom and making money. </p>
+								<p className="text-md-left text-center">EveryUrban helps Architects connect with Real Development Projects, Gain Experience while maintaining Creative Freedom and Making Money.</p>
 							</div>
 						</div>
 					</div>
+					<div className="tab-pane fade  " id="developers" role="tabpanel" aria-labelledby="developers-tab">
+						<div className="d-md-flex align-items-center">
+							<div className="col-md-5">
+								<img src={people} alt=""/>
+							</div>
+							<div className="col-md-7">
+								<h2 className="text-md-left text-center">DEVELOPERS</h2>
+								<p className="text-md-left text-center"> EveryUrban helps Developers Scale, Grow and Maximize their Business through Collaborating with Architects Around the World to Create the Best Living Communities for Generations to come. </p>
+							</div>
+						</div>
+					</div>
+				
 				</div>
 			</div>
 		</section>
-     {/* Subscriber Image */}
+		 {/* Subscriber Image */}
+		 <div className="subscribe-section">
      <img src={subscribe} alt=""/>
+		 <div className="center-text">BE A PART OF THE CHANGE</div>
+		 </div>
       {/* footer section */}
       <footer>
 			<div className="container">
