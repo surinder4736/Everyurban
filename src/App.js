@@ -12,6 +12,8 @@ import SuccessPasswordChange from './components/SuccessPasswordChange';
 import UserList from './components/UserList';
 import ViewProfile from './components/ViewProfile';
 import DeveloperMessage from './components/DeveloperMessage';
+import HowItWork from './components/HowItWork';
+import AboutUs from './components/AboutUs';
 export default class App extends Component {
  // static displayName = App.name;
 
@@ -29,6 +31,8 @@ export default class App extends Component {
         <Route exact path='/developer' component={DeveloperMessage} />
         <Route  path='/profile/:profileUrl/:random' component={Profile} />
         <Route  path='/profileview/:profileUrl/:random' component={ViewProfile} />
+        <Route  path='/howitwork' component={HowItWork} />
+        <Route  path='/aboutus' component={AboutUs} />
         <Route exact path='*'  />
       </Layout>
     );

@@ -82,15 +82,18 @@ header .button a:hover { color:#02aae3; }
 .tableFixHead{ overflow-y: auto; height: 200px; }
 .tableFixHead table thead th { position: sticky; top: 0;background: rgb(219, 218, 213) }
 .banner-background .overlay { display:flex; align-items:center; justify-content:center; padding:100px 40px; background-repeat:no-repeat; background-position:50% 50%; background-size:contain; min-height:54.2vw; }
-.banner-background .overlay h2 { text-align:center; color:#fff;margin-bottom: 12px; }
+.banner-background .overlay h2 { text-align:center; color:#fff;margin-bottom: 12px;text-transform: uppercase }
 .banner-background .overlay h1 { color:#fff; font-size:42px; text-align:center; font-weight:700; margin:0 0 40px; line-height:1; }
 .banner-background .overlay a { display:table; margin:0 auto; }
 .banner-background .overlay a:hover { color:#111; }
+.subscribe-section{position: relative;text-align: center;color: white;}
+.subscribe-section .center-text{position: absolute;top: 50%;left: 42%;font-size: 25px}
 @media (max-width:768px) {
 	.banner-background{ background-repeat:no-repeat; background-position:50% 50%; background-size:cover;}
 	.banner-background .overlay { background-size:cover; }
 	.banner-background .overlay h1{ font-size:25px; }
 	.banner-background .overlay a { font-size:20px; }
+	.subscribe-section .center-text{left: 30%;}
 }
 
 .aim { padding:100px 0; }
