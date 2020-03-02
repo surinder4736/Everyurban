@@ -23,7 +23,7 @@ const{getCodeList,addNewCode,removeCode}=codeAction;
 class UserList extends Component {
     constructor(props) {
         super(props);
-		    this.state = {id:0,code:'',label:'',type:'',codeErrorMsg:'',labelErrorMsg:'',typeErrorMsg:''}
+		    this.state = {id:0,code:'',label:'',type:'',codeErrorMsg:'',labelErrorMsg:'',typeErrorMsg:'',modalTitle: ''}
 	  }
     componentDidMount(){
           const{dispatch}=this.props;
@@ -75,7 +75,7 @@ class UserList extends Component {
       this.clearFormCode();
     }
     clearFormCode(){
-      this.setState({ id:0,code:'',label:'',type:'' });
+      this.setState({ id:0,code:'',label:'',type:'',labelErrorMsg:'',codeErrorMsg:'',typeErrorMsg:'' });
     }
 
     componentWillReceiveProps(nextProps){
@@ -216,7 +216,7 @@ class UserList extends Component {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Code</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{this.state.id==0 ? 'Add New Code':'Update Code'}</h5>
         <button type="button" class="close" data-dismiss="modal" onClick={this.handleCloseModal.bind(this)} aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -232,14 +232,14 @@ class UserList extends Component {
     </div>
     <div class="form-row">
     <div class="form-group col-md-12">
-      <label for="inputEmail4">Label</label>
+      <label for="inputEmail4">Label <span style={{color:'red'}}>*</span></label>
       <input type="text" class="form-control" onChange={this.txtHandleLabel.bind(this)} value={this.state.label} id="txtLabel" placeholder="Label" />
       <div style={{color:'red'}}><small>{this.state.labelErrorMsg}</small></div>
     </div>
     </div>
     <div class="form-row">
     <div class="form-group col-md-12">
-      <label for="inputPassword4">Type</label>
+      <label for="inputPassword4">Type <span style={{color:'red'}}>*</span></label>
       <input type="text" class="form-control" id="inputPassword4" onChange={this.txtHandleType.bind(this)} value={this.state.type} placeholder="Type"/>
       <div style={{color:'red'}}><small>{this.state.typeErrorMsg}</small></div>
     </div>
