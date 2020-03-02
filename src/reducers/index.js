@@ -4,10 +4,11 @@ import profile from './profile';
 import education from './education';
 import experience from './experience';
 import language from './language';
+import code from './code';
 // Combine reducers with routeReducer which keeps track of
 // router state
 const rootReducer = combineReducers({
-    users,profile,education,experience,language
+    users,profile,education,experience,language,code
   });
   
   export default rootReducer;
