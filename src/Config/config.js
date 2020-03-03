@@ -1,9 +1,10 @@
 
 //import { ENV } from './env';
-const ENV = process.env.NODE_ENV || 'development';
-console.log("Server Mode:"+process.env.NODE_ENV)
+const ENV = process.env.NODE_ENV || 'staging';
+console.log("Server Mode:"+ENV)
 const envVars=require(`./config.${ENV}.js`);
-export const isProduction = ENV === 'production';
+export const isProduction = ENV === 'production' || 'staging';
+console.log(isProduction)
 export const isDebug = ENV === 'development' ;
 export const isClient = typeof window !== 'undefined';
 export const BASE_URL=envVars.BASE_URL;
