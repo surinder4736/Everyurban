@@ -6,13 +6,24 @@ a:hover { text-decoration:none; }
 h2 { font-size:15px; letter-spacing:3px; font-weight:400; margin:0 0 30px; }
 p { font-size:14px; color:#111; margin:0 0 20px; }
 
+.tableFixHead .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{
+	padding: 5px !important;
+}
+.tableFixHead .table>thead>th{
+	padding:  5px !important;
+}
+.tableFixHead .table>tbody>tr:hover{
+	background: gray;
+}
 .btn { height:40px; line-height:40px; border-width:1px; border-style:solid; padding:0 25px; border-radius:20px; font-size:13px; }
 .btn.cyan { border-color:#02aae3; color:#02aae3; }
 .btn.cyan:hover { border-color:#111; color:#111; }
 .btn.gradient { height:50px; line-height:46px; color:#fff; font-size:24px; font-weight:400; padding:0 30px; border-radius:25px; background:#02aae3; background:-moz-linear-gradient(left, #1571b2 0%, #02aae3 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#02aae3 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#02aae3 56%,#1571b2 100%); }
 .btn.gradient:hover { background:#1571b2; background:-moz-linear-gradient(left, #1571b2 0%, #1571b2 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#1571b2 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#1571b2 56%,#1571b2 100%); }
-
 /* FLAGS */
+.bt-style button {float: right;}
+.bt-style .btn-link:hover{text-decoration: none;} 
+.bt-style .btn-link:active{text-decoration: none;} 
 .flag{display:inline-block;position: relative;width:20px;height:15px;}
 
 header { padding:20px 0; }
@@ -43,7 +54,10 @@ header .button a:hover { color:#02aae3; }
 #menu .nav-item .nav-link.gray { border-top:1px solid #ddd; border-bottom:1px solid #ddd; color:#aaa; }
 #menu .nav-item .nav-link i { display:inline-block; width:30px; text-align:center; font-size:16px; padding-right:5px; }
 #menu .nav-item .nav-link i img { width:17px; height:17px; }
-#menu-bg { display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; overflow:hidden; background:rgba(0,0,0,0.1); z-index:490; }
+	#menu-bg { display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; overflow:hidden; background:rgba(0,0,0,0.1); z-index:490; }
+.banner-background{ background-repeat:no-repeat; background-position:50% 50%; background-size:contain;}
+.btn-round-none{border-radius: 0}
+
 
 #banner .overlay { display:flex; align-items:center; justify-content:center; padding:100px 40px; background-repeat:no-repeat; background-position:50% 50%; background-size:contain; min-height:54.2vw; }
 #banner .overlay h2 { text-align:center; color:#fff; }
@@ -67,10 +81,41 @@ header .button a:hover { color:#02aae3; }
 #help-center .content-wrapper #accordion .card{border: none;}
 #help-center .content-wrapper #accordion .card-header{    background-color: rgba(0,0,0,-1.97) !important}
 
+/* width */
+.tableFixHead::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+  /* Track */
+  .tableFixHead::-webkit-scrollbar-track {
+	background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .tableFixHead::-webkit-scrollbar-thumb {
+	background: #888; 
+  }
+  
+  /* Handle on hover */
+  .tableFixHead ::-webkit-scrollbar-thumb:hover {
+	background: #555; 
+  }
+  
+.tableFixHead{ overflow-y: auto; height: 200px; }
+.tableFixHead table thead th { position: sticky; top: 0;background: rgb(219, 218, 213) }
+.banner-background .overlay { display:flex; align-items:center; justify-content:center; padding:100px 40px; background-repeat:no-repeat; background-position:50% 50%; background-size:contain; min-height:54.2vw; }
+.banner-background .overlay h2 { text-align:center; color:#fff;margin-bottom: 12px;text-transform: uppercase }
+.banner-background .overlay h1 { color:#fff; font-size:42px; text-align:center; font-weight:700; margin:0 0 40px; line-height:1; }
+.banner-background .overlay a { display:table; margin:0 auto; }
+.banner-background .overlay a:hover { color:#111; }
+.subscribe-section{position: relative;text-align: center;color: white;}
+.subscribe-section .center-text{position: absolute;top: 50%;left: 42%;font-size: 25px}
 @media (max-width:768px) {
-	#banner .overlay { background-size:cover; }
-	#banner .overlay h1 { font-size:30px; }
-	#banner .overlay a { font-size:20px; }
+	.banner-background{ background-repeat:no-repeat; background-position:50% 50%; background-size:cover;}
+	.banner-background .overlay { background-size:cover; }
+	.banner-background .overlay h1{ font-size:25px; }
+	.banner-background .overlay a { font-size:20px; }
+	.subscribe-section .center-text{left: 30%;}
 }
 
 .aim { padding:100px 0; }
