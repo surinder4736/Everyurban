@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import  Header from './Header';
+import contactUsAction from '../actions/contactus';
 import validator from 'validator';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 import MenuComponent from './MenuComponent';
 import footerLogo from '../Images/logo-footer.png';
+const{addContactUs}=contactUsAction;
 export class ContactUs extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +16,31 @@ export class ContactUs extends Component {
     
 }
 componentDidMount() {
-  
+    const{dispatch}=this.props;
+}
+
+componentWillReceiveProps(nextProps){
+    const{dispatch}=this.props;
+    debugger
+    const{contactus}=nextProps;
+    if(contactus!=this.props.contactus){
+        if(contactus!=null && contactus.codeExecute=="Save"){
+            Swal.fire({
+                title: 'Good Job!',
+                text: contactus.successMessage,
+                icon: 'success',
+                confirmButtonText: 'OK'		
+              });
+              this.clearForm();
+        }if(contactus.message!=null && contactus.message.errorMessage!=null){
+            Swal.fire({
+                title: 'Oh No!',
+                text: contactus.message.errorMessage,
+                icon: 'error',
+                confirmButtonText: 'OK'		
+              });
+        }
+    }
 }
 
 txtFNameOnChange(e){
@@ -42,6 +70,7 @@ txtMessageOnChange(e){
 
 handleClickSave(e){
     e.preventDefault();
+    const{dispatch}=this.props;
     const{fname,lname,email,enquiry,message}=this.state; 
     try {
     if(validator.isEmpty(fname)==true){
@@ -65,9 +94,10 @@ handleClickSave(e){
             fname:fname,
             lname:lname,
             email:email,
-            enquiry:enquiry,
+            enquiry_type:enquiry,
             message:message
         }
+        dispatch(addContactUs(sendData));
     }
     } catch (error) {
         console.log(error);
@@ -112,7 +142,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
                         <div class="form-group">
                             <label for="subject">Type of Enquiry</label>
                             <select id="subject" name="enquirt-type" onChange={this.txtEnquiryOnChange.bind(this)} value={this.state.enquiry} class="form-control" required="required">
-                                <option value="na" selected="">Choose One:</option>
+                                <option value="" selected="">Choose One:</option>
                                 <option value="Architect">Architect</option>
                                 <option value="Developer">Developer</option>
                                 <option value="Other">Other</option>
@@ -180,12 +210,12 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
   }
 }
 
-// Home.propTypes = {
-//   user: PropTypes.object.isRequired
-// };
-// function mapStateToProps(state) {
-//     return {
-//       user: state.users.user
-//     };
-//   }
-export default ContactUs;
+ContactUs.propTypes = {
+    contactus: PropTypes.object.isRequired
+};
+function mapStateToProps(state) {
+    return {
+        contactus: state.contactUs.contactus
+    };
+  }
+export default connect(mapStateToProps)(ContactUs);

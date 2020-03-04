@@ -33,7 +33,7 @@ class MenuComponent extends Component {
 					<a class="nav-link" href="#"><i class="fas fa-users"></i> Social Media</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-headset"></i> Contact Us</a>
+					<a class="nav-link" href="/contactus"><i class="fas fa-headset"></i> Contact Us</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Resources</a>
