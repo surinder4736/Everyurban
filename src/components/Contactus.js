@@ -169,7 +169,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
             <form>
             <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
             <address>
-                <strong>Twitter, Inc.</strong><br />
+                <strong>EveryUrban Inc</strong><br />
                 795 Folsom Ave, Suite 600<br />
                 San Francisco, CA 94107<br />
                 <abbr title="Phone">
@@ -178,7 +178,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
             </address>
             <address>
                 <strong>Full Name</strong><br />
-                <a href="mailto:#">first.last@example.com</a>
+                <a href="mailto:#"> assist@everyurban.com</a>
             </address>
             </form>
         </div>
