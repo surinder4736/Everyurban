@@ -3,6 +3,7 @@ import Hamberg from './HamberHeader';
 import MenuComponent from './MenuComponent';
 import footerLogo from '../Images/logo-footer.png';
 import createLogo from '../Images/login-create.png';
+import TermsFile from '../Pdf/TermsFile.pdf';
 import Jquery from 'jquery';
 import ReactTooltip from 'react-tooltip';
 import userAction from '../actions/user';
@@ -187,7 +188,7 @@ class Signup extends Component {
 									<label for="toc">
 										{/* <input id="toc" type="checkbox" value="" checked={this.state.termsConditon} onChange={this.checkTermsCondition.bind(this)} /> */}
 										{/* <div className="checkmark"></div> */}
-										I have read and agree the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>.
+										I have read and agree the <a href={TermsFile} target="_blank">Terms of Service</a> and <a href={TermsFile} target="_blank">Privacy Policy</a>.
 									</label>
 								{/* <div className="errorMsg" style={{height:'20px'}}>{this.state.termsValidate}</div> */}
 								</div>

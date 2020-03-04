@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import footerLogo from '../Images/logo-footer.png';
+import TermsFile from '../Pdf/TermsFile.pdf';
+
 class Footer extends Component {
     constructor(props) {
         super(props);
@@ -11,10 +13,10 @@ class Footer extends Component {
                  <footer>
 			<div className="container">
 			<div className="useful-link">
-					<a href="#">About<span id="vh">|</span></a> 
-					<a href="#">Terms of Service<span id="vh">|</span></a>  
-					<a href="#">Privacy Policy<span id="vh">|</span></a>  
-					<a href="#">Contact</a>
+					<a href="/aboutus">About<span id="vh">|</span></a> 
+					<a href={TermsFile} target="_blank">Terms of Service<span id="vh">|</span></a>  
+					<a href={TermsFile} target="_blank">Privacy Policy<span id="vh">|</span></a>  
+					<a href="/contactus">Contact</a>
 				</div>
 				<img src={footerLogo} alt=""/>
 				<div className="social">
