@@ -7,7 +7,7 @@ import banner from '../Images/banner.jpg';
 import aim from '../Images/aim.png';
 import people from '../Images/people-300x294.jpg';
 import subscribe from '../Images/subscribe-1.jpg';
-import footerLogo from '../Images/logo-footer.png';
+import Footer from './Footer';
 export class Home extends Component {
   static displayName = Home.name;
 
@@ -132,25 +132,7 @@ componentDidMount() {
 		 <div className="center-text">BE A PART OF THE CHANGE</div>
 		 </div>
       {/* footer section */}
-      <footer>
-			<div className="container">
-			<div className="useful-link">
-					<a href="#">About<span id="vh">|</span></a> 
-					<a href="#">Terms of Service<span id="vh">|</span></a>  
-					<a href="#">Privacy Policy<span id="vh">|</span></a>  
-					<a href="#">Contact</a>
-				</div>
-				<img src={footerLogo} alt=""/>
-				<div className="social">
-					<a href="#"><i className="fab fa-facebook-f"></i></a>
-					<a href="#"><i className="fab fa-instagram"></i></a>
-					<a href="#"><i className="fab fa-twitter"></i></a>
-					<a href="#"><i className="fab fa-linkedin-in"></i></a>
-				</div>
-				<p>EveryUrban 2020. All rights reserved.</p>
-			</div>
-		</footer>
-
+     <Footer />
       </div>
       );
   }

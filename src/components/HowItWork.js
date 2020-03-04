@@ -8,6 +8,7 @@ import MenuComponent from './MenuComponent';
 // import people from '../Images/people-300x294.jpg';
 // import subscribe from '../Images/subscribe-1.jpg';
 import footerLogo from '../Images/logo-footer.png';
+import Footer from './Footer';
 export class HowItWork extends Component {
  // static displayName = Home.name;
 
@@ -40,36 +41,9 @@ componentDidMount() {
    
 
      {/* Footer section */}
-      <footer>
-			<div className="container">
-			<div className="useful-link">
-					<a href="#">About<span id="vh">|</span></a> 
-					<a href="#">Terms of Service<span id="vh">|</span></a>  
-					<a href="#">Privacy Policy<span id="vh">|</span></a>  
-					<a href="#">Contact</a>
-				</div>
-				<img src={footerLogo} alt=""/>
-				<div className="social">
-					<a href="#"><i className="fab fa-facebook-f"></i></a>
-					<a href="#"><i className="fab fa-instagram"></i></a>
-					<a href="#"><i className="fab fa-twitter"></i></a>
-					<a href="#"><i className="fab fa-linkedin-in"></i></a>
-				</div>
-				<p>EveryUrban 2020. All rights reserved.</p>
-			</div>
-		</footer>
-
+      <Footer />
       </div>
       );
   }
 }
-
-// Home.propTypes = {
-//   user: PropTypes.object.isRequired
-// };
-// function mapStateToProps(state) {
-//     return {
-//       user: state.users.user
-//     };
-//   }
 export default HowItWork;

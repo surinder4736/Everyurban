@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import MenuComponent from './MenuComponent';
 import footerLogo from '../Images/logo-footer.png';
+import Footer from './Footer';
 const{addContactUs}=contactUsAction;
 export class ContactUs extends Component {
   constructor(props) {
@@ -115,7 +116,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
         <MenuComponent />
         {/* Slider */}
     <section id="contact-us" className="container" >
-        <div className="title">
+        <div className="titles">
             <h1>Contact Us</h1><hr/>
         </div>
     <div className="container p-0">
@@ -185,26 +186,8 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
 </div>
 
     </section>
-     
-      <footer>
-			<div className="container">
-			<div className="useful-link">
-					<a href="#">About<span id="vh">|</span></a> 
-					<a href="#">Terms of Service<span id="vh">|</span></a>  
-					<a href="#">Privacy Policy<span id="vh">|</span></a>  
-					<a href="#">Contact</a>
-				</div>
-				<img src={footerLogo} alt=""/>
-				<div className="social">
-					<a href="#"><i className="fab fa-facebook-f"></i></a>
-					<a href="#"><i className="fab fa-instagram"></i></a>
-					<a href="#"><i className="fab fa-twitter"></i></a>
-					<a href="#"><i className="fab fa-linkedin-in"></i></a>
-				</div>
-				<p>EveryUrban 2020. All rights reserved.</p>
-			</div>
-		</footer>
-
+     {/* Footer section */}
+     <Footer />
       </div>
       );
   }

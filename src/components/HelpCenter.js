@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import  Header from './Header';
 import MenuComponent from './MenuComponent';
 import footerLogo from '../Images/logo-footer.png';
+import Footer from './Footer';
 export class HelpCenter extends Component {
   //static displayName = Home.name;
 
@@ -22,7 +23,7 @@ componentDidMount() {
         <MenuComponent />
         {/* Slider */}
     <section id="help-center"  className="container">
-        <div className="title" >
+        <div className="titles" >
             <h1>Help Center</h1><hr></hr>
         </div>
 <div id="content-wrapper" className="container p-0 content-wrapper">
@@ -113,25 +114,8 @@ componentDidMount() {
 </div>
         </div>
 	</section>	
-      <footer>
-			<div className="container">
-			<div className="useful-link">
-					<a href="#">About<span id="vh">|</span></a> 
-					<a href="#">Terms of Service<span id="vh">|</span></a>  
-					<a href="#">Privacy Policy<span id="vh">|</span></a>  
-					<a href="#">Contact</a>
-				</div>
-				<img src={footerLogo} alt=""/>
-				<div className="social">
-					<a href="#"><i className="fab fa-facebook-f"></i></a>
-					<a href="#"><i className="fab fa-instagram"></i></a>
-					<a href="#"><i className="fab fa-twitter"></i></a>
-					<a href="#"><i className="fab fa-linkedin-in"></i></a>
-				</div>
-				<p>EveryUrban 2019. All rights reserved.</p>
-			</div>
-		</footer>
-
+      {/* Footer Section */}
+      <Footer />
       </div>
       );
   }
