@@ -53,8 +53,9 @@
     "extends": "react-app"
   },
   "scripts": {
-    "start": "Serve -l tcp://localhost:8083 -s build",
-    "dev": "react-scripts start",
+    "start": "Serve -l tcp://localhost:8080 -s build",
+    "staging:window": "serve -s build -l 8083",
+    "dev": "SET NODE_ENV=development &&SET PORT=3000 &&react-scripts start",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
