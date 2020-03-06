@@ -89,7 +89,8 @@ header .button a:hover { color:#02aae3; }
 #help-center .content-wrapper .arrow-icon > a[aria-expanded="true"]:after {content: "\f062" !important; /* fa-chevron-up */}
 #help-center .content-wrapper #accordion .card{border: none;}
 #help-center .content-wrapper #accordion .card-header{    background-color: rgba(0,0,0,-1.97) !important}
-
+#help-center .search-bar{background: lightgrey; padding: 30px;}
+#help-center .search-bar input{height: 40px;border: none;}
 /* width */
 .tableFixHead::-webkit-scrollbar {
 	width: 10px;
