@@ -26,18 +26,46 @@ componentDidMount() {
         <Header />
         <MenuComponent />
 				{/* Slider */}
-		   <section id="banner" >
-               <div className="container">
-               <h1>How It Work</h1><hr></hr>
+		   <section id="howitwork" >
+               <div className="howitwork-body">
+               <h1>How It Work</h1>
                <p>
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                 We help Developers and Architects collaborate to create communities fit for the future through a global community. 
                </p>
                </div>
-			</section>
+               <div className="howitwork-content">
+                    <h1>Sign Up</h1>
+                    <div className="list-body">
+                      <div className="numbers"><h2>1</h2></div>
+                      <div className="item-list">
+                      <p>Its free and only takes a couple seconds. Make sure you confirm your e-mail account.</p>
+                      <p>Developers will be contacted by our support team with instructions for project submission.</p>
+                      <p>Architects will need to complete their profile in order to receive project notifications.</p>
+                     </div>
+                   </div>
+                   
+                   <h1>Project Brief</h1>
+                    <div className="list-body">
+                      <div className="numbers"><h2>2</h2></div>
+                      <div className="item-list">
+                      <p>Developer briefs are reviewed by the EveryUrban team and details finalized before circulating to the Architect community.</p>
+                      <p>Architects can discover projects that inspire them and submit their creative ideas through our project brief template to bid for the schematic design contract.</p>
+                      </div>
+                   </div>
+
+
+                   <h1>Partnership</h1>
+                    <div className="list-body">
+                      <div className="numbers"><h2>3</h2></div>
+                      <div className="item-list">
+                      <p>Proposals that interest the Developer will be reviewed by an EveryUrban licensed local certified Architect partner to assess viability.</p>
+                      <p>If the Developer wants to move forward with you idea, you will receive a contract for the project. </p>
+                       </div>
+                   </div>
+
+               </div>
+              
+    	</section>
    
 
      {/* Footer section */}
