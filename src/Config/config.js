@@ -4,7 +4,7 @@ const ENV =  process.env.NODE_ENV || 'development';
 console.log("Server Mode:"+ENV)
 const envVars=require(`./config.${ENV}.js`);
 export const isProduction = ENV === 'production' || 'staging';
-export const isDebug = ENV === 'development' || 'staging' ;
+export const isDebug = ENV === 'development';
 export const isClient = typeof window !== 'undefined';
 export const BASE_URL=envVars.BASE_URL;
 export const APIURL=envVars.APIURL;
