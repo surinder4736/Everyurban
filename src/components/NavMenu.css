@@ -52,6 +52,7 @@ header .button a:hover { color:#02aae3; }
 #menu .nav-item .nav-link.active { box-shadow:-50px 0 0 #2e76ee; cursor:default; }
 #menu .nav-item .nav-link:not(.active):hover { color:#2e76ee; }
 #menu .nav-item .nav-link.gray { border-top:1px solid #ddd; border-bottom:1px solid #ddd; color:#aaa; }
+#menu .nav-item .nav-link.gray:hover{color:#aaa;}
 #menu .nav-item .nav-link i { display:inline-block; width:30px; text-align:center; font-size:16px; padding-right:5px; }
 #menu .nav-item .nav-link i img { width:17px; height:17px; }
 	#menu-bg { display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; overflow:hidden; background:rgba(0,0,0,0.1); z-index:490; }
@@ -124,13 +125,20 @@ header .button a:hover { color:#02aae3; }
 	.banner-background .overlay h1{ font-size:25px; }
 	.banner-background .overlay a { font-size:20px; }
 	.subscribe-section .center-text{left: 20%;font-size: 23px;}
-	#howitwork .howitwork-body p{width: 12em;}
+	#howitwork{overflow-x: hidden}
+	#howitwork .howitwork-body p{width: 12em;font-size: 24px;}
+	#howitwork .howitwork-content{padding: 0px;margin-bottom: 20px;width: 25em}
+	#howitwork .howitwork-content h1 { text-align: center;padding: 3px 0 9px 0;font-weight: 400;color: #5ab3f3;}
+	#howitwork .howitwork-content .list-body {font-size: 17px;display: -ms-flexbox;display: flex;margin-left: auto;margin-right: 206px;width: 23em;}
+	#howitwork .howitwork-content .list-body .numbers h2 {font-size: 119px;margin: 6px 4px;color: #5ab3f3;}
+	#howitwork .howitwork-content .list-body .item-list p {font-size: 22px;color: #5ab3f3;line-height: 28px;text-shadow: 1px 1px #e6e6e8;}
 }
 
 @media (max-width:500px) and (min-width:320px) {
 	.banner-background .overlay h1{ font: size 20px; }
 	.banner-background .overlay a { font-size:18px; }
 	.subscribe-section .center-text{left: 17%;font-size: 18px;}
+	#howitwork .howitwork-content .list-body {font-size: 17px;display: -ms-flexbox; display: flex; margin-left: auto; margin-right: 206px;  width: 20em;}
 }
 .aim { padding:100px 0; }
 .aim h2 { color:#111; }
