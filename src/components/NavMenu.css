@@ -91,6 +91,8 @@ header .button a:hover { color:#02aae3; }
 #help-center .content-wrapper #accordion .card-header{    background-color: rgba(0,0,0,-1.97) !important}
 #help-center .search-bar{background: lightgrey; padding: 30px;}
 #help-center .search-bar input{height: 40px;border: none;}
+#help-center .search-bar .has-search .form-control {padding-left: 2.375rem;}	
+#help-center .search-bar .has-search .form-control-feedback {position: absolute;	z-index: 2;display: block;width: 2.375rem;height: 2.375rem;line-height: 2.375rem;text-align: center;pointer-events: none;color: #aaa;}
 /* width */
 .tableFixHead::-webkit-scrollbar {
 	width: 10px;
