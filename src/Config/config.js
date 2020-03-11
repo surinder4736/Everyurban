@@ -1,6 +1,6 @@
 
- //import { ENV } from './env';
-const ENV =  process.env.NODE_ENV || 'development';
+//import { ENV } from './.env.sta';
+const ENV =  process.env.REACT_APP_CUSTOM_NODE_ENV || 'development';
 console.log("Server Mode:"+ENV)
 const envVars=require(`./config.${ENV}.js`);
 export const isProduction = ENV === 'production' || 'staging';
