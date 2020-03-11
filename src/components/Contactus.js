@@ -27,7 +27,7 @@ componentWillReceiveProps(nextProps){
     if(contactus!=this.props.contactus){
         if(contactus!=null && contactus.codeExecute=="Save"){
             Swal.fire({
-                title: 'Good Job!',
+                title: 'Success!',
                 text: contactus.successMessage,
                 icon: 'success',
                 confirmButtonText: 'OK'		
@@ -177,7 +177,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
                 (123) 456-7890
             </address>
             <address>
-                <strong>Full Name</strong><br />
+                <strong>Contact Email</strong><br />
                 <a href="mailto:#"> assist@everyurban.com</a>
             </address>
             </form>
