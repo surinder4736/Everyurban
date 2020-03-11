@@ -20,7 +20,7 @@ const{register} = userAction;
 class Signup extends Component {
     constructor(props) {
         super(props);
-        this.state = {messageServerside:'',passwordViewMode:false,conPwdViewMode:false,title:'Password Show',email:'',password:'',roleType:'',termsConditon:false,emailValidate:'',passValidate:'',roleValidate:'',termsValidate:'' }
+        this.state = {messageServerside:'',passwordViewMode:false,conPwdViewMode:false,title:'Password Show',email:'',password:'',roleType:'',termsConditon:false,emailValidate:'',passValidate:'',roleValidate:'',termsValidate:'',code:'',codeValidate:'' }
 				this.handlePasswordEnter=this.handlePasswordEnter.bind(this);
 			}
 	
@@ -47,6 +47,10 @@ class Signup extends Component {
 		txtPasswordChangeHandle(event){
 			this.setState({password:event.target.value,passValidate:''});
 		}
+		//Code TextChange
+		txtCodeChangeHandle(e){
+			this.setState({ code:e.target.value,codeValidate:'' });
+		}
 		// Role Change
 		checkRoleHandle(event){
 			this.setState({roleType:event.target.value, roleValidate:''});
@@ -66,6 +70,7 @@ class Signup extends Component {
 			let emailId=this.state.email;
 			let password=this.state.password;
 			let roleTypes=this.state.roleType;
+			let code=this.state.code;
 			let terms=this.state.termsConditon;
 			let strongRegex =new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9!@#\$%\^&\*])(?=.{6,12})");
 			if(validator.isEmpty(emailId)===true){
@@ -81,7 +86,9 @@ class Signup extends Component {
 			}else if(strongRegex.test(password)===false){
 				curObj.setState({passValidate:'Please enter a valid password '});
 			}
-			
+			if(validator.isEmpty(code)){
+				curObj.setState({codeValidate:'Please Enter the promotion code'});
+			}
 			if(validator.isEmpty(roleTypes)){
 				curObj.setState({roleValidate:'Please Choose your Role'});
 			}
@@ -89,23 +96,25 @@ class Signup extends Component {
 			// 	curObj.setState({termsValidate:'Please accept terms and privacy'});
 			// }
 
-			if(validator.isEmpty(emailId)===false && strongRegex.test(password)===true && validator.isEmail(emailId)===true && validator.isEmpty(password)===false && validator.isEmpty(roleTypes)===false){
+			if(validator.isEmpty(emailId)===false && strongRegex.test(password)===true && validator.isEmail(emailId)===true && validator.isEmpty(password)===false && validator.isEmpty(code)===false && validator.isEmpty(roleTypes)===false){
 				const {dispatch} = this.props;
 				const data={
 						email:emailId,
 						password:password,
 						role_type:roleTypes,
-						terms_condition:terms
+						terms_condition:terms,
+						code:code
 				}
 				dispatch(register(data));
 			}
 		}
 
      clearForm=()=>{
-			this.setState({ email:'',password:'',roleType:'',termsConditon:false});
+			this.setState({ email:'',password:'',roleType:'',termsConditon:false,code:''});
 		}
 
 		componentWillReceiveProps(nextProps){
+			debugger
 			const{user}=nextProps;
 			if(nextProps.user!=null && user!=this.props.user){
 				if(user.auth===true && user.success_msg==="OK"){
@@ -117,6 +126,15 @@ class Signup extends Component {
 					});
 					this.setState({messageServerside:''});
 				   this.clearForm();
+				}
+				else if(user.message.codeExcute=="Invalid" && user.message.status==404){
+					const{user:{message}}=nextProps;
+					Swal.fire({
+						title: 'Error!',
+						text: message.errorMessage,
+						icon: 'error',
+						confirmButtonText: 'Cancel'		
+					});
 				}
 				else if(user.message.existMsg=="Exist" && user.message.statusCode==409){
 					let errorMsg="Sorry this user already exists";
@@ -170,6 +188,10 @@ class Signup extends Component {
 								 <span id="questionMark" data-tip="Password must be atleast 7 characters and must contain atleast 1 numeric or special character" className="fas fa-question"></span>
 								<ReactTooltip  />
 								<div className="errorMsg" style={{height:'20px'}}>{this.state.passValidate}</div>
+								{/* Specific code */}
+								<input type="text" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Promotion Code" />
+								<div className="errorMsg">{this.state.codeValidate}</div>
+								
 								<div className="radios">
 									<label for="builder">
 										<input type="radio" checked={this.state.roleType=="developer"} onChange={this.checkRoleHandle.bind(this)} name="type" id="builder" value="developer"  />

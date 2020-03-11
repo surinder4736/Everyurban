@@ -46,7 +46,7 @@ getCodeList(){
             axios.get(`${APIURL}code/getAll` )
                 .then(response => {
                     var data=response.data;
-                    dispatch(getCodeListSuccess(data));
+                     dispatch(getCodeListSuccess(data));
                    dispatch(requestSuccess());
             }).catch((error) => {
                 dispatch(requestFailure());

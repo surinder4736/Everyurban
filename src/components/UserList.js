@@ -93,13 +93,22 @@ class UserList extends Component {
           dispatch(codeAction.getCodeList());
           this.clearFormCode(); 
         }
+        if(tableCode.message!=null && tableCode.message.codeExecute=="Denied"){
+          const{message:{errorMessage}}=tableCode;
+          Swal.fire({
+            title: 'Oh No!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'Cancel'		
+          });
+        }
         if(tableCode.message!=null && tableCode.message.status==501){
           const{message:{errorMessage}}=tableCode;
           Swal.fire({
             title: 'Oh No!',
             text: errorMessage,
             icon: 'error',
-            confirmButtonText: 'OK'		
+            confirmButtonText: 'Cancel'		
           });
         }
       }
@@ -127,8 +136,8 @@ class UserList extends Component {
       const{dispatch}=this.props;
       e.preventDefault();
       confirmAlert({
-				title: 'Remove Experience',
-				message: 'Are you sure to remove experience',
+				title: 'Remove Promotion code',
+				message: 'Are you sure to remove promotion code',
 				buttons: [
 				  {
           label: 'Yes',
@@ -284,6 +293,7 @@ class UserList extends Component {
                           email:item.email,role_type:item.role_type,
                           verified:item.is_email_verified,
                           profileStatus:item.UserProfile.isCompleted==true?'true':'false',
+                          code:item.code,
                           link:(item.role_type=="developer") ? "N/A" : "profile/"+item.unique_userid+"/"+item.random_id    
                       }
                       columndata.push(Objdata);	
@@ -343,6 +353,11 @@ class UserList extends Component {
                 {
                   name: 'Profile Status',
                   selector: 'profileStatus',
+                  sortable: true,
+                },
+                {
+                  name: 'Code',
+                  selector: 'code',
                   sortable: true,
                 },
                 {
