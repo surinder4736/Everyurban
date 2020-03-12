@@ -14,16 +14,16 @@ export class HelpCenter extends Component {
       keywords:'',
       errorMessage:'',
       initialCollapse:[{
-      title:'Management',
-      body:`This is Mananagemen and Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
+      title:'Sign Up',
+      body:`Its free and only takes a couple seconds. Make sure you confirm your e-mail account.Developers will be contacted by our support team with instructions for project submission.Architects will need to complete their profile in order to receive project notifications.`
       },
       {
-        title:'Abstract',
-        body:`This is Abstract and Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
+        title:'Project Brief',
+        body:`Developer briefs are reviewed by the EveryUrban team and details finalized before circulating to the Architect community.Architects can discover projects that inspire them and submit their creative ideas through our project brief template to bid for the schematic design contract.        `
         },
         {
-          title:'Project',
-          body:`This is Project and Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
+          title:'Partnership',
+          body:`Proposals that interest the Developer will be reviewed by an EveryUrban licensed local certified Architect partner to assess viability.If the Developer wants to move forward with you idea, you will receive a contract for the project.`
           }
     ],
     Items:[]

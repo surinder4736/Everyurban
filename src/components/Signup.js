@@ -189,7 +189,7 @@ class Signup extends Component {
 								<ReactTooltip  />
 								<div className="errorMsg" style={{height:'20px'}}>{this.state.passValidate}</div>
 								{/* Specific code */}
-								<input type="text" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Promotion Code" />
+								<input type="text" id="inputPassword" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Promotion Code" />
 								<div className="errorMsg">{this.state.codeValidate}</div>
 								
 								<div className="radios">
