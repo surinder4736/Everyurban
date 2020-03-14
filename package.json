@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "env-cmd": "^10.1.0",
     "jquery": "^3.4.1",
     "jquery-confirm": "^3.3.4",
     "moment": "^2.24.0",
@@ -54,7 +55,7 @@
   },
   "scripts": {
     "clean": "rimraf public && rimraf compiled",
-    "start": "SET PORT=9080 &&env-cmd -f ./src/Config/.env.production react-scripts start",
+    "start": "cross-env PORT=8080 env-cmd -f ./src/Config/.env.production react-scripts start",
     "staging:window": "SET PORT=8083 &&env-cmd -f ./src/Config/.env.staging react-scripts start",
     "dev": "SET NODE_ENV=development &&SET PORT=3000 &&react-scripts start",
     "build": "react-scripts build",
@@ -62,6 +63,6 @@
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/",
-    "list":"serve -h"
+    "list": "serve -h"
   }
 }
