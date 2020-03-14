@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "env-cmd": "^10.1.0",
     "jquery": "^3.4.1",
     "jquery-confirm": "^3.3.4",
     "moment": "^2.24.0",
@@ -62,6 +63,6 @@
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/",
-    "list":"serve -h"
+    "list": "serve -h"
   }
 }
