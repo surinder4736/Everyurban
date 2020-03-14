@@ -1,4 +1,6 @@
-﻿body { font-family:"Segoe UI", Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif; color:#111; }
+﻿						
+@import url('//db.onlinewebfonts.com/c/1e4d69a8788a2c77c28207e37a7659bc?family=NeoTech');
+body { font-family:"Segoe UI", Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif; color:#111; }
 body.gray { background:#dcdcdc; }
 img { width:100%; }
 a { transition:all 200ms ease-out; }
@@ -61,13 +63,13 @@ header .button a:hover { color:#02aae3; }
 
 
 #howitwork .howitwork-body{background: #1571b2;color: white;padding: 40px;margin-bottom: 20px;}
-#howitwork .howitwork-body h1{text-align: center; padding: 40px 0 10px 0;font-weight: 700;font-family: 'NeoTech-Bold';}
-#howitwork .howitwork-body p{font-size:30px;text-align: center; margin-left: auto;margin-right: auto;width: 23em;color: white;font-weight: 600;font-family: Neo Tech;padding-bottom: 55px;}
+#howitwork .howitwork-body h1{text-align: center; padding: 40px 0 10px 0;font-weight: 800;font-family: "NeoTech";}
+#howitwork .howitwork-body p{font-size:23px;text-align: center; margin-left: auto;margin-right: auto;width: 23em;color: white;font-weight: 600;font-family: "NeoTech";padding-bottom: 55px;}
 #howitwork .howitwork-content{ padding: 40px;margin-bottom: 20px;width: 81em;}
-#howitwork .howitwork-content h1{text-align: center; padding: 40px 0 10px 0;font-weight: 600;color: #5ab3f3}
+#howitwork .howitwork-content h1{text-align: center; padding: 40px 0 10px 0;font-weight: 600;color: #5ab3f3;font-family: "NeoTech"}
 #howitwork .howitwork-content .list-body{font-size:30px;display: flex; margin-left: auto;margin-right: 207px;width: 23em;}
-#howitwork .howitwork-content .list-body .numbers h2{font-size:200px;margin: -19px 14px; color: #5ab3f3;}
-#howitwork .howitwork-content .list-body .item-list p{font-size: 27px;color: #5ab3f3;line-height: 32px;}
+#howitwork .howitwork-content .list-body .numbers h2{font-size:200px;margin: -18px 17px; color: #5ab3f3;}
+#howitwork .howitwork-content .list-body .item-list p{font-family: "NeoTech";font-size: 27px;color: #5ab3f3;line-height: 32px;}
 #banner .overlay { display:flex; align-items:center; justify-content:center; padding:100px 40px; background-repeat:no-repeat; background-position:50% 50%; background-size:contain; min-height:54.2vw; }
 #banner .overlay h2 { text-align:center; color:#fff; }
 #banner .overlay h1 { color:#fff; font-size:42px; text-align:center; font-weight:700; margin:0 0 40px; line-height:1; }
@@ -213,6 +215,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 #login .holder .right input[type="text"] { background-image:url("../Images/login-user.png"); }
 /* #login .holder .right input[type="password"] { background-image:url("../Images/login-pass.png"); } */
 #login .holder .right #inputPassword { background-image:url("../Images/login-pass.png"); }
+login .holder .right #inputCode { background-image:url("../Images/login-pass.png") }
 #login #viewPass{position: relative;margin-top: -33px;margin-right: 51px;z-index: 2;float: right;display: none;}
 #login #questionMark{ cursor: pointer; margin-top: -33px;position: relative;margin-right: 20px;float: right;}
 #login .__react_component_tooltip.place-top{width: 200px;text-align: left;word-wrap: none;}
