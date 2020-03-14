@@ -53,11 +53,15 @@
     "extends": "react-app"
   },
   "scripts": {
-    "start": "Serve -l tcp://localhost:8083 -s build",
-    "dev": "react-scripts start",
+    "clean": "rimraf public && rimraf compiled",
+    "start": "SET PORT=9080 &&env-cmd -f ./src/Config/.env.production react-scripts start",
+    "staging:window": "SET PORT=8083 &&env-cmd -f ./src/Config/.env.staging react-scripts start",
+    "dev": "SET NODE_ENV=development &&SET PORT=3000 &&react-scripts start",
     "build": "react-scripts build",
+    "build:staging": "env-cmd -f ./src/Config/.env.staging react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "list":"serve -h"
   }
 }

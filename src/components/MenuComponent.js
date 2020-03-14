@@ -3,6 +3,7 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 import aboutusIcon from '../Images/logo-icon-black.png';
+import TermsFile from '../Pdf/TermsFile.pdf';
 import './NavMenu.css';
 var jQuery= require('jquery');
 class MenuComponent extends Component {
@@ -21,23 +22,24 @@ class MenuComponent extends Component {
 					<a class="nav-link active" href="/"><i class="fas fa-home"></i> Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-lightbulb"></i> How it works</a>
+					<a class="nav-link" href="/howitwork"><i class="fas fa-lightbulb"></i> How it works</a>
 				</li>
-				<li class="nav-item">
+				{/* <li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Support</a>
-				</li>
+				</li> */}
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i><img src={aboutusIcon} alt=""/></i> About Us</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-users"></i> Social Media</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-headset"></i> Contact Us</a>
+					<a class="nav-link" href="/aboutus"><i><img src={aboutusIcon} alt=""/></i> About Us</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link gray" href="#"><i>&nbsp;</i> Resources</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/contactus"><i class="fas fa-headset"></i> Contact Us</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/helpcenter"><i class="fas fa-users"></i>Help Center</a>
+				</li>
+				
 				{(window.location.pathname.indexOf('/profile')>-1) || (window.location.pathname.indexOf('/admin')>-1) ||
 				<div>
 				<li class="nav-item">
@@ -50,10 +52,10 @@ class MenuComponent extends Component {
 				</div>
 				}
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-file-alt"></i> Terms of Service</a>
+					<a class="nav-link" href={TermsFile} target="_blank"><i class="fas fa-file-alt"></i> Terms of Service</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-scroll"></i> Privacy Policy</a>
+					<a class="nav-link" href={TermsFile}target="_blank"><i class="fas fa-scroll"></i> Privacy Policy</a>
 				</li>
 			</ul>
 		</div>
