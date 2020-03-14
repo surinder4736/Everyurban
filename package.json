@@ -55,7 +55,7 @@
   },
   "scripts": {
     "clean": "rimraf public && rimraf compiled",
-    "start": "SET PORT=9080 &&env-cmd -f ./src/Config/.env.production react-scripts start",
+    "start": "cross-env PORT=8080 env-cmd -f ./src/Config/.env.production react-scripts start",
     "staging:window": "SET PORT=8083 &&env-cmd -f ./src/Config/.env.staging react-scripts start",
     "dev": "SET NODE_ENV=development &&SET PORT=3000 &&react-scripts start",
     "build": "react-scripts build",
