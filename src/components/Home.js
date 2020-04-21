@@ -6,6 +6,8 @@ import MenuComponent from './MenuComponent';
 import banner from '../Images/banner.jpg';
 import aim from '../Images/aim.png';
 import people from '../Images/people-300x294.jpg';
+import city from '../Images/city.jpg';
+import developers from '../Images/developers.jpg'
 import subscribe from '../Images/subscribe-1.jpg';
 import Footer from './Footer';
 export class Home extends Component {
@@ -38,7 +40,7 @@ componentDidMount() {
 						</div>
 					</div>
 				</div>
-				<div className="carousel-item">
+				{/* <div className="carousel-item">
 					<div className="overlay"  >
 						<div>
 							<h2>We Aim to Create Cities Designed for People</h2>
@@ -56,7 +58,7 @@ componentDidMount() {
 							<a className="btn gradient" href="#">Get Started</a>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			
 
 			</div>
@@ -73,7 +75,7 @@ componentDidMount() {
 						<img src={aim} alt=""/>
 					</div>
 					<div className="col-md-7">
-						<h2 className="text-md-left text-center">WE AIM TO CREATE CITIES DESIGNED FOR PEOPLE</h2>
+						<h2 className="text-md-left text-center">We Aim to Create Cities Designed for People</h2>
 						<p className="text-md-left text-center">Crowdsourcing ideas for next generation urban space development.</p>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
@@ -83,7 +85,7 @@ componentDidMount() {
       {/* Warning Section */}
       <section className="winning">
 			<div className="container">
-				<h2>A WINNING COMBINATION FOR DEVELOPERS, CITY AND THE PEOPLE IN THE NEIGHBOURHOOD.</h2>
+				<h2>A Winning Combination For Developers, City And The People In The Neighbourhood.</h2>
 				<p>EveryUrban is a new startup aiming to make urban planning and master planned developments social.</p>
 			</div>
 		</section>
@@ -103,7 +105,7 @@ componentDidMount() {
 						<div className="tab-pane fade show active" id="city" role="tabpanel" aria-labelledby="city-tab">
 						<div className="d-md-flex align-items-center">
 							<div className="col-md-5">
-								<img src={people} alt=""/>
+								<img src={developers} alt=""/>
 							</div>
 							<div className="col-md-7">
 								<h2 className="text-md-left text-center">ARCHITECTS</h2>
@@ -114,7 +116,7 @@ componentDidMount() {
 					<div className="tab-pane fade  " id="developers" role="tabpanel" aria-labelledby="developers-tab">
 						<div className="d-md-flex align-items-center">
 							<div className="col-md-5">
-								<img src={people} alt=""/>
+								<img src={city} alt=""/>
 							</div>
 							<div className="col-md-7">
 								<h2 className="text-md-left text-center">DEVELOPERS</h2>
@@ -129,7 +131,7 @@ componentDidMount() {
 		 {/* Subscriber Image */}
 		 <div className="subscribe-section">
      <img src={subscribe} alt=""/>
-		 <div className="center-text">BE A PART OF THE CHANGE</div>
+		 <div className="center-text">BE PART OF THE CHANGE</div>
 		 </div>
       {/* footer section */}
      <Footer />

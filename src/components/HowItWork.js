@@ -34,7 +34,8 @@ componentDidMount() {
                </p>
                </div>
                <div className="howitwork-content">
-                    <h1>Sign Up</h1>
+                 
+                    <div className="list-body-header"><h1>Sign Up</h1></div>
                     <div className="list-body">
                       <div className="numbers"><h2>1</h2></div>
                       <div className="item-list">
@@ -42,19 +43,18 @@ componentDidMount() {
                       <p>Developers will be contacted by our support team with instructions for project submission.</p>
                       <p>Architects will need to complete their profile in order to receive project notifications.</p>
                      </div>
-                   </div>
+                    </div>
                    
-                   <h1>Project Brief</h1>
+                    <div className="list-body-header"><h1 className="header">Project Brief</h1></div>
                     <div className="list-body">
-                      <div className="numbers"><h2>2</h2></div>
-                      <div className="item-list">
+                      <div className="numbers-two"><h2>2</h2></div>
+                      <div className="item-list-two">
                       <p>Developer briefs are reviewed by the EveryUrban team and details finalized before circulating to the Architect community.</p>
                       <p>Architects can discover projects that inspire them and submit their creative ideas through our project brief template to bid for the schematic design contract.</p>
                       </div>
-                   </div>
+                    </div>
 
-
-                   <h1>Partnership</h1>
+                    <div className="list-body-header"><h1>Partnership</h1></div>
                     <div className="list-body">
                       <div className="numbers"><h2>3</h2></div>
                       <div className="item-list">
