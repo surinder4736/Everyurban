@@ -35,7 +35,7 @@ componentDidMount() {
         	<div className="overlay"  >
         		<div >
 							<h2>CREATING THE CITY OF YOUR DREAMS IS AT YOUR FINGERTIPS</h2>
-							<h1>Revolutionizing the process<br />of urban development</h1>
+							<h1>Revolutionizing the Process<br />of Urban Development</h1>
 							<a className="btn gradient" href="/Login" >Get Started</a>
 						</div>
 					</div>
@@ -76,7 +76,7 @@ componentDidMount() {
 					</div>
 					<div className="col-md-7">
 						<h2 className="text-md-left text-center">We Aim to Create Cities Designed for People</h2>
-						<p className="text-md-left text-center">Crowdsourcing ideas for next generation urban space development.</p>
+						<p className="text-md-left text-center">Crowdsourcing Ideas for Next Generation Urban Space Development.</p>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
 				</div>
@@ -85,8 +85,8 @@ componentDidMount() {
       {/* Warning Section */}
       <section className="winning">
 			<div className="container">
-				<h2>A Winning Combination For Developers, City And The People In The Neighbourhood.</h2>
-				<p>EveryUrban is a new startup aiming to make urban planning and master planned developments social.</p>
+				<h2>A Place where Developers, Architects, Cities and the Community come together</h2>
+				<p>EveryUrban is a Platform that Helps make Urban Planning and Master Planned Developments Social.</p>
 			</div>
 		</section>
       {/* People Section */}
