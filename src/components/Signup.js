@@ -86,9 +86,9 @@ class Signup extends Component {
 			}else if(strongRegex.test(password)===false){
 				curObj.setState({passValidate:'Please enter a valid password '});
 			}
-			if(validator.isEmpty(code)){
-				curObj.setState({codeValidate:'Please Enter the promotion code'});
-			}
+			// if(validator.isEmpty(code)){
+			// 	curObj.setState({codeValidate:'Please Enter the promotion code'});
+			// }
 			if(validator.isEmpty(roleTypes)){
 				curObj.setState({roleValidate:'Please Choose your Role'});
 			}
@@ -189,7 +189,7 @@ class Signup extends Component {
 								<ReactTooltip  />
 								<div className="errorMsg" style={{height:'20px'}}>{this.state.passValidate}</div>
 								{/* Specific code */}
-								<i class="fa fa-tag fa-lg" id="inputCodeFont" aria-hidden="true"></i><input type="text" id="inputCode" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Referral Code" />
+								<i class="fa fa-tag fa-lg" id="inputCodeFont" aria-hidden="true"></i><input type="text" id="inputCode" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Referral Code (If available)" />
 								<div className="errorMsg">{this.state.codeValidate}</div>
 								
 								<div className="radios">

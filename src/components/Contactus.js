@@ -119,7 +119,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
             <div className="contact-us-body">
                 <h1>Contact Us</h1>
                 <p>
-                Questions,Feedback,Feature Requests - We would have to hear from you .
+                Questions,Feedback,Feature Requests - We would Love to hear from you.
                 </p>
             </div>
             <div className="contact-us-content p-0">
@@ -144,7 +144,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
                                         <div className="error-messag">{this.state.emailErrorMsg}</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="subject">Type of Enquiry</label>
+                                        <label for="subject">Type of Inquiry</label>
                                         <select id="subject" name="enquirt-type" onChange={this.txtEnquiryOnChange.bind(this)} value={this.state.enquiry} class="form-control" required="required">
                                             <option value="" selected="">Choose One:</option>
                                             <option value="Architect">Architect</option>
