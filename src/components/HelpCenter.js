@@ -53,7 +53,7 @@ txtKeywordHandleChange(e){
         <div className="help-center-body">
           <h1>Help Center</h1>
           <p>
-            These are some answers to commonly asked questions.if you do not see your question in the Help Center,E-mail us at assist@everyurban.com.  
+            These are some answers to commonly asked questions.<br/>if you do not see your question in the Help Center,<br/>E-mail us at assist@everyurban.com.  
           </p>
         </div>
         
