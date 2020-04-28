@@ -86,9 +86,9 @@ class Signup extends Component {
 			}else if(strongRegex.test(password)===false){
 				curObj.setState({passValidate:'Please enter a valid password '});
 			}
-			// if(validator.isEmpty(code)){
-			// 	curObj.setState({codeValidate:'Please Enter the promotion code'});
-			// }
+			if(validator.isEmpty(code)){
+				curObj.setState({codeValidate:'Please Enter the promotion code'});
+			}
 			if(validator.isEmpty(roleTypes)){
 				curObj.setState({roleValidate:'Please Choose your Role'});
 			}
