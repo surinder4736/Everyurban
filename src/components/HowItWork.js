@@ -28,7 +28,7 @@ componentDidMount() {
 				{/* Slider */}
 		   <section id="howitwork" >
                <div className="howitwork-body">
-               <h1>How It Work</h1>
+               <h1>How It Works</h1>
                <p>
                  We help Developers and Architects collaborate to create communities fit for the future through a global community. 
                </p>

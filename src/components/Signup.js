@@ -182,14 +182,14 @@ class Signup extends Component {
 							<div >
 								<h2 style={{margin:'0 0 4px'}}>Sign Up</h2>
 								<div className="errorMsg" style={{height:'20px'}}>{this.state.messageServerside}</div>
-								<input type="email" onChange={this.txtEmailChangeHandle.bind(this)} value={this.state.email} placeholder="Email Address" />
+								<input type="email" id="inpuEmail" onChange={this.txtEmailChangeHandle.bind(this)} value={this.state.email} placeholder="Email Address" />
 								<div className="errorMsg">{this.state.emailValidate}</div>
 								<input id="inputPassword"  onKeyDown={this.handlePasswordEnter}  type={this.state.passwordViewMode==false?'password':''}  onChange={this.txtPasswordChangeHandle.bind(this)} value={this.state.password} placeholder="Password" style={{width:''}} />{' '}<span id="viewPass" title={this.state.title} className={this.state.passwordViewMode==false?'far fa-eye':'fa fa-eye-slash'} onClick={this.handlePasswordViewMode.bind(this)}></span>
-								 <span id="questionMark" data-tip="Password must be atleast 7 characters and must contain atleast 1 numeric or special character" className="fas fa-question"></span>
+								 <span id="questionMark" data-tip="Password must be at least 7 characters and must contain at least 1 numeric or special character" className="fas fa-question"></span>
 								<ReactTooltip  />
 								<div className="errorMsg" style={{height:'20px'}}>{this.state.passValidate}</div>
 								{/* Specific code */}
-								<input type="text" id="inputPassword" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Promotion Code" />
+								<i class="fa fa-tag fa-lg" id="inputCodeFont" aria-hidden="true"></i><input type="text" id="inputCode" onChange={this.txtCodeChangeHandle.bind(this)} value={this.state.code} placeholder="Referral Code (If available)" />
 								<div className="errorMsg">{this.state.codeValidate}</div>
 								
 								<div className="radios">

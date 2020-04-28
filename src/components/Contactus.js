@@ -115,81 +115,81 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
         <Header />
         <MenuComponent />
         {/* Slider */}
-    <section id="contact-us" className="container" >
-        <div className="titles">
-            <h1>Contact Us</h1><hr/>
-        </div>
-    <div className="container p-0">
-    <div className="row">
-        <div className="col-md-8">
-            <div className="ct-wrapper shadow p-3 mb-5 rounded">
-               <div className="row">
-                    <div className="col-md-6">
-                        <div class="form-group">
-                            <label for="name">First Name <span className="mandatory">*</span></label>
-                            <input type="text" className="form-control" id="name" onChange={this.txtFNameOnChange.bind(this)} value={this.state.fname} placeholder="Enter first name" required="required" />
-                            <div className="error-messag">{this.state.fnameErrorMsg}</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Last Name <span className="mandatory">*</span></label>
-                            <input type="text" className="form-control" id="name" onChange={this.txtLNameOnChange.bind(this)} value={this.state.lname} placeholder="Enter last name" required="required" />
-                            <div className="error-messag">{this.state.lnameErrorMsg}</div>
-                        </div>
-                        <div className="form-group">
-                            <label for="email">Email Address <span className="mandatory">*</span></label>
-                            <input type="email" class="form-control" id="email" onChange={this.txtEmailOnChange.bind(this)} value={this.state.email} placeholder="Enter email" required="required" />
-                            <div className="error-messag">{this.state.emailErrorMsg}</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Type of Enquiry</label>
-                            <select id="subject" name="enquirt-type" onChange={this.txtEnquiryOnChange.bind(this)} value={this.state.enquiry} class="form-control" required="required">
-                                <option value="" selected="">Choose One:</option>
-                                <option value="Architect">Architect</option>
-                                <option value="Developer">Developer</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="name">Message <span className="mandatory">*</span></label>
-                            <textarea name="message" id="message" onChange={this.txtMessageOnChange.bind(this)} value={this.state.message} class="form-control" rows="10" cols="25" required="required"
-                                placeholder="Message"></textarea>
-                                <div className="error-messag">{this.state.messageErrorMsg}</div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary custom-btn" onClick={this.handleClickSave.bind(this)} id="btnContactUs">Send Message <i className="fa fa-paper-plane"></i></button>
-                    </div>
-                </div>
-              
+        <section id="contact-us">
+            <div className="contact-us-body">
+                <h1>Contact Us</h1>
+                <p>
+                Questions,Feedback,Feature Requests - We would Love to hear from you.
+                </p>
             </div>
+            <div className="contact-us-content p-0">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="ct-wrapper shadow p-3 mb-5 rounded">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">First Name <span className="mandatory">*</span></label>
+                                        <input type="text" className="form-control" id="name" onChange={this.txtFNameOnChange.bind(this)} value={this.state.fname} placeholder="Enter first name" required="required" />
+                                        <div className="error-messag">{this.state.fnameErrorMsg}</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Last Name <span className="mandatory">*</span></label>
+                                        <input type="text" className="form-control" id="name" onChange={this.txtLNameOnChange.bind(this)} value={this.state.lname} placeholder="Enter last name" required="required" />
+                                        <div className="error-messag">{this.state.lnameErrorMsg}</div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label for="email">Email Address <span className="mandatory">*</span></label>
+                                        <input type="email" class="form-control" id="email" onChange={this.txtEmailOnChange.bind(this)} value={this.state.email} placeholder="Enter email" required="required" />
+                                        <div className="error-messag">{this.state.emailErrorMsg}</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subject">Type of Inquiry</label>
+                                        <select id="subject" name="enquirt-type" onChange={this.txtEnquiryOnChange.bind(this)} value={this.state.enquiry} class="form-control" required="required">
+                                            <option value="" selected="">Choose One:</option>
+                                            <option value="Architect">Architect</option>
+                                            <option value="Developer">Developer</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Message <span className="mandatory">*</span></label>
+                                        <textarea name="message" id="message" onChange={this.txtMessageOnChange.bind(this)} value={this.state.message} class="form-control" rows="10" cols="25" required="required"
+                                            placeholder="Message"></textarea>
+                                            <div className="error-messag">{this.state.messageErrorMsg}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary custom-btn" onClick={this.handleClickSave.bind(this)} id="btnContactUs">Send Message <i className="fa fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div class="col-md-4">
+                        <form>
+                        <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
+                        <address>
+                            <strong>EveryUrban Inc</strong><br />
+                            795 Folsom Ave, Suite 600<br />
+                            San Francisco, CA 94107<br />
+                            <abbr title="Phone">
+                                P:</abbr>
+                            (123) 456-7890
+                        </address>
+                        <address>
+                            <strong>Contact Email</strong><br />
+                            <a href="mailto:#"> assist@everyurban.com</a>
+                        </address>
+                        </form>
+                    </div> */}
+                </div>
+            </div>
+        </section>
+        <Footer />
         </div>
-        <div class="col-md-4">
-            <form>
-            <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
-            <address>
-                <strong>EveryUrban Inc</strong><br />
-                795 Folsom Ave, Suite 600<br />
-                San Francisco, CA 94107<br />
-                <abbr title="Phone">
-                    P:</abbr>
-                (123) 456-7890
-            </address>
-            <address>
-                <strong>Contact Email</strong><br />
-                <a href="mailto:#"> assist@everyurban.com</a>
-            </address>
-            </form>
-        </div>
-    </div>
-</div>
-
-    </section>
-     {/* Footer section */}
-     <Footer />
-      </div>
-      );
+    );
   }
 }
 

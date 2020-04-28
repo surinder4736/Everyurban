@@ -49,52 +49,53 @@ txtKeywordHandleChange(e){
         <Header />
         <MenuComponent />
         {/* Slider */}
-    <section id="help-center"  className="container">
-        <div className="titles" >
-            <h1>Help Center</h1><hr></hr>
+      <section id="help-center">
+        <div className="help-center-body">
+          <h1>Help Center</h1>
+          <p>
+            These are some answers to commonly asked questions.if you do not see your question in the Help Center,E-mail us at assist@everyurban.com.  
+          </p>
         </div>
-      <div className="search-bar">
-      <div class="form-group has-search">
-    <span class="fa fa-search form-control-feedback"></span>
-    <input type="text" class="form-control" placeholder="Search" onChange={this.txtKeywordHandleChange.bind(this)} type="text"  />
-     <div style={{color:'red',fontSize:'13px'}}>{this.state.errorMessage}</div>
-  </div>
-      </div>
-<div id="content-wrapper" className="container p-0 content-wrapper">
+        
+        <div className="search-bar container">
+          <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="text" class="form-control" placeholder="Search" onChange={this.txtKeywordHandleChange.bind(this)} type="text"  />
+            <div style={{color:'red',fontSize:'13px'}}>{this.state.errorMessage}</div>
+          </div>
+        </div>
+        <div id="content-wrapper" className="container p-0 content-wrapper">
 
-<div id="accordion">
-    {this.state.Items.map((it,i)=>{
-        let item=i+1;
-        let collapseId='collapse-'+item;
-        let headingId='heading-'+item;
-        return(
-    <div class="card">
-    <div class="card-header" id={headingId}>
-    <h5 className='arrow-icon'>   
-        <a role="button" data-toggle="collapse" href={"#"+collapseId} aria-expanded="false" aria-controls={collapseId}>
-        {it.title}
-        </a>
-    </h5> 
-    </div>
-    <div id={collapseId} class={item==1 ? "collapse": "collapse hide"} data-parent="#accordion" aria-labelledby={headingId}>
-      <div class="card-body">
-        <p>
-        {it.body}
-        </p>
-      </div>
-    </div>
-  </div>
-  
-        )
-    })}
- 
-</div>
+        <div id="accordion">
+          {this.state.Items.map((it,i)=>{
+              let item=i+1;
+              let collapseId='collapse-'+item;
+              let headingId='heading-'+item;
+              return(
+              <div class="card">
+                <div class="card-header" id={headingId}>
+                  <h5 className='arrow-icon'>   
+                      <a role="button" data-toggle="collapse" href={"#"+collapseId} aria-expanded="false" aria-controls={collapseId}>
+                      {it.title}
+                      </a>
+                  </h5> 
+                </div>
+                <div id={collapseId} class={item==1 ? "collapse": "collapse hide"} data-parent="#accordion" aria-labelledby={headingId}>
+                  <div class="card-body">
+                    <p>
+                    {it.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              )
+            })}
+          </div>
         </div>
-	</section>	
-      {/* Footer Section */}
+	    </section>	
       <Footer />
       </div>
-      );
+    );
   }
 }
 
