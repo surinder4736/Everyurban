@@ -28,12 +28,12 @@ class ProfileHeader extends Component {
 
 	logOutHandle(e){
     e.preventDefault();
-        // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
-        //     console.log("Logout Successfully");
-        //     window.location.href='/Login';
-        // })
-        const{dispatch}=this.props;
-        dispatch(logout());
+        Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
+            console.log("Logout Successfully");
+            window.location.href='/Login';
+        })
+        // const{dispatch}=this.props;
+        // dispatch(logout());
         // window.location.href='/Login';
 	}
 

@@ -80,11 +80,11 @@ class UserList extends Component {
     componentWillReceiveProps(nextProps){
       const{dispatch,user}=this.props;
       const{tableCode}=nextProps;
-      if(nextProps.user!=user){
-        if(nextProps.user==null){
-          window.location.href='/Login';
-        } 
-      }
+      // if(nextProps.user!=user){
+      //   if(nextProps.user==null){
+      //     window.location.href='/Login';
+      //   } 
+      // }
       if(tableCode!=this.props.tableCode){
         if(tableCode!=null && tableCode.codeExecute=="Save" || tableCode.codeExecute=="Update" || tableCode.codeExecute=="Delete"){
           Swal.fire({
