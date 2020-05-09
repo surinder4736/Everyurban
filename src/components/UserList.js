@@ -29,7 +29,6 @@ class UserList extends Component {
           const{dispatch}=this.props;
           dispatch(userAction.getAdminuserList());
           dispatch(codeAction.getCodeList());
-         
     }
     txtHandleCode(e){
       e.preventDefault();
@@ -79,9 +78,13 @@ class UserList extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-      debugger
-      const{dispatch}=this.props;
+      const{dispatch,user}=this.props;
       const{tableCode}=nextProps;
+      if(nextProps.user!=user){
+        if(nextProps.user==null){
+          window.location.href='/Login';
+        } 
+      }
       if(tableCode!=this.props.tableCode){
         if(tableCode!=null && tableCode.codeExecute=="Save" || tableCode.codeExecute=="Update" || tableCode.codeExecute=="Delete"){
           Swal.fire({
@@ -106,7 +109,7 @@ class UserList extends Component {
           const{message:{errorMessage}}=tableCode;
           Swal.fire({
             title: 'Oh No!',
-            text: errorMessage,
+            text: tableCode.message.errorMessage.parent!=undefined?tableCode.message.errorMessage.parent.detail:tableCode.message.errorMessage,
             icon: 'error',
             confirmButtonText: 'Cancel'		
           });
@@ -271,14 +274,12 @@ class UserList extends Component {
 
 	render() {
         const{AdminUserList,user,dispatch}=this.props;
-        if(user.auth===undefined || user.isadmin===false){
-          window.location.href=`/`;
-          return(<div></div>);
+        if(user!=null){
+          if(user.auth===undefined || user.isadmin===false){
+            window.location.href=`/`;
+            return(<div></div>);
+          }
         }
-        // else if(user.isadmin==false){
-        //   window.location.href=`/`;
-        //   return(<div></div>);
-        // }
         let columndata=[];
         var data;
         if(AdminUserList!=null){

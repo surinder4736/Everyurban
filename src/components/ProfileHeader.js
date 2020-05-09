@@ -4,10 +4,10 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../Images/logo.png';
 import './NavMenu.css';
-import logOutHandle from '../actions/user';
+import userAction from '../actions/user';
 import {APIURL} from '../Config/config'
 import Axios from 'axios';
-const{logout} = logOutHandle;
+const{logout} = userAction;
 
 
 var jQuery= require('jquery');
@@ -19,25 +19,22 @@ class ProfileHeader extends Component {
    
   }
    
-    componentDidMount(){
-        const{user}=this.props
-        if(user==null && user.auth===false){
-            window.location.href='/Login';
-        }
+  componentDidMount(){
+    const{user}=this.props
+    if(user==null && user.auth===false){
+      window.location.href='/Login';
     }
+  }
 
 	logOutHandle(e){
     e.preventDefault();
-    //debugger
-        Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
-            console.log("Logout Successfully");
-            window.location.href='/Login';
-        })
-        // const{dispatch}=this.props;
-        // dispatch(logout());
+        // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
+        //     console.log("Logout Successfully");
+        //     window.location.href='/Login';
+        // })
+        const{dispatch}=this.props;
+        dispatch(logout());
         // window.location.href='/Login';
-        
-        
 	}
 
   render() {
