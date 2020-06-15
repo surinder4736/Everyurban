@@ -37,12 +37,11 @@ txtKeywordHandleChange(e){
       <div>
         <Header />
         <MenuComponent />
-        {/* Slider */}
       <section id="help-center">
         <div className="help-center-body">
           <h1>Help Center</h1>
           <p>
-            These are some answers to commonly asked questions.<br/>If you do not see your question in the Help Center,<br/>E-mail us at assist@everyurban.com.  
+            These are some answers to commonly asked questions.<br/>If you do not see your question in the Help Center,<br/>E-mail us at <u>assist@everyurban.com</u>.  
           </p>
         </div>
         
@@ -54,13 +53,13 @@ txtKeywordHandleChange(e){
           </div>
         </div>
         <div id="content-wrapper" className="container p-0 content-wrapper">
-
         <div id="accordion">
           {this.state.Items.map((it,i)=>{
               let item=i+1;
               let collapseId='collapse-'+item;
               let headingId='heading-'+item;
-              return(
+              let contentLine=it.body.split('[EMAILADDRESS]');
+						  return(
               <div class="card">
                 <div class="card-header" id={headingId}>
                   <h5 className='arrow-icon'>   
@@ -72,7 +71,11 @@ txtKeywordHandleChange(e){
                 <div id={collapseId} class={item==1 ? "collapse": "collapse hide"} data-parent="#accordion" aria-labelledby={headingId}>
                   <div class="card-body">
                     <p>
-                    {it.body}
+                    {contentLine[0]}
+                    {contentLine.length>1 &&
+                      <u>assist@everyurban.com</u>
+                    }
+                    {contentLine[1]}
                     </p>
                     <p>
                       {it.body2}
