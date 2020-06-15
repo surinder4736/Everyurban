@@ -1,5 +1,5 @@
 export default{
-    
+
     "question":[
         {
             title:'How does the Design Submission Process Work?',
@@ -25,7 +25,7 @@ export default{
         },
         {
             title:'What happens to my idea if I suspect my idea has been stolen? ',
-            body:`We take plagiarism very seriously. Contact us immediately at assist@everyurban.com outlining all pertaining details and any proof you can supply of this claim. You will receive a response within 48 hours. Support staff will review your claim and assess the situation. Upon assessment that plagiarism may have indeed taken place, our staff will contact the involved parties for rectiﬁcation and further escalate the matter if required.`
+            body:`We take plagiarism very seriously. Contact us immediately at [EMAILADDRESS] outlining all pertaining details and any proof you can supply of this claim. You will receive a response within 48 hours. Support staff will review your claim and assess the situation. Upon assessment that plagiarism may have indeed taken place, our staff will contact the involved parties for rectiﬁcation and further escalate the matter if required.`
         },
         {
             title:'How do our fees work?',
@@ -54,11 +54,11 @@ export default{
         },
         {
             title:'What do I do if I am having issues or a dispute with a Customer?',
-            body:`Everyurban facilitates the communication between Customers and Designers during the RFP bidding process. Issues and disputes between Customers and Designers most likely would occur after Contracts and become an independent matter outside of Everyurban’s control. We are not in a position to enforce mediation however we highly encourage all users to contact us at assist@everyurban.com. We will do our best to investigate into the matter and ﬁnd a peaceful resolution.`
+            body:`Everyurban facilitates the communication between Customers and Designers during the RFP bidding process. Issues and disputes between Customers and Designers most likely would occur after Contracts and become an independent matter outside of Everyurban’s control. We are not in a position to enforce mediation however we highly encourage all users to contact us at [EMAILADDRESS]. We will do our best to investigate into the matter and ﬁnd a peaceful resolution.`
         },
         {
             title:'What do I do if I am having issues or a dispute with the local architect partner?',
-            body:`We select our local partners very carefully and one of our criteria is the understanding that they will need to work closely with our selected platform architect who may not be a licensed professional or locally licensed. All of our local partners have signed an Agreement with EveryUrban outlining their responsibilities to you and particular professional conduct. If you are experiencing issues, please contact us at assist@Everyurban.com with “Dispute” in your subject line.`
+            body:`We select our local partners very carefully and one of our criteria is the understanding that they will need to work closely with our selected platform architect who may not be a licensed professional or locally licensed. All of our local partners have signed an Agreement with EveryUrban outlining their responsibilities to you and particular professional conduct. If you are experiencing issues, please contact us at [EMAILADDRESS] with “Dispute” in your subject line.`
         },
         {
             title:'Why do we work with a local architect partners?',
@@ -79,7 +79,7 @@ export default{
         {
             title:'What should I do if the Customer keeps asking for revisions/changing their mind?',
             body:`Everyurban facilitates the communication between Designers and Customers during the RFP bidding process. Our staff members review all revision requests during the bidding process to minimize unnecessary back and forth. Designers are encouraged to accept pre-contract revisions as it likely means the Customer is highly interested in your submitted contract however, this is entirely the Designer’s choice. If this occurs under contract, you should be familiar with the terms and scope of work under the agreement in order to assess whether the Customer’s request is within the boundaries of the Contract. You may need to seek independent 
-            legal counsel. If you suspect suspicious or concerning activity, please notify us immediately at assist@everyurban.com so we can investigate the matter. `
+            legal counsel. If you suspect suspicious or concerning activity, please notify us immediately at [EMAILADDRESS] so we can investigate the matter. `
         },
         {
             title:'Do I have to sign a Contract?',
@@ -99,7 +99,7 @@ export default{
         },
         {
             title:'What is the Referral Code for?',
-            body:`We have assigned referral codes to track afﬁliations with institutions. Signing up with a referral code is advantageous as Customers have the option to limit participants to afﬁliated individuals. Users without afﬁliations may be excluded from receiving these particular RFP opportunities. These afﬁliations may be Architect boards or College/Universities. A Customer may opted in to this for various reasons, the major one being accountability. If you signed up without a referral code but would still like you report afﬁliation, you can e-mail us at assist@everyurban with “Afﬁliation” in the subject line. Please provide us with all documentation or proof of your afﬁliation and we will review the contents. Upon proof of afﬁliation your account will be updated in our systems. We may still request proof and documentation from users with valid Referral Codes at sign up.`
+            body:`We have assigned referral codes to track afﬁliations with institutions. Signing up with a referral code is advantageous as Customers have the option to limit participants to afﬁliated individuals. Users without afﬁliations may be excluded from receiving these particular RFP opportunities. These afﬁliations may be Architect boards or College/Universities. A Customer may opted in to this for various reasons, the major one being accountability. If you signed up without a referral code but would still like you report afﬁliation, you can e-mail us at [EMAILADDRESS] with “Afﬁliation” in the subject line. Please provide us with all documentation or proof of your afﬁliation and we will review the contents. Upon proof of afﬁliation your account will be updated in our systems. We may still request proof and documentation from users with valid Referral Codes at sign up.`
         },
         {
             title:'How do I submit my project for RFP on EveryUrban?',
