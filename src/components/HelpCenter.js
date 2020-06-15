@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import  Header from './Header';
 import MenuComponent from './MenuComponent';
 import footerLogo from '../Images/logo-footer.png';
+import jsonConfig from '../Config/helpCenterJson';
 import Footer from './Footer';
 export class HelpCenter extends Component {
   //static displayName = Home.name;
@@ -13,20 +14,8 @@ export class HelpCenter extends Component {
     this.state={
       keywords:'',
       errorMessage:'',
-      initialCollapse:[{
-      title:'Sign Up',
-      body:`Its free and only takes a couple seconds. Make sure you confirm your e-mail account.Developers will be contacted by our support team with instructions for project submission.Architects will need to complete their profile in order to receive project notifications.`
-      },
-      {
-        title:'Project Brief',
-        body:`Developer briefs are reviewed by the EveryUrban team and details finalized before circulating to the Architect community.Architects can discover projects that inspire them and submit their creative ideas through our project brief template to bid for the schematic design contract.        `
-        },
-        {
-          title:'Partnership',
-          body:`Proposals that interest the Developer will be reviewed by an EveryUrban licensed local certified Architect partner to assess viability.If the Developer wants to move forward with you idea, you will receive a contract for the project.`
-          }
-    ],
-    Items:[]
+      initialCollapse:jsonConfig.question,
+      Items:[]
     }
     
 }
@@ -84,6 +73,9 @@ txtKeywordHandleChange(e){
                   <div class="card-body">
                     <p>
                     {it.body}
+                    </p>
+                    <p>
+                      {it.body2}
                     </p>
                   </div>
                 </div>
