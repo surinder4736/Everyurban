@@ -53,7 +53,7 @@ componentDidMount() {
             <h1 className="text-center" style={{color:'#3AA3d7'}}>Our Key Objectives:</h1><br/>
             <div className="row" style={{color:'#3AA3d7'}}>
               <div className="col-md-4">
-                <p className="text-center" style={{fontWeight:'600',fontSize:'20px'}}>Community Wellness</p><br/>
+                <p className="text-center key-objects" style={{fontWeight:'600',fontSize:'20px'}}>Community Wellness</p>
                 <div className="text-center">
                 <img src={Community} alt="" width="50%"/>
                 </div>
@@ -62,14 +62,14 @@ componentDidMount() {
                 </p>
               </div>
               <div className="col-md-4">
-                <p className="text-center" style={{fontWeight:'600',fontSize:'20px'}}>Protecting Our Planet</p><br/>
+                <p className="text-center key-objects" style={{fontWeight:'600',fontSize:'20px'}}>Protecting Our Planet</p>
                 <div className="text-center">
                 <img src={Protecting} alt="" width="50%"/>
                 </div>
                 <p className="text-center">High-efficiency systems and materials managing consumption and reducing waste whilst maximizing yield. We want to build harmoniously with the surrounding environment.</p>
               </div>
               <div className="col-md-4">
-                <p className="text-center" style={{fontWeight:'600',fontSize:'20px'}}>Empowering the Economy</p><br/>
+                <p className="text-center key-objects" style={{fontWeight:'600',fontSize:'20px'}}>Empowering the Economy</p>
                 <div className="text-center">
                   <img src={Empowering} alt="" width="50%"/>
                   </div>

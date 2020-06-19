@@ -37,7 +37,7 @@ componentDidMount() {
                  
                     <div className="list-body-header"><h1>Sign Up</h1></div>
                     <div className="list-body">
-                      <div className="numbers"><h2>1</h2></div>
+                      <div className="numbers"><h2 className="verticle-align-one">1</h2></div>
                       <div className="item-list">
                       <p>Its free and only takes a couple seconds. Make sure you confirm your e-mail account.</p>
                       <p>Developers will be contacted by our support team with instructions for project submission.</p>
@@ -47,7 +47,7 @@ componentDidMount() {
                    
                     <div className="list-body-header"><h1 className="header">Project Brief</h1></div>
                     <div className="list-body">
-                      <div className="numbers-two"><h2>2</h2></div>
+                      <div className="numbers-two"><h2 className="verticle-align-two">2</h2></div>
                       <div className="item-list-two">
                       <p>Developer briefs are reviewed by the EveryUrban team and details finalized before circulating to the Architect community.</p>
                       <p>Architects can discover projects that inspire them and submit their creative ideas through our project brief template to bid for the schematic design contract.</p>
@@ -56,7 +56,7 @@ componentDidMount() {
 
                     <div className="list-body-header"><h1>Partnership</h1></div>
                     <div className="list-body">
-                      <div className="numbers"><h2>3</h2></div>
+                      <div className="numbers"><h2 className="verticle-align-three">3</h2></div>
                       <div className="item-list">
                       <p>Proposals that interest the Developer will be reviewed by an EveryUrban licensed local certified Architect partner to assess viability.</p>
                       <p>If the Developer wants to move forward with you idea, you will receive a contract for the project. </p>
