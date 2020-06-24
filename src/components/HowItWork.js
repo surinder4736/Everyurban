@@ -30,7 +30,7 @@ componentDidMount() {
                <div className="howitwork-body">
                <h1>How It Works</h1>
                <p>
-                 We help Developers and Architects collaborate to create communities fit for the future through a global community. 
+                 We help Developers and Designers collaborate to create communities fit for the future through a Global Community. 
                </p>
                </div>
                <div className="howitwork-content">
@@ -39,18 +39,19 @@ componentDidMount() {
                     <div className="list-body">
                       <div className="numbers"><h2 className="verticle-align-one">1</h2></div>
                       <div className="item-list">
-                      <p>Its free and only takes a couple seconds. Make sure you confirm your e-mail account.</p>
+                      <p>It's free and only takes a couple seconds. If you were given a referral code, be sure to enter it during sign up as it may increase your eligibility for more projects. Confirm your e-mail to activate your account.</p>
                       <p>Developers will be contacted by our support team with instructions for project submission.</p>
-                      <p>Architects will need to complete their profile in order to receive project notifications.</p>
+                      <p>Designers will need to complete their profile in order to receive project notifications.</p>
                      </div>
                     </div>
                    
-                    <div className="list-body-header"><h1 className="header">Project Brief</h1></div>
+                    <div className="list-body-header"><h1 className="header">Project RFP Brief</h1></div>
                     <div className="list-body">
                       <div className="numbers-two"><h2 className="verticle-align-two">2</h2></div>
                       <div className="item-list-two">
-                      <p>Developer briefs are reviewed by the EveryUrban team and details finalized before circulating to the Architect community.</p>
-                      <p>Architects can discover projects that inspire them and submit their creative ideas through our project brief template to bid for the schematic design contract.</p>
+                      <p>A Request for Proposal (RFP) is a common term across a number of industries for soliciting proposals for a project through a bidding process. On the EveryUrban platform, Designers bid with ideas.</p>  
+                      <p>Developers work closely with the EveryUrban team to finalize details before circulating to the Design Architect Community.</p>
+                      <p>Designers will receive Project RFP Briefs they are eligible to participate in through the e-mail registered to the account and can submit their proposals to bid for the project contract.</p>
                       </div>
                     </div>
 
@@ -58,8 +59,8 @@ componentDidMount() {
                     <div className="list-body">
                       <div className="numbers"><h2 className="verticle-align-three">3</h2></div>
                       <div className="item-list">
-                      <p>Proposals that interest the Developer will be reviewed by an EveryUrban licensed local certified Architect partner to assess viability.</p>
-                      <p>If the Developer wants to move forward with you idea, you will receive a contract for the project. </p>
+                      <p>Proposals in consideration by the Developer will be assessed to ensure viability and feasibility. Designers may receive requests for revisions and upon selection of a proposal, the Designer of the Winning Concept will receive a contract detailing responsibilities, expectations and payment.</p>
+                      <p>Designers of Winning Concepts under contract will receive full payment or a retainer for purchase of the design material submitted for the bid. The Project RFP briefs will outline the total payment offered for the project contract and the retainer amount if applicable.</p>
                        </div>
                    </div>
 

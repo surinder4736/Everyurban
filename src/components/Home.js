@@ -43,7 +43,7 @@ componentDidMount() {
 				{/* <div className="carousel-item">
 					<div className="overlay"  >
 						<div>
-							<h2>We Aim to Create Cities Designed for People</h2>
+							<h2>We Aim to Create Communities Designer for People</h2>
 							<h1>Crowdsourcing ideas for <br />next generation urban <br /> space development</h1>
 							<a className="btn gradient" href="#">Get Started</a>
 						</div>
@@ -75,8 +75,8 @@ componentDidMount() {
 						<img src={aim} alt=""/>
 					</div>
 					<div className="col-md-7">
-						<h2 className="text-md-left text-center">We Aim to Create Cities Designed for People</h2>
-						<p className="text-md-left text-center">Crowdsourcing Ideas for Next Generation Urban Space Development.</p>
+						<h2 className="text-md-left text-center">We Aim to Create Communities Designer for People</h2>
+						<p className="text-md-left text-center">Crowdsourcing Ideas for the Next Generation of Urban Space Development.</p>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
 				</div>
@@ -85,7 +85,7 @@ componentDidMount() {
       {/* Warning Section */}
       <section className="winning">
 			<div className="container">
-				<h2>A Place where Developers, Architects, Cities and the Community come together</h2>
+				<h2>A Place where Developers, Designers, Planners and the Community come together</h2>
 				<p>EveryUrban is a Platform that Helps make Urban Planning and Master Planned Developments Social.</p>
 			</div>
 		</section>
@@ -95,10 +95,10 @@ componentDidMount() {
 				<ul className="nav nav-tabs" role="tablist">
 					
 					<li className="nav-item">
-						<a className="nav-link active" id="city-tab" data-toggle="tab" href="#city" role="tab" aria-controls="city" aria-selected="false">ARCHITECTS</a>
+						<a className="nav-link active" id="city-tab" data-toggle="tab" href="#city" role="tab" aria-controls="city" aria-selected="false">Design Architects</a>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link " id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="developers" aria-selected="false">DEVELOPERS</a>
+						<a className="nav-link " id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="developers" aria-selected="false">Community Developers</a>
 					</li>
 				</ul>
 				<div className="tab-content">
@@ -108,8 +108,8 @@ componentDidMount() {
 								<img src={developers} alt=""/>
 							</div>
 							<div className="col-md-7">
-								<h2 className="text-md-left text-center">ARCHITECTS</h2>
-								<p className="text-md-left text-center">EveryUrban helps Architects connect with Real Development Projects, Gain Experience while maintaining Creative Freedom and Making Money.</p>
+								<h2 className="text-md-left text-center">Designers</h2>
+								<p className="text-md-left text-center">EveryUrban connects designers of architecture with real development projects and income opportunities while maintaining creative freedom and gaining industry experience.</p>
 							</div>
 						</div>
 					</div>
@@ -119,8 +119,8 @@ componentDidMount() {
 								<img src={city} alt=""/>
 							</div>
 							<div className="col-md-7">
-								<h2 className="text-md-left text-center">DEVELOPERS</h2>
-								<p className="text-md-left text-center"> EveryUrban helps Developers Scale, Grow and Maximize their Business through Collaborating with Architects Around the World to Create the Best Living Communities for Generations to come. </p>
+								<h2 className="text-md-left text-center">Developers</h2>
+								<p className="text-md-left text-center"> EveryUrban help developers scale, grow and maximize their business through collaborating with architects around the world to create the best living communities for generations to come. </p>
 							</div>
 						</div>
 					</div>
@@ -130,8 +130,8 @@ componentDidMount() {
 		</section>
 		 {/* Subscriber Image */}
 		 <div className="subscribe-section">
-     <img src={subscribe} alt=""/>
-		 <div className="center-text">BE PART OF THE CHANGE</div>
+     		<img src={subscribe} alt=""/>
+		 	<p className="center-text">BE A PART OF THE CHANGE</p>
 		 </div>
       {/* footer section */}
      <Footer />

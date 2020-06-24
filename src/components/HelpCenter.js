@@ -39,9 +39,9 @@ txtKeywordHandleChange(e){
         <MenuComponent />
       <section id="help-center">
         <div className="help-center-body">
-          <h1>Help Center</h1>
+          <h1>Help Centre</h1>
           <p>
-            These are some answers to commonly asked questions.<br/>If you do not see your question in the Help Center,<br/>E-mail us at <u>assist@everyurban.com</u>.  
+            These are some answers to commonly asked questions.<br/>If you do not see your question in the Help Centre,<br/>E-mail us at <u>assist@everyurban.com</u>.  
           </p>
         </div>
         
@@ -59,6 +59,13 @@ txtKeywordHandleChange(e){
               let collapseId='collapse-'+item;
               let headingId='heading-'+item;
               let contentLine=it.body.split('[EMAILADDRESS]');
+              let contentLine2='';
+              if(it.body2!=undefined){
+                contentLine2=it.body2.split('[EMAILADDRESS]');
+              }
+              else{
+                contentLine2=it.body2;
+              }
 						  return(
               <div class="card">
                 <div class="card-header" id={headingId}>
@@ -77,9 +84,16 @@ txtKeywordHandleChange(e){
                     }
                     {contentLine[1]}
                     </p>
-                    <p>
-                      {it.body2}
-                    </p>
+                    {contentLine2!=undefined && contentLine2.length>1 &&
+                      <p>
+                      {contentLine2[0]}
+                      <u>assist@everyurban.com</u>  
+                      {contentLine2[1]}
+                      </p>  
+                    }
+                    {contentLine2!=undefined && contentLine2.length==1 &&
+                      <p>{contentLine2}</p>
+                    }
                   </div>
                 </div>
               </div>

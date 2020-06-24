@@ -20,10 +20,10 @@ class Footer extends Component {
 				</div>
 				<img src={footerLogo} alt=""/>
 				<div className="social">
-					<a href="#"><i className="fab fa-facebook-f"></i></a>
-					<a href="#"><i className="fab fa-instagram"></i></a>
-					<a href="#"><i className="fab fa-twitter"></i></a>
-					<a href="#"><i className="fab fa-linkedin-in"></i></a>
+					<a href="https://www.facebook.com/EveryUrban/"><i className="fab fa-facebook-f"></i></a>
+					<a href="https://www.instagram.com/everyurban/"><i className="fab fa-instagram"></i></a>
+					<a href="https://twitter.com/everyurban"><i className="fab fa-twitter"></i></a>
+					<a href="https://www.linkedin.com/company/everyurban"><i className="fab fa-linkedin-in"></i></a>
 				</div>
 				<p>EveryUrban 2020. All rights reserved.</p>
 			</div>

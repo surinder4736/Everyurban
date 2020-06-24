@@ -196,12 +196,12 @@ class Signup extends Component {
 									<label for="builder">
 										<input type="radio" checked={this.state.roleType=="developer"} onChange={this.checkRoleHandle.bind(this)} name="type" id="builder" value="developer"  />
 										<div class="checkmark"></div>
-										I'm a developer/builder
+										I'm a Community Developer
 									</label>
 									<label for="architect" style={{marginBottom:'-3px'}}>
 										<input type="radio" checked={this.state.roleType=="architect"} onChange={this.checkRoleHandle.bind(this)} name="type" id="architect" value="architect" />
 										<div className="checkmark"></div>
-										I'm an architect
+										I'm an Design Architect
 									</label>
 									<div className="errorMsg" style={{height:'3px'}}>{this.state.roleValidate}</div>
 								</div>
