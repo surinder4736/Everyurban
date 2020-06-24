@@ -37,16 +37,25 @@ componentDidMount() {
               The menu bar rather than "About Us" will be changed to "Our Mission".
             </p> */}
             <p>
-            EveryUrban was created in order to help propel the world of planning, design, and development towards the future through adopting technologies and strategies to create the best sustainable communities. We aim to empower creativity by offering open opportunities to designers from all backgrounds and skillsets around the world.
+            EveryUrban was created in order to help propel the world of development, design and planning
+towards the future through adopting technologies and strategies to create the best sustainable
+communities. We aim to empower creativity by offering opportunities to designers from all
+backgrounds and skillsets around the world.
             </p>
             <p>
-            Architectural designers can more closely connect with their core passions and freely create without limiting imagination to a strict agenda while gaining experience and income opportunities to further their careers.
+            Design Architects can more closely connect with their core passions and freely create without
+limiting imagination to a strict agenda while gaining experience and income opportunities to
+further their careers.
             </p>
             <p>
-            Builders can discover new talent and ideas that would normally be confined to the local environment with added support and professional guidance from the EveryUrban expert team.
+            Community Developers can discover new talent and ideas that would normally be confined to
+the local environment with added support and professional guidance from the EveryUrban
+expert team.
             </p>
             <p>
-            EveryUrban helps bridge the gap in communication between architectural design and development by bringing additional expertise to maximize project vision and success, streamlining the process of strategy, design and negotiation.
+            EveryUrban helps bridge the gap in communication between architectural design and real
+estate development by bringing additional expertise to maximize project vision and success,
+streamlining the process of strategy, design and negotiation.
             </p>
           </div>
           <div className="container aboutus-cotent">

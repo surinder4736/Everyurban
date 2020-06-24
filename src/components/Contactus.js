@@ -119,7 +119,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
             <div className="contact-us-body">
                 <h1>Contact Us</h1>
                 <p>
-                Questions,Feedback,Feature Requests - We would Love to hear from you.
+                We would love to hear from you.
                 </p>
             </div>
             <div className="contact-us-content p-0">
