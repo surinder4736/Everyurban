@@ -201,7 +201,7 @@ class Signup extends Component {
 									<label for="architect" style={{marginBottom:'-3px'}}>
 										<input type="radio" checked={this.state.roleType=="architect"} onChange={this.checkRoleHandle.bind(this)} name="type" id="architect" value="architect" />
 										<div className="checkmark"></div>
-										I'm an Design Architect
+										I'm a Design Architect
 									</label>
 									<div className="errorMsg" style={{height:'3px'}}>{this.state.roleValidate}</div>
 								</div>

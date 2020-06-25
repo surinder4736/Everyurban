@@ -85,7 +85,7 @@ header .button a:hover { color:#02aae3; }
 #howitwork .howitwork-content .list-body-header{font-size:30px;display: flex; margin-left: auto;margin-right: auto;width: 23em;}
 #howitwork .howitwork-content .list-body-header h1{margin-left: 130px; white-space: nowrap;}
 #howitwork .howitwork-content .verticle-align-one{margin-top:30px;}
-#howitwork .howitwork-content .verticle-align-two{margin-top:25px;}
+#howitwork .howitwork-content .verticle-align-two{margin-top:40px;}
 #howitwork .howitwork-content .verticle-align-three{margin-top:40px;}
 #aboutus .overlay { display:flex; align-items:center; justify-content:center; padding:100px 40px; background-repeat:no-repeat; background-position:50% 50%; background-size:contain; min-height:54.2vw; }
 #aboutus .overlay h2 { text-align:center; color:#fff; }
@@ -110,9 +110,9 @@ header .button a:hover { color:#02aae3; }
 #contact-us .contact-us-body{background: #1571b2;color: white;padding: 40px;margin-bottom: 20px; height: 364px;}
 #contact-us .contact-us-body h1{text-align: center; padding: 40px 0 10px 0;}
 #contact-us .contact-us-body p{font-size:21px;text-align: center; margin-left: auto;margin-right: auto;width: 35em;color: white;padding-bottom: 40px;}
-#contact-us .contact-us-content{width: 50em; margin-left: auto; margin-right: auto; margin-top: -150px;}
+#contact-us .contact-us-content{width: 50em; margin-left: auto; margin-right: auto; margin-top: -150px; padding-bottom: 80px !important;}
 #contact-us .contact-us-content label{color:#1571b2; font-weight: 700;}
-#contact-us .contact-us-content .mb-5{margin-bottom: 60px !important;}
+#contact-us .contact-us-content .mb-5{margin-bottom: 0px !important;}
 /* #help-center{margin-top: 15px; margin-bottom: 25px} */
 #help-center .title h1{font-size: 27px;}
 #help-center .content-wrapper  h5{font-size: 15px;}
