@@ -86,7 +86,7 @@ componentDidMount() {
       <section className="winning">
 			<div className="container">
 				<h2>A Place where Developers, Designers, Planners and the Community come together</h2>
-				<p>EveryUrban is a Platform that Helps make Urban Planning and Master Planned Developments Social.</p>
+				<p>EveryUrban is a Platform that helps make Urban Planning and Master Planned Developments Social.</p>
 			</div>
 		</section>
       {/* People Section */}
@@ -131,7 +131,7 @@ componentDidMount() {
 		 {/* Subscriber Image */}
 		 <div className="subscribe-section">
      		<img src={subscribe} alt=""/>
-		 	<p className="center-text">BE A PART OF THE CHANGE</p>
+		 	<p className="center-text">BE A PART OF CHANGE</p>
 		 </div>
       {/* footer section */}
      <Footer />
