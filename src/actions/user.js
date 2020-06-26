@@ -61,6 +61,13 @@ const getAdminuserListError=(data)=>{
     return {type:actionTypes.ADMIN_USER_LIST_ERROR,data,dt:new Date()}
 }
 
+const removeUserSuccess=(data)=>{
+    return{type:actionTypes.USER_REMOVE_SUCCESS,data}
+}
+const removeUserError=(data)=>{
+    return{type:actionTypes.USER_REMOVE_ERROR,data}
+}
+
 const userAction = {
      
     logout(){
@@ -173,5 +180,19 @@ const userAction = {
             
         };
     },
+
+    removeUser(id){
+        return (dispatch) => {
+        dispatch(beginRequest());
+            axios.delete(`${APIURL}user/deleteuser/${id}`)
+                .then(response => {
+                    var data=response.data;
+                    dispatch(removeUserSuccess(data));
+                
+            }).catch((error) => {
+                dispatch(removeUserError({message:error.response.data,dt:new Date()}));
+            });
+        };
+    }
 }
 export default userAction;
