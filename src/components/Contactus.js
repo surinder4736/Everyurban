@@ -156,7 +156,7 @@ this.setState({id:0,fname:'',lname:'',email:'',enquiry:'',message:''});
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Message <span className="mandatory">*</span></label>
-                                        <textarea name="message" id="message" onChange={this.txtMessageOnChange.bind(this)} value={this.state.message} class="form-control" rows="10" cols="25" required="required"
+                                        <textarea name="message" id="message" style={{boxShadow:'none'}} onChange={this.txtMessageOnChange.bind(this)} value={this.state.message} class="form-control" rows="10" cols="25" required="required"
                                             placeholder="Message"></textarea>
                                             <div className="error-messag">{this.state.messageErrorMsg}</div>
                                     </div>
