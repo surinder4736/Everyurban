@@ -17,7 +17,7 @@ import DataTable from 'react-data-table-component';
 import { push } from 'react-router-redux';
 import Moment from 'moment';
 
-const{logout} = userAction;
+const{logout,removeUser} = userAction;
 const{getCodeList,addNewCode,removeCode}=codeAction;
 
 class UserList extends Component {
@@ -270,7 +270,23 @@ class UserList extends Component {
       )
     }
 
-
+    handleDeleteUser(userid,e){
+      const{dispatch}=this.props;
+      e.preventDefault();
+      confirmAlert({
+				title: 'Remove Promotion code',
+				message: 'Are you sure you want to delete this record?',
+				buttons: [
+				  {
+          label: 'Yes',
+          onClick:()=>dispatch(removeUser(userid))
+				   },
+				  {
+					label: 'Cancel'
+				  }
+				]
+			});
+    }
 
 	render() {
         const{AdminUserList,user,dispatch}=this.props;
@@ -371,6 +387,12 @@ class UserList extends Component {
                     <a href={row.link} target='_blank'>Profile View</a>
                   }
                     </div>,
+                },
+                {
+                  name: 'Action',
+                  cell: row => <div>
+                  <a onClick={curobj.handleDeleteUser.bind(curobj,row.userid)}><i className="fa fa-trash"></i></a>
+                  </div>,
                 },
             ]}
             data={columndata}
