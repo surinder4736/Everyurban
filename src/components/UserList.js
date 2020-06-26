@@ -159,23 +159,26 @@ class UserList extends Component {
       this.clearFormCode();
     }
     renderTableBody(){
-      const{getCodeList:{codeList}}=this.props;
-      console.log(codeList);
-      if(codeList!=null){
-       return codeList.map((item,i)=>{
-          return(
-            <tr key={i}> 
-              <td>{i+1}</td>
-              <td>{item.code}</td>
-              <td>{item.label}</td>
-              <td>{item.type}</td>
-              <td>
-                <a className="btn-sm" style={{border:'none'}} onClick={this.handleEditClick.bind(this,item.id)} data-toggle="modal" data-target="#exampleModal" ><i className="fa fa-edit"></i></a>
-                <a className="" style={{border:'none'}}  onClick={this.handleDeleteClick.bind(this,item.id)} ><i className="fa fa-trash"></i></a>
-              </td>
-            </tr>
-          )
-        })
+      const{getCodeList}=this.props;
+      if(getCodeList!=undefined){
+        const{getCodeList:{codeList}}=this.props;
+        console.log(codeList);
+        if(codeList!=null){
+         return codeList.map((item,i)=>{
+            return(
+              <tr key={i}> 
+                <td>{i+1}</td>
+                <td>{item.code}</td>
+                <td>{item.label}</td>
+                <td>{item.type}</td>
+                <td>
+                  <a className="btn-sm" style={{border:'none'}} onClick={this.handleEditClick.bind(this,item.id)} data-toggle="modal" data-target="#exampleModal" ><i className="fa fa-edit"></i></a>
+                  <a className="" style={{border:'none'}}  onClick={this.handleDeleteClick.bind(this,item.id)} ><i className="fa fa-trash"></i></a>
+                </td>
+              </tr>
+            )
+          })
+        }
       }
     }
     renderTable(){
@@ -323,6 +326,7 @@ class UserList extends Component {
               height: '30px'
             }
         }
+        let curobj=this;
         if(columndata!=null && columndata.length>0){
           data=<DataTable
             title="User List"
@@ -391,7 +395,7 @@ class UserList extends Component {
                 {
                   name: 'Action',
                   cell: row => <div>
-                  <a onClick={curobj.handleDeleteUser.bind(curobj,row.userid)}><i className="fa fa-trash"></i></a>
+                  <a onClick={curobj.handleDeleteUser.bind(curobj,row.userid)} style={{cursor:'pointer'}}><i className="fa fa-trash"></i></a>
                   </div>,
                 },
             ]}
