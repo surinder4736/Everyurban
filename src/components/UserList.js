@@ -277,7 +277,7 @@ class UserList extends Component {
       const{dispatch}=this.props;
       e.preventDefault();
       confirmAlert({
-				title: 'Remove Promotion code',
+				title: 'Remove Record',
 				message: 'Are you sure you want to delete this record?',
 				buttons: [
 				  {
