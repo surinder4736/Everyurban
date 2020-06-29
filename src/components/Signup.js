@@ -86,9 +86,9 @@ class Signup extends Component {
 			}else if(strongRegex.test(password)===false){
 				curObj.setState({passValidate:'Please enter a valid password '});
 			}
-			if(validator.isEmpty(code)){
-				curObj.setState({codeValidate:'Please Enter the promotion code'});
-			}
+			// if(validator.isEmpty(code)){
+			// 	curObj.setState({codeValidate:'Please Enter the promotion code'});
+			// }
 			if(validator.isEmpty(roleTypes)){
 				curObj.setState({roleValidate:'Please Choose your Role'});
 			}
@@ -96,7 +96,7 @@ class Signup extends Component {
 			// 	curObj.setState({termsValidate:'Please accept terms and privacy'});
 			// }
 
-			if(validator.isEmpty(emailId)===false && strongRegex.test(password)===true && validator.isEmail(emailId)===true && validator.isEmpty(password)===false && validator.isEmpty(code)===false && validator.isEmpty(roleTypes)===false){
+			if(validator.isEmpty(emailId)===false && strongRegex.test(password)===true && validator.isEmail(emailId)===true && validator.isEmpty(password)===false && validator.isEmpty(roleTypes)===false){
 				const {dispatch} = this.props;
 				const data={
 						email:emailId,
