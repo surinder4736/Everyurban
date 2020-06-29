@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import footerLogo from '../Images/logo-footer.png';
-import TermsFile from '../Pdf/TermsFile.pdf';
+import TermsFile from '../Pdf/Everyurban_Terms_of_Service.pdf';
+import PrivacyPolicyFile from '../Pdf/EveryUrban_Privacy_Policy.pdf';
 
 class Footer extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Footer extends Component {
 			<div className="useful-link">
 					<a href="/aboutus">About<span id="vh">|</span></a> 
 					<a href={TermsFile} target="_blank">Terms of Service<span id="vh">|</span></a>  
-					<a href={TermsFile} target="_blank">Privacy Policy<span id="vh">|</span></a>  
+					<a href={PrivacyPolicyFile} target="_blank">Privacy Policy<span id="vh">|</span></a>  
 					<a href="/contactus">Contact</a>
 				</div>
 				<img src={footerLogo} alt=""/>
