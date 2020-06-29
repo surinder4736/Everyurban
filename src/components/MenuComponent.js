@@ -3,7 +3,8 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 import aboutusIcon from '../Images/logo-icon-black.png';
-import TermsFile from '../Pdf/TermsFile.pdf';
+import TermsFile from '../Pdf/Everyurban_Terms_of_Service.pdf';
+import PrivacyPolicyFile from '../Pdf/EveryUrban_Privacy_Policy.pdf';
 import './NavMenu.css';
 var jQuery= require('jquery');
 class MenuComponent extends Component {
@@ -55,7 +56,7 @@ class MenuComponent extends Component {
 					<a class="nav-link" href={TermsFile} target="_blank"><i class="fas fa-file-alt"></i> Terms of Service</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href={TermsFile}target="_blank"><i class="fas fa-scroll"></i> Privacy Policy</a>
+					<a class="nav-link" href={PrivacyPolicyFile}target="_blank"><i class="fas fa-scroll"></i> Privacy Policy</a>
 				</li>
 			</ul>
 		</div>
