@@ -75,7 +75,7 @@ componentDidMount() {
 						<img src={aim} alt=""/>
 					</div>
 					<div className="col-md-7">
-						<h2 className="text-md-left text-center">We Aim to Create Communities Designer for People</h2>
+						<h2 className="text-md-left text-center">We Aim to Create Communities Designed for People</h2>
 						<p className="text-md-left text-center">Crowdsourcing Ideas for the Next Generation of Urban Space Development.</p>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
