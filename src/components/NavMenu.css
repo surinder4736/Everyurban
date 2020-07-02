@@ -83,7 +83,7 @@ header .button a:hover { color:#02aae3; }
 #howitwork .howitwork-content .list-body .item-list p{font-size: 17px;color: #3AA3d7;line-height: 32px; margin-left: 15px;}
 #howitwork .howitwork-content .list-body .item-list-two p{font-size: 17px;color: #1C71B2;line-height: 32px;margin-left: 15px;}
 #howitwork .howitwork-content .list-body-header{font-size:30px;display: flex; margin-left: auto;margin-right: auto;width: 23em;}
-#howitwork .howitwork-content .list-body-header h1{margin-left: 130px; white-space: nowrap;}
+#howitwork .howitwork-content .list-body-header h1{margin-left: 130px; white-space: nowrap; font-size: 2.3rem !important;}
 #howitwork .howitwork-content .verticle-align-one{margin-top:25px;}
 #howitwork .howitwork-content .verticle-align-two{margin-top:35px;}
 #howitwork .howitwork-content .verticle-align-three{margin-top:30px;}
