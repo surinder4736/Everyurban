@@ -38,7 +38,7 @@ class MenuComponent extends Component {
 					<a class="nav-link" href="/contactus"><i class="fas fa-headset"></i> Contact Us</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/helpcenter"><i class="fas fa-users"></i>Help Center</a>
+					<a class="nav-link" href="/helpcenter"><i class="fas fa-users"></i>Help Centre</a>
 				</li>
 				
 				{(window.location.pathname.indexOf('/profile')>-1) || (window.location.pathname.indexOf('/admin')>-1) ||
