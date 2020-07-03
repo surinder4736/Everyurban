@@ -34,7 +34,7 @@ export default class App extends Component {
         <Route  path='/profile/:profileUrl/:random' component={Profile} />
         <Route  path='/profileview/:profileUrl/:random' component={ViewProfile} />
         <Route exact path='/contactus' component={ContactUs} />
-        <Route exact path='/helpcenter' component={HelpCenter} />
+        <Route exact path='/helpcentre' component={HelpCenter} />
         <Route  path='/howitwork' component={HowItWork} />
         <Route  path='/aboutus' component={AboutUs} />
         <Route exact path='*'  />
