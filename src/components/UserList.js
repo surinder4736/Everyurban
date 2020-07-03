@@ -162,7 +162,6 @@ class UserList extends Component {
       const{getCodeList}=this.props;
       if(getCodeList!=undefined){
         const{getCodeList:{codeList}}=this.props;
-        console.log(codeList);
         if(codeList!=null){
          return codeList.map((item,i)=>{
             return(
