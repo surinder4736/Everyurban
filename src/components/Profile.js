@@ -2084,7 +2084,7 @@ class Profile extends Component {
 								<div className="form-group">
 									<label htmlFor="position-text" className="col-form-label">Position:</label>
 									<select onChange={this.changePosition} type="text" className="form-control" id="position-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.progressid:null}>
-										<option value="0">Please select Postion</option>
+										<option value="0">Please select Position</option>
 										{this.state.progressList.map(element => {
 											return <option value={element.id}>{element.name}</option>	
 										})}
