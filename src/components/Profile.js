@@ -540,6 +540,23 @@ class Profile extends Component {
 			}
 		}
 	}
+
+	deleteProgress=(e)=>
+	{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let specialId=e.currentTarget.getAttribute('data-id');
+		if(specialId>0)
+		{
+			let conf=window.confirm('Are you sure to delete In progress entry?');
+			if(conf)
+			{
+				//dispatch language delete element
+				dispatch(progressAction.removeProgress({userId:this.props.user.id,progressid:specialId}));
+			}
+		}
+	}
+
 	clickPortfolioSaveHandler=(e)=>{
 		
 		const{dispatch}=this.props;
@@ -1975,8 +1992,8 @@ class Profile extends Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
-									<textarea placeholder="Enter upto 50 words about this" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
-									<div className="small">Upto 50 words caption add  {this.state.portfolloEditForm.caption.length} characters</div>
+									<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<div className="small">added  {this.state.portfolloEditForm.caption.length} characters</div>
     
 								</div>
 								
@@ -2144,8 +2161,8 @@ class Profile extends Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
-									<textarea placeholder="Enter upto 50 words about this" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
-									<div className="small">Upto 50 words caption add  {this.state.portfolloEditForm.caption.length} characters</div>
+									<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<div className="small">Added  {this.state.portfolloEditForm.caption.length} characters</div>
     
 								</div>
 							</form>
@@ -2654,11 +2671,11 @@ class Profile extends Component {
 					<div class="col-lg-4 col-md-4 col-xs-12">
 						<div class="about">
 							<div class="clearfix">
-								<h5 class="float-left" style={{fontSize:'23px'}}>About</h5>
+								<h5 class="float-left" style={{fontSize:'23px'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:'About you'}</h5>
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 							</div>
-							<h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+' '+this.state.userData.about[0].month+'-'+this.state.userData.about[0].year:null}</h4>
+							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
 							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
 							<hr/>
 							<div className="clearfix">
@@ -2673,7 +2690,16 @@ class Profile extends Component {
 								let progressResult=this.state.progressList.filter(function (e) {
 									return e.id == element.progressid;
 								});
-								return <li>{progressResult[0].name+' '+element.establishment} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteSpecialties} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
+								return <li>
+									<div className="row">
+										<div style={{overflowWrap:'break-word'}} className="float-left col-md-9">
+											{progressResult[0].name+' at '+element.establishment}
+										</div> 
+										<div className="float-right col-md-3">
+											{this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteProgress} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}
+										</div>
+									</div>
+									</li>	
 							})}
 							</ul>
 							}
@@ -2688,7 +2714,16 @@ class Profile extends Component {
 							<ul>
 								
 							{this.state.userData.specialties.map(element => {
-							return <li>{ element.name} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteSpecialties} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
+							return <li>
+								<div className="row">
+									<div style={{overflowWrap:'break-word'}} className="float-left col-md-9">
+										{ element.name}
+									</div>
+									<div className="float-right col-md-3">
+										{this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteSpecialties} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}
+									</div>
+								</div>
+								 </li>	
 							})}
 							</ul>
 							}
@@ -2709,7 +2744,7 @@ class Profile extends Component {
 							</ul>
 							}
 							<hr/>
-							<div class="clearfix">
+							{/* <div class="clearfix">
 							<h5 class="float-left" style={{fontSize:'23px'}}>Portfolio</h5>
 							</div>
 							{user.unique_userid==profileUrl && <p>Type your portfolio link below</p> }
@@ -2719,7 +2754,7 @@ class Profile extends Component {
 							</form>}
 							{user.unique_userid!=profileUrl && 
 								<a href={this.state.userData.profile!=null?this.state.userData.profile.portfolio:null}>{this.state.userData.profile!=null?this.state.userData.profile.portfolio:''}</a>
-							}
+							} */}
 						</div>
 					</div>
 					<div class="col-lg-8 col-md-8 col-xs-12">
@@ -2777,8 +2812,8 @@ class Profile extends Component {
 													thumbnail:imageUrl,
 													thumbnailWidth: 150,
 													thumbnailHeight: 130,
-													// caption: element.caption,
-													customOverlay:item.caption
+													caption: item.caption,
+													// customOverlay:item.caption
 												}
 												imageArray.push(img);
 												//  <img src={imageUrl}></img>
