@@ -10,15 +10,28 @@ import 'react-date-picker/dist/entry.nostyle';
 import {connect} from 'react-redux';
 import PropTypes, { array, node } from 'prop-types';
 import userAction from '../actions/user';
+import Gallery from 'react-grid-gallery';
 import jQuery from 'jquery';
 import ReactTooltip from 'react-tooltip';
 import MenuComponent from './MenuComponent';
 import ProfileFooter from './ProfileFooter';
 import profileAction from '../actions/profile';
+import mediaAction from '../actions/media';
+import specialtiesAction from '../actions/specialties';
+import progressAction from '../actions/progress';
+import userPortfolloAction from '../actions/visualport';
 import languageAction from '../actions/language';
 import experienceAction from '../actions/experience';
 import educationAction from '../actions/education';
-import NoImage from '../Images/no-image.png'
+import aboutAction from '../actions/about';
+import socialConfig from '../Config/socialLink';
+import visualPortfolloConfig from '../Config/visualPortfollo';
+import NoImage from '../Images/no-image.png';
+// import facebook from '../Images/media/facebook.png';
+// import linkedin from '../Images/media/linkedin.png';
+// import twitter from '../Images/media/twitter.png';
+// import instagram from '../Images/media/instagram.png';
+// import website from '../Images/media/world.png';
 import validator from 'validator';
 import Swal from 'sweetalert2';
 import {APIURL, BASE_URL} from '../Config/config'
@@ -59,6 +72,16 @@ class Profile extends Component {
 			LanguageExistsMessage:'', 
 			isStudent:false,
 			date: new Date(),
+			socialList:socialConfig.social,
+			portfolloList:visualPortfolloConfig.portfollo,
+			portfolloOther:false,
+			tabactiveid:1,
+			imageFormData:null,
+			progressList:visualPortfolloConfig.postion,
+			yearList:null,
+			monthList:null,
+			selectedcategoryid:0,
+			categoryUploadImageItem:null,
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -96,6 +119,33 @@ class Profile extends Component {
 				userId:0,
 				isStudent:false
 
+			},
+			mediaEditForm:{
+				id:null,
+				socialid:0,
+				link:""
+			},
+			portfolloEditForm:{
+				id:null,
+				folloid:0,
+				other:"",
+				caption:""
+			},
+			aboutEditForm:{
+				id:null,
+				university:"",
+				month:"",
+				year:"",
+				status:""
+			},
+			SpecialtiesEditForm:{
+				id:null,
+				name:"",
+			},
+			progressEditForm:{
+				id:null,
+				progressid:0,
+				establishment:""
 			},
 			mode:'view',
 			userData:
@@ -135,13 +185,21 @@ class Profile extends Component {
 			portfolio:"Your portfolio is where you showcase your creativity. This will give a developer an idea of your capabilities outside of just their project and can bring you more prospects.",
 			experience:"Showcase your experience as an architect here. List any past projects and events you have taken part relating to architecture. ",
 			education:"Outline your education in this section including the name of the institution, graduation year, country and program details."
+		},
+		multifile: [null]
 		}
-		}
+        this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
 
 	}
 
 	
-
+	uploadMultipleFiles(e) {
+        this.fileObj.push(e.target.files)
+        for (let i = 0; i < this.fileObj[0].length; i++) {
+            this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+        }
+        this.setState({ multifile: this.fileArray })
+    }
 	//function to convert the date string in month year format
 	convertDateStringToMonthYear(strDate){
 		let dt=new Date(strDate);
@@ -191,8 +249,37 @@ class Profile extends Component {
 					e.preventDefault();
 					jQuery("#upload:hidden").trigger('click');
 			});
+			jQuery("#upload_multi_link").on('click',function(e){
+				e.preventDefault();
+					jQuery("#multiupload:hidden").trigger('click');
+			});
+			jQuery("#upload_multi_photo").on('click',function(e){
+				e.preventDefault();
+					jQuery("#multiuploadphoto:hidden").trigger('click');
+			});
 
-	});
+		});
+		let currentYear = new Date().getFullYear(), years = [];
+		let startYear =  1970;  
+		for(var i=startYear; i<= currentYear; i++){
+			years.push(startYear++);
+		}
+		var month = new Array();
+		month[0] = "N/A";
+		month[1] = "January";
+		month[2] = "February";
+		month[3] = "March";
+		month[4] = "April";
+		month[5] = "May";
+		month[6] = "June";
+		month[7] = "July";
+		month[8] = "August";
+		month[9] = "September";
+		month[10] = "October";
+		month[11] = "November";
+		month[12] = "December";  
+		this.setState({yearList:years,monthList:month});
+
 	}	
     clickLogoutHandle(e){
         const{dispatch}=this.props;
@@ -200,8 +287,6 @@ class Profile extends Component {
         dispatch(logout());
 	}
 	clickLanguageSaveHandler=(e)=>{
-		console.log('language save handler called');
-		console.log(this.state.languageEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
@@ -237,8 +322,6 @@ class Profile extends Component {
 
 
 	clickEducationSaveHandler=(e)=>{
-		console.log('Education save handler called');
-		console.log(this.state.educationEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
 		// debugger;
@@ -305,8 +388,6 @@ class Profile extends Component {
 	}
 
 	clickExperienceSaveHandler=(e)=>{
-		console.log('Experience save handler called');
-		console.log(this.state.experienceEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
 		// debugger;
@@ -373,8 +454,6 @@ class Profile extends Component {
 	}
 	clickProfileSaveHandler=(e)=>
 	{
-		console.log('Profile save handler called');
-		console.log(this.state.profileEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
@@ -399,24 +478,40 @@ class Profile extends Component {
 		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
 	}
 	clickAboutSaveHandler=(e)=>{
-		console.log('About save handler called');
-		console.log(this.state.profileEditForm);
 		
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
-		let about=this.state.profileEditForm.about;
+		let university=this.state.aboutEditForm.university;
+		let status=this.state.aboutEditForm.status;
+		let month =this.state.aboutEditForm.month;
+		let year =this.state.aboutEditForm.year;
+		let id=this.state.aboutEditForm.id;
 		curObj.setState({AboutValidateMessage:''});
-		if(validator.isEmpty(about)===true){
-			curObj.setState({AboutValidateMessage:'Please enter portfolio'});
+		if(validator.isEmpty(university)===true){
+			curObj.setState({AboutValidateMessage:'Please enter university'});
+		}
+		if(validator.isEmpty(status)===true){
+			curObj.setState({AboutValidateMessage:'Please select status'});
+		}
+		if(validator.isEmpty(month)===true){
+			curObj.setState({AboutValidateMessage:'Please select month'});
+		}
+		if(validator.isEmpty(year)===true){
+			curObj.setState({AboutValidateMessage:'Please select year'});
 		}
 		
-		if(validator.isEmpty(about)===false )
-		dispatch(profileAction.editProfile({userId:this.props.user.id,profile:this.state.profileEditForm}))
+		if(validator.isEmpty(university)===false && validator.isEmpty(status)===false && validator.isEmpty(month)===false && validator.isEmpty(year)===false)
+		if(id>0){
+			dispatch(aboutAction.editabout({userId:this.props.user.id,about:this.state.aboutEditForm}))
+		}
+		else{
+			dispatch(aboutAction.addabout({userId:this.props.user.id,about:this.state.aboutEditForm}))
+		}
+		
 	}
 	deleteLanguage=(e)=>
 	{
-		console.log('Delete Language called');
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let langId=e.currentTarget.getAttribute('data-id');
@@ -430,9 +525,22 @@ class Profile extends Component {
 			}
 		}
 	}
+	deleteSpecialties=(e)=>
+	{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let specialId=e.currentTarget.getAttribute('data-id');
+		if(specialId>0)
+		{
+			let conf=window.confirm('Are you sure to delete the Specialties entry?');
+			if(conf)
+			{
+				//dispatch language delete element
+				dispatch(specialtiesAction.removeSpecialties({userId:this.props.user.id,id:specialId}));
+			}
+		}
+	}
 	clickPortfolioSaveHandler=(e)=>{
-		console.log('Portfolio save handler called');
-		console.log(this.state.profileEditForm);
 		
 		const{dispatch}=this.props;
 		e.preventDefault();
@@ -456,7 +564,6 @@ class Profile extends Component {
 			const{dispatch}=this.props;
 			let editdata=this.state.userData.profile
 			editdata.isStudent=student;
-			this.setState({profileEditForm:editdata.isStudent});
 			this.setState({profileEditForm:editdata});
 			setTimeout(()=>{dispatch(profileAction.markProfileAsStudent({userId:this.props.user.id,profile:this.state.profileEditForm}));},2000);
 			this.completeThisProfile();		
@@ -507,18 +614,102 @@ class Profile extends Component {
 
 	}
 
+	clickMediaSaveHandler=(e)=>
+	{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let curObj=this;
+		let socialid=this.state.mediaEditForm.socialid.toString();
+		let link=this.state.mediaEditForm.link;
+		let id=this.state.mediaEditForm.id;
+		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
+		if(validator.isEmpty(socialid)===true){
+			curObj.setState({FistNameValidateMessage:'Please select media type'});
+		}
+		if(validator.isEmpty(link)===true){
+			curObj.setState({LastNameValidateMessage:'Please enter url Name'});
+		}
+		if(validator.isEmpty(socialid)===false && validator.isEmpty(link)===false)
+		if(id>0)
+		{
+			dispatch(mediaAction.editMedia({userId:this.props.user.id,media:this.state.mediaEditForm}))
+		}
+		else
+		{
+			dispatch(mediaAction.addMedia({userId:this.props.user.id,media:this.state.mediaEditForm}))
+		}
+	}
+
+	clickFolloSaveHandler=(e)=>{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let curObj=this;
+		let portfolloid=this.state.portfolloEditForm.folloid.toString();
+		let other=this.state.portfolloEditForm.other;
+		let caption=this.state.portfolloEditForm.caption;
+		let id=this.state.portfolloEditForm.id;
+		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
+		if(validator.isEmpty(portfolloid)===true){
+			curObj.setState({FistNameValidateMessage:'Please select category'});
+		}
+		if(validator.isEmpty(other)===true){
+			curObj.setState({LastNameValidateMessage:'Please enter category Name'});
+		}
+		if(validator.isEmpty(caption)===true){
+			curObj.setState({LastNameValidateMessage:'Please enter caption'});
+		}
+		if(validator.isEmpty(portfolloid)===false)
+		if(id>0)
+		{
+			dispatch(userPortfolloAction.editPortfollo({userId:this.props.user.id,Portfollo:this.state.portfolloEditForm}))
+		}
+		else
+		{
+			dispatch(userPortfolloAction.addPortfollo({userId:this.props.user.id,Portfollo:this.state.portfolloEditForm}))
+		}
+	}
+
+	clickSpecialtiesSaveHandler=(e)=>{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let curObj=this;
+		if(this.state.userData.specialties.length==3){
+			Swal.fire({
+				title: 'Error!',
+				text: 'You can add upto 3 Specialties',
+				icon: 'error',
+				confirmButtonText: 'OK'		
+			});
+			return;
+		}
+		let name=this.state.SpecialtiesEditForm.name.toString();
+		let id=this.state.SpecialtiesEditForm.id;
+		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
+		if(validator.isEmpty(name)===true){
+			curObj.setState({FistNameValidateMessage:'Please enter Specialties'});
+		}
+		if(validator.isEmpty(name)===false)
+		if(id>0)
+		{
+			dispatch(specialtiesAction.editSpecialties({userId:this.props.user.id,specialties:this.state.SpecialtiesEditForm}))
+		}
+		else
+		{
+			dispatch(specialtiesAction.addSpecialties({userId:this.props.user.id,specialties:this.state.SpecialtiesEditForm}))
+		}
+	}
+
 
     componentWillReceiveProps(nextProps){
         if(nextProps.user!=this.props.user){
             window.location.href="/Login";
 		}
-		console.log(nextProps)
 		if(nextProps.profile!=this.props.profile){
 			//debugger;
 			if(nextProps.profile!=null && nextProps.profile!=undefined)
 			{
-				console.log(nextProps.profile)
-				this.setState({userData:nextProps.profile},()=>{
+				
+				this.setState({userData:nextProps.profile,tabactiveid:nextProps.profile.portfollo[0]!=undefined?nextProps.profile.portfollo[0].id:1},()=>{
 					this.completeThisProfile();	
 				});
 				//this.setState({userData:{'profile':nextProps.profile}})
@@ -616,7 +807,174 @@ class Profile extends Component {
 			const{dispatch}=this.props;//debugger
 			dispatch(profileAction.getProfile({userId:this.props.user.id}));
 		}
-		
+		if(nextProps.media!=this.props.media)
+		{
+			if(nextProps.media.message!==null && nextProps.media.message!=undefined &&  nextProps.media.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'Media has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Success!',
+					text: 'Media has been saved successfully.',
+					icon: 'success',
+					confirmButtonText: 'OK'		
+				});
+				const{dispatch}=this.props;//debugger
+				dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				let mediaEditForm= Object.assign({},this.state.mediaEditForm);
+				mediaEditForm.id=null;
+				mediaEditForm.socialid=0;
+				mediaEditForm.link="";
+				this.setState({mediaEditForm:mediaEditForm});
+			}
+		}
+		if(nextProps.portfollo!=this.props.portfollo)
+		{
+			if(nextProps.portfollo.message!==null && nextProps.portfollo.message!=undefined &&  nextProps.portfollo.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'Portfollo has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				const config = {
+					headers: {
+						'content-type': 'multipart/form-data',
+					}
+				}
+				const{profile:{profile}}=this.props;
+				let caption=this.state.portfolloEditForm.caption;
+				let formData = new FormData();
+				formData.set('caption',caption);
+				formData.append("file",this.state.categoryUploadImageItem);
+				if(this.state.categoryUploadImageItem!=null){
+					axios.post(`${APIURL}users/${profile.userId}/${nextProps.portfollo.media.id}/multiupload`,formData,config)
+					.then((response) => {
+						this.setState({imageFormData:null});
+						Swal.fire({
+							title: 'Success!',
+							text: 'Portfollo has been saved successfully.',
+							icon: 'success',
+							confirmButtonText: 'OK'		
+						});
+						const{dispatch}=this.props;//debugger
+						dispatch(profileAction.getProfile({userId:this.props.user.id}));
+						let portfolloEditForm= Object.assign({},this.state.portfolloEditForm);
+						portfolloEditForm.id=null;
+						// portfolloEditForm.folloid=0;
+						portfolloEditForm.other="";
+						portfolloEditForm.caption="";
+						this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
+					}).catch((error) => {
+						console.log(error);
+						return error;
+					});
+				}
+				else{
+					Swal.fire({
+						title: 'Success!',
+						text: 'Portfollo has been saved successfully.',
+						icon: 'success',
+						confirmButtonText: 'OK'		
+					});
+					const{dispatch}=this.props;//debugger
+					dispatch(profileAction.getProfile({userId:this.props.user.id}));
+					let portfolloEditForm= Object.assign({},this.state.portfolloEditForm);
+					portfolloEditForm.id=null;
+					portfolloEditForm.folloid=0;
+					portfolloEditForm.other="";
+					portfolloEditForm.caption="";
+					this.setState({portfolloEditForm:portfolloEditForm});
+				}
+			}
+		}
+
+		if(nextProps.specialties!=this.props.specialties)
+		{
+			if(nextProps.specialties.message!==null && nextProps.specialties.message!=undefined &&  nextProps.specialties.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'Media has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Success!',
+					text: 'Specialties has been saved successfully.',
+					icon: 'success',
+					confirmButtonText: 'OK'		
+				});
+				const{dispatch}=this.props;//debugger
+				dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				let SpecialtiesEditForm= Object.assign({},this.state.SpecialtiesEditForm);
+				SpecialtiesEditForm.id=null;
+				SpecialtiesEditForm.name="";
+				this.setState({SpecialtiesEditForm:SpecialtiesEditForm});
+			}
+		}
+		if(nextProps.progress!=this.props.progress)
+		{
+			if(nextProps.progress.message!==null && nextProps.progress.message!=undefined &&  nextProps.progress.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'Progress has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Success!',
+					text: 'Progress has been saved successfully.',
+					icon: 'success',
+					confirmButtonText: 'OK'		
+				});
+				const{dispatch}=this.props;//debugger
+				dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				let progressEditForm= Object.assign({},this.state.progressEditForm);
+				progressEditForm.id=null;
+				progressEditForm.progressid=0;
+				progressEditForm.establishment="";
+				this.setState({progressEditForm:progressEditForm});
+			}
+		}
+		if(nextProps.about!=this.props.about)
+		{
+			if(nextProps.about.message!==null && nextProps.about.message!=undefined &&  nextProps.about.message.original!=null){
+				Swal.fire({
+					title: 'Error!',
+					text: 'About has not save successfully.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Success!',
+					text: 'About has been saved successfully.',
+					icon: 'success',
+					confirmButtonText: 'OK'		
+				});
+				const{dispatch}=this.props;//debugger
+				dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				let aboutEditForm= Object.assign({},this.state.aboutEditForm);
+				aboutEditForm.id=null;
+				aboutEditForm.university="";
+				aboutEditForm.status="";
+				aboutEditForm.month="";
+				aboutEditForm.year="";
+				this.setState({aboutEditForm:aboutEditForm});
+			}
+		}
 	}
 
 	selectImages(e){
@@ -639,6 +997,119 @@ class Profile extends Component {
 				 console.log(error);
 					return error;
 		    });
+	}
+
+	selectMultiImages(e){
+		//this.setState({file:});
+		const{profile:{profile}}=this.props;
+		let formData = new FormData();
+		if(e.target.files.length>0){
+			// if(e.target.files.length>10){
+			// 	Swal.fire({
+			// 		title: 'Success!',
+			// 		text: 'Please select maximum 10 photos.',
+			// 		icon: 'success',
+			// 		confirmButtonText: 'OK'		
+			// 	});
+			// 	return;
+			// }
+			// else{
+			// 	for(let i=0;i<e.target.files.length;i++){
+			// 		formData.append("file",e.target.files[i]);		
+			// 	}
+			// 	this.setState({imageFormData:formData});
+			// }
+			if(e.target.files.length>0){
+				for(let i=0;i<e.target.files.length;i++){
+					this.setState({categoryUploadImageItem:e.target.files[i]});
+				}
+				
+			}
+		}
+		
+	}
+
+	showCategoryPhotoModal(id,e){
+		e.preventDefault();
+		this.setState({selectedcategoryid:id});
+	}
+
+	selectMultiPhoto(e){
+		const{profile:{profile}}=this.props;
+		// let formData = new FormData();
+		let images=[];
+		let curobj=this;
+		
+		this.state.userData.images.map(element=>{
+			if(element.folloid==curobj.state.selectedcategoryid){
+				images.push(element);
+			}
+		});
+		let totalImages=images.length+e.target.files.length;
+		if(totalImages>=10){
+			Swal.fire({
+				title: 'Error!',
+				text: 'Please select maximum 10 photos.',
+				icon: 'error',
+				confirmButtonText: 'OK'		
+			});
+			return;
+		}
+		if(e.target.files.length>0){
+			for(let i=0;i<e.target.files.length;i++){
+				this.setState({categoryUploadImageItem:e.target.files[i]});
+			}
+			
+		}
+		// this.setState({imageFormData:formData});
+	}
+
+	clickPhotoSaveHandler=(e)=>{
+		try{
+			let curobj=this;
+			const{profile:{profile}}=this.props;
+			let caption=this.state.portfolloEditForm.caption;
+			let formData = new FormData();
+			formData.set('caption',caption);
+			formData.append("file",this.state.categoryUploadImageItem);
+			const config = {
+				headers: {
+					'content-type': 'multipart/form-data',
+				}
+			}
+			if(this.state.categoryUploadImageItem!=null){
+				axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/multiupload`,formData,config)
+				.then((response) => {
+					this.setState({imageFormData:null});
+					Swal.fire({
+						title: 'Success!',
+						text: 'Photo has been saved successfully.',
+						icon: 'success',
+						confirmButtonText: 'OK'		
+					});
+					let formData = new FormData();
+					const{dispatch}=this.props;//debugger
+					let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
+					portfolloEditForm.caption="";
+					curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
+					dispatch(profileAction.getProfile({userId:this.props.user.id}));
+				}).catch((error) => {
+					console.log(error);
+					return error;
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Error!',
+					text: 'No image selected. Please select image',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+			}
+		}
+		catch(e){
+			console.log(e);
+		}
 	}
 
 
@@ -904,24 +1375,90 @@ class Profile extends Component {
         <form>
 		<div>{this.state.aboutValidateMessage}</div>
           <div className="form-group">
-            <label htmlFor="popup-text" className="col-form-label">Content</label>
+		  	<label htmlFor="university-text" className="col-form-label">University:</label>
+			<input placeholder="Enter University" onChange={this.changeUniversityName} type="text" className="form-control" id="university-text" value={this.state.aboutEditForm!=null?this.state.aboutEditForm.university:null}/>
+			<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
+            {/* <label htmlFor="popup-text" className="col-form-label">Content</label>
 			<textarea placeholder="Enter atleast 100 characters about yourself" required onChange={this.changeAbout} className="form-control" rows="10" id="popup-text" value={this.state.profileEditForm!=null?this.state.profileEditForm.about:null}></textarea>
-			<div className="small">Atleast 100 characters is required to save About. Currently you have enter {this.state.profileEditForm.about.length} characters</div>
+			<div className="small">Atleast 100 characters is required to save About. Currently you have enter {this.state.profileEditForm.about.length} characters</div> */}
     
+		  </div>
+		  <div className="form-group">
+            <label htmlFor="status-text" className="col-form-label">Status</label>
+			<div className="radios about-radios">
+				<label for="Attending">
+					<input type="radio" checked={this.state.aboutEditForm.status=="Attending"} onChange={this.checkStatusHandle.bind(this)} name="type" id="Attending" value="Attending"  />
+					<div class="checkmark"></div>
+					Attending
+				</label>
+				<label for="Graduate" style={{marginBottom:'-3px'}}>
+					<input type="radio" checked={this.state.aboutEditForm.status=="Graduate"} onChange={this.checkStatusHandle.bind(this)}  name="type" id="Graduate" value="Graduate" />
+					<div className="checkmark"></div>
+					Graduate
+				</label>
+				<label for="architect" style={{marginBottom:'-3px'}}>
+					<input type="radio" checked={this.state.aboutEditForm.status=="Architect"} onChange={this.checkStatusHandle.bind(this)}  name="type" id="architect" value="Architect" />
+					<div className="checkmark"></div>
+					Architect
+				</label>
+				<div className="errorMsg" style={{height:'3px'}}>{this.state.roleValidate}</div>
+			</div>
+		  </div>
+		  <div className="form-group">
+            <label htmlFor="month-text" className="col-form-label">Month</label>
+			<select placeholder="Choose a month..." onChange={this.changeMonth} className="form-control"  id="month-text" value={this.state.aboutEditForm.month}>
+				<option value=""> Select Month</option>
+				{this.state.monthList!=null && this.state.monthList.map(element=>{
+					return <option value={element}>{element}</option>
+				})
+				}
+			</select>
+		  </div>
+		  <div className="form-group">
+            <label htmlFor="year-text" className="col-form-label">Year</label>
+			<select placeholder="Choose a year..." onChange={this.changeYear} className="form-control"  id="year-text" value={this.state.aboutEditForm.year}>
+				<option value=""> Select Year</option>
+				{this.state.yearList!=null && this.state.yearList.map(element=>{
+					return <option value={element}>{element}</option>
+				})
+					
+				}
+				
+			</select>
 		  </div>
         </form>
       </div>
       <div className="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        {(this.state.profileEditForm.about.length)>99 &&
-		<button onClick={this.clickAboutSaveHandler}type="button"  class="btn btn-primary">Update</button>
-		}
+        <button onClick={this.clickAboutSaveHandler}type="button"  class="btn btn-primary">Update</button>
 		</div>
 	</div>
   </div>
 </div>
 		)
 	}
+
+	changeUniversityName=(e)=>{
+		let aboutEditForm=Object.assign({},this.state.aboutEditForm);
+		aboutEditForm.university=e.target.value;
+		this.setState({aboutEditForm:aboutEditForm});
+	}
+	checkStatusHandle(e){
+		let aboutEditForm=Object.assign({},this.state.aboutEditForm);
+		aboutEditForm.status=e.target.value;
+		this.setState({aboutEditForm:aboutEditForm});
+	}
+	changeMonth=(e)=>{
+		let aboutEditForm=Object.assign({},this.state.aboutEditForm);
+		aboutEditForm.month=e.target.value;
+		this.setState({aboutEditForm:aboutEditForm});
+	}
+	changeYear=(e)=>{
+		let aboutEditForm=Object.assign({},this.state.aboutEditForm);
+		aboutEditForm.year=e.target.value;
+		this.setState({aboutEditForm:aboutEditForm});
+	}
+
 	renderLanguageModal(){
 		// alert(this.state.modelContent);
 		return(
@@ -1285,6 +1822,344 @@ class Profile extends Component {
 		)
 	}
 
+	renderMediaEditor(){
+		return(
+			<div className="modal fade" id="mediaEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">Media</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+									<label htmlFor="media-text" className="col-form-label">Media Type:</label>
+									<select onChange={this.changeMediaType} type="text" className="form-control" id="media-text" value={this.state.mediaEditForm!=null?this.state.mediaEditForm.socialid:null}>
+										<option value="0">Please select media type</option>
+										{this.state.socialList.map(element => {
+											return <option value={element.id}>{element.name}</option>	
+										})}
+									</select>
+									<div className="errorMsg">{this.state.CountryValidateMessage}</div>
+								</div>
+								<div className="form-group">
+									<label htmlFor="meidalink-text" className="col-form-label">Url:</label>
+									<input placeholder="Enter URL" onChange={this.changeMeidaUrl} type="text" className="form-control" id="meidalink-text" value={this.state.mediaEditForm!=null?this.state.mediaEditForm.link:null}/>
+									<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
+								</div>
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button onClick={this.clickMediaSaveHandler} type="button" class="btn btn-primary">Update</button>
+						</div>
+						<div className="row">
+							<div className=" col-md-12 social-list">
+								{this.state.userData.media!=null && this.state.userData.media.length>0 &&
+									this.state.userData.media.map(element=>{
+										return <div><article>
+										<div class="clearfix">
+											<h6 class="float-left">{element.link}</h6>
+											{this.state.mode=='edit'&& <div><a onClick={this.removeMedia} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.editMedia}  data-id={element.id} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
+												</div>
+											</article>
+											<hr/>
+										</div>		
+									})
+								}
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+	changeMediaType=(e)=>{
+		let mediaEditForm= Object.assign({},this.state.mediaEditForm);
+		mediaEditForm.socialid=e.target.value;
+		this.setState({mediaEditForm:mediaEditForm});
+	}
+	changeMeidaUrl=(e)=>{
+		let mediaEditForm= Object.assign({},this.state.mediaEditForm);
+		mediaEditForm.link=e.target.value;
+		this.setState({mediaEditForm:mediaEditForm});
+	}
+
+	editMedia=(e)=>{
+		e.preventDefault();
+		let curobj=this;
+		let media_id=e.currentTarget.getAttribute('data-id');
+		if(media_id!=null){
+			let mediaEditForm= Object.assign({},this.state.mediaEditForm);
+			this.state.userData.media.map(element=>{
+				if(element.id==media_id){
+					mediaEditForm.socialid=element.socialid;
+					mediaEditForm.link=element.link;
+					mediaEditForm.id=element.id;
+					curobj.setState({mediaEditForm:mediaEditForm});
+				}	
+			})
+		}
+	}
+
+	removeMedia=(e)=>
+	{
+		e.preventDefault();
+		let exp_id=e.currentTarget.getAttribute('data-id');
+		let curobj=this;
+		if(exp_id!=null)
+		{
+			confirmAlert({
+				title: 'Remove Media',
+				message: 'Are you sure to remove media',
+				buttons: [
+				  {
+					label: 'Yes',
+					onClick: () => curobj.removeMediaById(curobj.props.user.id,exp_id)
+				  },
+				  {
+					label: 'No',
+					onClick: () => curobj.removeConfirmpopup(exp_id)
+				  }
+				]
+			  });
+			
+		}
+	}
+	removeMediaById(userid,exp_id){
+		const{dispatch}=this.props;
+		dispatch(mediaAction.removeMedia({userId:userid,mediaid:exp_id}));
+	}
+
+	// Visual Portfollo
+	renderProtfolloEditor(){
+		return(
+			<div className="modal fade" id="ProtfolloEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">Visual Portfollo</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+									<label htmlFor="category-text" className="col-form-label">Category:</label>
+									<select onChange={this.changePortfollo} type="text" className="form-control" id="category-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.folloid:null}>
+										<option value="0">Please select portfollo</option>
+										{this.state.portfolloList.map(element => {
+											return <option value={element.id}>{element.name}</option>	
+										})}
+									</select>
+									<div className="errorMsg">{this.state.CountryValidateMessage}</div>
+								</div>
+								
+								{this.state.portfolloOther==true && 
+									<div className="form-group">
+										<label htmlFor="meidalink-text" className="col-form-label">Category Name:</label>
+										<input placeholder="Enter Category Name" onChange={this.changePortfolloOther} type="text" className="form-control" id="meidalink-text" maxlength="25" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.other:null}/>
+										<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
+									</div>
+								}
+
+								<div className="form-group">
+									<label htmlFor="upload_multi_link" className="col-form-label">Upload:</label>
+									<input type="file" name="file"  id="multiupload" onChange={this.selectMultiImages.bind(this)}  style={{display:'none'}} />
+									<a href=""  id="upload_multi_link" > Upload Portfollo</a>
+								</div>
+								<div className="form-group">
+									<label htmlFor="caption-text" className="col-form-label">Caption</label>
+									<textarea placeholder="Enter upto 50 words about this" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<div className="small">Upto 50 words caption add  {this.state.portfolloEditForm.caption.length} characters</div>
+    
+								</div>
+								
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button onClick={this.clickFolloSaveHandler} type="button" class="btn btn-primary">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	changeCaption=(e)=>{
+		let portfolloEditForm=Object.assign({},this.state.portfolloEditForm);
+		portfolloEditForm.caption=e.target.value;
+		this.setState({portfolloEditForm:portfolloEditForm});
+	}
+	changePortfollo=(e)=>{
+		let portfolloEditForm= Object.assign({},this.state.portfolloEditForm);
+		portfolloEditForm.folloid=e.target.value;
+		if(e.target.value==8){
+			this.setState({portfolloOther:true});
+		}
+		else{
+			this.setState({portfolloOther:false});
+		}
+		this.setState({portfolloEditForm:portfolloEditForm});
+	}
+	changePortfolloOther=(e)=>{
+		let portfolloEditForm= Object.assign({},this.state.portfolloEditForm);
+		portfolloEditForm.other=e.target.value;
+		this.setState({portfolloEditForm:portfolloEditForm});
+	}
+
+	// Visual Portfollo
+	renderSpecialtiesEditor(){
+		return(
+			<div className="modal fade" id="SpecialtiesEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">My Specialties</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+									<label htmlFor="Specialties-text" className="col-form-label">Specialties:</label>
+									<input placeholder="Enter Specialties" onChange={this.changeSpecialties} type="text" className="form-control" id="Specialties-text" value={this.state.SpecialtiesEditForm!=null?this.state.SpecialtiesEditForm.name:null}/>
+								</div>
+								
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button onClick={this.clickSpecialtiesSaveHandler} type="button" class="btn btn-primary">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	changeSpecialties=(e)=>{
+		let SpecialtiesEditForm= Object.assign({},this.state.SpecialtiesEditForm);
+		SpecialtiesEditForm.name=e.target.value;
+		this.setState({SpecialtiesEditForm:SpecialtiesEditForm});
+	}
+
+	renderProgressEditor(){
+		return(
+			<div className="modal fade" id="progressEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">In Progress</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+									<label htmlFor="position-text" className="col-form-label">Position:</label>
+									<select onChange={this.changePosition} type="text" className="form-control" id="position-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.progressid:null}>
+										<option value="0">Please select Postion</option>
+										{this.state.progressList.map(element => {
+											return <option value={element.id}>{element.name}</option>	
+										})}
+									</select>
+									<div className="errorMsg">{this.state.CountryValidateMessage}</div>
+								</div>
+								<div className="form-group">
+									<label htmlFor="Establishment-text" className="col-form-label">Establishment:</label>
+									<input placeholder="Enter name of company" onChange={this.changeEstablishment} type="text" className="form-control" id="Establishment-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.establishment:null}/>
+								</div>
+								
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button onClick={this.clickProgressSaveHandler} type="button" class="btn btn-primary">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+	changePosition=(e)=>{
+		let progressEditForm=Object.assign({},this.state.progressEditForm);
+		progressEditForm.progressid=e.target.value;
+		this.setState({progressEditForm:progressEditForm});
+	}
+	changeEstablishment=(e)=>{
+		let progressEditForm=Object.assign({},this.state.progressEditForm);
+		progressEditForm.establishment=e.target.value;
+		this.setState({progressEditForm:progressEditForm});
+	}
+
+	clickProgressSaveHandler=(e)=>{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let curObj=this;
+		let establishment=this.state.progressEditForm.establishment.toString();
+		let postionid=this.state.progressEditForm.progressid;
+		let id=this.state.progressEditForm.id;
+		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
+		if(validator.isEmpty(establishment)===true){
+			curObj.setState({FistNameValidateMessage:'Please Company Name'});
+		}
+		if(validator.isEmpty(establishment)===false)
+		if(id>0)
+		{
+			dispatch(progressAction.editProgress({userId:this.props.user.id,progress:this.state.progressEditForm}))
+		}
+		else
+		{
+			dispatch(progressAction.addProgress({userId:this.props.user.id,progress:this.state.progressEditForm}))
+		}
+	}
+
+	// Visual Portfollo
+	renderPhotoEditor(){
+		return(
+			<div className="modal fade" id="PhotoEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">Add Photo</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+								<label htmlFor="upload_multi_photo" className="col-form-label">Upload:</label>
+								<input type="file" name="file"  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this)}  style={{display:'none'}} />
+								<a href="" id="upload_multi_photo" > Upload Photo</a>
+								</div>
+								<div className="form-group">
+									<label htmlFor="caption-text" className="col-form-label">Caption</label>
+									<textarea placeholder="Enter upto 50 words about this" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<div className="small">Upto 50 words caption add  {this.state.portfolloEditForm.caption.length} characters</div>
+    
+								</div>
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button onClick={this.clickPhotoSaveHandler} type="button" class="btn btn-primary">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+
 	/*education change handlers*/
 	changeEducationTitle=(e)=>{
 		let educationEditForm= Object.assign({},this.state.educationEditForm);
@@ -1401,8 +2276,6 @@ class Profile extends Component {
 		this.setState({profileEditForm:profileEditForm});
 	}
 	changeCountry=(e)=>{
-		console.log('change country called');
-		console.log(e.target.value);
 		let profileEditForm= Object.assign({},this.state.profileEditForm);
 		profileEditForm.country=e.target.value;
 		this.setState({profileEditForm:profileEditForm});
@@ -1472,7 +2345,6 @@ class Profile extends Component {
 	{
 		this.setState({EduTitleMessage:'',EduProgramMessage:'',EduDateMessage:'',EduDescriptionMessage:'',EduLocationMessage:''});
 		
-		console.log(e.currentTarget.getAttribute('data-id'));
 		let edu_id=e.currentTarget.getAttribute('data-id');
 
 		if(edu_id!=null)
@@ -1525,10 +2397,7 @@ class Profile extends Component {
 
 	removeEducation=(e)=>
 	{
-		console.log('Experience Remove handler called');
-		console.log(this.state.educationEditForm);
 		e.preventDefault();
-		console.log(e.currentTarget.getAttribute('data-id'));
 		let exp_id=e.currentTarget.getAttribute('data-id');
 		let curobj=this;
 		if(exp_id!=null)
@@ -1560,7 +2429,6 @@ class Profile extends Component {
 	{
 		this.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
 		
-		console.log(e.currentTarget.getAttribute('data-id'));
 		let exp_id=e.currentTarget.getAttribute('data-id');
 
 		if(exp_id!=null)
@@ -1616,11 +2484,8 @@ class Profile extends Component {
 
 	removeExperience=(e)=>
 	{
-		console.log('Experience Remove handler called');
-		console.log(this.state.experienceEditForm);
 		const{dispatch}=this.props;
 		e.preventDefault();
-		console.log(e.currentTarget.getAttribute('data-id'));
 		let exp_id=e.currentTarget.getAttribute('data-id');
 		let curobj=this;
 		if(exp_id!=null)
@@ -1654,15 +2519,25 @@ class Profile extends Component {
 
 	showEditAbout=(e)=>{
 		this.setState({mode:'edit',profileEditForm:this.state.userData.profile});
-		
 		e.preventDefault();
+		let curobj=this;
+		if(this.state.userData.about!=null && this.state.userData.about!=undefined){
+			let aboutEditForm=Object.assign({},this.state.aboutEditForm);
+			this.state.userData.about.map(element=>{
+				aboutEditForm.university=element.university;
+				aboutEditForm.status=element.status;
+				aboutEditForm.month=element.month;
+				aboutEditForm.year=element.year;
+				aboutEditForm.id=element.id;
+				curobj.setState({aboutEditForm:aboutEditForm});	
+			})
+		}
 	}
 	showEditNameAddressCountry=(e)=>{
 		this.setState({mode:'edit',profileEditForm:this.state.userData.profile});
 		e.preventDefault();
 	}
 	changeStudent=(e)=>{
-		console.log('checkbox clicked');
 		this.setState({isStudent:e.currentTarget.checked});
 		this.markProfileAsStudent(e.currentTarget.checked);
 	}
@@ -1681,7 +2556,13 @@ class Profile extends Component {
 		});
 	}
 
+	showActivePanel=(id,e)=>{
+		e.preventDefault();
+		this.setState({tabactiveid:id});
+	}
+
     render() {
+			let curobj=this;
 			const{profile:{profile},user}=this.props;
 			const { profileUrl } = this.props.match.params;
 			let countryName=this.state.userData.profile.country;
@@ -1691,8 +2572,6 @@ class Profile extends Component {
 			}else{
 				imageUrl=this.state.initailImage;
 			}
-		console.log('check state');
-		console.log(this.state.userData); 
 		return ( 
             <div>
             {/* Header components open */}
@@ -1714,15 +2593,15 @@ class Profile extends Component {
         <section class="profile-top">
 			<div class="container">
 				<div class="d-md-flex align-items-end">
-					<div class="col-lg-3 col-md-4 col-xs-12">
+					<div class="col-lg-4 col-md-4 col-xs-12">
 						<div class="dp" >
 							<img src={imageUrl}  alt=""/>
 							<input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
 		{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> }
 							</div>
 					</div>
-					<div class="col-lg-9 col-md-8 col-xs-12">
-						<div class="right">
+					<div class="col-lg-8 col-md-8 col-xs-12">
+						<div class="right row">
 							<div>
 								<h3>{this.state.userData.profile!=null && this.state.userData.profile.firstName!=""?this.state.userData.profile.firstName:'N/A'} {this.state.userData.profile!=null && this.state.userData.profile.lastName!=""?this.state.userData.profile.lastName:' N/A'} <span className="flag">{countryName!=null && countryName!='' && <img src={ require(`../Images/flags/${countryName.toLocaleLowerCase()}.png`) } />} </span> </h3>
 								<h4>{this.state.userData.profile!=null && this.state.userData.profile.address!=""?this.state.userData.profile.address+', ':''} {this.state.userData.profile!=null && this.state.userData.profile.country!=""?this.state.userData.profile.country:''} </h4>
@@ -1739,6 +2618,30 @@ class Profile extends Component {
 								</div>
 							}
 						</div>
+						<div className="row media">
+							<div className="social">
+								{this.state.userData.media!=null && this.state.userData.media.length>0 &&
+									this.state.userData.media.map(element=>{
+										if(element.socialid==1){
+											return <a href={element.link} title={element.link}><i className="fab fa-facebook-f"></i></a>
+										}else if(element.socialid==2){
+											return <a href={element.link} title={element.link}><i className="fab fa-twitter"></i></a>	
+										}else if(element.socialid==3){
+											return <a href={element.link} title={element.link}><i className="fab fa-linkedin-in"></i></a>	
+										}else if(element.socialid==4){
+											return <a href={element.link} title={element.link}><i className="fab fa-instagram"></i></a>	
+										}else{
+											return <a href={element.link} title={element.link}><i class="fas fa-globe"></i></a>	
+										}
+									})
+								}
+								{this.state.userData.media==null && this.state.userData.media==undefined &&
+									 <h5 style={{color:'#fff'}}>N/A</h5>
+								}
+								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
+								<a onClick={this.media} data-toggle="modal" data-target="#mediaEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit" ><i class="fas fa-plus"></i></a>}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1748,31 +2651,63 @@ class Profile extends Component {
         <section class="profile-bot">
 			<div class="container">
 				<div class="d-md-flex align-items-start">
-					<div class="col-lg-3 col-md-4 col-xs-12">
+					<div class="col-lg-4 col-md-4 col-xs-12">
 						<div class="about">
 							<div class="clearfix">
 								<h5 class="float-left" style={{fontSize:'23px'}}>About</h5>
 								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
 							</div>
-						<p style={{wordBreak:'break-word'}}>{this.state.userData.profile!=null?this.state.userData.profile.about:null}</p>
+							<h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+' '+this.state.userData.about[0].month+'-'+this.state.userData.about[0].year:null}</h4>
+							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
 							<hr/>
-							{/*<h5>Linked Account</h5>
-							<a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-							<a href="#"><i class="fab fa-google-plus"></i> Google</a>
-							<a href="#"><i class="fab fa-dribbble"></i> Dribbble</a>
-							<hr/>*/}
+							<div className="clearfix">
+							<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								In Progress</h5> <div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox" onChange={this.state.mode=='edit'?this.changeStudent:''}  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>
+								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
+															</div>
+							{this.state.userData.progress !=undefined && this.state.userData.profile.isStudent==false &&
+							<ul>
+								
+							{this.state.userData.progress.map(element => {
+								let progressResult=this.state.progressList.filter(function (e) {
+									return e.id == element.progressid;
+								});
+								return <li>{progressResult[0].name+' '+element.establishment} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteSpecialties} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
+							})}
+							</ul>
+							}
+							
+							<hr/>
+							<div className="clearfix">
+							<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								My Specialties</h5>
+								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#SpecialtiesEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
+															</div>
+							{this.state.userData.specialties !=undefined &&
+							<ul>
+								
+							{this.state.userData.specialties.map(element => {
+							return <li>{ element.name} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteSpecialties} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
+							})}
+							</ul>
+							}
+							
+							<hr/>
+							
 							<div className="clearfix">
 							<h5 class="float-left lang" style={{fontSize:'23px'}}>
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 															</div>
+							{this.state.userData.languages!=undefined &&
 							<ul className="languageList">
 								
 							{this.state.userData.languages.map(element => {
 							return <li>{ element.name+' | '+element.proficiency} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteLanguage} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
 							})}
 							</ul>
+							}
 							<hr/>
 							<div class="clearfix">
 							<h5 class="float-left" style={{fontSize:'23px'}}>Portfolio</h5>
@@ -1787,55 +2722,98 @@ class Profile extends Component {
 							}
 						</div>
 					</div>
-					<div class="col-lg-9 col-md-8 col-xs-12">
+					<div class="col-lg-8 col-md-8 col-xs-12">
 						<div class="spacer"></div>
-						
+						{(this.state.mode=='edit') &&
 						<div class="card">
+							<div className="mb-7">
+								<h3>Visual Portfollo</h3>
+							</div>
 							<div class="clearfix mb-3">
-								<h6 class="float-left" style={{fontSize:'26px'}}>Experience</h6>
-								{console.log('experiances')}{console.log(this.state.userData.experiances)}
-								{user.unique_userid!=profileUrl && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined')&&<div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>}
-								{(this.state.mode=='edit' && (this.state.userData.experiances.length<1||this.state.userData.experiances==null || this.state.userData.experiances=='undefined'))&&<div class="float-left ml-4" style={{marginTop:'8px'}} ><input onChange={this.changeStudent} className="" id="chkStudent" type="checkbox"  checked={this.state.userData.profile.isStudent}   />&nbsp;Student (No experience to input)</div>}
-								{(this.state.mode=='edit' && this.state.isStudent==false && this.state.userData.profile.isStudent==false) &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
-								{/* {user.unique_userid==profileUrl && <span style={{marginTop:'5px',marginLeft:'5px'}} id="questionMark" data-tip={this.state.blurbTex.experience} className=" float-left fas fa-question"></span>}
-							<ReactTooltip/> */}
-							</div>
-							{this.state.userData.experiances.map(element => {
-							return<div> <article>
-								
-							<div class="clearfix">
-							<h6 class="float-left">{element.title} | {element.program}</h6>
-							{this.state.mode=='edit'&& <div><a onClick={this.removeExperience} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a> <a onClick={this.showExperience}  href="#" data-toggle="modal" data-target="#experienceEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description} data-start_date={element.start_date} data-end_date={element.end_date} class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
-								</div>
-								<p class="location"><span class="experienceDetail">{element.location}</span><span class="experienceDetail">{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
-								<p class="experienceDetail" style={{whiteSpace:'pre-line'}}>{element.description}</p>
-								{/*<a class="more" href="#">See more</a>*/}
-							</article>
-							<hr/></div>	
-							})}
-							
-							{/* <a href="#" class="view">View More</a> */}
+								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
+							</div>	
 						</div>
-						<div class="card">
-							<div class="clearfix mb-3">
-								<h6 class="float-left" style={{fontSize:'26px'}}>Education</h6>
-								{this.state.mode=='edit'&&<a onClick={this.showEducation} data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" href="#" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
-							
-							</div>
-							{console.log(this.state.userData.educations)}{this.state.userData.educations.map(element => {
-							return <div><article>
-								<div class="clearfix">
-							<h6 class="float-left">{element.title} | {element.program}</h6>
-							{this.state.mode=='edit'&& <div><a onClick={this.removeEducation} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.showEducation}  data-toggle="modal" data-target="#educationEditor" data-whatever="@mdo" data-id={element.id} data-title={element.title} data-program={element.program} data-location={element.location} data-description={element.description}  data-start_date={element.start_date} data-end_date={element.end_date} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
+						}
+						{this.state.userData.portfollo!=null && this.state.userData.portfollo.length>0 &&
+						<div className="card">
+							<div className="clearfix mb-3">
+								<ul className="nav nav-tabs justify-content-center">
+								{this.state.userData.portfollo!=null && this.state.userData.portfollo.length>0 &&
+									this.state.userData.portfollo.map((element,i)=>{
+										let obj="#"+element.id;
+										let folloResult=this.state.portfolloList.filter(function (e) {
+											return e.id == element.folloid;
+										});
+										if(i==0){
+											return <li className="nav-item">
+											<a className="nav-link active" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
+										  </li>
+										}
+										else{
+											return <li className="nav-item">
+										  <a className="nav-link" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
+										</li>
+										}
+									})
+								}
+								</ul>
+								<div className="tab-content">
+								{this.state.userData.portfollo!=null && this.state.userData.portfollo.length>0 &&
+									this.state.userData.portfollo.map((element,j)=>{
+										let classname="container tab-pane";
+										let folloResult=this.state.portfolloList.filter(function (e) {
+											return e.id == element.folloid;
+										});
+										if(element.id==this.state.tabactiveid){
+											classname="container tab-pane active";
+										}
+										let imageArray=[];
+										
+										this.state.userData.images.map(item=>{
+											if(item.folloid==element.id){
+												let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
+												let img={
+													src:imageUrl,
+													thumbnail:imageUrl,
+													thumbnailWidth: 150,
+													thumbnailHeight: 130,
+													// caption: element.caption,
+													customOverlay:item.caption
+												}
+												imageArray.push(img);
+												//  <img src={imageUrl}></img>
+											}
+										})
+										return <div id={element.id} className={classname}><br/>
+											{/* {images}; */}
+											{imageArray.length<10 && (this.state.mode=='edit') && 
+												<div className="row">
+													<div class="clearfix mb-3">
+														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New Photo</span></a>}
+													</div>
+													{/* <input type="file" name="file" style={{padding:'15px'}}  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this,element.id)} /> */}
+												</div>
+											}
+											{imageArray.length>0 && 
+												<Gallery images={imageArray} enableImageSelection={false}/>
+											}
+											{imageArray.length==0 &&
+											<form>
+												<div className="form-group">
+													<h3 className="text-danger">No Photos yet</h3>
+													{/* {(this.state.mode=='edit') &&
+														<input type="file" name="file"  id="multiuploadphoto" multiple onChange={this.selectMultiPhoto.bind(this,element.id)} />
+													} */}
+													 {/* <a href="" id="upload_multi_photo" > Upload Photos</a> */}
+												</div>
+											</form>
+											}
+										</div>
+									})
+								}
 								</div>
-							<p class="location"><span class="educationDetail">{element.location}</span><span class="educationDetail">{this.convertDateStringToMonthYear(element.start_date)} - {this.convertDateStringToMonthYear(element.end_date)}</span></p>
-							<p class="educationDetail" style={{whiteSpace:'pre-line'}}>{element.description}</p>
-							</article>
-							<hr/>
-							</div>
-							})}
-							{/* <a href="#" class="view">View More</a> */}
-						</div>
+							</div>	
+						</div>}
 					</div>
 				</div>
 			</div>
@@ -1849,9 +2827,11 @@ class Profile extends Component {
 		{this.renderLanguageModal()}
 		{this.renderExperienceModal()}
 		{this.renderEducationModal()}
-		
-		
-		
+		{this.renderMediaEditor()}
+		{this.renderProtfolloEditor()}
+		{this.renderSpecialtiesEditor()}
+		{this.renderProgressEditor()}
+		{this.renderPhotoEditor()}
 		</div>
          );
     }
@@ -1869,7 +2849,12 @@ function mapStateToProps(state) {
 	  experience:state.experience,
 	  education:state.education,
 	  language:state.language,
-	  isLoading:state.profile.isLoading
+	  isLoading:state.profile.isLoading,
+	  media:state.media,
+	  portfollo:state.portfollo,
+	  specialties:state.specialties,
+	  progress:state.progress,
+	  about:state.about
     };
   }
 

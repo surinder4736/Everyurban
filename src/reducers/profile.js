@@ -41,7 +41,8 @@ function profile(state = initialState, action) {
             return st;
         case actionTypes.GET_PROFILE_SUCCESS:
           var obj={profile:action.data.profile,educations:action.data.educations,
-            experiances:action.data.experiances,languages:action.data.languages};
+            experiances:action.data.experiances,languages:action.data.languages,media:action.data.media,portfollo:action.data.portfollo,
+            images:action.data.images,specialties:action.data.specialties,progress:action.data.progress,about:action.data.about};
            st = Object.assign({}, state, {profile:obj})
           return st;
         case actionTypes.PROFILE_EDIT_SUCCESS:

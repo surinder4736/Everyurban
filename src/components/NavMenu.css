@@ -41,6 +41,9 @@ header .button a:hover { color:#02aae3; }
 	header .button { padding:0; box-shadow:none; }
 	header .logo { margin-left: 25px;}
 }
+@media (min-width:1200px) {
+	.container {max-width: 1340px;}
+}
 @media (max-width:550px) {
 	header #hamburger { height:36px; line-height:36px; font-size:30px; }
 	header .logo { height:36px; margin-left: 25px;}
@@ -157,8 +160,18 @@ header .button a:hover { color:#02aae3; }
 .banner-background .overlay h1 { color:#fff; font-size:42px; text-align:center; font-weight:700; margin:0 0 40px; line-height:1; }
 .banner-background .overlay a { display:table; margin:0 auto; }
 .banner-background .overlay a:hover { color:#111; }
-.subscribe-section{position: relative;text-align: center;color: white;}
-.subscribe-section .center-text{position: absolute;top: 50%;font-size: 32px;font-weight: 700;width: 100%; margin: auto; color:#fff;}
+.subscribe-section{position: relative;text-align: center;color: white;align-items: center;
+    display: flex;
+    justify-content: center;
+    background-position: 50% 50%;
+	background-repeat: no-repeat;}
+.subscribe-section a{
+	display: table;
+    margin: 80px auto;
+    position: absolute;
+    justify-content: center;
+    align-items: center;}	
+.subscribe-section .center-text{position: absolute;font-size: 32px;font-weight: 700;width: 100%; margin: auto; color:#fff;}
 @media (max-width:991px){
 	#aboutus .aboutus-cotent .key-objects{height: 60px;}
 }
@@ -327,7 +340,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .dp a { position:absolute; z-index:12; left:0; bottom:0; width:100%; height:40px; line-height:40px; text-align:center; color:#fff; background:rgba(0,0,0,0.5); opacity:0; }
 .profile-top .dp:hover a { opacity:1; }
 .profile-top .dp a:hover { background:rgba(0,0,0,0.9); }
-.profile-top .right { display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:50px; }
+.profile-top .right { display:flex; align-items:flex-end; justify-content:space-between; }
 .profile-top .right h3 { color:#fff; font-size:36px; font-weight:400; margin:0 0 10px; }
 .profile-top .right h4 { color:#fff; font-size:20px; font-weight:400; margin:0; }
 .profile-top .right .button,
@@ -337,6 +350,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .right .aligned-edit{ margin-top: -56px;margin-right: -70px;color: white }
 .profile-top .right .profile-edit .span{padding:0px}
 .profile-top .right .profile-save .span{padding:0px}
+.profile-top .media .aligned-edit{  }
 .profile-bot .spacer { height:30px; }
 .profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:0 0 10px; color:#111; }
 .profile-bot h6 { color:#111; font-size:20px; font-weight:700; margin:0; color:#111; }
@@ -415,3 +429,33 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 
 .month-input {width: 100% !important}
 
+.media .social { display:table; margin-top:18px;margin-bottom: 30px; }
+.media .social a{display:inline-block; width:40px; height:40px; line-height:40px; background:#fff; color:#02aae3; text-align:center; border-radius:50%; margin:0 15px; font-size:20px;}
+
+.social-list .clearfix{padding: 0 20px;}
+
+.ReactGridGallery_tile{
+	padding: 10px !important;
+	border: 1px solid #3AA3d7;
+	background: none;
+}
+.ReactGridGallery_custom-overlay{
+	background-color: rgba(0, 0, 0, 0.8);
+    max-height: 240px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    padding: 2px;
+    font-size: 90%
+}
+.about-radios label{
+	display: -webkit-inline-box;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+}
+
+.about-radios label .checkmark{
+	margin-left: 0.5rem;
+}
