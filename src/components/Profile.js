@@ -2623,15 +2623,15 @@ class Profile extends Component {
 								{this.state.userData.media!=null && this.state.userData.media.length>0 &&
 									this.state.userData.media.map(element=>{
 										if(element.socialid==1){
-											return <a href={element.link} title={element.link}><i className="fab fa-facebook-f"></i></a>
+											return <a href={element.link} target="_blank" title={element.link}><i className="fab fa-facebook-f"></i></a>
 										}else if(element.socialid==2){
-											return <a href={element.link} title={element.link}><i className="fab fa-twitter"></i></a>	
+											return <a href={element.link} target="_blank" title={element.link}><i className="fab fa-twitter"></i></a>	
 										}else if(element.socialid==3){
-											return <a href={element.link} title={element.link}><i className="fab fa-linkedin-in"></i></a>	
+											return <a href={element.link} target="_blank" title={element.link}><i className="fab fa-linkedin-in"></i></a>	
 										}else if(element.socialid==4){
-											return <a href={element.link} title={element.link}><i className="fab fa-instagram"></i></a>	
+											return <a href={element.link} target="_blank" title={element.link}><i className="fab fa-instagram"></i></a>	
 										}else{
-											return <a href={element.link} title={element.link}><i class="fas fa-globe"></i></a>	
+											return <a href={element.link} target="_blank" title={element.link}><i class="fas fa-globe"></i></a>	
 										}
 									})
 								}
