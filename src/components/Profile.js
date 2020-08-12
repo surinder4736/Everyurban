@@ -727,8 +727,17 @@ class Profile extends Component {
 			//debugger;
 			if(nextProps.profile!=null && nextProps.profile!=undefined)
 			{
-				
-				this.setState({userData:nextProps.profile,tabactiveid:nextProps.profile.portfollo[0]!=undefined?nextProps.profile.portfollo[0].id:1},()=>{
+				let corobj=this;
+				let categoryActiveId=1;
+				if(nextProps.profile.portfollo!=undefined){
+					categoryActiveId=nextProps.profile.portfollo[0].id;
+					nextProps.profile.portfollo.map(item=>{
+						if(corobj.state.tabactiveid==item.id){
+							categoryActiveId=item.id;
+						}
+					});
+				}
+				this.setState({userData:nextProps.profile,tabactiveid:nextProps.profile.portfollo[0]!=undefined?categoryActiveId:1},()=>{
 					this.completeThisProfile();	
 				});
 				//this.setState({userData:{'profile':nextProps.profile}})
@@ -2776,11 +2785,11 @@ class Profile extends Component {
 					<div class="col-lg-8 col-md-8 col-xs-12">
 						<div class="spacer"></div>
 						{(this.state.mode=='edit') &&
-						<div class="card">
-							<div className="mb-7">
+						<div class="card row" style={{flexDirection:'initial'}}>
+							<div className="col-md-7">
 								<h3>Visual Portfollo</h3>
 							</div>
-							<div class="clearfix mb-3">
+							<div class="clearfix col-md-3">
 								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
 							</div>	
 						</div>
@@ -2792,19 +2801,26 @@ class Profile extends Component {
 								{this.state.userData.portfollo!=null && this.state.userData.portfollo.length>0 &&
 									this.state.userData.portfollo.map((element,i)=>{
 										let obj="#"+element.id;
+										let categoryclass="nav-link"
 										let folloResult=this.state.portfolloList.filter(function (e) {
 											return e.id == element.folloid;
 										});
-										if(i==0){
-											return <li className="nav-item">
-											<a className="nav-link active" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
-										  </li>
+										if(element.id==this.state.tabactiveid){
+											categoryclass="nav-link active";
 										}
-										else{
-											return <li className="nav-item">
-										  <a className="nav-link" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
+										return <li className="nav-item">
+										  <a className={categoryclass} onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
 										</li>
-										}
+										// if(i==0){
+										// 	return <li className="nav-item">
+										// 	<a className="nav-link active" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
+										//   </li>
+										// }
+										// else{
+										// 	return <li className="nav-item">
+										//   <a className="nav-link" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
+										// </li>
+										// }
 									})
 								}
 								</ul>
