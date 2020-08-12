@@ -82,6 +82,8 @@ class Profile extends Component {
 			monthList:null,
 			selectedcategoryid:0,
 			categoryUploadImageItem:null,
+			isUploading:false,
+			isProfileUploading:false,
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -665,7 +667,7 @@ class Profile extends Component {
 		let other=this.state.portfolloEditForm.other;
 		let caption=this.state.portfolloEditForm.caption;
 		let id=this.state.portfolloEditForm.id;
-		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
+		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:'',isUploading:true});
 		if(validator.isEmpty(portfolloid)===true){
 			curObj.setState({FistNameValidateMessage:'Please select category'});
 		}
@@ -874,7 +876,7 @@ class Profile extends Component {
 				if(this.state.categoryUploadImageItem!=null){
 					axios.post(`${APIURL}users/${profile.userId}/${nextProps.portfollo.media.id}/multiupload`,formData,config)
 					.then((response) => {
-						this.setState({imageFormData:null});
+						this.setState({imageFormData:null,isUploading:false});
 						Swal.fire({
 							title: 'Success!',
 							text: 'Portfollo has been saved successfully.',
@@ -996,6 +998,7 @@ class Profile extends Component {
 
 	selectImages(e){
 		//this.setState({file:});
+		let curobj=this;
 		const{profile:{profile}}=this.props;
 		let formData = new FormData();
 		formData.append("file",e.target.files[0]);
@@ -1004,16 +1007,17 @@ class Profile extends Component {
 					'content-type': 'multipart/form-data',
 				}
 		}
+		this.setState({isProfileUploading:true});
 		axios.post(`${APIURL}users/${profile.userId}/${profile.id}/upload`,formData,config)
 				.then((response) => {
 					let userData=Object.assign({},this.state.userData);
 					userData.profile.photo=response.data.data.photo;
-					this.setState({userData});
+					curobj.setState({userData,isProfileUploading:false});
 				  
 				}).catch((error) => {
 				 console.log(error);
 					return error;
-		    });
+		});
 	}
 
 	selectMultiImages(e){
@@ -1095,9 +1099,10 @@ class Profile extends Component {
 				}
 			}
 			if(this.state.categoryUploadImageItem!=null){
+				this.setState({isUploading:true});
 				axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/multiupload`,formData,config)
 				.then((response) => {
-					this.setState({imageFormData:null});
+					this.setState({imageFormData:null,isUploading:false});
 					Swal.fire({
 						title: 'Success!',
 						text: 'Photo has been saved successfully.',
@@ -1577,12 +1582,12 @@ class Profile extends Component {
 		  <div className="form-group">
             <label htmlFor="language-proficiency-text" className="col-form-label">Proficiency</label>
 			<select onChange={this.changeLanguageProficiency} className="form-control"  id="language-proficiency-text" value={this.state.languageEditForm.proficiency}>
-			<option value=""> Select Proficiency</option>
-<option value="Basic"> Basic (write in this language decently)</option>
-<option value="Conversational"> Conversational (write and speak language well)</option>
-<option value="Fluent"> Fluent (Write and peak language almost perfectly)</option>
-<option value="Native"> Native (Mother tongue/first language)</option>
-				</select>
+				<option value=""> Select Proficiency</option>
+				<option value="Basic"> Basic (write in this language decently)</option>
+				<option value="Conversational"> Conversational (write and speak language well)</option>
+				<option value="Fluent"> Fluent (Write and peak language almost perfectly)</option>
+				<option value="Native"> Native (Mother tongue/first language)</option>
+			</select>
 			<div className="errorMsg">{this.state.LanguageProficiencyMessage}</div>
 			<div className="errorMsg">{this.state.LanguageExistsMessage}</div>
 				
@@ -2001,7 +2006,7 @@ class Profile extends Component {
 						</div>
 						<div className="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button onClick={this.clickFolloSaveHandler} type="button" class="btn btn-primary">Update</button>
+							<button onClick={this.clickFolloSaveHandler} type="button" class="btn btn-primary">{(this.state.isUploading==true) && <i class="fa fa-spinner fa-spin"></i>}Update</button>
 						</div>
 					</div>
 				</div>
@@ -2169,7 +2174,7 @@ class Profile extends Component {
 						</div>
 						<div className="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button onClick={this.clickPhotoSaveHandler} type="button" class="btn btn-primary">Update</button>
+							<button onClick={this.clickPhotoSaveHandler} type="button" class="btn btn-primary">{(this.state.isUploading==true) && <i class="fa fa-spinner fa-spin"></i>} Update</button>
 						</div>
 					</div>
 				</div>
@@ -2595,27 +2600,38 @@ class Profile extends Component {
 						{user.unique_userid==profileUrl && <ProfileHeader profileUrl={profileUrl}/>}
 						{user.unique_userid!=profileUrl &&
 						<ProfileViewHeader /> }
-        <MenuComponent />
+        		<MenuComponent />
             {/* Header components end */}
 			<div className='sweet-loading'>
-        <ScaleLoader
-		width={25}
-          sizeUnit={"px"}
-          size={150}
-          color={'#123abc'}
-          loading={this.props.isLoading}
-        />
-      </div> 
+				<ScaleLoader
+				width={25}
+				sizeUnit={"px"}
+				size={150}
+				color={'#123abc'}
+				loading={this.props.isLoading}
+				/>
+      		</div> 
             {/* Profile top section */}
-        <section class="profile-top">
+        	<section class="profile-top">
 			<div class="container">
 				<div class="d-md-flex align-items-end">
 					<div class="col-lg-4 col-md-4 col-xs-12">
 						<div class="dp" >
-							<img src={imageUrl}  alt=""/>
+							{this.state.isProfileUploading==false && 
+								<img src={imageUrl}  alt=""/>
+							}
+							{this.state.isProfileUploading==true &&
+								<ScaleLoader
+								width={25}
+								sizeUnit={"px"}
+								size={150}
+								color={'#123abc'}
+								loading={this.state.isProfileUploading}
+								/>
+							}
 							<input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
-		{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> }
-							</div>
+							{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> }
+						</div>
 					</div>
 					<div class="col-lg-8 col-md-8 col-xs-12">
 						<div class="right row">
@@ -2679,10 +2695,10 @@ class Profile extends Component {
 							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
 							<hr/>
 							<div className="clearfix">
-							<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								<h5 class="float-left lang" style={{fontSize:'23px'}}>
 								In Progress</h5> <div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox" onChange={this.state.mode=='edit'?this.changeStudent:''}  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>
 								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-															</div>
+							</div>
 							{this.state.userData.progress !=undefined && this.state.userData.profile.isStudent==false &&
 							<ul>
 								
@@ -2706,10 +2722,10 @@ class Profile extends Component {
 							
 							<hr/>
 							<div className="clearfix">
-							<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								<h5 class="float-left lang" style={{fontSize:'23px'}}>
 								My Specialties</h5>
 								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#SpecialtiesEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-															</div>
+							</div>
 							{this.state.userData.specialties !=undefined &&
 							<ul>
 								
@@ -2731,10 +2747,10 @@ class Profile extends Component {
 							<hr/>
 							
 							<div className="clearfix">
-							<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								<h5 class="float-left lang" style={{fontSize:'23px'}}>
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
-															</div>
+							</div>
 							{this.state.userData.languages!=undefined &&
 							<ul className="languageList">
 								
