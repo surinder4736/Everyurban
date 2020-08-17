@@ -36,6 +36,12 @@ const isEmailVerifyError=(data)=>{
     return {type:actionTypes.IS_EMAIL_VERIFY_ERROR,data};
 }
 
+const isEmailResendSuccess=(data)=>{
+    return {type:actionTypes.IS_EMAIL_RESEND_SUCCESS, data,dt:new Date()};
+}
+const isEmailResendError=(data)=>{
+    return {type:actionTypes.IS_EMAIL_RESEND_ERROR,data,dt:new Date()};
+}
 
 const ResetPasswordSuccess=(data)=>{
     return {type:actionTypes.RESET_PASSWORD_SUCCESS,data,dt:new Date()}
@@ -193,6 +199,23 @@ const userAction = {
                 dispatch(removeUserError({message:error.response.data,dt:new Date()}));
             });
         };
-    }
+    },
+
+    // Verifyemail
+    resendemail(data){
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.post(`${APIURL}user/resendEmail`,data)
+                .then(response => {
+                    var data=response.data;
+                    dispatch(isEmailResendSuccess(data));
+                
+            }).catch((error) => {
+                dispatch(isEmailResendError({message:error.response.data,dt:new Date()}));
+                   //dispatch(requestFailure());
+            });
+        };
+    },
+
 }
 export default userAction;

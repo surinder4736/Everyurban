@@ -3,8 +3,8 @@ import Hamberg from './HamberHeader';
 import MenuComponent from './MenuComponent';
 import footerLogo from '../Images/logo-footer.png';
 import createLogo from '../Images/login-create.png';
-import TermsFile from '../Pdf/Everyurban_Terms_of_Service.pdf';
-import PrivacyPolicyFile from '../Pdf/EveryUrban_Privacy_Policy.pdf';
+import TermsFile from '../Pdf/termsofservice.pdf';
+import PrivacyPolicyFile from '../Pdf/privacypolicy.pdf';
 import Jquery from 'jquery';
 import ReactTooltip from 'react-tooltip';
 import userAction from '../actions/user';
@@ -17,7 +17,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import './bodyStyle.css';
 //const Swal = require('sweetalert2');
 
-const{register} = userAction;
+const{register,resendemail} = userAction;
 class Signup extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +26,17 @@ class Signup extends Component {
 			}
 	
 	componentDidMount(){
+		let curobj=this;
 		Jquery("input:password").focusin(function(){
 		Jquery("#viewPass").css("display", "block");
 		 });
+		 Jquery(document).on('click', '.btn-resend', function() {
+			curobj.resendEmail();
+		});
+		Jquery(document).on('click', '.btn-close', function() {
+			Swal.close();
+		}); 
+		
 	}
   //Password Show/Hide in TextBox
 	handlePasswordViewMode(e){
@@ -119,11 +127,15 @@ class Signup extends Component {
 			const{user}=nextProps;
 			if(nextProps.user!=null && user!=this.props.user){
 				if(user.auth===true && user.success_msg==="OK"){
+					
 					Swal.fire({
 						title: 'A verification email has been sent.',
 						text: 'Please verify your email to complete your registration.',
 						icon: 'success',
-						confirmButtonText: 'OK'		
+						// confirmButtonText: 'OK'
+						showConfirmButton: false,
+						html: '<button type="button" role="button" tabindex="0" class="btn btn-primary btn-resend">' + 'Resend Email' + '</button>' +
+						'<button type="button" role="button" tabindex="0" class="btn btn-primary btn-close" >' + 'ok' + '</button>',		
 					});
 					this.setState({messageServerside:''});
 				   this.clearForm();
@@ -152,6 +164,15 @@ class Signup extends Component {
 				}
 			 
 		}
+		if(nextProps.isResendEmail!=this.props.isResendEmail){
+			Swal.fire({
+				title: 'A verification email has been sent.',
+				text: 'Please verify your email to complete your registration.',
+				icon: 'success',
+				confirmButtonText: 'OK'
+				
+			});
+		}
 	}
 
 	handlePasswordEnter(e){
@@ -159,6 +180,15 @@ class Signup extends Component {
 		if (e.keyCode == 13) {
 		this.signUpClickHandle(e);
 	}
+	}
+
+	resendEmail(){
+		const{user,dispatch}=this.props;
+		const data={
+				email:user.email
+		}
+		dispatch(resendemail(data));
+		
 	}
 
     render() { 
@@ -216,7 +246,7 @@ class Signup extends Component {
 								{/* <div className="errorMsg" style={{height:'20px'}}>{this.state.termsValidate}</div> */}
 								</div>
 								<button className="btn gradient" onKeyDown={this.handlePasswordEnter} onClick={this.signUpClickHandle.bind(this)}>SIGN UP</button>
-								<a className="create" style={{margin:'11px 0 0 '}} href="/Login">Have an account? Log In <img src={createLogo} alt=""/></a>
+								<a className="create" style={{margin:'11px 0 0 '}} href="/login">Have an account? Log In <img src={createLogo} alt=""/></a>
 							</div>
 							
 						</div>
@@ -236,7 +266,8 @@ Signup.propTypes = {
 };
 function mapStateToProps(state) {
     return {
-      user: state.users.user,
+	  user: state.users.user,
+	  isResendEmail:state.users.isResendEmail,
     };
   }
  

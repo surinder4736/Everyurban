@@ -26,7 +26,8 @@ const initialState = {
   sendOtp:{},
   verifyOtp:{},
   resetPassword:{},
-  AdminUserList:{}
+  AdminUserList:{},
+  isResendEmail:{}
 }
 //define a reducer with an initialized state action
 function users(state = initialState, action) {
@@ -76,6 +77,9 @@ function users(state = initialState, action) {
         case actionTypes.USER_REMOVE_ERROR:
           st = Object.assign({}, state, {AdminUserList:action.data})
           return st;
+          case actionTypes.IS_EMAIL_RESEND_SUCCESS:
+            st = Object.assign({}, state, {isResendEmail:action.data})
+            return st;  
 
         default:
           return state

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MenuComponent from './MenuComponent';
-import footerLogo from '../Images/logo-footer.png';
+import footerLogo from '../Images/logo-footer-min.png';
 import createLogo from '../Images/login-create.png';
 import Hamberg from './HamberHeader';
 import ReactTooltip from 'react-tooltip';

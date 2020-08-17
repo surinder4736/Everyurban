@@ -29,8 +29,10 @@ p { font-size:14px; color:#111; margin:0 0 20px; }
 .flag{display:inline-block;position: relative;width:20px;height:15px;}
 
 header { padding:20px 0; }
-header .logo { display:block; height:50px; margin-left: 145px;}
+header .logo { display:block; height:50px; margin-left: 150px;}
 header .logo img { width:auto; height:100%; }
+header .prfile-logo { display:block; height:50px; margin-left: 45px;}
+header .prfile-logo img { width:auto; height:100%; }
 header #hamburger { display:block; height:50px; line-height:50px; padding:0; color:#02aae3; font-size:35px; }
 header #hamburger:hover { color:#2e76ee; }
 header .button { padding:10px 30px; line-height:30px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.2); font-weight:700; font-size:18px; color:#111; }
@@ -68,6 +70,8 @@ header .button a:hover { color:#02aae3; }
 
 #howitwork .howitwork-body{background: #1571b2;color: white;padding: 40px;margin-bottom: 20px;}
 #howitwork .howitwork-body h1{text-align: center; padding: 40px 0 10px 0; margin: 20px 0 0;}
+#howitwork .howitwork-content .helpcentre-link {color: #1C71B2;}
+#howitwork .howitwork-content .helpcentre-link h1{text-align: center; margin: 0px;padding: 0px; color: #1C71B2;}
 #howitwork .howitwork-body p{font-size:21px;text-align: center; margin-left: auto;margin-right: auto;width: 23em;color: white;padding-bottom: 40px;}
 #howitwork .howitwork-content{ padding: 40px;margin-bottom: 20px;}
 #howitwork .howitwork-content h1{text-align: center; padding: 40px 0 10px 0;font-weight: 600;color: #3AA3d7;}
@@ -167,19 +171,22 @@ header .button a:hover { color:#02aae3; }
 	background-repeat: no-repeat;}
 .subscribe-section a{
 	display: table;
-    margin: 80px auto;
     position: absolute;
     justify-content: center;
-    align-items: center;}	
+	align-items: center;
+	margin-top:150px;
+}	
 .subscribe-section .center-text{position: absolute;font-size: 32px;font-weight: 700;width: 100%; margin: auto; color:#fff;}
 @media (max-width:991px){
 	#aboutus .aboutus-cotent .key-objects{height: 60px;}
+	.subscribe-section a{margin-top:150px;}
 }
 @media (max-width:768px) {
 	.banner-background{ background-repeat:no-repeat; background-position:50% 50%; background-size:cover;}
 	.banner-background .overlay { background-size:cover; }
 	.banner-background .overlay h1{ font-size:25px; }
 	.banner-background .overlay a { font-size:20px; }
+	.subscribe-section a{margin-top:115px;}
 	.subscribe-section .center-text{font-size: 23px; width: 100%; margin: auto; color:#fff;}
 	#howitwork{overflow-x: hidden}
 	#howitwork .howitwork-body p{width: 12em;font-size: 22px;}
@@ -218,6 +225,7 @@ header .button a:hover { color:#02aae3; }
 	#howitwork .howitwork-content .list-body {font-size: 17px;display: -ms-flexbox; display: flex; margin-left: auto; margin-right: auto;  width: 20em;}
 	#howitwork .howitwork-content .list-body-header{font-size: 17px;display: -ms-flexbox; display: flex; margin-left: auto; margin-right: auto;  width: 20em;}
 	#howitwork .howitwork-content .list-body-header h1{margin-left: 90px; white-space: nowrap;}
+	.subscribe-section a{margin-top:90px;}
 }
 .aim { padding:100px 0; }
 .aim h2 { color:#111; }
@@ -459,3 +467,5 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 .about-radios label .checkmark{
 	margin-left: 0.5rem;
 }
+
+.btn-close{margin-left: 20px;}

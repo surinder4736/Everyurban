@@ -87,7 +87,7 @@ streamlining the process of strategy, design and negotiation.
                 </p>
               </div>
             </div>
-            
+            <h1 className="text-center" style={{color:'#3AA3d7'}}>Learn more about <a href="/howitworks" style={{textDecoration:'underline'}}>How It Works -<i class="fas fa-angle-right"></i></a></h1>
           </div>
           
 			  </section>

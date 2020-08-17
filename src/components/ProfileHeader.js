@@ -46,7 +46,7 @@ class ProfileHeader extends Component {
         
         	<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
         
-					<a href="#" className="logo"><img src={logo} alt="" /></a>
+					<a href="#" className="prfile-logo"><img src={logo} alt="" /></a>
 				
         	<div className='button' >
 						<a href="#" style={{cursor:'pointer'}} onClick={this.logOutHandle.bind(this)} className="signup">Logout</a>

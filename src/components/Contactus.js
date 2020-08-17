@@ -7,7 +7,7 @@ import validator from 'validator';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import MenuComponent from './MenuComponent';
-import footerLogo from '../Images/logo-footer.png';
+import footerLogo from '../Images/logo-footer-min.png';
 import Footer from './Footer';
 const{addContactUs}=contactUsAction;
 export class ContactUs extends Component {

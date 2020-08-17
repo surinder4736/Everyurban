@@ -16,6 +16,7 @@ import ContactUs from './components/Contactus';
 import HelpCenter from './components/HelpCenter';
 import HowItWork from './components/HowItWork';
 import AboutUs from './components/AboutUs';
+// import PrivacyPolicy from './components/Privacypolicy';
 export default class App extends Component {
  // static displayName = App.name;
 
@@ -24,7 +25,7 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route  path='/login' component={Login} />
-        <Route  path='/Signup' component={Signup} />
+        <Route  path='/signup' component={Signup} />
         <Route  path='/ForgetPassword' component={ForgetPassword} />
         <Route exact path='/resetpassword/:unique_userid' component={ChangePassword} />
         <Route exact path='/users/verifysuccess/:email' component={VerifySuccess} />
@@ -35,8 +36,9 @@ export default class App extends Component {
         <Route  path='/profileview/:profileUrl/:random' component={ViewProfile} />
         <Route exact path='/contactus' component={ContactUs} />
         <Route exact path='/helpcentre' component={HelpCenter} />
-        <Route  path='/howitwork' component={HowItWork} />
+        <Route  path='/howitworks' component={HowItWork} />
         <Route  path='/aboutus' component={AboutUs} />
+        {/* <Route  path='/privacypolicy' component={PrivacyPolicy} /> */}
         <Route exact path='*'  />
 
       </Layout>

@@ -158,7 +158,7 @@ componentDidMount(){
 								<div className="errorMsg">{this.state.message1}</div>
 								<button className="btn gradient" onKeyDown={this.pressEnterKey} onClick={this.clickLoginHandle}>LOG IN</button>
 								<a href="/ForgetPassword">Forgot your password?</a>
-								<a className="create" href="/Signup">Create Your Account <img src={createLogo} alt=""/></a>
+								<a className="create" href="/signup">Create Your Account <img src={createLogo} alt=""/></a>
 							</div>
 						</div>
 					</div>

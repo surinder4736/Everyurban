@@ -26,7 +26,7 @@ class ViewModeHeader extends Component {
 			<div className="container">
 				<div className="d-flex justify-content-between align-items-center">
                 
-                 <div style={{margin:'auto'}}><a href="#" className="logo"><img src={logo} alt="" /></a> </div>
+                 <div style={{margin:'auto'}}><a href="#" className="prfile-logo"><img src={logo} alt="" /></a> </div>
 			
 				</div>
 			</div>

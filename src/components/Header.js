@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
-import logo from '../Images/logo.png';
+import logo from '../Images/logo-min.png';
 
 import './NavMenu.css';
 var jQuery= require('jquery');

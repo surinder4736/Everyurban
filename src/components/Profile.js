@@ -605,22 +605,22 @@ class Profile extends Component {
 		{
 			profileComplete=false;
 		}
-		if(this.state.userData.profile.about=='' || this.state.userData.profile.about==null)
-		{
-			profileComplete=false;
-		}
-     if(this.state.userData.profile.isStudent==false && this.state.userData.experiances.length<=0)
-		{
-			profileComplete=false;
-		}
-		if(this.state.userData.languages.length<1)
-		{
-			profileComplete=false;
-		}
-		if(this.state.userData.educations.length<1)
-		{
-			profileComplete=false;
-		}
+	// 	if(this.state.userData.profile.about=='' || this.state.userData.profile.about==null)
+	// 	{
+	// 		profileComplete=false;
+	// 	}
+    //  if(this.state.userData.profile.isStudent==false && this.state.userData.experiances.length<=0)
+	// 	{
+	// 		profileComplete=false;
+	// 	}
+	// 	if(this.state.userData.languages.length<1)
+	// 	{
+	// 		profileComplete=false;
+	// 	}
+	// 	if(this.state.userData.educations.length<1)
+	// 	{
+	// 		profileComplete=false;
+	// 	}
 		if(( this.state.userData.profile.isCompleted!=profileComplete))
 		{
 			const{dispatch}=this.props;
@@ -729,7 +729,7 @@ class Profile extends Component {
 			{
 				let corobj=this;
 				let categoryActiveId=1;
-				if(nextProps.profile.portfollo!=undefined){
+				if(nextProps.profile.portfollo!=undefined && nextProps.profile.portfollo.length>0){
 					categoryActiveId=nextProps.profile.portfollo[0].id;
 					nextProps.profile.portfollo.map(item=>{
 						if(corobj.state.tabactiveid==item.id){
