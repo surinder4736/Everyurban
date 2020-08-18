@@ -471,7 +471,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 .btn-close{margin-left: 20px;}
 
 .about-bottom-link{padding-top: 40px; font-size: 1.4rem;}
-.about-bottom-link img{width: 25px;}
-.helpcentre-link img{width: 25px;}
+.about-bottom-link img{width: 25px !important;}
+.helpcentre-link img{width: 25px !important;}
 .learnmore img{width:20px;}
 .subscribe-section-start img{width:20px;}
