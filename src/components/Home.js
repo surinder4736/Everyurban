@@ -9,6 +9,8 @@ import people from '../Images/people-300x294.jpg';
 import city from '../Images/city-min.jpg';
 import developers from '../Images/developers-min.jpg'
 import subscribe from '../Images/subscribe-1-min.jpg';
+import arrowWhite from '../Images/arrow-white.png';
+import logoemail from '../Images/logo-email.png';
 import Footer from './Footer';
 export class Home extends Component {
   static displayName = Home.name;
@@ -34,7 +36,7 @@ componentDidMount() {
 				<div className="carousel-item active">
         	<div className="overlay"  >
         		<div >
-							<h2>FREELANCE DESIGN JOBS WORLDWIDE</h2>
+							<h2>FREELANCE DESIGN JOBS WORLD WIDE</h2>
 							<h1>Discovering Design Architect Talent and Development Projects</h1>
 							<a className="btn gradient" href="/Login" >Get Started</a>
 						</div>
@@ -77,7 +79,7 @@ componentDidMount() {
 					<div className="col-md-7">
 						<h2 className="text-md-left text-center">Design Communities Everywhere from Anywhere</h2>
 						<p className="text-md-left text-center">Empowering Architect Designers to Create and Innovate</p>
-						<a className="btn gradient" href="/howitworks" > learn more </a>
+						<a className="btn gradient learnmore" href="/howitworks" > learn more <img src={arrowWhite} alt="" width="20px" /></a>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
 				</div>
@@ -86,7 +88,7 @@ componentDidMount() {
       {/* Warning Section */}
       <section className="winning">
 			<div className="container">
-				<h2>Powered by Experienced Planners, Engineers and Consultants</h2>
+				<h2>Powered by Experienced Planners, Engineers and Consultants.</h2>
 				<p>The EveryUrban platform bridges the gap for Design Architects of all
 backgrounds and locations to earn a living doing what they love.
 </p>
@@ -140,7 +142,7 @@ on finding the best design concepts for your project. </p>
 		 <div className="subscribe-section">
      		<img src={subscribe} alt=""/>
 		 	<p className="center-text">START BUILDING COMMUNITIES TODAY</p>
-			<a className="btn gradient" href="/login" >Get Started</a>
+			<a className="btn gradient subscribe-section-start " href="/login" >Get Started <img src={arrowWhite} alt="" width="20px" /></a>
 		 </div>
       {/* footer section */}
      <Footer />

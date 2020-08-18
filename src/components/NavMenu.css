@@ -71,7 +71,7 @@ header .button a:hover { color:#02aae3; }
 #howitwork .howitwork-body{background: #1571b2;color: white;padding: 40px;margin-bottom: 20px;}
 #howitwork .howitwork-body h1{text-align: center; padding: 40px 0 10px 0; margin: 20px 0 0;}
 #howitwork .howitwork-content .helpcentre-link {color: #1C71B2;}
-#howitwork .howitwork-content .helpcentre-link h1{text-align: center; margin: 0px;padding: 0px; color: #1C71B2;}
+#howitwork .howitwork-content .helpcentre-link h1{text-align: center; margin: 0px; color: #1C71B2; font-size: 1.4rem;}
 #howitwork .howitwork-body p{font-size:21px;text-align: center; margin-left: auto;margin-right: auto;width: 23em;color: white;padding-bottom: 40px;}
 #howitwork .howitwork-content{ padding: 40px;margin-bottom: 20px;}
 #howitwork .howitwork-content h1{text-align: center; padding: 40px 0 10px 0;font-weight: 600;color: #3AA3d7;}
@@ -469,3 +469,9 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 }
 
 .btn-close{margin-left: 20px;}
+
+.about-bottom-link{padding-top: 40px; font-size: 1.4rem;}
+.about-bottom-link img{width: 25px;}
+.helpcentre-link img{width: 25px;}
+.learnmore img{width:20px;}
+.subscribe-section-start img{width:20px;}

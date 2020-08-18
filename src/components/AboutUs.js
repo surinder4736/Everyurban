@@ -12,6 +12,7 @@ import Footer from './Footer';
 import Community from '../Images/Community.png';
 import Protecting from '../Images/Protecting.png';
 import Empowering from '../Images/Empowering.png';
+import arrow from '../Images/arrow5-blue.png';
 export class AboutUs extends Component {
  // static displayName = Home.name;
 
@@ -87,7 +88,7 @@ streamlining the process of strategy, design and negotiation.
                 </p>
               </div>
             </div>
-            <h1 className="text-center" style={{color:'#3AA3d7'}}>Learn more about <a href="/howitworks" style={{textDecoration:'underline'}}>How It Works -<i class="fas fa-angle-right"></i></a></h1>
+            <h1 className="text-center about-bottom-link" style={{color:'#3AA3d7'}}>Learn more about <a href="/howitworks" style={{textDecoration:'underline'}}>How It Works <img src={arrow} alt="" width="25px" /></a></h1>
           </div>
           
 			  </section>
