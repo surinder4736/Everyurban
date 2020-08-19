@@ -2618,6 +2618,12 @@ class Profile extends Component {
 		this.setState({tabactiveid:id});
 	}
 
+	removePortfolio=(id,e)=>{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		dispatch(userPortfolloAction.removePortfollo({userId:this.props.user.id,portfolloid:id}));
+	}
+
     render() {
 			let curobj=this;
 			const{profile:{profile},user}=this.props;
@@ -2841,7 +2847,7 @@ class Profile extends Component {
 											categoryclass="nav-link active";
 										}
 										return <li className="nav-item">
-										  <a className={categoryclass} onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
+										  <a className={categoryclass} onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}  <i onClick={this.removePortfolio.bind(this,element.id)} class="fas fa-times-circle" style={{marginLeft:'10px'}}></i></a>
 										</li>
 										// if(i==0){
 										// 	return <li className="nav-item">
