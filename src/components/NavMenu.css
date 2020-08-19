@@ -443,10 +443,19 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 .social-list .clearfix{padding: 0 20px;}
 
 .ReactGridGallery_tile{
-	padding: 10px !important;
-	border: 1px solid #3AA3d7;
-	background: none;
+	/* padding: 10px !important; */
+	border: none;
+	background: none !important;
+	/* margin: 15px !important; */
+    user-select: none;
+    position: relative;
+    float: left;
 }
+.ReactGridGallery_tile-viewport{
+	width: 200px !important;
+	height: 200px !important;
+}
+.ReactGridGallery_tile-viewport img{margin-left: 0px !important;}
 .ReactGridGallery_custom-overlay{
 	background-color: rgba(0, 0, 0, 0.8);
     max-height: 240px;

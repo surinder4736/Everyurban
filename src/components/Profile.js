@@ -2894,7 +2894,7 @@ class Profile extends Component {
 												</div>
 											}
 											{imageArray.length>0 && 
-												<Gallery images={imageArray} enableImageSelection={false}/>
+												<Gallery images={imageArray} margin={15} rowHeight={200} enableImageSelection={false}/>
 											}
 											{imageArray.length==0 &&
 											<form>
