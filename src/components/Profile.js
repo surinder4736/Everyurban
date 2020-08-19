@@ -26,7 +26,7 @@ import educationAction from '../actions/education';
 import aboutAction from '../actions/about';
 import socialConfig from '../Config/socialLink';
 import visualPortfolloConfig from '../Config/visualPortfollo';
-import NoImage from '../Images/no-image.png';
+import NoImage from '../Images/Ulogosquare.png';
 // import facebook from '../Images/media/facebook.png';
 // import linkedin from '../Images/media/linkedin.png';
 // import twitter from '../Images/media/twitter.png';
@@ -146,7 +146,7 @@ class Profile extends Component {
 			},
 			progressEditForm:{
 				id:null,
-				progressid:0,
+				position:"",
 				establishment:""
 			},
 			mode:'view',
@@ -267,19 +267,19 @@ class Profile extends Component {
 			years.push(startYear++);
 		}
 		var month = new Array();
-		month[0] = "N/A";
-		month[1] = "January";
-		month[2] = "February";
-		month[3] = "March";
-		month[4] = "April";
-		month[5] = "May";
-		month[6] = "June";
-		month[7] = "July";
-		month[8] = "August";
-		month[9] = "September";
-		month[10] = "October";
-		month[11] = "November";
-		month[12] = "December";  
+		// month[0] = "N/A";
+		month[0] = "January";
+		month[1] = "February";
+		month[2] = "March";
+		month[3] = "April";
+		month[4] = "May";
+		month[5] = "June";
+		month[6] = "July";
+		month[7] = "August";
+		month[8] = "September";
+		month[9] = "October";
+		month[10] = "November";
+		month[11] = "December";  
 		this.setState({yearList:years,monthList:month});
 
 	}	
@@ -496,14 +496,14 @@ class Profile extends Component {
 		if(validator.isEmpty(status)===true){
 			curObj.setState({AboutValidateMessage:'Please select status'});
 		}
-		if(validator.isEmpty(month)===true){
-			curObj.setState({AboutValidateMessage:'Please select month'});
-		}
+		// if(validator.isEmpty(month)===true){
+		// 	curObj.setState({AboutValidateMessage:'Please select month'});
+		// }
 		if(validator.isEmpty(year)===true){
 			curObj.setState({AboutValidateMessage:'Please select year'});
 		}
 		
-		if(validator.isEmpty(university)===false && validator.isEmpty(status)===false && validator.isEmpty(month)===false && validator.isEmpty(year)===false)
+		if(validator.isEmpty(university)===false && validator.isEmpty(status)===false && validator.isEmpty(year)===false)
 		if(id>0){
 			dispatch(aboutAction.editabout({userId:this.props.user.id,about:this.state.aboutEditForm}))
 		}
@@ -556,6 +556,23 @@ class Profile extends Component {
 				//dispatch language delete element
 				dispatch(progressAction.removeProgress({userId:this.props.user.id,progressid:specialId}));
 			}
+		}
+	}
+
+	editProgress=(e)=>{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let progressId=e.currentTarget.getAttribute('data-id');
+		if(progressId>0)
+		{
+			let progressEditForm=Object.assign({},this.state.progressEditForm);
+			let progressResult=this.state.userData.progress.filter(function (e) {
+				return e.id == progressId;
+			});
+			progressEditForm.position=progressResult[0].position;
+			progressEditForm.establishment=progressResult[0].establishment;
+			progressEditForm.id=progressId;
+			this.setState({progressEditForm:progressEditForm});
 		}
 	}
 
@@ -970,7 +987,7 @@ class Profile extends Component {
 				dispatch(profileAction.getProfile({userId:this.props.user.id}));
 				let progressEditForm= Object.assign({},this.state.progressEditForm);
 				progressEditForm.id=null;
-				progressEditForm.progressid=0;
+				progressEditForm.position="";
 				progressEditForm.establishment="";
 				this.setState({progressEditForm:progressEditForm});
 			}
@@ -1030,9 +1047,6 @@ class Profile extends Component {
 	}
 
 	selectMultiImages(e){
-		//this.setState({file:});
-		const{profile:{profile}}=this.props;
-		let formData = new FormData();
 		if(e.target.files.length>0){
 			// if(e.target.files.length>10){
 			// 	Swal.fire({
@@ -1392,7 +1406,7 @@ class Profile extends Component {
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">About</h5>
+        <h5 className="modal-title" id="exampleModalLabel">Education</h5>
 				
         <div className="tooltp" style={{textAlign:'right',width:'100%'}}>
         	<span id="questionMark" data-tip={this.state.blurbTex.about} className="fas fa-question" style={{marginTop:'5px',marginLeft:'5px'}}></span>
@@ -1417,21 +1431,21 @@ class Profile extends Component {
 		  <div className="form-group">
             <label htmlFor="status-text" className="col-form-label">Status</label>
 			<div className="radios about-radios">
-				<label for="Attending">
-					<input type="radio" checked={this.state.aboutEditForm.status=="Attending"} onChange={this.checkStatusHandle.bind(this)} name="type" id="Attending" value="Attending"  />
+				<label for="Student">
+					<input type="radio" checked={this.state.aboutEditForm.status=="Student"} onChange={this.checkStatusHandle.bind(this)} name="type" id="Attending" value="Student"  />
 					<div class="checkmark"></div>
-					Attending
+					Student
 				</label>
 				<label for="Graduate" style={{marginBottom:'-3px'}}>
 					<input type="radio" checked={this.state.aboutEditForm.status=="Graduate"} onChange={this.checkStatusHandle.bind(this)}  name="type" id="Graduate" value="Graduate" />
 					<div className="checkmark"></div>
 					Graduate
 				</label>
-				<label for="architect" style={{marginBottom:'-3px'}}>
+				{/* <label for="architect" style={{marginBottom:'-3px'}}>
 					<input type="radio" checked={this.state.aboutEditForm.status=="Architect"} onChange={this.checkStatusHandle.bind(this)}  name="type" id="architect" value="Architect" />
 					<div className="checkmark"></div>
 					Architect
-				</label>
+				</label> */}
 				<div className="errorMsg" style={{height:'3px'}}>{this.state.roleValidate}</div>
 			</div>
 		  </div>
@@ -1894,7 +1908,7 @@ class Profile extends Component {
 										return <div><article>
 										<div class="clearfix">
 											<h6 class="float-left">{element.link}</h6>
-											{this.state.mode=='edit'&& <div><a onClick={this.removeMedia} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.editMedia}  data-id={element.id} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a></div>}
+											{this.state.mode=='edit'&& <div><a onClick={this.removeMedia} href="#" data-whatever="@mdo" data-id={element.id} class="float-right" style={{marginLeft:'5px'}}><i class="fas fa-trash"></i><span class="span">Delete</span></a><a  onClick={this.editMedia}  data-id={element.id} href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a></div>}
 												</div>
 											</article>
 											<hr/>
@@ -1973,7 +1987,7 @@ class Profile extends Component {
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="nameEditorLabel">Visual Portfollo</h5>
+							<h5 className="modal-title" id="nameEditorLabel">Visual Portfolio</h5>
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
@@ -1983,7 +1997,7 @@ class Profile extends Component {
 								<div className="form-group">
 									<label htmlFor="category-text" className="col-form-label">Category:</label>
 									<select onChange={this.changePortfollo} type="text" className="form-control" id="category-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.folloid:null}>
-										<option value="0">Please select portfollo</option>
+										<option value="0">Please select portfolio</option>
 										{this.state.portfolloList.map(element => {
 											return <option value={element.id}>{element.name}</option>	
 										})}
@@ -2000,9 +2014,12 @@ class Profile extends Component {
 								}
 
 								<div className="form-group">
-									<label htmlFor="upload_multi_link" className="col-form-label">Upload:</label>
+									<label htmlFor="upload_multi_link" className="col-form-label">Image:</label>
 									<input type="file" name="file"  id="multiupload" onChange={this.selectMultiImages.bind(this)}  style={{display:'none'}} />
-									<a href=""  id="upload_multi_link" > Upload Portfollo</a>
+									<a href=""  id="upload_multi_link" > Upload </a>
+								</div>
+								<div className="form-group">
+							<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
@@ -2083,12 +2100,13 @@ class Profile extends Component {
 	}
 
 	renderProgressEditor(){
+		
 		return(
 			<div className="modal fade" id="progressEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="nameEditorLabel">In Progress</h5>
+							<h5 className="modal-title" id="nameEditorLabel">Current</h5>
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
@@ -2097,17 +2115,18 @@ class Profile extends Component {
 							<form>
 								<div className="form-group">
 									<label htmlFor="position-text" className="col-form-label">Position:</label>
-									<select onChange={this.changePosition} type="text" className="form-control" id="position-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.progressid:null}>
+									{/* <select onChange={this.changePosition} type="text" className="form-control" id="position-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.progressid:null}>
 										<option value="0">Please select Position</option>
 										{this.state.progressList.map(element => {
 											return <option value={element.id}>{element.name}</option>	
 										})}
-									</select>
+									</select> */}
+									<input placeholder="Enter Position" onChange={this.changePosition} type="text" className="form-control" id="position-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.position:null}/>
 									<div className="errorMsg">{this.state.CountryValidateMessage}</div>
 								</div>
 								<div className="form-group">
 									<label htmlFor="Establishment-text" className="col-form-label">Establishment:</label>
-									<input placeholder="Enter name of company" onChange={this.changeEstablishment} type="text" className="form-control" id="Establishment-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.establishment:null}/>
+									<input placeholder="Enter name of Establishment" onChange={this.changeEstablishment} type="text" className="form-control" id="Establishment-text" value={this.state.progressEditForm!=null?this.state.progressEditForm.establishment:null}/>
 								</div>
 								
 							</form>
@@ -2123,7 +2142,7 @@ class Profile extends Component {
 	}
 	changePosition=(e)=>{
 		let progressEditForm=Object.assign({},this.state.progressEditForm);
-		progressEditForm.progressid=e.target.value;
+		progressEditForm.position=e.target.value;
 		this.setState({progressEditForm:progressEditForm});
 	}
 	changeEstablishment=(e)=>{
@@ -2136,14 +2155,18 @@ class Profile extends Component {
 		const{dispatch}=this.props;
 		e.preventDefault();
 		let curObj=this;
+		
 		let establishment=this.state.progressEditForm.establishment.toString();
-		let postionid=this.state.progressEditForm.progressid;
+		let position=this.state.progressEditForm.position;
 		let id=this.state.progressEditForm.id;
 		curObj.setState({FistNameValidateMessage:'',LastNameValidateMessage:'',AddressValidateMessage:'',CountryValidateMessage:''});
-		if(validator.isEmpty(establishment)===true){
-			curObj.setState({FistNameValidateMessage:'Please Company Name'});
+		if(validator.isEmpty(position)===true){
+			curObj.setState({FistNameValidateMessage:'Please enter position'});
 		}
-		if(validator.isEmpty(establishment)===false)
+		if(validator.isEmpty(establishment)===true){
+			curObj.setState({FistNameValidateMessage:'Please enter Establishment'});
+		}
+		if(validator.isEmpty(establishment)===false && validator.isEmpty(position)===false)
 		if(id>0)
 		{
 			dispatch(progressAction.editProgress({userId:this.props.user.id,progress:this.state.progressEditForm}))
@@ -2169,9 +2192,12 @@ class Profile extends Component {
 						<div className="modal-body">
 							<form>
 								<div className="form-group">
-								<label htmlFor="upload_multi_photo" className="col-form-label">Upload:</label>
+								<label htmlFor="upload_multi_photo" className="col-form-label">Image :</label>
 								<input type="file" name="file"  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this)}  style={{display:'none'}} />
-								<a href="" id="upload_multi_photo" > Upload Photo</a>
+								<a href="" id="upload_multi_photo" > Upload </a>
+								</div>
+								<div className="form-group">
+									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
@@ -2624,7 +2650,7 @@ class Profile extends Component {
         	<section class="profile-top">
 			<div class="container">
 				<div class="d-md-flex align-items-end">
-					<div class="col-lg-4 col-md-4 col-xs-12">
+					<div class="col-lg-3 col-md-3 col-xs-12">
 						<div class="dp" >
 							{this.state.isProfileUploading==false && 
 								<img src={imageUrl}  alt=""/>
@@ -2642,18 +2668,18 @@ class Profile extends Component {
 							{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> }
 						</div>
 					</div>
-					<div class="col-lg-8 col-md-8 col-xs-12">
+					<div class="col-lg-9 col-md-9 col-xs-12">
 						<div class="right row">
 							<div>
 								<h3>{this.state.userData.profile!=null && this.state.userData.profile.firstName!=""?this.state.userData.profile.firstName:'N/A'} {this.state.userData.profile!=null && this.state.userData.profile.lastName!=""?this.state.userData.profile.lastName:' N/A'} <span className="flag">{countryName!=null && countryName!='' && <img src={ require(`../Images/flags/${countryName.toLocaleLowerCase()}.png`) } />} </span> </h3>
 								<h4>{this.state.userData.profile!=null && this.state.userData.profile.address!=""?this.state.userData.profile.address+', ':''} {this.state.userData.profile!=null && this.state.userData.profile.country!=""?this.state.userData.profile.country:''} </h4>
 								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
-								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit"  ><i class="fas fa-edit"></i><span>Edit</span></a>}
+								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit"  ><i class="fas fa-edit"></i><span> Edit</span></a>}
 							</div>
 							{user.unique_userid==profileUrl &&
 								<div>
 									<div class="button">
-										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#" class="profile-edit"><i class="fas fa-edit"></i><span class="span">Edit Profile</span></a>
+										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#" class="profile-edit"><i class="fas fa-edit"></i><span class="span"> Edit Profile</span></a>
 										<span> | </span>
 										<a href="#" onClick={this.clickFinalSave.bind(this)} class="profile-save"><i class="far fa-save"></i><span class="span">Save</span> </a>
 									</div>
@@ -2693,35 +2719,41 @@ class Profile extends Component {
         <section class="profile-bot">
 			<div class="container">
 				<div class="d-md-flex align-items-start">
-					<div class="col-lg-4 col-md-4 col-xs-12">
+					<div class="col-lg-3 col-md-3 col-xs-12">
 						<div class="about">
 							<div class="clearfix">
-								<h5 class="float-left" style={{fontSize:'23px'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:'About you'}</h5>
+								<h5 class="float-left" style={{fontSize:'23px'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'N/A')+' '+this.state.userData.about[0].year:'About you'}</h5>
 								{this.state.mode=='edit'&& 
-								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span">Edit</span></a>}
+								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}
 							</div>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
 							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
 							<hr/>
 							<div className="clearfix">
 								<h5 class="float-left lang" style={{fontSize:'23px'}}>
-								In Progress</h5> <div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox" onChange={this.state.mode=='edit'?this.changeStudent:''}  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div>
-								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
+								Current</h5> 
+								{/* <div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox" onChange={this.state.mode=='edit'?this.changeStudent:''}  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div> */}
+								{this.state.mode=='edit' && this.state.userData.progress !=undefined && this.state.userData.progress.length==0 && <a href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
-							{this.state.userData.progress !=undefined && this.state.userData.profile.isStudent==false &&
-							<ul>
+							{this.state.userData.progress !=undefined &&
+							<ul style={{listStyle:'none', padding:'0px'}}>
 								
 							{this.state.userData.progress.map(element => {
-								let progressResult=this.state.progressList.filter(function (e) {
-									return e.id == element.progressid;
-								});
+								// let progressResult=this.state.progressList.filter(function (e) {
+								// 	return e.id == element.progressid;
+								// });
 								return <li>
 									<div className="row">
 										<div style={{overflowWrap:'break-word'}} className="float-left col-md-9">
-											{progressResult[0].name+' at '+element.establishment}
+											{element.position+' - '+element.establishment}
 										</div> 
-										<div className="float-right col-md-3">
-											{this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteProgress} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}
+										<div className="float-right col-md-3" style={{padding:'0px'}}>
+											{this.state.mode=='edit'&& 
+												<div style={{display:'flex'}}>
+													<a data-id={element.id} onClick={this.editProgress} href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo" class="float-left"  ><i class="fas fa-edit"></i></a>
+													<a data-id={element.id} onClick={this.deleteProgress} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>
+												</div>
+											}
 										</div>
 									</div>
 									</li>	
@@ -2736,7 +2768,7 @@ class Profile extends Component {
 								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#SpecialtiesEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
 							{this.state.userData.specialties !=undefined &&
-							<ul>
+							<ul style={{listStyle:'none', padding:'0px'}}>
 								
 							{this.state.userData.specialties.map(element => {
 							return <li>
@@ -2782,15 +2814,15 @@ class Profile extends Component {
 							} */}
 						</div>
 					</div>
-					<div class="col-lg-8 col-md-8 col-xs-12">
+					<div class="col-lg-9 col-md-9 col-xs-12">
 						<div class="spacer"></div>
 						{(this.state.mode=='edit') &&
-						<div class="card row" style={{flexDirection:'initial'}}>
+						<div class="row" style={{flexDirection:'initial'}}>
 							<div className="col-md-7">
-								<h3>Visual Portfollo</h3>
+								<h3>Visual Portfolio</h3>
 							</div>
 							<div class="clearfix col-md-3">
-								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New</span></a>}
+								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Tabs</span></a>}
 							</div>	
 						</div>
 						}
@@ -2856,7 +2888,7 @@ class Profile extends Component {
 											{imageArray.length<10 && (this.state.mode=='edit') && 
 												<div className="row">
 													<div class="clearfix mb-3">
-														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span">Add New Photo</span></a>}
+														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Images</span></a>}
 													</div>
 													{/* <input type="file" name="file" style={{padding:'15px'}}  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this,element.id)} /> */}
 												</div>
@@ -2867,7 +2899,7 @@ class Profile extends Component {
 											{imageArray.length==0 &&
 											<form>
 												<div className="form-group">
-													<h3 className="text-danger">No Photos yet</h3>
+													<h3 className="text-danger text-center">Coming Soon...</h3>
 													{/* {(this.state.mode=='edit') &&
 														<input type="file" name="file"  id="multiuploadphoto" multiple onChange={this.selectMultiPhoto.bind(this,element.id)} />
 													} */}
