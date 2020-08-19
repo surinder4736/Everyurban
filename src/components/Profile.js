@@ -2621,7 +2621,11 @@ class Profile extends Component {
 	removePortfolio=(id,e)=>{
 		const{dispatch}=this.props;
 		e.preventDefault();
-		dispatch(userPortfolloAction.removePortfollo({userId:this.props.user.id,portfolloid:id}));
+		let conf=window.confirm('Are you sure to delete the portfolio entry?');
+		if(conf){
+			dispatch(userPortfolloAction.removePortfollo({userId:this.props.user.id,portfolloid:id}));
+		}
+		
 	}
 
     render() {
