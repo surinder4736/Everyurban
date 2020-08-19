@@ -61,7 +61,7 @@ streamlining the process of strategy, design and negotiation.
           </div>
           <div className="container aboutus-cotent">
             <h1 className="text-center" style={{color:'#3AA3d7'}}>Our Key Objectives:</h1><br/>
-            <div className="row" style={{color:'#3AA3d7'}}>
+            <div className="row objective-content" style={{color:'#3AA3d7'}}>
               <div className="col-md-4">
                 <p className="text-center key-objects" style={{fontWeight:'600',fontSize:'20px'}}>Community Wellness</p>
                 <div className="text-center">
