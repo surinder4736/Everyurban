@@ -2621,7 +2621,7 @@ class Profile extends Component {
 	removePortfolio=(id,e)=>{
 		const{dispatch}=this.props;
 		e.preventDefault();
-		let conf=window.confirm('Are you sure to delete the portfolio entry?');
+		let conf=window.confirm('Are you sure to delete this portfolio tab?');
 		if(conf){
 			dispatch(userPortfolloAction.removePortfollo({userId:this.props.user.id,portfolloid:id}));
 		}
@@ -2683,18 +2683,9 @@ class Profile extends Component {
 							<div>
 								<h3>{this.state.userData.profile!=null && this.state.userData.profile.firstName!=""?this.state.userData.profile.firstName:'N/A'} {this.state.userData.profile!=null && this.state.userData.profile.lastName!=""?this.state.userData.profile.lastName:' N/A'} <span className="flag">{countryName!=null && countryName!='' && <img src={ require(`../Images/flags/${countryName.toLocaleLowerCase()}.png`) } />} </span> </h3>
 								<h4>{this.state.userData.profile!=null && this.state.userData.profile.address!=""?this.state.userData.profile.address+', ':''} {this.state.userData.profile!=null && this.state.userData.profile.country!=""?this.state.userData.profile.country:''} </h4>
-								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
+								{this.state.mode=='edit'&& 
 								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit"  ><i class="fas fa-edit"></i><span> Edit</span></a>}
 							</div>
-							{user.unique_userid==profileUrl &&
-								<div>
-									<div class="button">
-										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#" class="profile-edit"><i class="fas fa-edit"></i><span class="span"> Edit Profile</span></a>
-										<span> | </span>
-										<a href="#" onClick={this.clickFinalSave.bind(this)} class="profile-save"><i class="far fa-save"></i><span class="span">Save</span> </a>
-									</div>
-								</div>
-							}
 						</div>
 						<div className="row media">
 							<div className="social">
@@ -2720,6 +2711,17 @@ class Profile extends Component {
 								<a onClick={this.media} data-toggle="modal" data-target="#mediaEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit" ><i class="fas fa-plus"></i></a>}
 							</div>
 						</div>
+						<div className="right row" style={{marginBottom:'10px', float:'right'}}>
+							{user.unique_userid==profileUrl &&
+								<div>
+									<div class="button">
+										<a onClick={(e)=>{this.setState({mode:'edit'});e.preventDefault();}} href="#" class="profile-edit"><i class="fas fa-edit"></i><span class="span"> Edit Profile</span></a>
+										<span> | </span>
+										<a href="#" onClick={this.clickFinalSave.bind(this)} class="profile-save"><i class="far fa-save"></i><span class="span"> Save</span> </a>
+									</div>
+								</div>
+							}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -2731,10 +2733,11 @@ class Profile extends Component {
 				<div class="d-md-flex align-items-start">
 					<div class="col-lg-3 col-md-3 col-xs-12">
 						<div class="about">
+						{this.state.mode=='edit'&& 
+							<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}
 							<div class="clearfix">
 								<h5 class="float-left" style={{fontSize:'23px'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'N/A')+' '+this.state.userData.about[0].year:'About you'}</h5>
-								{this.state.mode=='edit'&& 
-								<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}
+								
 							</div>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
 							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
@@ -2824,7 +2827,7 @@ class Profile extends Component {
 							} */}
 						</div>
 					</div>
-					<div class="col-lg-9 col-md-9 col-xs-12">
+					<div class="col-lg-9 col-md-9 col-xs-12" style={{padding:'0px 0px 15px 15px'}}>
 						<div class="spacer"></div>
 						{(this.state.mode=='edit') &&
 						<div class="row" style={{flexDirection:'initial'}}>
@@ -2897,8 +2900,8 @@ class Profile extends Component {
 											{/* {images}; */}
 											{imageArray.length<10 && (this.state.mode=='edit') && 
 												<div className="row">
-													<div class="clearfix mb-3">
-														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Images</span></a>}
+													<div class="clearfix mb-3 col-md-12">
+														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="text-center"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Images</span></a>}
 													</div>
 													{/* <input type="file" name="file" style={{padding:'15px'}}  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this,element.id)} /> */}
 												</div>

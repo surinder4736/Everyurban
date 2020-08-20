@@ -441,7 +441,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 .media .social a{display:inline-block; width:40px; height:40px; line-height:40px; background:#fff; color:#02aae3; text-align:center; border-radius:50%; margin:0 15px; font-size:20px;}
 
 .social-list .clearfix{padding: 0 20px;}
-
+.ReactGridGallery{margin-left: 25px;}
 .ReactGridGallery_tile{
 	/* padding: 10px !important; */
 	border: none;
