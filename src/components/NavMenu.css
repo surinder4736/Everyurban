@@ -486,4 +486,151 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 .subscribe-section-start img{width:20px;}
 
 .card .nav-tabs .nav-link.active{color: #fff;
-    background-color: #007bff;}
+	background-color: #007bff;}
+	
+
+/* Add padding BETWEEN each column (if you want) */
+.gallery .row,
+.row > .column {
+  padding: 8px;
+}
+
+/* Create three equal columns that floats next to each other */
+.gallery .column {
+  float: left;
+  width: 33.33%;
+}
+
+/* Clear floats after rows */
+.gallery .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Content */
+.gallery .content {
+  background-color: white;
+  padding: 10px;
+}
+
+/* The "show" class is added to the filtered elements */
+.gallery .show {
+  display: block;
+}
+
+/* Style the buttons */
+.gallery .btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Add a grey background color on mouse-over */
+.gallery .btn:hover {
+  background-color: #ddd;
+}
+
+/* Add a dark background color to the active button */
+.gallery .btn.active {
+  background-color: #666;
+   color: white;
+}
+
+.hovereffect {
+	width: 100%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	cursor: default;
+	background: #42b078;
+  }
+  
+  .hovereffect .overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+  }
+  
+  .hovereffect img {
+	height:240px;  
+	display: block;
+	position: relative;
+	max-width: none;
+	width: calc(100% + 20px);
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translate3d(-10px,0,0);
+	transform: translate3d(-10px,0,0);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+  }
+  
+  .hovereffect:hover img {
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+  }
+  
+  .hovereffect h2 {
+	color: #fff;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	/* padding: 0.5em 0; */
+	background-color: transparent;
+	opacity: 0;
+	letter-spacing: 1px;
+  }
+  
+  /* .hovereffect p:after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #fff;
+	content: '';
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translate3d(-100%,0,0);
+	transform: translate3d(-100%,0,0);
+  } */
+
+  .hovereffect:hover h2 {
+	opacity: 1;
+  }
+  
+  .hovereffect:hover h2:after {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+  }
+  
+  .hovereffect a, .hovereffect p {
+	color: #FFF;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translate3d(100%,0,0);
+	transform: translate3d(100%,0,0);
+  }
+  
+  .hovereffect:hover a, .hovereffect:hover p {
+	opacity: 1;
+	padding: 0.5em;
+	filter: alpha(opacity=100);
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+  }
+
+  .d-block{height: 400px; width: 600px;}
+  #ProtfolioViewer .modal-dialog{max-width:1000px !important}

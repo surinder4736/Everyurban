@@ -71,6 +71,20 @@ const portfolloAction = {
                 dispatch(removeMediaError({message:error.response.data,dt:new Date()}));
             });
         };
+    },
+
+    removePortfolioImage(data){
+        return (dispatch) => {
+        dispatch(beginRequest());
+            axios.delete(`${APIURL}users/${data.userId}/${data.id}/multiupload/`,data.Portfollo)
+                .then(response => {
+                    var data=response.data;
+                    dispatch(removeMediaSuccess(data));
+                
+            }).catch((error) => {
+                dispatch(removeMediaError({message:error.response.data,dt:new Date()}));
+            });
+        };
     }
 }
 export default portfolloAction;

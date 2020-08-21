@@ -84,6 +84,7 @@ class Profile extends Component {
 			categoryUploadImageItem:null,
 			isUploading:false,
 			isProfileUploading:false,
+			currentImagePreview:0,
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -259,6 +260,11 @@ class Profile extends Component {
 				e.preventDefault();
 					jQuery("#multiuploadphoto:hidden").trigger('click');
 			});
+			jQuery('[data-target="#ProtfolioViewer"]').click(function() {
+				var modalId = jQuery(this).data('target');
+				jQuery(modalId).modal('show');
+			
+			  });
 
 		});
 		let currentYear = new Date().getFullYear(), years = [];
@@ -905,7 +911,7 @@ class Profile extends Component {
 						this.setState({imageFormData:null,isUploading:false});
 						Swal.fire({
 							title: 'Success!',
-							text: 'Portfollo has been saved successfully.',
+							text: 'Portfolio has been updated successfully.',
 							icon: 'success',
 							confirmButtonText: 'OK'		
 						});
@@ -925,7 +931,7 @@ class Profile extends Component {
 				else{
 					Swal.fire({
 						title: 'Success!',
-						text: 'Portfollo has been saved successfully.',
+						text: 'Portfolio has been updated successfully.',
 						icon: 'success',
 						confirmButtonText: 'OK'		
 					});
@@ -2628,6 +2634,87 @@ class Profile extends Component {
 		
 	}
 
+	renderProtfolioViewModel(){
+		let curobj=this;
+		let images=[];
+		if(this.state.userData.images!=undefined && this.state.userData.images.map((item)=>{
+			if(item.folloid==curobj.state.tabactiveid){
+				images.push(item);
+			}
+		}));
+		jQuery('.carousel-inner div[class*="active"]').each(function(i){
+			jQuery(this).removeClass('active');
+		});
+		return(
+			<div className="modal fade" id="ProtfolioViewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">Portfolio</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<div id="carouselExample" className="carousel slide" data-ride="carousel">
+								<div className="carousel-inner">
+								{this.state.userData.images!=undefined && images.map((item,i)=>{
+									let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
+									let classname="carousel-item";
+									if(item.id==curobj.state.currentImagePreview){
+										classname="carousel-item active";
+									}
+										return <div className={classname}>
+											<div className="row">
+												<div className="col-md-8" style={{borderRight:'1px solid #ccc'}}>
+													<img className="d-block w-100" src={imageUrl} data-slide-to={i} />
+												</div>
+												<div className="col-md-4">
+													<h2 style={{margin:'0px'}}>Caption</h2>
+													<hr style={{marginBottom:'5px',marginTop:'5px'}} />
+													<p>{item.caption}</p>
+												</div>
+											</div>
+										</div>
+									
+								})}
+								<a className="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+									<span className="carousel-control-prev-icon" aria-hidden="true" style={{padding:'20px',backgroundColor:'#ccc'}}></span>
+									<span className="sr-only">Previous</span>
+								</a>
+								<a className="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+									<span className="carousel-control-next-icon" aria-hidden="true" style={{padding:'20px',backgroundColor:'#ccc'}}></span>
+									<span className="sr-only">Next</span>
+								</a>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	deleteImage=(e)=>{
+		const{dispatch}=this.props;
+		e.preventDefault();
+		let imageId=e.currentTarget.getAttribute('data-id');
+		if(imageId>0)
+		{
+			let conf=window.confirm('Are you sure to delete photo?');
+			if(conf)
+			{
+				dispatch(userPortfolloAction.removePortfolioImage({userId:this.props.user.id,id:imageId}));
+			}
+		}
+	}
+
+	setCurrentImage(id,e){
+		e.preventDefault();
+		this.setState({currentImagePreview:id});
+	}
+
     render() {
 			let curobj=this;
 			const{profile:{profile},user}=this.props;
@@ -2733,12 +2820,13 @@ class Profile extends Component {
 				<div class="d-md-flex align-items-start">
 					<div class="col-lg-3 col-md-3 col-xs-12">
 						<div class="about">
-						{this.state.mode=='edit'&& 
-							<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}
+						
 							<div class="clearfix">
-								<h5 class="float-left" style={{fontSize:'23px'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'N/A')+' '+this.state.userData.about[0].year:'About you'}</h5>
-								
+								<h5 class="float-left" style={{fontSize:'23px'}}>About</h5>
+								{this.state.mode=='edit'&& 
+									<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}		
 							</div>
+							<h5 class="float-left" style={{fontSize:'20px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
 							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
 							<hr/>
@@ -2757,7 +2845,7 @@ class Profile extends Component {
 								// });
 								return <li>
 									<div className="row">
-										<div style={{overflowWrap:'break-word'}} className="float-left col-md-9">
+										<div style={{overflowWrap:'break-word',fontSize:'14px'}} className="float-left col-md-9">
 											{element.position+' - '+element.establishment}
 										</div> 
 										<div className="float-right col-md-3" style={{padding:'0px'}}>
@@ -2786,7 +2874,7 @@ class Profile extends Component {
 							{this.state.userData.specialties.map(element => {
 							return <li>
 								<div className="row">
-									<div style={{overflowWrap:'break-word'}} className="float-left col-md-9">
+									<div style={{overflowWrap:'break-word',fontSize:'14px'}} className="float-left col-md-9">
 										{ element.name}
 									</div>
 									<div className="float-right col-md-3">
@@ -2856,44 +2944,32 @@ class Profile extends Component {
 										return <li className="nav-item">
 										  <a className={categoryclass} onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}  <i onClick={this.removePortfolio.bind(this,element.id)} class="fas fa-times-circle" style={{marginLeft:'10px'}}></i></a>
 										</li>
-										// if(i==0){
-										// 	return <li className="nav-item">
-										// 	<a className="nav-link active" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
-										//   </li>
-										// }
-										// else{
-										// 	return <li className="nav-item">
-										//   <a className="nav-link" onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}</a>
-										// </li>
-										// }
 									})
 								}
 								</ul>
-								<div className="tab-content">
+								<div className="tab-content gallery">
 								{this.state.userData.portfollo!=null && this.state.userData.portfollo.length>0 &&
 									this.state.userData.portfollo.map((element,j)=>{
 										let classname="container tab-pane";
-										let folloResult=this.state.portfolloList.filter(function (e) {
-											return e.id == element.folloid;
-										});
+										// let folloResult=this.state.portfolloList.filter(function (e) {
+										// 	return e.id == element.folloid;
+										// });
 										if(element.id==this.state.tabactiveid){
 											classname="container tab-pane active";
 										}
 										let imageArray=[];
-										
 										this.state.userData.images.map(item=>{
 											if(item.folloid==element.id){
 												let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
-												let img={
-													src:imageUrl,
-													thumbnail:imageUrl,
-													thumbnailWidth: 150,
-													thumbnailHeight: 130,
-													caption: item.caption,
-													// customOverlay:item.caption
-												}
-												imageArray.push(img);
-												//  <img src={imageUrl}></img>
+												// let img={
+												// 	src:imageUrl,
+												// 	thumbnail:imageUrl,
+												// 	thumbnailWidth: 150,
+												// 	thumbnailHeight: 130,
+												// 	caption: item.caption,
+												// 	// customOverlay:item.caption
+												// }
+												imageArray.push(imageUrl);
 											}
 										})
 										return <div id={element.id} className={classname}><br/>
@@ -2903,20 +2979,36 @@ class Profile extends Component {
 													<div class="clearfix mb-3 col-md-12">
 														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="text-center"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Images</span></a>}
 													</div>
-													{/* <input type="file" name="file" style={{padding:'15px'}}  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this,element.id)} /> */}
 												</div>
 											}
 											{imageArray.length>0 && 
-												<Gallery images={imageArray} margin={15} rowHeight={200} enableImageSelection={false}/>
+												// <Gallery images={imageArray} margin={15} rowHeight={200} enableImageSelection={false}/>
+												<div class="row">
+													{this.state.userData.images.map(item=>{
+														if(item.folloid==element.id){
+															let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
+															return <div class="column nature">
+																<div class="content" onClick={this.setCurrentImage.bind(this,item.id)} data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo">
+																	<div class="hovereffect">
+																		<img src={imageUrl} alt={item.caption}   />
+																			<div class="overlay">
+																				<p>
+																					<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash float-right"></i></a>
+																				</p>
+																				<h2>{item.caption}</h2>
+																			</div>
+																	</div>
+																</div>
+															</div>
+														}
+													})}
+												</div>
 											}
 											{imageArray.length==0 &&
 											<form>
 												<div className="form-group">
 													<h3 className="text-danger text-center">Coming Soon...</h3>
-													{/* {(this.state.mode=='edit') &&
-														<input type="file" name="file"  id="multiuploadphoto" multiple onChange={this.selectMultiPhoto.bind(this,element.id)} />
-													} */}
-													 {/* <a href="" id="upload_multi_photo" > Upload Photos</a> */}
+													
 												</div>
 											</form>
 											}
@@ -2944,6 +3036,7 @@ class Profile extends Component {
 		{this.renderSpecialtiesEditor()}
 		{this.renderProgressEditor()}
 		{this.renderPhotoEditor()}
+		{this.renderProtfolioViewModel()}
 		</div>
          );
     }
