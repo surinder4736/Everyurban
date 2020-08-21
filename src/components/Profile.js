@@ -85,6 +85,7 @@ class Profile extends Component {
 			isUploading:false,
 			isProfileUploading:false,
 			currentImagePreview:0,
+			deleteImage:false,
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -261,8 +262,10 @@ class Profile extends Component {
 					jQuery("#multiuploadphoto:hidden").trigger('click');
 			});
 			jQuery('[data-target="#ProtfolioViewer"]').click(function() {
-				var modalId = jQuery(this).data('target');
-				jQuery(modalId).modal('show');
+				if(this.state.deleteImage==false){
+					var modalId = jQuery(this).data('target');
+					jQuery(modalId).modal('show');
+				}
 			
 			  });
 
@@ -2702,6 +2705,7 @@ class Profile extends Component {
 		let imageId=e.currentTarget.getAttribute('data-id');
 		if(imageId>0)
 		{
+			this.setState({deleteImage:true});
 			let conf=window.confirm('Are you sure to delete photo?');
 			if(conf)
 			{
@@ -2988,15 +2992,17 @@ class Profile extends Component {
 														if(item.folloid==element.id){
 															let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
 															return <div class="column nature">
-																<div class="content" onClick={this.setCurrentImage.bind(this,item.id)} data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo">
-																	<div class="hovereffect">
+																<div class="content">
+																	<div class="hovereffect" onClick={this.setCurrentImage.bind(this,item.id)} >
 																		<img src={imageUrl} alt={item.caption}   />
-																			<div class="overlay">
-																				<p>
-																					<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash float-right"></i></a>
-																				</p>
-																				<h2>{item.caption}</h2>
-																			</div>
+																		<div class="overlay">
+																			<h2>{item.caption}</h2>
+																			<p>
+																				<a href="#" data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+																				<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash fa-2x text-danger"></i></a>
+																			</p>
+																			
+																		</div>
 																	</div>
 																</div>
 															</div>
