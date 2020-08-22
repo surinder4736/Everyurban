@@ -84,7 +84,6 @@ class Profile extends Component {
 			categoryUploadImageItem:null,
 			isUploading:false,
 			isProfileUploading:false,
-			currentImagePreview:0,
 			deleteImage:false,
 			educationEditForm:{
 				id:null,
@@ -2645,9 +2644,6 @@ class Profile extends Component {
 				images.push(item);
 			}
 		}));
-		jQuery('.carousel-inner div[class*="active"]').each(function(i){
-			jQuery(this).removeClass('active');
-		});
 		return(
 			<div className="modal fade" id="ProtfolioViewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div className="modal-dialog" role="document">
@@ -2664,13 +2660,11 @@ class Profile extends Component {
 								{this.state.userData.images!=undefined && images.map((item,i)=>{
 									let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
 									let classname="carousel-item";
-									if(item.id==curobj.state.currentImagePreview){
-										classname="carousel-item active";
-									}
-										return <div className={classname}>
+									
+										return <div className={classname} id={item.id}>
 											<div className="row">
 												<div className="col-md-8" style={{borderRight:'1px solid #ccc'}}>
-													<img className="d-block w-100" src={imageUrl} data-slide-to={i} />
+													<img className="d-block w-100" src={imageUrl} />
 												</div>
 												<div className="col-md-4">
 													<h2 style={{margin:'0px'}}>Caption</h2>
@@ -2716,7 +2710,10 @@ class Profile extends Component {
 
 	setCurrentImage(id,e){
 		e.preventDefault();
-		this.setState({currentImagePreview:id});
+		jQuery('.carousel-inner div[class*="active"]').each(function(i){
+			jQuery(this).removeClass('active');
+		});
+		jQuery("#"+id).addClass('active');
 	}
 
     render() {
