@@ -85,6 +85,8 @@ class Profile extends Component {
 			isUploading:false,
 			isProfileUploading:false,
 			deleteImage:false,
+			editImageId:0,
+			editPortfolioId:0,
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -584,6 +586,35 @@ class Profile extends Component {
 		}
 	}
 
+	editImage=(id,e)=>{
+		e.preventDefault();
+		let photoId=e.currentTarget.getAttribute('data-id');
+		let portfolloEditForm=Object.assign({},this.state.portfolloEditForm);
+		let image=this.state.userData.images.filter(function(e){
+			return e.id == photoId;
+		})
+		portfolloEditForm.caption=image[0].caption;
+		this.setState({portfolloEditForm:portfolloEditForm,editImageId:photoId,selectedcategoryid:id});
+	}
+
+	editPortfolio=(id,e)=>{
+		e.preventDefault();
+		let portfolloEditForm=Object.assign({},this.state.portfolloEditForm);
+		let portfolio=this.state.userData.portfollo.filter(function(e){
+			return e.id == id;
+		});
+		portfolloEditForm.id=portfolio[0].id
+		portfolloEditForm.folloid=portfolio[0].folloid;
+		if(portfolio[0].folloid==8){
+			this.setState({portfolloOther:true});
+		}
+		else{
+			this.setState({portfolloOther:false});
+		}
+		portfolloEditForm.other=portfolio[0].other;
+		this.setState({portfolloEditForm:portfolloEditForm,editPortfolioId:id});
+	}
+
 	clickPortfolioSaveHandler=(e)=>{
 		
 		const{dispatch}=this.props;
@@ -944,7 +975,7 @@ class Profile extends Component {
 					portfolloEditForm.folloid=0;
 					portfolloEditForm.other="";
 					portfolloEditForm.caption="";
-					this.setState({portfolloEditForm:portfolloEditForm});
+					this.setState({portfolloEditForm:portfolloEditForm,isUploading:false});
 				}
 			}
 		}
@@ -1131,25 +1162,49 @@ class Profile extends Component {
 			}
 			if(this.state.categoryUploadImageItem!=null){
 				this.setState({isUploading:true});
-				axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/multiupload`,formData,config)
-				.then((response) => {
-					this.setState({imageFormData:null,isUploading:false});
-					Swal.fire({
-						title: 'Success!',
-						text: 'Photo has been saved successfully.',
-						icon: 'success',
-						confirmButtonText: 'OK'		
+				if(this.state.editImageId>0){
+					axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/${this.state.editImageId}/multiupload`,formData,config)
+					.then((response) => {
+						this.setState({imageFormData:null,isUploading:false});
+						Swal.fire({
+							title: 'Success!',
+							text: 'Imsge has been saved successfully.',
+							icon: 'success',
+							confirmButtonText: 'OK'		
+						});
+						let formData = new FormData();
+						const{dispatch}=this.props;//debugger
+						let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
+						portfolloEditForm.caption="";
+						curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editImageId:0});
+						dispatch(profileAction.getProfile({userId:this.props.user.id}));
+					}).catch((error) => {
+						console.log(error);
+						return error;
 					});
-					let formData = new FormData();
-					const{dispatch}=this.props;//debugger
-					let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
-					portfolloEditForm.caption="";
-					curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
-					dispatch(profileAction.getProfile({userId:this.props.user.id}));
-				}).catch((error) => {
-					console.log(error);
-					return error;
-				});
+				}
+				else{
+					axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/multiupload`,formData,config)
+					.then((response) => {
+						this.setState({imageFormData:null,isUploading:false});
+						Swal.fire({
+							title: 'Success!',
+							text: 'Imsge has been saved successfully.',
+							icon: 'success',
+							confirmButtonText: 'OK'		
+						});
+						let formData = new FormData();
+						const{dispatch}=this.props;//debugger
+						let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
+						portfolloEditForm.caption="";
+						curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
+						dispatch(profileAction.getProfile({userId:this.props.user.id}));
+					}).catch((error) => {
+						console.log(error);
+						return error;
+					});
+				}
+				
 			}
 			else{
 				Swal.fire({
@@ -2020,27 +2075,34 @@ class Profile extends Component {
 										<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
 									</div>
 								}
-
+								{this.state.editPortfolioId==0 &&
 								<div className="form-group">
-									<label htmlFor="upload_multi_link" className="col-form-label">Image:</label>
-									<input type="file" name="file"  id="multiupload" onChange={this.selectMultiImages.bind(this)}  style={{display:'none'}} />
-									<a href=""  id="upload_multi_link" > Upload </a>
+								<label htmlFor="upload_multi_link" className="col-form-label">Image:</label>
+								<input type="file" name="file"  id="multiupload" onChange={this.selectMultiImages.bind(this)}  style={{display:'none'}} />
+								<a href=""  id="upload_multi_link" > Upload </a>
 								</div>
+								}
+								{this.state.editPortfolioId==0 &&
 								<div className="form-group">
-							<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
+									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
-								<div className="form-group">
-									<label htmlFor="caption-text" className="col-form-label">Caption</label>
-									<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
-									<div className="small">added  {this.state.portfolloEditForm.caption.length} characters</div>
-    
-								</div>
+								}
+								{this.state.editPortfolioId==0 &&
+									<div className="form-group">
+										<label htmlFor="caption-text" className="col-form-label">Caption</label>
+										<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+										<div className="small">added  {this.state.portfolloEditForm.caption.length} characters</div>
+									</div>
+								} 
+								
+								
+								
 								
 							</form>
 						</div>
 						<div className="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button onClick={this.clickFolloSaveHandler} type="button" class="btn btn-primary">{(this.state.isUploading==true) && <i class="fa fa-spinner fa-spin"></i>}Update</button>
+							<button onClick={this.clickFolloSaveHandler} type="button" class="btn btn-primary">{(this.state.isUploading==true) && <i class="fa fa-spinner fa-spin"></i>} Update</button>
 						</div>
 					</div>
 				</div>
@@ -2192,7 +2254,7 @@ class Profile extends Component {
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="nameEditorLabel">Add Photo</h5>
+							<h5 className="modal-title" id="nameEditorLabel">Add Image</h5>
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
@@ -2924,7 +2986,7 @@ class Profile extends Component {
 								<h3>Visual Portfolio</h3>
 							</div>
 							<div class="clearfix col-md-3">
-								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Tabs</span></a>}
+								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add Tabs</span></a>}
 							</div>	
 						</div>
 						}
@@ -2943,7 +3005,7 @@ class Profile extends Component {
 											categoryclass="nav-link active";
 										}
 										return <li className="nav-item">
-										  <a className={categoryclass} onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}  <i onClick={this.removePortfolio.bind(this,element.id)} class="fas fa-times-circle" style={{marginLeft:'10px'}}></i></a>
+										  <a className={categoryclass} onClick={this.showActivePanel.bind(this,element.id)} data-toggle="tab" href={obj}>{folloResult[0].name=="Other"?element.other:folloResult[0].name}  {(this.state.mode=='edit') &&<i onClick={this.editPortfolio.bind(this,element.id)} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="fas fa-edit" style={{marginLeft:'10px'}}></i>} {(this.state.mode=='edit') && <i onClick={this.removePortfolio.bind(this,element.id)} class="fas fa-times-circle" style={{marginLeft:'10px'}}></i>}</a>
 										</li>
 									})
 								}
@@ -2978,7 +3040,7 @@ class Profile extends Component {
 											{imageArray.length<10 && (this.state.mode=='edit') && 
 												<div className="row">
 													<div class="clearfix mb-3 col-md-12">
-														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="text-center"  ><i class="fas fa-plus"></i><span class="span"> Add/Edit Images</span></a>}
+														{(this.state.mode=='edit') &&<a href="#" onClick={this.showCategoryPhotoModal.bind(this,element.id)} data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="text-center"  ><i class="fas fa-plus"></i><span class="span"> Add Image</span></a>}
 													</div>
 												</div>
 											}
@@ -2996,7 +3058,12 @@ class Profile extends Component {
 																			<h2>{item.caption}</h2>
 																			<p>
 																				<a href="#" data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
-																				<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash fa-2x text-danger"></i></a>
+																				{(this.state.mode=='edit') &&
+																				<a data-id={item.id} onClick={this.editImage.bind(this,element.id)} href="#" data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="float-left"  ><i class="fas fa-edit fa-2x"></i></a>
+																				}
+																				{(this.state.mode=='edit') &&
+																					<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash fa-2x text-danger"></i></a>
+																				}
 																			</p>
 																			
 																		</div>
