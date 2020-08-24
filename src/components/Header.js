@@ -3,7 +3,6 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 import logo from '../Images/logo-min.png';
-
 import './NavMenu.css';
 var jQuery= require('jquery');
 //import { logo } from './img/logo.png'; // relative path to image 
@@ -25,9 +24,9 @@ class Header extends Component {
 					
 					<a href="/" className="logo"><img src={logo} alt="" /></a>
 					<div className="button">
-						<a href="/Signup" className="signup">Sign Up</a>
+						<a href="/signup" className="signup">Sign Up</a>
 						<span>&nbsp;|&nbsp;</span>
-						<a href="/Login" className="login">Log In</a>
+						<a href="/login" className="login">Log In</a>
 					</div>
 				
 				</div>

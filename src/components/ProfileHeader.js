@@ -22,7 +22,7 @@ class ProfileHeader extends Component {
   componentDidMount(){
     const{user}=this.props
     if(user==null && user.auth===false){
-      window.location.href='/Login';
+      window.location.href='/login';
     }
   }
 
@@ -30,7 +30,7 @@ class ProfileHeader extends Component {
     e.preventDefault();
         Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
             console.log("Logout Successfully");
-            window.location.href='/Login';
+            window.location.href='/login';
         })
         // const{dispatch}=this.props;
         // dispatch(logout());

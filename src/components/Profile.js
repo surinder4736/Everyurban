@@ -1168,7 +1168,7 @@ class Profile extends Component {
 						this.setState({imageFormData:null,isUploading:false});
 						Swal.fire({
 							title: 'Success!',
-							text: 'Imsge has been saved successfully.',
+							text: 'Image has been saved successfully.',
 							icon: 'success',
 							confirmButtonText: 'OK'		
 						});
