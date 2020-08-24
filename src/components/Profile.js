@@ -1119,20 +1119,20 @@ class Profile extends Component {
 
 	selectMultiPhoto(e){
 		const{profile:{profile}}=this.props;
-		// let formData = new FormData();
-		let images=[];
 		let curobj=this;
-		
-		this.state.userData.images.map(element=>{
-			if(element.folloid==curobj.state.selectedcategoryid){
-				images.push(element);
-			}
-		});
+		let images=this.state.userData.images.filter(function(e){
+			return e.folloid==curobj.state.selectedcategoryid;
+		})
+		// this.state.userData.images.map(element=>{
+		// 	if(element.folloid==curobj.state.selectedcategoryid){
+		// 		images.push(element);
+		// 	}
+		// });
 		let totalImages=images.length+e.target.files.length;
-		if(totalImages>=10){
+		if(totalImages>10){
 			Swal.fire({
 				title: 'Error!',
-				text: 'Please select maximum 10 photos.',
+				text: 'You can upload maximum 10 Images per tab.',
 				icon: 'error',
 				confirmButtonText: 'OK'		
 			});
@@ -1189,7 +1189,7 @@ class Profile extends Component {
 						this.setState({imageFormData:null,isUploading:false});
 						Swal.fire({
 							title: 'Success!',
-							text: 'Imsge has been saved successfully.',
+							text: 'Image has been saved successfully.',
 							icon: 'success',
 							confirmButtonText: 'OK'		
 						});
@@ -2762,7 +2762,7 @@ class Profile extends Component {
 		if(imageId>0)
 		{
 			this.setState({deleteImage:true});
-			let conf=window.confirm('Are you sure to delete photo?');
+			let conf=window.confirm('Are you sure to delete image?');
 			if(conf)
 			{
 				dispatch(userPortfolloAction.removePortfolioImage({userId:this.props.user.id,id:imageId}));
