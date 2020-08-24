@@ -955,7 +955,7 @@ class Profile extends Component {
 						// portfolloEditForm.folloid=0;
 						portfolloEditForm.other="";
 						portfolloEditForm.caption="";
-						this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
+						this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editPortfolioId:0});
 					}).catch((error) => {
 						console.log(error);
 						return error;
@@ -975,7 +975,7 @@ class Profile extends Component {
 					portfolloEditForm.folloid=0;
 					portfolloEditForm.other="";
 					portfolloEditForm.caption="";
-					this.setState({portfolloEditForm:portfolloEditForm,isUploading:false});
+					this.setState({portfolloEditForm:portfolloEditForm,isUploading:false,editPortfolioId:0});
 				}
 			}
 		}
@@ -1114,7 +1114,10 @@ class Profile extends Component {
 
 	showCategoryPhotoModal(id,e){
 		e.preventDefault();
-		this.setState({selectedcategoryid:id});
+		let portfolloEditForm=Object.assign({},this.state.portfolloEditForm);
+		portfolloEditForm.caption="";
+		this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editImageId:0,selectedcategoryid:id});
+		
 	}
 
 	selectMultiPhoto(e){
@@ -1122,12 +1125,7 @@ class Profile extends Component {
 		let curobj=this;
 		let images=this.state.userData.images.filter(function(e){
 			return e.folloid==curobj.state.selectedcategoryid;
-		})
-		// this.state.userData.images.map(element=>{
-		// 	if(element.folloid==curobj.state.selectedcategoryid){
-		// 		images.push(element);
-		// 	}
-		// });
+		});
 		let totalImages=images.length+e.target.files.length;
 		if(totalImages>10){
 			Swal.fire({
@@ -1172,7 +1170,6 @@ class Profile extends Component {
 							icon: 'success',
 							confirmButtonText: 'OK'		
 						});
-						let formData = new FormData();
 						const{dispatch}=this.props;//debugger
 						let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
 						portfolloEditForm.caption="";
@@ -2552,6 +2549,16 @@ class Profile extends Component {
 		dispatch(educationAction.removeEducation({userId:userid,educationid:exp_id}));
 	}
 
+	showPortfolio=(e)=>{
+		e.preventDefault();
+		let portfolloEditForm= Object.assign({},this.state.portfolloEditForm);
+		portfolloEditForm.id=null;
+		portfolloEditForm.folloid=0;
+		portfolloEditForm.other="";
+		portfolloEditForm.caption="";
+		this.setState({portfolloEditForm:portfolloEditForm,isUploading:false,editPortfolioId:0});
+	}
+
 	showExperience=(e)=>
 	{
 		this.setState({ExpTitleMessage:'',ExpLocationMessage:'',ExpDescriptionMessage:'',ExpDateMessage:'',ExpProgramMessage:''});
@@ -2986,7 +2993,7 @@ class Profile extends Component {
 								<h3>Visual Portfolio</h3>
 							</div>
 							<div class="clearfix col-md-3">
-								{(this.state.mode=='edit') &&<a href="#" onClick={this.showExperience} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add Tabs</span></a>}
+								{(this.state.mode=='edit') &&<a href="#" onClick={this.showPortfolio} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add Tabs</span></a>}
 							</div>	
 						</div>
 						}
