@@ -1127,14 +1127,16 @@ class Profile extends Component {
 			return e.folloid==curobj.state.selectedcategoryid;
 		});
 		let totalImages=images.length+e.target.files.length;
-		if(totalImages>10){
-			Swal.fire({
-				title: 'Error!',
-				text: 'You can upload maximum 10 Images per tab.',
-				icon: 'error',
-				confirmButtonText: 'OK'		
-			});
-			return;
+		if(this.state.editImageId==0){
+			if(totalImages>10){
+				Swal.fire({
+					title: 'Error!',
+					text: 'You can upload maximum 10 Images per tab.',
+					icon: 'error',
+					confirmButtonText: 'OK'		
+				});
+				return;
+			}
 		}
 		if(e.target.files.length>0){
 			for(let i=0;i<e.target.files.length;i++){
@@ -1158,9 +1160,8 @@ class Profile extends Component {
 					'content-type': 'multipart/form-data',
 				}
 			}
-			if(this.state.categoryUploadImageItem!=null){
+			if(this.state.editImageId>0){
 				this.setState({isUploading:true});
-				if(this.state.editImageId>0){
 					axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/${this.state.editImageId}/multiupload`,formData,config)
 					.then((response) => {
 						this.setState({imageFormData:null,isUploading:false});
@@ -1179,37 +1180,38 @@ class Profile extends Component {
 						console.log(error);
 						return error;
 					});
-				}
-				else{
-					axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/multiupload`,formData,config)
-					.then((response) => {
-						this.setState({imageFormData:null,isUploading:false});
-						Swal.fire({
-							title: 'Success!',
-							text: 'Image has been saved successfully.',
-							icon: 'success',
-							confirmButtonText: 'OK'		
-						});
-						let formData = new FormData();
-						const{dispatch}=this.props;//debugger
-						let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
-						portfolloEditForm.caption="";
-						curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
-						dispatch(profileAction.getProfile({userId:this.props.user.id}));
-					}).catch((error) => {
-						console.log(error);
-						return error;
-					});
-				}
-				
 			}
 			else{
-				Swal.fire({
-					title: 'Error!',
-					text: 'No image selected. Please select image',
-					icon: 'error',
-					confirmButtonText: 'OK'		
-				});
+				if(this.state.categoryUploadImageItem!=null){
+					this.setState({isUploading:true});
+					axios.post(`${APIURL}users/${profile.userId}/${this.state.selectedcategoryid}/multiupload`,formData,config)
+						.then((response) => {
+							this.setState({imageFormData:null,isUploading:false});
+							Swal.fire({
+								title: 'Success!',
+								text: 'Image has been saved successfully.',
+								icon: 'success',
+								confirmButtonText: 'OK'		
+							});
+							let formData = new FormData();
+							const{dispatch}=this.props;//debugger
+							let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
+							portfolloEditForm.caption="";
+							curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
+							dispatch(profileAction.getProfile({userId:this.props.user.id}));
+						}).catch((error) => {
+							console.log(error);
+							return error;
+						});
+				}
+				else{
+					Swal.fire({
+						title: 'Error!',
+						text: 'No image selected. Please select image',
+						icon: 'error',
+						confirmButtonText: 'OK'		
+					});
+				}
 			}
 		}
 		catch(e){
