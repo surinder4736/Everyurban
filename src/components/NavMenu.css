@@ -71,7 +71,7 @@ header .button a:hover { color:#02aae3; }
 #howitwork .howitwork-body{background: #1571b2;color: white;padding: 40px;margin-bottom: 20px;}
 #howitwork .howitwork-body h1{text-align: center; padding: 40px 0 10px 0; margin: 20px 0 0;}
 #howitwork .howitwork-content .helpcentre-link {color: #1C71B2;}
-#howitwork .howitwork-content .helpcentre-link h1{text-align: center; margin: 0px; color: #1C71B2; font-size: 1.4rem;}
+#howitwork .howitwork-content .helpcentre-link h1{text-align: center; margin: 0px; color: #1C71B2; font-size: 17px;}
 #howitwork .howitwork-body p{font-size:21px;text-align: center; margin-left: auto;margin-right: auto;width: 23em;color: white;padding-bottom: 40px;}
 #howitwork .howitwork-content{ padding: 40px;margin-bottom: 20px;}
 #howitwork .howitwork-content h1{text-align: center; padding: 40px 0 10px 0;font-weight: 600;color: #3AA3d7;}
@@ -101,8 +101,8 @@ header .button a:hover { color:#02aae3; }
 #aboutus .overlay a:hover { color:#111; }
 #aboutus .aboutus-body{background: #1571b2;color: white;padding: 40px;}
 #aboutus .aboutus-body h1{text-align: center; padding: 25px 0 10px 0;}
-#aboutus .aboutus-body p{font-size:21px;text-align: center; margin-left: auto;margin-right: auto;width: 32em;color: white; margin-bottom: 25px;}
-#aboutus .aboutus-cotent p{color:#3AA3d7;font-size: 17px;width: 100%; margin-left: auto; margin-right: auto;}
+#aboutus .aboutus-body p{font-size:17px;text-align: center; margin-left: auto;margin-right: auto;width: 32em;color: white; margin-bottom: 25px;}
+#aboutus .aboutus-cotent p{color:#1C71B2;font-size: 17px;width: 100%; margin-left: auto; margin-right: auto;}
 #aboutus .objective-content img{width: 50% !important;}
 #aboutus .aboutus-cotent{padding: 60px;}
 #aboutus .aboutus-cotent .text-center{margin-bottom: 20px;}
@@ -208,8 +208,8 @@ header .button a:hover { color:#02aae3; }
 	#help-center .help-center-body p{font-size:23px;text-align: center; margin-left: auto;margin-right: auto;width: 18em;color: white;padding-bottom: 40px;}
 	#aboutus .aboutus-body{background: #1571b2;color: white;padding: 40px;}
 	#aboutus .aboutus-body h1{text-align: center; padding: 25px 0 10px 0;}
-	#aboutus .aboutus-body p{font-size:23px;text-align: center; margin-left: auto;margin-right: auto;width: 15em;color: white; margin-bottom: 25px;}
-	#aboutus .aboutus-cotent p{color:#3AA3d7;font-size: 17px;width: 15em;margin-left: auto;margin-right: auto;}
+	#aboutus .aboutus-body p{font-size:17px;text-align: center; margin-left: auto;margin-right: auto;width: 15em;color: white; margin-bottom: 25px;}
+	#aboutus .aboutus-cotent p{color:#1C71B2;font-size: 17px;width: 15em;margin-left: auto;margin-right: auto;}
 	#aboutus .aboutus-cotent img{width: 50% !important;}
 	#aboutus .aboutus-cotent .text-center{margin-bottom: 20px;}
 	#contact-us .contact-us-body{background: #1571b2;color: white;padding: 40px;margin-bottom: 20px;}
@@ -311,7 +311,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 #login .holder .right a { font-size:12px; font-weight:400; text-align:center; color:#a9a9a9; display:block; }
 #login .holder .right a:hover { color:#666; }
 #login .holder .right a.create { font-size:14px; margin:30px 0 0; }
-#login .holder .right a.create img { margin:0 0 0 3px; width:auto; height:12px; }
+#login .holder .right a.create img { margin:0 0 0 3px; width:20px; height:12px; }
 #login .holder .toc,
 #login .holder .radios { display:table; margin:0 auto; width:80%; }
 #login .holder .toc { margin-bottom:15px; }
@@ -479,10 +479,11 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 
 .btn-close{margin-left: 20px;}
 
-.about-bottom-link{padding-top: 40px; font-size: 1.4rem;}
-.about-bottom-link img{width: 25px !important;}
-.helpcentre-link img{width: 25px !important;}
+.about-bottom-link{padding-top: 40px; font-size: 17px; text-decoration: underline;}
+.about-bottom-link img{width: 20px !important;}
+.helpcentre-link img{width: 20px !important;}
 .learnmore img{width:20px;}
+.learnmore{font-weight: bold; color:#1C71B2;}
 .subscribe-section-start img{width:20px;}
 
 .card .nav-tabs .nav-link.active{color: #fff;
@@ -635,3 +636,14 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
   .d-block{height: 400px; width: 600px;}
   #ProtfolioViewer .modal-dialog{max-width:1000px !important}
   .overlay p{display: inline-flex;}
+  #emailModal img{ width:80px !important; }
+  @media (max-width:992px) and (min-width:770px) {
+	header .button{
+		padding: 10px 10px;
+	}
+}
+
+@media (min-width: 576px){
+	#emailModal{  margin: 15rem auto;}
+}
+

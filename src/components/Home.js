@@ -9,7 +9,7 @@ import people from '../Images/people-300x294.jpg';
 import city from '../Images/city-min.jpg';
 import developers from '../Images/developers-min.jpg'
 import subscribe from '../Images/subscribe-1-min.jpg';
-import arrowWhite from '../Images/arrow-white.png';
+import arrowWhite from '../Images/arrow5-blue.png';
 import logoemail from '../Images/logo-email.png';
 import Footer from './Footer';
 export class Home extends Component {
@@ -36,9 +36,9 @@ componentDidMount() {
 				<div className="carousel-item active">
         	<div className="overlay"  >
         		<div >
-							<h2>FREELANCE DESIGN JOBS WORLD WIDE</h2>
-							<h1>Discovering Design Architect Talent and Development Projects</h1>
-							<a className="btn gradient" href="/Login" >Get Started</a>
+							<h2>FREELANCE DESIGN JOBS WORLDWIDE</h2>
+							<h1>Discovering Design Architect Talent <br />and Development Projects</h1>
+							<a className="btn gradient" href="/signup" >Get Started</a>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@ componentDidMount() {
 					<div className="col-md-7">
 						<h2 className="text-md-left text-center">Design Communities Everywhere from Anywhere</h2>
 						<p className="text-md-left text-center">Empowering Architect Designers to Create and Innovate</p>
-						<a className="btn gradient learnmore" href="/howitworks" > learn more <img src={arrowWhite} alt="" width="20px" /></a>
+						<a className=" gradient learnmore" href="/signup" > learn more -{'>'}  </a>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
 				</div>
@@ -142,7 +142,7 @@ on finding the best design concepts for your project. </p>
 		 <div className="subscribe-section">
      		<img src={subscribe} alt=""/>
 		 	<p className="center-text">START BUILDING COMMUNITIES TODAY</p>
-			<a className="btn gradient subscribe-section-start " href="/login" >Get Started <img src={arrowWhite} alt="" width="20px" /></a>
+			<a className="btn gradient subscribe-section-start " href="/signup" >Get Started </a>
 		 </div>
       {/* footer section */}
      <Footer />

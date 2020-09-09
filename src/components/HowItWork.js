@@ -9,6 +9,7 @@ import MenuComponent from './MenuComponent';
 // import subscribe from '../Images/subscribe-1.jpg';
 import footerLogo from '../Images/logo-footer.png';
 import arrow from '../Images/arrow5-blue.png';
+import rightarrow from '../Images/rightarrow.png';
 import Footer from './Footer';
 export class HowItWork extends Component {
  // static displayName = Home.name;
@@ -68,7 +69,7 @@ componentDidMount() {
                    </div>
 
                    <div className="helpcentre-link">
-                     <h1>Have more unanswered questions? Check out our <a href="/helpcentre" style={{textDecoration:'underline'}}>Help Centre <img src={arrow} alt="" width="25px" /></a></h1>
+                     <h1> <a href="/helpcentre" style={{textDecoration:'underline'}}>Have more unanswered questions? Check out our Help Centre <img src={rightarrow} alt="" width="25px" /></a></h1>
                    </div>
 
                </div>
