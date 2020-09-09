@@ -86,7 +86,17 @@ class Login extends Component {
 
 			else if(user!=null && user.auth===true && user.is_email_verified==="false"){
 				// this.setState({messageServerside:'Please verify your email to login.'});
-				this.setState({ismodalshow:'show', modaldisplay:'block'});
+				// this.setState({ismodalshow:'show', modaldisplay:'block'});
+				Swal.fire({
+					title: 'Please verify your email to login.',
+					// text: 'Please verify your email to login.',
+					icon: 'warning',
+					imageUrl: <img src={maillogo} alt="" />,
+					// confirmButtonText: 'OK'
+					showConfirmButton: false,
+					html:'<button type="button" role="button" tabindex="0" class="swal2-confirm swal2-styled btn-resend">' + 'Resend Email' + '</button> <button type="button" role="button" tabindex="0" class="swal2-confirm swal2-styled btn-close" >' + 'ok' + '</button>',
+					confirmButtonText: 'OK'
+				});
 			}
 
 		  	else if(user!=null && user.message==="Unauthorized"){
@@ -101,7 +111,7 @@ class Login extends Component {
 		if(nextProps.isResendEmail!=this.props.isResendEmail){
 			Swal.fire({
 				title: 'A verification email has been sent.',
-				text: 'Please verify your email.',
+				// text: 'Please verify your email.',
 				icon: 'success',
 				confirmButtonText: 'OK'
 				
@@ -149,18 +159,32 @@ class Login extends Component {
 			 Jquery("#viewPass").css("display", "block");
 		});
 		this.setState({messageServerside:''});
+		Jquery(document).on('click', '.btn-resend', function() {
+		 	curobj.resendEmail();
+		 });
+		 Jquery(document).on('click', '.btn-close', function() {
+		 	Swal.close();
+		 }); 
 		
 	}
 
-	resendEmail(e){
-		e.preventDefault();
+	resendEmail(){
 		const{user,dispatch}=this.props;
 		const data={
-				email:this.state.username
+			email:this.state.username
 		}
 		dispatch(resendemail(data));
-		this.setState({ismodalshow:'fade', modaldisplay:'none'});
 	}
+
+	// resendEmail(e){
+	// 	e.preventDefault();
+	// 	const{user,dispatch}=this.props;
+	// 	const data={
+	// 			email:this.state.username
+	// 	}
+	// 	dispatch(resendemail(data));
+	// 	this.setState({ismodalshow:'fade', modaldisplay:'none'});
+	// }
 
 	closeModal(e){
 		e.preventDefault();
@@ -223,9 +247,9 @@ class Login extends Component {
 				</div>
 			</div>
 		</section>
-		{this.renderMailModal()}
+		{/* {this.renderMailModal()} */}
             </div>
-						</LoginBody>
+			</LoginBody>
          );
     }
 }
