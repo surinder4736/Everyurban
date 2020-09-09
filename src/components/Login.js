@@ -134,7 +134,7 @@ class Login extends Component {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary btn-round-none" onClick={this.resendEmail.bind(this)}   aria-label="Close" >Resend Email</button>
-						<button type="button" class="btn btn-primary btn-round-none close" data-dismiss="modal" aria-label="Close" onClick={this.closeModal.bind(this)} >Ok</button>
+						<button type="button" class="btn btn-primary btn-round-none" data-dismiss="modal" aria-label="Close" onClick={this.closeModal.bind(this)} >Ok</button>
 					</div>
 				</div>
 			</div>
