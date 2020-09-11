@@ -484,10 +484,11 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 .about-bottom-link a{color:#1C71B2;}
 .about-bottom-link img{width: 20px !important;}
 .helpcentre-link img{width: 20px !important;}
-.learnmore img{width:20px;}
+.learnmore img{width:20px !important;}
 .learnmore{font-weight: bold; color:#1C71B2;}
 .subscribe-section-start img{width:20px;}
-
+.headerbuttonmargin{margin: 8px !important;}
+.swal2-icon.swal2-warning{margin: 1.25em auto .4em !important;}
 .card .nav-tabs .nav-link.active{color: #fff;
 	background-color: #007bff;}
 	

@@ -89,10 +89,7 @@ class Login extends Component {
 				// this.setState({ismodalshow:'show', modaldisplay:'block'});
 				Swal.fire({
 					title: 'Please verify your email to login.',
-					// text: 'Please verify your email to login.',
 					icon: 'warning',
-					imageUrl: <img src={maillogo} alt="" />,
-					// confirmButtonText: 'OK'
 					showConfirmButton: false,
 					html:'<button type="button" role="button" tabindex="0" class="swal2-confirm swal2-styled btn-resend">' + 'Resend Email' + '</button> <button type="button" role="button" tabindex="0" class="swal2-confirm swal2-styled btn-close" >' + 'ok' + '</button>',
 					confirmButtonText: 'OK'

@@ -11,6 +11,7 @@ import developers from '../Images/developers-min.jpg'
 import subscribe from '../Images/subscribe-1-min.jpg';
 import arrowWhite from '../Images/arrow5-blue.png';
 import logoemail from '../Images/logo-email.png';
+import rightarrow from '../Images/rightarrow.png';
 import Footer from './Footer';
 export class Home extends Component {
   static displayName = Home.name;
@@ -79,7 +80,7 @@ componentDidMount() {
 					<div className="col-md-7">
 						<h2 className="text-md-left text-center">Design Communities Everywhere from Anywhere</h2>
 						<p className="text-md-left text-center">Empowering Architect Designers to Create and Innovate</p>
-						<a className=" gradient learnmore" href="/signup" > learn more -{'>'}  </a>
+						<a className=" gradient learnmore" href="/aboutus" > learn more <img src={rightarrow} alt="" width="25px" />  </a>
 						{/* <a className="btn cyan" href="#">JOIN OUR MAILING LIST</a> */}
 					</div>
 				</div>

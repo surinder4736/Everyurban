@@ -25,7 +25,7 @@ class Header extends Component {
 					<a href="/" className="logo"><img src={logo} alt="" /></a>
 					<div className="button">
 						<a href="/signup" className="signup">Sign Up</a>
-						<span> | </span>
+						<span className="headerbuttonmargin">|</span>
 						<a href="/login" className="login">Log In</a>
 					</div>
 				
