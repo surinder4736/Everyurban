@@ -9,9 +9,7 @@ import {APIURL} from '../Config/config'
 import Axios from 'axios';
 const{logout} = logOutHandle;
 
-
 var jQuery= require('jquery');
-//import { logo } from './img/logo.png'; // relative path to image 
 
 class ViewModeHeader extends Component {
   constructor (props) {
@@ -34,9 +32,6 @@ class ViewModeHeader extends Component {
     )
   }
   
- 
-
-
 }
 
 ViewModeHeader.propTypes = {

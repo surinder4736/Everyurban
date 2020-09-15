@@ -9,9 +9,7 @@ import {APIURL} from '../Config/config'
 import Axios from 'axios';
 const{logout} = userAction;
 
-
 var jQuery= require('jquery');
-//import { logo } from './img/logo.png'; // relative path to image 
 
 class ProfileHeader extends Component {
   constructor (props) {
@@ -32,9 +30,6 @@ class ProfileHeader extends Component {
             console.log("Logout Successfully");
             window.location.href='/login';
         })
-        // const{dispatch}=this.props;
-        // dispatch(logout());
-        // window.location.href='/Login';
 	}
 
   render() {
