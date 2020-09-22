@@ -2720,7 +2720,7 @@ class Profile extends Component {
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="nameEditorLabel">Portfolio</h5>
+							<h5 className="modal-title" id="nameEditorLabel">Visual Portfolio</h5>
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
@@ -2738,8 +2738,8 @@ class Profile extends Component {
 													<img className="d-block w-100" src={imageUrl} />
 												</div>
 												<div className="col-md-4">
-													<h2 style={{margin:'0px'}}>Caption</h2>
-													<hr style={{marginBottom:'5px',marginTop:'5px'}} />
+													{/* <h2 style={{margin:'0px'}}>Caption</h2> */}
+													{/* <hr style={{marginBottom:'5px',marginTop:'5px'}} /> */}
 													<p>{item.caption}</p>
 												</div>
 											</div>
@@ -2898,9 +2898,9 @@ class Profile extends Component {
 								{this.state.mode=='edit'&& 
 									<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}		
 							</div>
-							<h5 class="float-left" style={{fontSize:'20px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
+							<h5 class="float-left" style={{fontSize:'20px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
-							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university:null}</p>
+							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status:null}</p>
 							<hr/>
 							<div className="clearfix">
 								<h5 class="float-left lang" style={{fontSize:'23px'}}>
@@ -2909,7 +2909,7 @@ class Profile extends Component {
 								{this.state.mode=='edit' && this.state.userData.progress !=undefined && this.state.userData.progress.length==0 && <a href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
 							{this.state.userData.progress !=undefined &&
-							<ul style={{listStyle:'none', padding:'0px'}}>
+							<ul className="bulletstyle">
 								
 							{this.state.userData.progress.map(element => {
 								// let progressResult=this.state.progressList.filter(function (e) {
@@ -2941,7 +2941,7 @@ class Profile extends Component {
 								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#SpecialtiesEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
 							{this.state.userData.specialties !=undefined &&
-							<ul style={{listStyle:'none', padding:'0px'}}>
+							<ul className="bulletstyle">
 								
 							{this.state.userData.specialties.map(element => {
 							return <li>
@@ -2966,14 +2966,13 @@ class Profile extends Component {
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
 							{this.state.userData.languages!=undefined &&
-							<ul className="languageList">
+							<ul className="bulletstyle">
 								
 							{this.state.userData.languages.map(element => {
 							return <li>{ element.name+' | '+element.proficiency} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteLanguage} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
 							})}
 							</ul>
 							}
-							<hr/>
 							{/* <div class="clearfix">
 							<h5 class="float-left" style={{fontSize:'23px'}}>Portfolio</h5>
 							</div>
@@ -2992,7 +2991,7 @@ class Profile extends Component {
 						{(this.state.mode=='edit') &&
 						<div class="row" style={{flexDirection:'initial'}}>
 							<div className="col-md-7">
-								<h3>Visual Portfolio</h3>
+								{/* <h3>Visual Portfolio</h3> */}
 							</div>
 							<div class="clearfix col-md-3">
 								{(this.state.mode=='edit') &&<a href="#" onClick={this.showPortfolio} data-toggle="modal" data-target="#ProtfolloEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-plus"></i><span class="span"> Add Tabs</span></a>}
