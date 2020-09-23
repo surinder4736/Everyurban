@@ -271,7 +271,7 @@ class Profile extends Component {
 			  });
 
 		});
-		let currentYear = new Date().getFullYear(), years = [];
+		let currentYear = new Date().getFullYear()+10, years = [];
 		let startYear =  1970;  
 		for(var i=startYear; i<= currentYear; i++){
 			years.push(startYear++);
@@ -2726,7 +2726,7 @@ class Profile extends Component {
 							</button>
 						</div>
 						<div className="modal-body">
-							<div id="carouselExample" className="carousel slide" data-ride="carousel">
+							<div id="carouselExample" className="carousel slide" data-interval="false">
 								<div className="carousel-inner">
 								{this.state.userData.images!=undefined && images.map((item,i)=>{
 									let imageUrl=`${BASE_URL}/images/${item.imageurl}`;

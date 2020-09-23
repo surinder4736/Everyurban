@@ -599,7 +599,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	letter-spacing: 1px;
   }
   
-  .hovereffect h2:after {
+  /* .hovereffect h2:after {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -611,7 +611,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	transition: transform 0.35s;
 	-webkit-transform: translate3d(-100%,0,0);
 	transform: translate3d(-100%,0,0);
-  }
+  } */
 
   .hovereffect:hover h2 {
 	opacity: 1;
