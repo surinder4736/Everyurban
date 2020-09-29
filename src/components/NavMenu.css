@@ -592,6 +592,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	filter: alpha(opacity=40);
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
+	width: calc(100%);
   }
 
   .hovereffect:hover .nature{
