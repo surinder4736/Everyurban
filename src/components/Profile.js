@@ -11,6 +11,8 @@ import {connect} from 'react-redux';
 import PropTypes, { array, node } from 'prop-types';
 import userAction from '../actions/user';
 import Gallery from 'react-grid-gallery';
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 import jQuery from 'jquery';
 import ReactTooltip from 'react-tooltip';
 import MenuComponent from './MenuComponent';
@@ -49,6 +51,12 @@ class Profile extends Component {
         super(props);
 		this.state = 
 		{	file:null,
+			src: null,
+			crop: {
+			unit: '%',
+			width: 30,
+			aspect: 16 / 16,
+			},
 			dt:new Date(),
 			initailImage:NoImage,
 			ExpTitleMessage:'',
@@ -87,6 +95,7 @@ class Profile extends Component {
 			deleteImage:false,
 			editImageId:0,
 			editPortfolioId:0,
+			profileUploadImageItem:null,
 			educationEditForm:{
 				id:null,
 				title:"",
@@ -139,6 +148,7 @@ class Profile extends Component {
 			aboutEditForm:{
 				id:null,
 				university:"",
+				program:"",
 				month:"",
 				year:"",
 				status:""
@@ -197,7 +207,130 @@ class Profile extends Component {
 
 	}
 
+	// onSelectFile = e => {
+	// 	if (e.target.files && e.target.files.length > 0) {
+	// 	  const reader = new FileReader();
+	// 	  reader.addEventListener('load', () =>
+	// 		this.setState({ src: reader.result })
+	// 	  );
+	// 	  reader.readAsDataURL(e.target.files[0]);
+	// 	}
+	//   };
 	
+	  // If you setState the crop in here you should return false.
+	  onImageLoaded = image => {
+		this.imageRef = image;
+	  };
+	
+	  onCropComplete = crop => {
+		this.makeClientCrop(crop);
+	  };
+	
+	  onCropChange = (crop, percentCrop) => {
+		// You could also use percentCrop:
+		// this.setState({ crop: percentCrop });
+		this.setState({ crop });
+	  };
+	
+	  async makeClientCrop(crop) {
+		if (this.imageRef && crop.width && crop.height) {
+		  const croppedImageUrl=await this.getCroppedImg(
+			this.imageRef,
+			crop,
+			'newFile.jpeg'
+		  );
+		  
+		  this.setState({ croppedImageUrl});
+		}
+	  }
+	
+	  getCroppedImg(image, crop, fileName) {
+		const canvas = document.createElement('canvas');
+		const scaleX = image.naturalWidth / image.width;
+		const scaleY = image.naturalHeight / image.height;
+		canvas.width = crop.width;
+		canvas.height = crop.height;
+		const ctx = canvas.getContext('2d');
+	
+		ctx.drawImage(
+		  image,
+		  crop.x * scaleX,
+		  crop.y * scaleY,
+		  crop.width * scaleX,
+		  crop.height * scaleY,
+		  0,
+		  0,
+		  crop.width,
+		  crop.height
+		);
+	
+		return new Promise((resolve, reject) => {
+		  canvas.toBlob(blob => {
+			if (!blob) {
+			  //reject(new Error('Canvas is empty'));
+			  console.error('Canvas is empty');
+			  return;
+			}
+			blob.name = fileName;
+			window.URL.revokeObjectURL(this.fileUrl);
+			this.fileUrl = window.URL.createObjectURL(blob);
+			this.setState({categoryUploadImageItem: blob});
+			resolve(this.fileUrl);
+		  }, 'image/jpeg');
+		});
+	}
+
+	onProfileCropComplete = crop => {
+		this.makeProfileClientCrop(crop);
+	};
+
+	async makeProfileClientCrop(crop) {
+		if (this.imageRef && crop.width && crop.height) {
+		  const croppedImageUrl=await this.getProfileCroppedImg(
+			this.imageRef,
+			crop,
+			'newFile.jpeg'
+		  );
+		//   this.setState({ croppedImageUrl});
+		}
+	  }
+	
+	  getProfileCroppedImg(image, crop, fileName) {
+		const canvas = document.createElement('canvas');
+		const scaleX = image.naturalWidth / image.width;
+		const scaleY = image.naturalHeight / image.height;
+		canvas.width = crop.width;
+		canvas.height = crop.height;
+		const ctx = canvas.getContext('2d');
+	
+		ctx.drawImage(
+		  image,
+		  crop.x * scaleX,
+		  crop.y * scaleY,
+		  crop.width * scaleX,
+		  crop.height * scaleY,
+		  0,
+		  0,
+		  crop.width,
+		  crop.height
+		);
+	
+		return new Promise((resolve, reject) => {
+		  canvas.toBlob(blob => {
+			if (!blob) {
+			  //reject(new Error('Canvas is empty'));
+			  console.error('Canvas is empty');
+			  return;
+			}
+			blob.name = fileName;
+			window.URL.revokeObjectURL(this.fileUrl);
+			this.fileUrl = window.URL.createObjectURL(blob);
+			this.setState({profileUploadImageItem: blob});
+			resolve(this.fileUrl);
+		  }, 'image/jpeg');
+		});
+	}
+	  
 	uploadMultipleFiles(e) {
         this.fileObj.push(e.target.files)
         for (let i = 0; i < this.fileObj[0].length; i++) {
@@ -955,7 +1088,11 @@ class Profile extends Component {
 						// portfolloEditForm.folloid=0;
 						portfolloEditForm.other="";
 						portfolloEditForm.caption="";
-						this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editPortfolioId:0});
+						this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editPortfolioId:0,src:null,crop: {
+							unit: '%',
+							width: 30,
+							aspect: 16 / 16,
+							}});
 					}).catch((error) => {
 						console.log(error);
 						return error;
@@ -1061,30 +1198,7 @@ class Profile extends Component {
 		}
 	}
 
-	selectImages(e){
-		//this.setState({file:});
-		let curobj=this;
-		const{profile:{profile}}=this.props;
-		let formData = new FormData();
-		formData.append("file",e.target.files[0]);
-		const config = {
-				headers: {
-					'content-type': 'multipart/form-data',
-				}
-		}
-		this.setState({isProfileUploading:true});
-		axios.post(`${APIURL}users/${profile.userId}/${profile.id}/upload`,formData,config)
-				.then((response) => {
-					let userData=Object.assign({},this.state.userData);
-					userData.profile.photo=response.data.data.photo;
-					curobj.setState({userData,isProfileUploading:false});
-				  
-				}).catch((error) => {
-				 console.log(error);
-					return error;
-		});
-	}
-
+	
 	selectMultiImages(e){
 		if(e.target.files.length>0){
 			// if(e.target.files.length>10){
@@ -1104,6 +1218,11 @@ class Profile extends Component {
 			// }
 			if(e.target.files.length>0){
 				for(let i=0;i<e.target.files.length;i++){
+					const reader = new FileReader();
+					reader.addEventListener('load', () =>
+						this.setState({ src: reader.result })
+					);
+					reader.readAsDataURL(e.target.files[i]);
 					this.setState({categoryUploadImageItem:e.target.files[i]});
 				}
 				
@@ -1140,6 +1259,11 @@ class Profile extends Component {
 		}
 		if(e.target.files.length>0){
 			for(let i=0;i<e.target.files.length;i++){
+				const reader = new FileReader();
+				reader.addEventListener('load', () =>
+					this.setState({ src: reader.result })
+				);
+				reader.readAsDataURL(e.target.files[i]);
 				this.setState({categoryUploadImageItem:e.target.files[i]});
 			}
 			
@@ -1174,7 +1298,11 @@ class Profile extends Component {
 						const{dispatch}=this.props;//debugger
 						let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
 						portfolloEditForm.caption="";
-						curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editImageId:0});
+						curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editImageId:0,src:null,crop: {
+							unit: '%',
+							width: 30,
+							aspect: 16 / 16,
+							}});
 						dispatch(profileAction.getProfile({userId:this.props.user.id}));
 					}).catch((error) => {
 						console.log(error);
@@ -1197,7 +1325,11 @@ class Profile extends Component {
 							const{dispatch}=this.props;//debugger
 							let portfolloEditForm=Object.assign({},curobj.state.portfolloEditForm);
 							portfolloEditForm.caption="";
-							curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null});
+							curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,src:null,crop: {
+								unit: '%',
+								width: 30,
+								aspect: 16 / 16,
+								}});
 							dispatch(profileAction.getProfile({userId:this.props.user.id}));
 						}).catch((error) => {
 							console.log(error);
@@ -1491,6 +1623,11 @@ class Profile extends Component {
     
 		  </div>
 		  <div className="form-group">
+		  	<label htmlFor="university-text" className="col-form-label">Program:</label>
+			<input placeholder="Enter University" onChange={this.changeProgramName} type="text" className="form-control" id="university-text" value={this.state.aboutEditForm!=null?this.state.aboutEditForm.program:null}/>
+			<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
+		  </div>
+		  <div className="form-group">
             <label htmlFor="status-text" className="col-form-label">Status</label>
 			<div className="radios about-radios">
 				<label for="Student">
@@ -1548,6 +1685,11 @@ class Profile extends Component {
 	changeUniversityName=(e)=>{
 		let aboutEditForm=Object.assign({},this.state.aboutEditForm);
 		aboutEditForm.university=e.target.value;
+		this.setState({aboutEditForm:aboutEditForm});
+	}
+	changeProgramName=(e)=>{
+		let aboutEditForm=Object.assign({},this.state.aboutEditForm);
+		aboutEditForm.program=e.target.value;
 		this.setState({aboutEditForm:aboutEditForm});
 	}
 	checkStatusHandle(e){
@@ -2044,6 +2186,7 @@ class Profile extends Component {
 
 	// Visual Portfollo
 	renderProtfolloEditor(){
+		const { crop, croppedImageUrl, src,selectedcategoryid } = this.state;
 		return(
 			<div className="modal fade" id="ProtfolloEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div className="modal-dialog" role="document">
@@ -2086,17 +2229,23 @@ class Profile extends Component {
 									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
 								}
+								{src && selectedcategoryid==0 &&(
+									<ReactCrop
+										src={src}
+										crop={crop}
+										ruleOfThirds
+										onImageLoaded={this.onImageLoaded}
+										onComplete={this.onCropComplete}
+										onChange={this.onCropChange}
+									/>
+								)}
 								{this.state.editPortfolioId==0 &&
 									<div className="form-group">
 										<label htmlFor="caption-text" className="col-form-label">Caption</label>
-										<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+										<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
 										<div className="small">added  {this.state.portfolloEditForm.caption.length} characters</div>
 									</div>
 								} 
-								
-								
-								
-								
 							</form>
 						</div>
 						<div className="modal-footer">
@@ -2175,7 +2324,7 @@ class Profile extends Component {
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="nameEditorLabel">Current</h5>
+							<h5 className="modal-title" id="nameEditorLabel">Work</h5>
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
@@ -2248,6 +2397,7 @@ class Profile extends Component {
 
 	// Visual Portfollo
 	renderPhotoEditor(){
+		const { crop, croppedImageUrl, src,selectedcategoryid } = this.state;
 		return(
 			<div className="modal fade" id="PhotoEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div className="modal-dialog" role="document">
@@ -2268,9 +2418,22 @@ class Profile extends Component {
 								<div className="form-group">
 									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
+								{src && selectedcategoryid>0 && (
+								<ReactCrop
+									src={src}
+									crop={crop}
+									ruleOfThirds
+									onImageLoaded={this.onImageLoaded}
+									onComplete={this.onCropComplete}
+									onChange={this.onCropChange}
+								/>
+								)}
+								{/* {croppedImageUrl && (
+								<img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
+								)} */}
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
-									<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
 									<div className="small">Added  {this.state.portfolloEditForm.caption.length} characters</div>
     
 								</div>
@@ -2558,7 +2721,12 @@ class Profile extends Component {
 		portfolloEditForm.folloid=0;
 		portfolloEditForm.other="";
 		portfolloEditForm.caption="";
-		this.setState({portfolloEditForm:portfolloEditForm,isUploading:false,editPortfolioId:0});
+		this.setState({portfolloEditForm:portfolloEditForm,isUploading:false,editPortfolioId:0,selectedcategoryid:0});
+	}
+
+	showProfilePhoto=(e)=>{
+		e.preventDefault();
+		this.setState({isUploading:false,selectedcategoryid:-1});
 	}
 
 	showExperience=(e)=>
@@ -2734,8 +2902,8 @@ class Profile extends Component {
 									
 										return <div className={classname} id={item.id}>
 											<div className="row">
-												<div className="col-md-8" style={{borderRight:'1px solid #ccc'}}>
-													<img className="d-block w-100" src={imageUrl} />
+												<div className="col-md-8" style={{borderRight:'1px solid #ccc',width:'650px',height:'650px',display:'flex'}}>
+													<img className="d-block" src={imageUrl} />
 												</div>
 												<div className="col-md-4">
 													{/* <h2 style={{margin:'0px'}}>Caption</h2> */}
@@ -2787,6 +2955,118 @@ class Profile extends Component {
 		jQuery("#"+id).addClass('active');
 	}
 
+	renderProfilePhotoEditor(){
+		const { crop, croppedImageUrl, src,selectedcategoryid } = this.state;
+		const{profile:{profile},user}=this.props;
+		const { profileUrl } = this.props.match.params;
+		return(
+			<div className="modal fade" id="ProfilePhotoEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="nameEditorLabel">Profile Image</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+								<input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
+							{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Upload</a> }
+								</div>
+								<div className="form-group">
+									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
+								</div>
+								{src && selectedcategoryid==-1 && (
+								<ReactCrop
+									src={src}
+									crop={crop}
+									ruleOfThirds
+									onImageLoaded={this.onImageLoaded}
+									onComplete={this.onProfileCropComplete}
+									onChange={this.onCropChange}
+								/>
+								)}
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button onClick={this.clickProfilePhotoSaveHandler} type="button" class="btn btn-primary">{(this.state.isUploading==true) && <i class="fa fa-spinner fa-spin"></i>} Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	selectImages(e){
+		let curobj=this;
+		const{profile:{profile}}=this.props;
+		if(e.target.files.length>0){
+			for(let i=0;i<e.target.files.length;i++){
+				const reader = new FileReader();
+				reader.addEventListener('load', () =>
+					this.setState({ src: reader.result })
+				);
+				reader.readAsDataURL(e.target.files[i]);
+			}
+		}
+		// let formData = new FormData();
+		// formData.append("file",e.target.files[0]);
+		// const config = {
+		// 		headers: {
+		// 			'content-type': 'multipart/form-data',
+		// 		}
+		// }
+		// this.setState({isProfileUploading:true});
+		// axios.post(`${APIURL}users/${profile.userId}/${profile.id}/upload`,formData,config)
+		// 		.then((response) => {
+		// 			let userData=Object.assign({},this.state.userData);
+		// 			userData.profile.photo=response.data.data.photo;
+		// 			curobj.setState({userData,isProfileUploading:false});
+				  
+		// 		}).catch((error) => {
+		// 		 console.log(error);
+		// 			return error;
+		// });
+	}
+
+	clickProfilePhotoSaveHandler=(e)=>{
+		try{
+			let curobj=this;
+			const{profile:{profile}}=this.props;
+			let formData = new FormData();
+			formData.append("file",this.state.profileUploadImageItem);
+			const config = {
+				headers: {
+					'content-type': 'multipart/form-data',
+				}
+			}
+			this.setState({isProfileUploading:true});
+			axios.post(`${APIURL}users/${profile.userId}/${profile.id}/upload`,formData,config)
+					.then((response) => {
+						let userData=Object.assign({},this.state.userData);
+						userData.profile.photo=response.data.data.photo;
+						curobj.setState({userData,isProfileUploading:false,profileUploadImageItem:null,src:null,crop: {
+							unit: '%',
+							width: 30,
+							aspect: 16 / 16,
+							}});
+					
+					}).catch((error) => {
+					console.log(error);
+						return error;
+			});
+			
+		}
+		catch(e){
+			console.log(e);
+		}
+	}
+
+
+
     render() {
 			let curobj=this;
 			const{profile:{profile},user}=this.props;
@@ -2833,8 +3113,9 @@ class Profile extends Component {
 								loading={this.state.isProfileUploading}
 								/>
 							}
-							<input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
-							{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> }
+							<a href="#" onClick={this.showProfilePhoto} data-toggle="modal" data-target="#ProfilePhotoEditor" data-whatever="@mdo" class="float-right"  ><i class="fas fa-pencil-alt"></i><span class="span"> Change Picture</span></a>
+							{/* <input type="file" name="file"  id="upload" onChange={this.selectImages.bind(this)}  style={{display:'none'}} />
+							{user.unique_userid==profileUrl && <a href=""  id="upload_link" ><i class="fas fa-pencil-alt"></i> Change Picture</a> } */}
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-9 col-xs-12">
@@ -2894,17 +3175,22 @@ class Profile extends Component {
 						<div class="about">
 						
 							<div class="clearfix">
-								<h5 class="float-left" style={{fontSize:'23px'}}>About</h5>
+								<h5 class="float-left" style={{fontSize:'25px'}}>About</h5>
 								{this.state.mode=='edit'&& 
 									<a onClick={this.showEditAbout} data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  href="#" class="float-right"  ><i class="fas fa-edit"></i><span class="span"> Edit</span></a>}		
 							</div>
 							<h5 class="float-left" style={{fontSize:'20px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
-							<p style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status:null}</p>
+							<ul className="bulletstyle">
+								<li style={{wordBreak:'break-word'}}>
+								{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status +' - '+(this.state.userData.about[0].prgram!=""?this.state.userData.about[0].program:''):''}
+								</li>
+							</ul>
+							
 							<hr/>
 							<div className="clearfix">
-								<h5 class="float-left lang" style={{fontSize:'23px'}}>
-								Current</h5> 
+								<h5 class="float-left lang" style={{fontSize:'20px'}}>
+								Work</h5> 
 								{/* <div class="float-left ml-4" style={{marginTop:'2px'}} ><input className="" id="chkStudent" type="checkbox" onChange={this.state.mode=='edit'?this.changeStudent:''}  checked={this.state.userData.profile.isStudent}   />&nbsp;Student</div> */}
 								{this.state.mode=='edit' && this.state.userData.progress !=undefined && this.state.userData.progress.length==0 && <a href="#" data-toggle="modal" data-target="#progressEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
@@ -2936,7 +3222,7 @@ class Profile extends Component {
 							
 							<hr/>
 							<div className="clearfix">
-								<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								<h5 class="float-left lang" style={{fontSize:'20px'}}>
 								My Specialties</h5>
 								{this.state.mode=='edit'&& <a href="#" data-toggle="modal" data-target="#SpecialtiesEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
@@ -2961,7 +3247,7 @@ class Profile extends Component {
 							<hr/>
 							
 							<div className="clearfix">
-								<h5 class="float-left lang" style={{fontSize:'23px'}}>
+								<h5 class="float-left lang" style={{fontSize:'20px'}}>
 								Language</h5>
 								{this.state.mode=='edit'&& <a href="#" onClick={this.showLanguageEditor} data-toggle="modal" data-target="#languageEditor" data-whatever="@mdo"><i class=" float-right fas fa-plus-circle"></i></a>}
 							</div>
@@ -2989,8 +3275,8 @@ class Profile extends Component {
 					<div class="col-lg-9 col-md-9 col-xs-12" style={{padding:'0px 0px 15px 15px'}}>
 						<div class="spacer"></div>
 						{(this.state.mode=='edit') &&
-						<div class="row" style={{flexDirection:'initial'}}>
-							<div className="col-md-7">
+						<div class="row" style={{flexDirection:'initial',marginTop:'-25px'}}>
+							<div className="col-md-9">
 								{/* <h3>Visual Portfolio</h3> */}
 							</div>
 							<div class="clearfix col-md-3">
@@ -3063,7 +3349,7 @@ class Profile extends Component {
 																	<div class="hovereffect" onClick={this.setCurrentImage.bind(this,item.id)} >
 																		<img src={imageUrl} alt={item.caption}   />
 																		<div class="overlay">
-																			<h2>{item.caption}</h2>
+																			{/* <h2>{item.caption}</h2> */}
 																			<p>
 																				<a href="#" data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
 																				{(this.state.mode=='edit') &&
@@ -3115,6 +3401,7 @@ class Profile extends Component {
 		{this.renderProgressEditor()}
 		{this.renderPhotoEditor()}
 		{this.renderProtfolioViewModel()}
+		{this.renderProfilePhotoEditor()}
 		</div>
          );
     }
