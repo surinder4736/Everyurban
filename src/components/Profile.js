@@ -3186,7 +3186,7 @@ class Profile extends Component {
 							<h5 class="float-left" style={{fontSize:'18px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
 							<ul className="bulletstyle">
-								<li style={{wordBreak:'break-word',fontSize:'14px'}}>
+								<li style={{wordBreak:'break-word'}}>
 								{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status +' - '+(this.state.userData.about[0].prgram!=""?this.state.userData.about[0].program:''):''}
 								</li>
 							</ul>
@@ -3205,7 +3205,7 @@ class Profile extends Component {
 								// let progressResult=this.state.progressList.filter(function (e) {
 								// 	return e.id == element.progressid;
 								// });
-								return <li>
+								return <li style={{wordBreak:'break-word'}}>
 									<div className="row">
 										<div style={{overflowWrap:'break-word',fontSize:'14px'}} className="float-left col-md-9">
 											{element.position+' - '+element.establishment}
@@ -3234,7 +3234,7 @@ class Profile extends Component {
 							<ul className="bulletstyle">
 								
 							{this.state.userData.specialties.map(element => {
-							return <li>
+							return <li style={{wordBreak:'break-word'}}>
 								<div className="row">
 									<div style={{overflowWrap:'break-word',fontSize:'14px'}} className="float-left col-md-9">
 										{ element.name}
@@ -3259,7 +3259,7 @@ class Profile extends Component {
 							<ul className="bulletstyle">
 								
 							{this.state.userData.languages.map(element => {
-							return <li style={{fontSize:'14px'}}>{ element.name+' | '+element.proficiency} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteLanguage} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
+							return <li>{ element.name+' | '+element.proficiency} {this.state.mode=='edit'&& <a data-id={element.id} onClick={this.deleteLanguage} href="#" class="float-right"  >&nbsp;&nbsp;<i class="fas fa-trash"></i></a>}</li>	
 							})}
 							</ul>
 							}

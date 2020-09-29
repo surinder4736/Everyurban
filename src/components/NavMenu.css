@@ -494,8 +494,12 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	background-color: #007bff;}
 .bulletstyle{
 	list-style-type: square;
-	padding-left: 20px;
+	padding-left: 15px;
 }	
+
+.bulletstyle li {
+	font-size: 14px;
+}
 	
 
 /* Add padding BETWEEN each column (if you want) */
