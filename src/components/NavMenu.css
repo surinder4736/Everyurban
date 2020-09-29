@@ -341,11 +341,12 @@ footer.footer2 a:hover { text-decoration:underline; }
 }
 .__react_component_tooltip{width: 200px;text-align: left;word-wrap: none;}
 .profile-top { background:url("../Images/profile-bg.jpg") no-repeat 50% 50%; background-size:cover; padding-top:100px; }
-.profile-top .dp { margin-bottom:-100px; position:relative; z-index:10;text-align: center;
+.profile-top .dp { margin-bottom:0px; position:relative; z-index:10;text-align: center;
     vertical-align: middle;
     background: white;
-    display: flex;;min-height: 311px; max-height: 311px;}
-.profile-top .dp img { position:relative; z-index:11;margin:auto; height: 311px;}
+	display: flex;;min-height: 211px; max-height: 2
+	px;}
+.profile-top .dp img { position:relative; z-index:11; height: 211px;}
 .profile-top .dp a { position:absolute; z-index:12; left:0; bottom:0; width:100%; height:40px; line-height:40px; text-align:center; color:#fff; background:rgba(0,0,0,0.5); opacity:0; }
 .profile-top .dp:hover a { opacity:1; }
 .profile-top .dp a:hover { background:rgba(0,0,0,0.9); }
@@ -360,14 +361,14 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .right .profile-edit .span{padding:0px}
 .profile-top .right .profile-save .span{padding:0px}
 .profile-top .media .aligned-edit{  }
-.profile-bot .spacer { height:30px; }
+.profile-bot .spacer { margin-top:60px; }
 .profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:0 0 10px; color:#111; font-weight: 600; }
 .profile-bot h6 { color:#111; font-size:20px; font-weight:700; margin:0; color:#111; }
 .profile-bot a,
 .profile-bot p { color:#111; font-size:14px; font-weight:400; margin:0 0 5px; color:#111; display:block; }
 .profile-bot a:hover { color:#02aae3; }
-.profile-bot .about { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15); margin:100px 0 30px; }
-.profile-bot .about hr { width:100%; height:1px; background:#bbb; margin:20px 0; border:0; }
+.profile-bot .about { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15); margin:60px 0 30px; }
+.profile-bot .about hr { width:100%; height:1px; background:#bbb; border:0; margin-top: 0; margin-bottom: 0; }
 .profile-bot .about .lang { position:relative; }
 .profile-bot .about .lang a { position:absolute; right:0; top:50%; transform:translateY(-50%); color:#02aae3; font-size:20px; }
 .profile-bot .about .lang a:hover { color:#1571b2; }
@@ -493,7 +494,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	background-color: #007bff;}
 .bulletstyle{
 	list-style-type: square;
-	padding: 5px;
+	padding-left: 20px;
 }	
 	
 
@@ -506,7 +507,12 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 /* Create three equal columns that floats next to each other */
 .gallery .column {
   float: left;
-  width: 33.33%;
+  width: 250px;
+  height: 250px;
+  display: flex;
+}
+.gallery .column .content{
+	margin: auto;
 }
 
 /* Clear floats after rows */
@@ -551,7 +557,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	width: 100%;
 	height: 100%;
 	float: left;
-	overflow: hidden;
+	/* overflow: hidden; */
 	position: relative;
 	text-align: center;
 	cursor: default;
@@ -568,7 +574,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
   }
   
   .hovereffect img {
-	height:240px;  
+	/* height:240px;   */
 	display: block;
 	position: relative;
 	max-width: none;
@@ -586,6 +592,14 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	filter: alpha(opacity=40);
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
+  }
+
+  .hovereffect:hover .nature{
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	background: #02aae3;
   }
   
   .hovereffect h2 {
@@ -640,7 +654,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	transform: translate3d(0,0,0);
   }
 
-  .d-block{height: 400px; width: 600px;}
+  .d-block{height: auto; width: 100%; margin: auto; object-fit: contain;}
   #ProtfolioViewer .modal-dialog{max-width:1000px !important}
   .overlay p{display: inline-flex;}
   #emailModal img{ width:80px !important; }
@@ -654,3 +668,93 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	#emailModal{  margin: 15rem auto;}
 }
 
+
+
+
+/* Image crop css */
+
+  
+div.RICC {
+  width: auto;
+  height: auto;
+  background: greenyellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+}
+div.RICC > div.crop {
+  width: 0;
+  height: 0;
+  background: transparent;
+  cursor: move;
+  position: absolute;
+  border: dashed #dddddd 1px;
+  z-index: 2;
+  border-radius: 1px;
+  top: 0;
+  left: 0;
+}
+div.RICC > div.crop > div.preview {
+  width: 100%;
+  height: 100%;
+  cursor: move;
+  overflow: hidden;
+}
+div.RICC > div.background {
+  width: 100%;
+  height: 100%;
+  background: rgba(50, 50, 50, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  cursor: crosshair;
+}
+div.RICC > img.image {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* div.RICC > div.crop > div.preview > img.crop{
+	width: 800px;
+	height: 800px;
+  } */
+
+  @media (min-width: 576px){
+	#PhotoEditor .modal-dialog {
+		max-width: fit-content !important;
+		margin: 1.75rem auto;
+	  }
+  }
+  @media (min-width: 576px){
+	  #ProfilePhotoEditor .modal-dialog {
+		max-width: fit-content !important;
+		margin: 1.75rem auto;
+	  }
+  }
+  @media (min-width: 576px){
+	#ProtfolloEditor .modal-dialog {
+		max-width: fit-content !important;
+		margin: 1.75rem auto;
+	  }
+  }
+
+.captionclass{
+	min-width:500px;
+}  
+  
+.img-container {
+    width: 640px;
+    height: 480px;
+    float: left;
+}
+
+.img-preview {
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin-left: 10px;
+}
