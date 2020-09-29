@@ -572,35 +572,30 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	top: 0;
 	left: 0;
   }
+  /* .hovereffect:hover .overlay {
+	background: #02aae3;
+	opacity: 0.4;
+  } */
   
   .hovereffect img {
 	/* height:240px;   */
 	display: block;
 	position: relative;
 	max-width: none;
-	width: calc(100% + 20px);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	width: calc(100% + 0px);
+	/* -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: translate3d(-10px,0,0);
 	transform: translate3d(-10px,0,0);
-	-webkit-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden; */
 	backface-visibility: hidden;
   }
   
   .hovereffect:hover img {
 	opacity: 0.4;
 	filter: alpha(opacity=40);
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-	width: calc(100%);
-  }
-
-  .hovereffect:hover .nature{
-	opacity: 0.4;
-	filter: alpha(opacity=40);
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-	background: #02aae3;
+	/* -webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0); */
   }
   
   .hovereffect h2 {
@@ -641,23 +636,24 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	color: #FFF;
 	opacity: 0;
 	filter: alpha(opacity=0);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	/* -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: translate3d(100%,0,0);
-	transform: translate3d(100%,0,0);
+	transform: translate3d(100%,0,0); */
 	padding: 10px;
   }
   
   .hovereffect:hover a, .hovereffect:hover p {
 	opacity: 1;
 	filter: alpha(opacity=100);
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
+	/* -webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0); */
   }
 
   .d-block{height: auto; width: 100%; margin: auto; object-fit: contain;}
   #ProtfolioViewer .modal-dialog{max-width:1000px !important}
   .overlay p{display: inline-flex;}
+ .nopreviewimg{height:400px} 
   #emailModal img{ width:80px !important; }
   @media (max-width:992px) and (min-width:770px) {
 	header .button{

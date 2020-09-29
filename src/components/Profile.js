@@ -2990,7 +2990,7 @@ class Profile extends Component {
 								/>
 								)}
 								{src==null &&
-								<img src={NoPreview} alt="No Preview" />
+								<img className="nopreviewimg" src={NoPreview} alt="No Preview" />
 								}
 							</form>
 						</div>
