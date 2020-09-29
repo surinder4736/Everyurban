@@ -3322,19 +3322,10 @@ class Profile extends Component {
 										this.state.userData.images.map(item=>{
 											if(item.folloid==element.id){
 												let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
-												// let img={
-												// 	src:imageUrl,
-												// 	thumbnail:imageUrl,
-												// 	thumbnailWidth: 150,
-												// 	thumbnailHeight: 130,
-												// 	caption: item.caption,
-												// 	// customOverlay:item.caption
-												// }
 												imageArray.push(imageUrl);
 											}
 										})
 										return <div id={element.id} className={classname}><br/>
-											{/* {images}; */}
 											{imageArray.length<10 && (this.state.mode=='edit') && 
 												<div className="row">
 													<div class="clearfix mb-3 col-md-12">
@@ -3348,11 +3339,13 @@ class Profile extends Component {
 													{this.state.userData.images.map(item=>{
 														if(item.folloid==element.id){
 															let imageUrl=`${BASE_URL}/images/${item.imageurl}`;
-															return <div class="column nature">
+															return <div class="column nature" onClick={this.setCurrentImage.bind(this,item.id)}>
 																<div class="content">
-																	<div class="hovereffect" onClick={this.setCurrentImage.bind(this,item.id)} >
+																	<div class="hovereffect"  >
 																		<img src={imageUrl} alt={item.caption}   />
-																		<div class="overlay">
+																	</div>
+																</div>
+																<div class="overlay">
 																			{/* <h2>{item.caption}</h2> */}
 																			<p>
 																				<a href="#" data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
@@ -3365,8 +3358,6 @@ class Profile extends Component {
 																			</p>
 																			
 																		</div>
-																	</div>
-																</div>
 															</div>
 														}
 													})}

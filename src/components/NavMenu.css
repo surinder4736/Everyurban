@@ -525,7 +525,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 /* Content */
 .gallery .content {
   background-color: white;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 /* The "show" class is added to the filtered elements */
@@ -562,42 +562,28 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	text-align: center;
 	cursor: default;
 	background: #02aae3;
-  }
+}
   
-  .hovereffect .overlay {
-	width: 100%;
-	height: 100%;
+  .nature .overlay {
 	position: absolute;
 	overflow: hidden;
-	top: 0;
-	left: 0;
+	width: calc(30% + 0px);
+	text-align: center;
   }
-  /* .hovereffect:hover .overlay {
-	background: #02aae3;
-	opacity: 0.4;
-  } */
-  
+
   .hovereffect img {
-	/* height:240px;   */
 	display: block;
 	position: relative;
 	max-width: none;
 	width: calc(100% + 0px);
-	/* -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: translate3d(-10px,0,0);
-	transform: translate3d(-10px,0,0);
-	-webkit-backface-visibility: hidden; */
 	backface-visibility: hidden;
   }
   
   .hovereffect:hover img {
 	opacity: 0.4;
 	filter: alpha(opacity=40);
-	/* -webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0); */
-  }
-  
+}
+ .nature:hover{background: #02aae3; opacity: 0.4;}
   .hovereffect h2 {
 	color: #fff;
 	text-align: center;
@@ -608,20 +594,6 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	opacity: 0;
 	letter-spacing: 1px;
   }
-  
-  /* .hovereffect h2:after {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 2px;
-	background: #fff;
-	content: '';
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translate3d(-100%,0,0);
-	transform: translate3d(-100%,0,0);
-  } */
 
   .hovereffect:hover h2 {
 	opacity: 1;
@@ -632,25 +604,20 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	transform: translate3d(0,0,0);
   }
   
-  .hovereffect a, .hovereffect p {
+  .nature a, .nature p {
 	color: #FFF;
 	opacity: 0;
 	filter: alpha(opacity=0);
-	/* -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: translate3d(100%,0,0);
-	transform: translate3d(100%,0,0); */
 	padding: 10px;
   }
   
-  .hovereffect:hover a, .hovereffect:hover p {
+  .nature:hover a, .nature:hover p {
 	opacity: 1;
 	filter: alpha(opacity=100);
-	/* -webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0); */
+	
   }
 
-  .d-block{height: auto; width: 100%; margin: auto; object-fit: contain;}
+  .d-block{height: auto; width: auto; margin: auto; object-fit: contain; max-width: 650px;}
   #ProtfolioViewer .modal-dialog{max-width:1000px !important}
   .overlay p{display: inline-flex;}
  .nopreviewimg{height:400px} 
