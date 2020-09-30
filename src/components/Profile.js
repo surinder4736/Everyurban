@@ -3105,9 +3105,12 @@ class Profile extends Component {
 				<div class="d-md-flex align-items-end">
 					<div class="col-lg-3 col-md-3 col-xs-12">
 						<div class="dp" >
+							<div style={{margin:'auto'}}>
 							{this.state.isProfileUploading==false && 
 								<img src={imageUrl}  alt=""/>
 							}
+							</div>
+							
 							{this.state.isProfileUploading==true &&
 								<ScaleLoader
 								width={25}
