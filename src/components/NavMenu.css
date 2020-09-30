@@ -361,7 +361,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .right .profile-save .span{padding:0px}
 .profile-top .media .aligned-edit{  }
 .profile-bot .spacer { margin-top:60px; }
-.profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:5px 0 10px; color:#111; font-weight: 600; }
+.profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:10px 0 10px; color:#111; font-weight: 600; }
 .profile-bot h6 { color:#111; font-size:20px; font-weight:700; margin:0; color:#111; }
 .profile-bot a,
 .profile-bot p { color:#111; font-size:14px; font-weight:400; margin:0 0 5px; color:#111; display:block; }
