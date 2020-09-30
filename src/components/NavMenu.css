@@ -341,12 +341,11 @@ footer.footer2 a:hover { text-decoration:underline; }
 }
 .__react_component_tooltip{width: 200px;text-align: left;word-wrap: none;}
 .profile-top { background:url("../Images/profile-bg.jpg") no-repeat 50% 50%; background-size:cover; padding-top:100px; }
-.profile-top .dp { margin-bottom:0px; position:relative; z-index:10;text-align: center;
+.profile-top .dp { margin-bottom:10px; position:relative; z-index:10;text-align: center;
     vertical-align: middle;
     background: white;
-	display: flex;;min-height: 211px; max-height: 2
-	px;}
-.profile-top .dp img { position:relative; z-index:11; height: 211px;}
+	display: flex;;min-height: 211px;}
+.profile-top .dp img { position:relative; z-index:11;}
 .profile-top .dp a { position:absolute; z-index:12; left:0; bottom:0; width:100%; height:40px; line-height:40px; text-align:center; color:#fff; background:rgba(0,0,0,0.5); opacity:0; }
 .profile-top .dp:hover a { opacity:1; }
 .profile-top .dp a:hover { background:rgba(0,0,0,0.9); }
@@ -362,7 +361,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .right .profile-save .span{padding:0px}
 .profile-top .media .aligned-edit{  }
 .profile-bot .spacer { margin-top:60px; }
-.profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:0 0 10px; color:#111; font-weight: 600; }
+.profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:5px 0 10px; color:#111; font-weight: 600; }
 .profile-bot h6 { color:#111; font-size:20px; font-weight:700; margin:0; color:#111; }
 .profile-bot a,
 .profile-bot p { color:#111; font-size:14px; font-weight:400; margin:0 0 5px; color:#111; display:block; }
@@ -588,7 +587,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	filter: alpha(opacity=40);
 }
  .nature:hover{background: #02aae3; opacity: 0.4;}
-  .hovereffect h2 {
+  .nature h2 {
 	color: #fff;
 	text-align: center;
 	position: relative;
@@ -599,11 +598,11 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	letter-spacing: 1px;
   }
 
-  .hovereffect:hover h2 {
+  .nature:hover h2 {
 	opacity: 1;
   }
   
-  .hovereffect:hover h2:after {
+  .nature:hover h2:after {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
   }

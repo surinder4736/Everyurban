@@ -3346,7 +3346,7 @@ class Profile extends Component {
 																	</div>
 																</div>
 																<div class="overlay">
-																			{/* <h2>{item.caption}</h2> */}
+																			<h2>{item.caption}</h2>
 																			<p>
 																				<a href="#" data-toggle="modal" data-target="#ProtfolioViewer" data-whatever="@mdo"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
 																				{(this.state.mode=='edit') &&
