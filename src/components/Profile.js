@@ -2243,7 +2243,7 @@ class Profile extends Component {
 								{this.state.editPortfolioId==0 &&
 									<div className="form-group">
 										<label htmlFor="caption-text" className="col-form-label">Caption</label>
-										<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+										<textarea placeholder="Enter up to 100 characters." required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
 										<div className="small">added  {this.state.portfolloEditForm.caption.length} characters</div>
 									</div>
 								} 
@@ -2434,7 +2434,7 @@ class Profile extends Component {
 								)} */}
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
-									<textarea placeholder="Enter upto 100 characters about the photo you are uploading" required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<textarea placeholder="Enter up to 100 characters." required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
 									<div className="small">Added  {this.state.portfolloEditForm.caption.length} characters</div>
     
 								</div>
@@ -2903,7 +2903,7 @@ class Profile extends Component {
 									
 										return <div className={classname} id={item.id}>
 											<div className="row">
-												<div className="col-md-8" style={{borderRight:'1px solid #ccc',width:'650px',height:'650px',display:'flex'}}>
+												<div className="col-md-8" style={{width:'650px',height:'650px',display:'flex'}}>
 													<img className="d-block" src={imageUrl} />
 												</div>
 												<div className="col-md-4">
@@ -2916,12 +2916,12 @@ class Profile extends Component {
 									
 								})}
 								<a className="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-									<span className="carousel-control-prev-icon" aria-hidden="true" style={{padding:'20px',backgroundColor:'#ccc'}}></span>
-									<span className="sr-only">Previous</span>
+									{/* <span className="carousel-control-prev-icon" aria-hidden="true" style={{padding:'20px',backgroundColor:'#ccc'}}></span>
+									<span className="sr-only">Previous</span> */}
 								</a>
 								<a className="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-									<span className="carousel-control-next-icon" aria-hidden="true" style={{padding:'20px',backgroundColor:'#ccc'}}></span>
-									<span className="sr-only">Next</span>
+									{/* <span className="carousel-control-next-icon" aria-hidden="true" style={{padding:'20px',backgroundColor:'#ccc'}}></span>
+									<span className="sr-only">Next</span> */}
 								</a>
 								</div>
 							</div>
@@ -2990,7 +2990,14 @@ class Profile extends Component {
 								/>
 								)}
 								{src==null &&
-								<img className="nopreviewimg" src={NoPreview} alt="No Preview" />
+									<div className="row">
+										<div style={{width:'450px',height:'450px',display:'flex'}}>
+											<div style={{margin:'auto'}}>
+												<img className="nopreviewimg" src={NoPreview} alt="No Preview" />
+											</div>
+										</div>
+									</div>
+									
 								}
 							</form>
 						</div>
@@ -3155,7 +3162,7 @@ class Profile extends Component {
 									 <h5 style={{color:'#fff'}}>N/A</h5>
 								}
 								<sapn>&nbsp;</sapn>{this.state.mode=='edit'&& 
-								<a onClick={this.media} data-toggle="modal" data-target="#mediaEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit" ><i class="fas fa-plus"></i></a>}
+								<a onClick={this.media} data-toggle="modal" data-target="#mediaEditor" data-whatever="@mdo"  href="#" class="aligned-edit" ><i class="fas fa-plus"></i></a>}
 							</div>
 						</div>
 						<div className="right row" style={{marginBottom:'10px', float:'right'}}>
@@ -3188,12 +3195,13 @@ class Profile extends Component {
 							</div>
 							<h5 class="float-left" style={{fontSize:'18px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
-							<ul className="bulletstyle">
-								<li style={{wordBreak:'break-word'}}>
-								{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status +' - '+(this.state.userData.about[0].prgram!=""?this.state.userData.about[0].program:''):''}
-								</li>
-							</ul>
-							
+							{this.state.userData.about!=undefined &&
+								<ul className="bulletstyle">
+									<li style={{wordBreak:'break-word'}}>
+									{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status +' - '+(this.state.userData.about[0].prgram!=""?this.state.userData.about[0].program:''):''}
+									</li>
+								</ul>
+							}
 							<hr/>
 							<div className="clearfix">
 								<h5 class="float-left lang" style={{fontSize:'18px'}}>
@@ -3356,7 +3364,7 @@ class Profile extends Component {
 																				<a data-id={item.id} onClick={this.editImage.bind(this,element.id)} href="#" data-toggle="modal" data-target="#PhotoEditor" data-whatever="@mdo" class="float-left"  ><i class="fas fa-edit fa-2x"></i></a>
 																				}
 																				{(this.state.mode=='edit') &&
-																					<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash fa-2x text-danger"></i></a>
+																					<a href="#" data-id={item.id} onClick={this.deleteImage}><i className="fas fa-trash fa-2x"></i></a>
 																				}
 																			</p>
 																			

@@ -341,7 +341,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 }
 .__react_component_tooltip{width: 200px;text-align: left;word-wrap: none;}
 .profile-top { background:url("../Images/profile-bg.jpg") no-repeat 50% 50%; background-size:cover; padding-top:100px; }
-.profile-top .dp { margin-bottom:10px; position:relative; z-index:10;text-align: center;
+.profile-top .dp { margin-bottom:30px; position:relative; z-index:10;text-align: center;
     vertical-align: middle;
     background: white;
 	display: flex;;min-height: 211px; width: 250px;}
@@ -362,13 +362,13 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .right .profile-save .span{padding:0px}
 .profile-top .media .aligned-edit{  }
 .profile-bot .spacer { margin-top:60px; }
-.profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:10px 0 10px; color:#111; font-weight: 600; }
+.profile-bot h5 { color:#111; font-size:20px; font-weight:400; margin:0px 0 10px; color:#111; font-weight: 600; }
 .profile-bot h6 { color:#111; font-size:20px; font-weight:700; margin:0; color:#111; }
 .profile-bot a,
 .profile-bot p { color:#111; font-size:14px; font-weight:400; margin:0 0 5px; color:#111; display:block; }
 .profile-bot a:hover { color:#02aae3; }
 .profile-bot .about { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15); margin:60px 0 30px; }
-.profile-bot .about hr { width:100%; height:1px; background:#bbb; border:0; margin-top: 0; margin-bottom: 0; }
+.profile-bot .about hr { width:100%; height:1px; background:#bbb; border:0; margin-top: 25px; margin-bottom: 25px; }
 .profile-bot .about .lang { position:relative; }
 .profile-bot .about .lang a { position:absolute; right:0; top:50%; transform:translateY(-50%); color:#02aae3; font-size:20px; }
 .profile-bot .about .lang a:hover { color:#1571b2; }
@@ -503,10 +503,10 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	
 
 /* Add padding BETWEEN each column (if you want) */
-.gallery .row,
+/* .gallery .row,
 .row > .column {
   padding: 8px;
-}
+} */
 
 /* Create three equal columns that floats next to each other */
 .gallery .column {
@@ -514,6 +514,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
   width: 250px;
   height: 250px;
   display: flex;
+  margin: 4px;
 }
 .gallery .column .content{
 	margin: auto;
@@ -565,13 +566,13 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	position: relative;
 	text-align: center;
 	cursor: default;
-	background: #02aae3;
+	background: #000;
 }
   
   .nature .overlay {
 	position: absolute;
 	overflow: hidden;
-	width: calc(30% + 0px);
+	width: calc(30.7% + 0px);
 	text-align: center;
   }
 
@@ -583,20 +584,22 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	backface-visibility: hidden;
   }
   
-  .hovereffect:hover img {
-	opacity: 0.4;
+  .nature:hover img {
+	opacity: 0.3;
 	filter: alpha(opacity=40);
 }
- .nature:hover{background: #02aae3; opacity: 0.4;}
+ .nature:hover{background: #000; opacity: 0.9;}
+
   .nature h2 {
 	color: #fff;
 	text-align: center;
 	position: relative;
 	overflow: hidden;
-	padding: 0.5em 0;
+	padding: 2em 1em;
 	background-color: transparent;
 	opacity: 0;
 	letter-spacing: 1px;
+	margin: 0;
   }
 
   .nature:hover h2 {
@@ -624,7 +627,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
   .d-block{height: auto; width: auto; margin: auto; object-fit: contain; max-width: 650px;}
   #ProtfolioViewer .modal-dialog{max-width:1000px !important}
   .overlay p{display: inline-flex;}
- .nopreviewimg{height:400px} 
+ /* .nopreviewimg{height:400px}  */
   #emailModal img{ width:80px !important; }
   @media (max-width:992px) and (min-width:770px) {
 	header .button{
@@ -730,4 +733,35 @@ div.RICC > img.image {
 @media (max-width:1201px) and (min-width:768px) {
 	.profile-top .right{text-align: center;}
 	.profile-top .dp { max-width: 250px; }
+	.media .social{width: 100%; text-align: center;}
+	/* .profile-top .media .aligned-edit{fl} */
 }
+
+#carouselExample .carousel-item p{
+	display: flex;
+    align-items: center;
+	height: 100%;
+	font-size: 1.25rem;
+}
+
+.nopreviewimg{
+	position: relative;
+	max-width: none;
+	width: calc(100% + 0px);
+	backface-visibility: hidden;
+}
+/* .ReactCrop__image{
+	position: relative;
+	max-width: none;
+	width: calc(100% + 0px);
+	backface-visibility: hidden;
+}
+.ReactCrop{
+	width:450px;
+	height: 450px;
+	display: flex;
+}
+
+.ReactCrop div{
+	margin: auto;
+} */
