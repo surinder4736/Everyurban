@@ -750,18 +750,19 @@ div.RICC > img.image {
 	width: calc(100% + 0px);
 	backface-visibility: hidden;
 }
-/* .ReactCrop__image{
-	position: relative;
-	max-width: none;
-	width: calc(100% + 0px);
-	backface-visibility: hidden;
+#ProfilePhotoEditor .ReactCrop__image{
+	max-height: 450px !important;
+	width: auto !important;
+}
+#PhotoEditor .ReactCrop__image{
+	max-height: 310px !important;
+	width: auto !important;
+}
+#ProtfolloEditor .ReactCrop__image{
+	max-height: 260px !important;
+	width: auto !important;
 }
 .ReactCrop{
-	width:450px;
-	height: 450px;
-	display: flex;
+	display: flex !important;
 }
-
-.ReactCrop div{
-	margin: auto;
-} */
+.ReactCrop > div { margin: auto !important; }

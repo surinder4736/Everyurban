@@ -2243,7 +2243,7 @@ class Profile extends Component {
 								{this.state.editPortfolioId==0 &&
 									<div className="form-group">
 										<label htmlFor="caption-text" className="col-form-label">Caption</label>
-										<textarea placeholder="Enter up to 100 characters." required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+										<textarea placeholder="Enter up to 100 characters." required onChange={this.changeCaption} className="form-control captionclass" rows="3" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
 										<div className="small">added  {this.state.portfolloEditForm.caption.length} characters</div>
 									</div>
 								} 
@@ -2434,7 +2434,7 @@ class Profile extends Component {
 								)} */}
 								<div className="form-group">
 									<label htmlFor="caption-text" className="col-form-label">Caption</label>
-									<textarea placeholder="Enter up to 100 characters." required onChange={this.changeCaption} className="form-control captionclass" rows="5" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
+									<textarea placeholder="Enter up to 100 characters." required onChange={this.changeCaption} className="form-control captionclass" rows="3" maxLength="100" id="caption-text" value={this.state.portfolloEditForm!=null?this.state.portfolloEditForm.caption:null}></textarea>
 									<div className="small">Added  {this.state.portfolloEditForm.caption.length} characters</div>
     
 								</div>
@@ -2991,9 +2991,9 @@ class Profile extends Component {
 								)}
 								{src==null &&
 									<div className="row">
-										<div style={{width:'450px',height:'450px',display:'flex'}}>
+										<div>
 											<div style={{margin:'auto'}}>
-												<img className="nopreviewimg" src={NoPreview} alt="No Preview" />
+												<img className="nopreviewimg" style={{width:'auto',maxHeight:'450px',display:'flex'}} src={NoPreview} alt="No Preview" />
 											</div>
 										</div>
 									</div>
