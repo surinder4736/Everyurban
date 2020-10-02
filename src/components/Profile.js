@@ -3287,7 +3287,7 @@ class Profile extends Component {
 							} */}
 						</div>
 					</div>
-					<div class="col-lg-9 col-md-9 col-xs-12" style={{padding:'0px 0px 15px 15px'}}>
+					<div class="col-lg-9 col-md-9 col-xs-12" style={{padding:'0px 0px 0px 15px'}}>
 						<div class="spacer"></div>
 						{(this.state.mode=='edit') &&
 						<div class="row" style={{flexDirection:'initial',marginTop:'-25px'}}>

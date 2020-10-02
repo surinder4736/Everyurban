@@ -375,7 +375,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-bot .about form { border:1px solid #bbb; border-radius:6px; overflow:hidden; display:flex; align-items:stretch; }
 .profile-bot .about form input { width:calc(100% - 30px); height:30px; line-height:30px; font-size:14px; border:0; padding:0 10px; }
 .profile-bot .about form button { width:30px; height:30px; line-height:30px; text-align:center; border:0; background:#02aae3; color:#fff; padding:0; }
-.profile-bot .card { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15);  margin:0 0 30px; }
+.profile-bot .card { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15);  margin:0 0 60px; }
 .profile-bot .card p.location { display:flex; justify-content:space-between; font-size:12px; }
 .profile-bot .card a.more { text-align:right; color:#666; }
 .profile-bot .card a.view { text-align:center; color:#02aae3; font-size:16px; font-weight:700; }
