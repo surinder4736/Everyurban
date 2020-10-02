@@ -357,7 +357,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-top .right .button a { font-size:18px; color:#fff; }
 .profile-top .right .button a:hover { color:#ccc; }
 .profile-top .right .button span { padding:0 10px; }
-.profile-top .right .aligned-edit{ margin-top: -65px;margin-right: -70px;color: white }
+.profile-top .right .aligned-edit{ margin-top: -65px;margin-left: 350px;color: white }
 .profile-top .right .profile-edit .span{padding:0px}
 .profile-top .right .profile-save .span{padding:0px}
 .profile-top .media .aligned-edit{  }
@@ -367,7 +367,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 .profile-bot a,
 .profile-bot p { color:#111; font-size:14px; font-weight:400; margin:0 0 5px; color:#111; display:block; }
 .profile-bot a:hover { color:#02aae3; }
-.profile-bot .about { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15); margin:60px 0 30px; }
+.profile-bot .about { padding:20px; background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.15); margin:60px 0 60px; }
 .profile-bot .about hr { width:100%; height:1px; background:#bbb; border:0; margin-top: 25px; margin-bottom: 25px; }
 .profile-bot .about .lang { position:relative; }
 .profile-bot .about .lang a { position:absolute; right:0; top:50%; transform:translateY(-50%); color:#02aae3; font-size:20px; }
@@ -392,7 +392,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 	.profile-top .right .button { margin-top:30px; }
 	.profile-top .right { display:block; }
 	.profile-top { padding-top:50px; }
-	.profile-top .right .aligned-edit{ margin-top: -56px;margin-right: 40px;color: white }
+	.profile-top .right .aligned-edit{ margin-top: -56px;margin-left: 350px;color: white }
 	.profile-top .right .aligned-edit span{display: none}
 	.profile-top .right .profile-edit .span{display: none}
 	.profile-top .right .profile-save .span{display: none}
@@ -734,7 +734,11 @@ div.RICC > img.image {
 	.profile-top .right{text-align: center;}
 	.profile-top .dp { max-width: 250px; }
 	.media .social{width: 100%; text-align: center;}
-	/* .profile-top .media .aligned-edit{fl} */
+	.profile-top .right .aligned-edit{margin-left: 450px;}
+}
+
+@media (max-width:1201px) and (min-width:991px) {
+	.profile-top .right .aligned-edit{margin-left: 530px;}
 }
 
 #carouselExample .carousel-item p{
@@ -762,7 +766,7 @@ div.RICC > img.image {
 	max-height: 260px !important;
 	width: auto !important;
 }
-.ReactCrop{
+/* .ReactCrop{
 	display: flex !important;
-}
+} */
 .ReactCrop > div { margin: auto !important; }

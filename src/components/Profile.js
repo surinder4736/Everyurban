@@ -55,7 +55,7 @@ class Profile extends Component {
 			src: null,
 			crop: {
 			unit: '%',
-			width: 30,
+			width: 50,
 			aspect: 16 / 16,
 			},
 			dt:new Date(),
@@ -1091,7 +1091,7 @@ class Profile extends Component {
 						portfolloEditForm.caption="";
 						this.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editPortfolioId:0,src:null,crop: {
 							unit: '%',
-							width: 30,
+							width: 50,
 							aspect: 16 / 16,
 							}});
 					}).catch((error) => {
@@ -1301,7 +1301,7 @@ class Profile extends Component {
 						portfolloEditForm.caption="";
 						curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,editImageId:0,src:null,crop: {
 							unit: '%',
-							width: 30,
+							width: 50,
 							aspect: 16 / 16,
 							}});
 						dispatch(profileAction.getProfile({userId:this.props.user.id}));
@@ -1328,7 +1328,7 @@ class Profile extends Component {
 							portfolloEditForm.caption="";
 							curobj.setState({portfolloEditForm:portfolloEditForm,categoryUploadImageItem:null,src:null,crop: {
 								unit: '%',
-								width: 30,
+								width: 50,
 								aspect: 16 / 16,
 								}});
 							dispatch(profileAction.getProfile({userId:this.props.user.id}));
@@ -3061,7 +3061,7 @@ class Profile extends Component {
 						userData.profile.photo=response.data.data.photo;
 						curobj.setState({userData,isProfileUploading:false,profileUploadImageItem:null,src:null,crop: {
 							unit: '%',
-							width: 30,
+							width: 50,
 							aspect: 16 / 16,
 							}});
 					
@@ -3138,7 +3138,7 @@ class Profile extends Component {
 								<h3>{this.state.userData.profile!=null && this.state.userData.profile.firstName!=""?this.state.userData.profile.firstName:'N/A'} {this.state.userData.profile!=null && this.state.userData.profile.lastName!=""?this.state.userData.profile.lastName:' N/A'} <span className="flag">{countryName!=null && countryName!='' && <img src={ require(`../Images/flags/${countryName.toLocaleLowerCase()}.png`) } />} </span> </h3>
 								<h4>{this.state.userData.profile!=null && this.state.userData.profile.address!=""?this.state.userData.profile.address+', ':''} {this.state.userData.profile!=null && this.state.userData.profile.country!=""?this.state.userData.profile.country:''} </h4>
 								{this.state.mode=='edit'&& 
-								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-right aligned-edit"  ><i class="fas fa-edit"></i><span> Edit</span></a>}
+								<a onClick={this.showEditNameAddressCountry} data-toggle="modal" data-target="#nameEditor" data-whatever="@mdo"  href="#" class="float-left aligned-edit"  ><i class="fas fa-edit"></i><span> Edit</span></a>}
 							</div>
 						</div>
 						<div className="row media">
