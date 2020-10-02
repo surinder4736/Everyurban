@@ -2903,7 +2903,7 @@ class Profile extends Component {
 									
 										return <div className={classname} id={item.id}>
 											<div className="row">
-												<div className="col-md-8" style={{width:'650px',height:'650px',display:'flex'}}>
+												<div className="col-md-8" style={{width:'400px',height:'400px',display:'flex'}}>
 													<img className="d-block" src={imageUrl} />
 												</div>
 												<div className="col-md-4">
