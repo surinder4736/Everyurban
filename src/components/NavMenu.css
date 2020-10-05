@@ -697,20 +697,38 @@ div.RICC > img.image {
   @media (min-width: 576px){
 	#PhotoEditor .modal-dialog {
 		max-width: fit-content !important;
-		margin: 1.75rem auto;
+		margin: 0.75rem auto;
 	  }
+	  #PhotoEditor .modal-header{
+		  padding: 0.5rem 1rem !important;
+	  } 
+	  #PhotoEditor .modal-body{
+		padding: 0rem 1rem !important;
+	}  
   }
   @media (min-width: 576px){
 	  #ProfilePhotoEditor .modal-dialog {
 		max-width: fit-content !important;
-		margin: 1.75rem auto;
+		margin: 0.75rem auto;
 	  }
+	  #ProfilePhotoEditor .modal-header{
+		padding: 0.5rem 1rem !important;
+	}
+	#ProfilePhotoEditor .modal-body{
+		padding: 0rem 1rem !important;
+	}
   }
   @media (min-width: 576px){
 	#ProtfolloEditor .modal-dialog {
 		max-width: fit-content !important;
-		margin: 1.75rem auto;
+		margin: 0.75rem auto;
 	  }
+	  #ProtfolloEditor .modal-header{
+		padding: 0.5rem 1rem !important;
+	}
+	#ProtfolloEditor .modal-body{
+		padding: 0rem 1rem !important;
+	}  
   }
 
 .captionclass{
@@ -759,11 +777,11 @@ div.RICC > img.image {
 	width: auto !important;
 }
 #PhotoEditor .ReactCrop__image{
-	max-height: 310px !important;
+	max-height: 400px !important;
 	width: auto !important;
 }
 #ProtfolloEditor .ReactCrop__image{
-	max-height: 260px !important;
+	max-height: 335px !important;
 	width: auto !important;
 }
 /* .ReactCrop{

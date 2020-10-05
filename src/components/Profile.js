@@ -633,6 +633,7 @@ class Profile extends Component {
 		let month =this.state.aboutEditForm.month;
 		let year =this.state.aboutEditForm.year;
 		let id=this.state.aboutEditForm.id;
+		let program=this.state.aboutEditForm.program;
 		curObj.setState({AboutValidateMessage:''});
 		if(validator.isEmpty(university)===true){
 			curObj.setState({AboutValidateMessage:'Please enter university'});
@@ -1194,6 +1195,7 @@ class Profile extends Component {
 				aboutEditForm.status="";
 				aboutEditForm.month="";
 				aboutEditForm.year="";
+				aboutEditForm.program="";
 				this.setState({aboutEditForm:aboutEditForm});
 			}
 		}
@@ -2223,11 +2225,7 @@ class Profile extends Component {
 								<label htmlFor="upload_multi_link" className="col-form-label">Image:</label>
 								<input type="file" name="file"  id="multiupload" onChange={this.selectMultiImages.bind(this)}  style={{display:'none'}} />
 								<a href=""  id="upload_multi_link" > Upload </a>
-								</div>
-								}
-								{this.state.editPortfolioId==0 &&
-								<div className="form-group">
-									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
+								<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
 								}
 								{src && selectedcategoryid==0 &&(
@@ -2412,11 +2410,9 @@ class Profile extends Component {
 						<div className="modal-body">
 							<form>
 								<div className="form-group">
-								<label htmlFor="upload_multi_photo" className="col-form-label">Image :</label>
-								<input type="file" name="file"  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this)}  style={{display:'none'}} />
-								<a href="" id="upload_multi_photo" > Upload </a>
-								</div>
-								<div className="form-group">
+									<label htmlFor="upload_multi_photo" className="col-form-label">Image :</label>
+									<input type="file" name="file"  id="multiuploadphoto" onChange={this.selectMultiPhoto.bind(this)}  style={{display:'none'}} />
+									<a href="" id="upload_multi_photo" > Upload </a>
 									<label>{this.state.categoryUploadImageItem!=null?this.state.categoryUploadImageItem.name:''} {this.state.categoryUploadImageItem!=null && <i class="fa fa-check text-success" aria-hidden="true"></i>}</label>
 								</div>
 								{src && selectedcategoryid>0 && (
@@ -2834,6 +2830,7 @@ class Profile extends Component {
 				aboutEditForm.month=element.month;
 				aboutEditForm.year=element.year;
 				aboutEditForm.id=element.id;
+				aboutEditForm.program=element.program;
 				curobj.setState({aboutEditForm:aboutEditForm});	
 			})
 		}
@@ -2903,7 +2900,7 @@ class Profile extends Component {
 									
 										return <div className={classname} id={item.id}>
 											<div className="row">
-												<div className="col-md-8" style={{width:'400px',height:'400px',display:'flex'}}>
+												<div className="col-md-8" style={{borderRight:'solid 1px #ccc', width:'450px',height:'450px',display:'flex'}}>
 													<img className="d-block" src={imageUrl} />
 												</div>
 												<div className="col-md-4">
@@ -3195,7 +3192,7 @@ class Profile extends Component {
 							</div>
 							<h5 class="float-left" style={{fontSize:'18px',width:'100%'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].university+' - '+(this.state.userData.about[0].month!=""?this.state.userData.about[0].month:'')+' '+this.state.userData.about[0].year:''}</h5>
 							{/* <h4 style={{wordBreak:'break-word'}}>{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status+'-'+this.state.userData.about[0].month+' '+this.state.userData.about[0].year:null}</h4> */}
-							{this.state.userData.about!=undefined &&
+							{this.state.userData.about!=undefined && this.state.userData.about!=null && this.state.userData.about[0]!=undefined &&
 								<ul className="bulletstyle">
 									<li style={{wordBreak:'break-word'}}>
 									{this.state.userData.about!=null && this.state.userData.about[0]!=undefined?this.state.userData.about[0].status +' - '+(this.state.userData.about[0].prgram!=""?this.state.userData.about[0].program:''):''}
