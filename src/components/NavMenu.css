@@ -398,7 +398,7 @@ footer.footer2 a:hover { text-decoration:underline; }
 	.profile-top .right .profile-save .span{display: none}
 	.profile-bot .spacer { margin-top: 30px; }
 	.profile-bot .span{display: none}
-	.profile-top .dp { margin-bottom:30px; max-width: 211px; }
+	.profile-top .dp { margin-bottom:30px; max-width: 250px; }
 	.profile-bot .about { margin-top:30px; }
 	.box a{ padding:10px 60px;background:#426d9c;border:none;text-decoration:none;cursor:pointer;color:white;margin-bottom:20px;border-radius:8px;}
 
@@ -582,6 +582,8 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	max-width: none;
 	width: calc(100% + 0px);
 	backface-visibility: hidden;
+	min-height: 250px;
+	min-width: 250px;
   }
   
   .nature:hover img {
@@ -624,7 +626,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	
   }
 
-  .d-block{height: auto; width: auto; margin: auto; object-fit: contain; max-width: 650px;}
+  .d-block{ margin: auto; object-fit: contain; max-width: 450px; min-width:450px; min-height: 450px;}
   #ProtfolioViewer .modal-dialog{max-width:1000px !important}
   .overlay p{display: inline-flex;}
  /* .nopreviewimg{height:400px}  */
@@ -757,6 +759,33 @@ div.RICC > img.image {
 
 @media (max-width:1201px) and (min-width:991px) {
 	.profile-top .right .aligned-edit{margin-left: 530px;}
+}
+
+@media (max-width:500px){
+	.nature .overlay {
+		position: absolute;
+		overflow: hidden;
+		width: calc(57.7% + 0px);
+		text-align: center;
+	  }
+}
+
+@media (min-width:992px) and (max-width:1201px){
+	.nature .overlay {
+		position: absolute;
+		overflow: hidden;
+		width: calc(36.7% + 0px);
+		text-align: center;
+	  }
+}
+
+@media (min-width:502px) and (max-width:991px){
+	.nature .overlay {
+		position: absolute;
+		overflow: hidden;
+		width: calc(49.7% + 0px);
+		text-align: center;
+	  }
 }
 
 #carouselExample .carousel-item p{
