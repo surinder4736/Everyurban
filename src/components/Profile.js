@@ -1626,8 +1626,8 @@ class Profile extends Component {
     
 		  </div>
 		  <div className="form-group">
-		  	<label htmlFor="university-text" className="col-form-label">Program:</label>
-			<input placeholder="Enter University" onChange={this.changeProgramName} type="text" className="form-control" id="university-text" value={this.state.aboutEditForm!=null?this.state.aboutEditForm.program:null}/>
+		  	<label htmlFor="program-text" className="col-form-label">Program:</label>
+			<input placeholder="Enter Program" onChange={this.changeProgramName} type="text" className="form-control" id="program-text" value={this.state.aboutEditForm!=null?this.state.aboutEditForm.program:null}/>
 			<div className="errorMsg">{this.state.FistNameValidateMessage}</div>
 		  </div>
 		  <div className="form-group">
