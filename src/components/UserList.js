@@ -7,6 +7,7 @@ import PropTypes, { array } from 'prop-types';
 import userAction from '../actions/user';
 import { confirmAlert } from 'react-confirm-alert';
 import codeAction from '../actions/code';
+import Tooltip from "@material-ui/core/Tooltip";
 import $ from 'jquery';
 import Header from './ProfileHeader';
 import MenuComponent from './MenuComponent';
@@ -16,14 +17,20 @@ import 'sweetalert2/src/sweetalert2.scss';
 import DataTable from 'react-data-table-component';
 import { push } from 'react-router-redux';
 import Moment from 'moment';
-
-const{logout,removeUser} = userAction;
+import { APIURL, BASE_URL } from '../Config/config';
+const axios = require("axios");
+const { logout, removeUser,AdminUpdateuserList } = userAction;
 const{getCodeList,addNewCode,removeCode}=codeAction;
 
 class UserList extends Component {
     constructor(props) {
         super(props);
-		    this.state = {id:0,code:'',label:'',type:'',codeErrorMsg:'',labelErrorMsg:'',typeErrorMsg:'',modalTitle: ''}
+    this.state = {
+      id: 0, code: '', label: '', type: '', codeErrorMsg: '', labelErrorMsg: '', typeErrorMsg: '', modalTitle: '',
+      isCompleted: "",shouldHide:''
+     
+    }
+    console.log(this);
 	  }
     componentDidMount(){
           const{dispatch}=this.props;
@@ -59,13 +66,13 @@ class UserList extends Component {
         this.setState({typeErrorMsg :'Sorry please enter the type'});
       }
       if(code!="" && label!="" && type!=""){
+          const { dispatch } = this.props;
         let data={
           id:id,
           code:code,
           label:label,
           type:type
         }
-       
         dispatch(addNewCode(data));
       }
 
@@ -204,8 +211,17 @@ class UserList extends Component {
       
       return(
         <div className="container">
+        <div class="row">
+           <div class="col-md-6">
         <div class="btn-group" role="group" aria-label="Basic example">
          <button type="button" class="btn btn-link p-0" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" >View <i className="fa fa-eye"></i></button>
+            </div></div>
+          <div class="col-md-6" >
+
+            {/* <div class="btn-group" role="group" aria-label="Basic example" style={{float: 'right'}}>
+              <a  class="btn btn-link p-0"  href={`/project`}  >Manage Projects <i className="fa fa-eye"></i></a>
+            </div> */}
+          </div>           
         </div>
        
         <div class="row">
@@ -289,15 +305,44 @@ class UserList extends Component {
 				]
 			});
     }
+  handleChange(section,e) {
+    this.setState({ isCompleted: e.target.value });
+    if (e.target.value && section) {
+      const status = {
+        status: e.target.value,
+        userId: section
+      }      
+      axios.put(`${APIURL}users/status/${section}`, status)
+      const{dispatch}=this.props;
+			setTimeout(() => {				
+      dispatch(userAction.getAdminuserList());
+        this.setState({ shouldHide: '' });
+        console.log(this.state)
+      }, 50);
+      
 
+    }
+  }
+
+    Show_slect(section,e) {
+      this.setState({ shouldHide: section });
+            console.log(this.state);
+  }
 	render() {
         const{AdminUserList,user,dispatch}=this.props;
+    console.log('maks oft');
+    console.log(user);
         if(user!=null){
           if(user.auth===undefined || user.isadmin===false){
             window.location.href=`/`;
             return(<div></div>);
           }
         }
+    this.profileStatus = [
+    { value: 'true', name: 'true' },
+    { value: 'false', name: 'false' }            
+    ];
+    
         let columndata=[];
         var data;
         if(AdminUserList!=null){
@@ -305,13 +350,20 @@ class UserList extends Component {
           if(userData!=null)
           userData.forEach(item => {
                   if(item!=null && item.UserProfile!=null && item.isadmin===false){
-                      let Objdata={id:item.id,first:item.UserProfile.firstName,last:item.UserProfile.lastName,role_type:item.role_type,
+            // this.setState({ isCompleted: item.UserProfile.isCompleted });
+            let Objdata = {
+              id: item.id, first: item.UserProfile.firstName, last: item.UserProfile.lastName, role_type: item.role_type,
                           country:item.UserProfile.country,
                           date:Moment(item.UserProfile.createdAt).format('MM/DD/YYYY'),
                           userid:item.unique_userid,
                           email:item.email,role_type:item.role_type,
-                          verified:item.is_email_verified,
+              // verified: item.is_email_verified,
+              verified: item.is_email_verified === "true" ? 'true' : <div><p style={{marginBottom: '0px'}} className={this.state.shouldHide == item.id ? 'hidden ' : 'cursur_'} onClick={(e) => this.Show_slect(item.id, e)}>{item.is_email_verified}</p><select className={this.state.shouldHide == item.id ? '' : 'hidden'} name="isCompleted" value={item.is_email_verified} onChange={(e) => this.handleChange(item.id, e)}> {this.profileStatus.map((e, key) => { return <option key={key} value={e.value}>{e.name}</option>; })}</select></div>,
+
                           profileStatus:item.UserProfile.isCompleted==true?'true':'false',
+              lastLogin: item.last_login ?  <Tooltip
+              title={Moment(item.last_login).format('MM/DD/YYYY HH:mm A')}
+              placement="top"><span>{Moment(item.last_login).format('MM/DD/YYYY')}</span></Tooltip> : 'N/A',
                           code:item.code,
                           link:(item.role_type=="developer") ? "N/A" : "profile/"+item.unique_userid+"/"+item.random_id    
                       }
@@ -322,7 +374,7 @@ class UserList extends Component {
         
         const mySweetTheme = {
           rows: {
-              height: '30px'
+        height: '30px',
             }
         }
         let curobj=this;
@@ -371,11 +423,16 @@ class UserList extends Component {
                   sortable: true,
                 },
                 {
-                  name: 'Profile Status',
+            name: 'Status',
                   selector: 'profileStatus',
                   sortable: true,
                 },
                 {
+            name: 'Last Login' ,
+            selector: 'lastLogin',
+            sortable: true,
+          },
+          {
                   name: 'Code',
                   selector: 'code',
                   sortable: true,
