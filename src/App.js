@@ -16,6 +16,12 @@ import ContactUs from './components/Contactus';
 import HelpCenter from './components/HelpCenter';
 import HowItWork from './components/HowItWork';
 import AboutUs from './components/AboutUs';
+import ImageCrop from './components/ProfileImageCrop';
+import Projects from './components/BlogList'
+import Blog from './components/Projects'
+import ProjectDetail from './components/ProjectDetail'
+import NewProject from './components/NewProject'
+import Postsdetails from './components/Posts_details'
 // import PrivacyPolicy from './components/Privacypolicy';
 export default class App extends Component {
  // static displayName = App.name;
@@ -38,7 +44,12 @@ export default class App extends Component {
         <Route exact path='/helpcentre' component={HelpCenter} />
         <Route  path='/howitworks' component={HowItWork} />
         <Route  path='/aboutus' component={AboutUs} />
+        <Route  path='/imagecrop' component={ImageCrop} />
         {/* <Route  path='/privacypolicy' component={PrivacyPolicy} /> */}
+        <Route path="/project" component={Projects} />
+        <Route path="/projects" component={Blog} />
+        <Route path="/newproject" component={NewProject} />
+       <Route exact path="/:project_url/:name" component={ProjectDetail} />
         <Route exact path='*'  />
 
       </Layout>

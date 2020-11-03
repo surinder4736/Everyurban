@@ -1,0 +1,21 @@
+.image_responsive {
+    object-fit: cover;
+    width: 100%;
+    max-height: 400px;
+    height: auto;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.cursur_ {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}

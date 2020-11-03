@@ -218,9 +218,9 @@ class UserList extends Component {
             </div></div>
           <div class="col-md-6" >
 
-            {/* <div class="btn-group" role="group" aria-label="Basic example" style={{float: 'right'}}>
+            <div class="btn-group" role="group" aria-label="Basic example" style={{float: 'right'}}>
               <a  class="btn btn-link p-0"  href={`/project`}  >Manage Projects <i className="fa fa-eye"></i></a>
-            </div> */}
+            </div>
           </div>           
         </div>
        
