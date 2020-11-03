@@ -32,7 +32,15 @@ class MenuComponent extends Component {
 					<a class="nav-link" href="/aboutus"><i><img src={aboutusIcon} alt=""/></i> About Us</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link gray" href="#"><i>&nbsp;</i> Resources</a>
+                <a class="nav-link" href="/projects">
+                  <i class="fas fa-lightbulb"></i> Projects
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a class="nav-link gray" href="#">
+                  <i>&nbsp;</i> Resources
+                </a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/contactus"><i class="fas fa-headset"></i> Contact Us</a>
