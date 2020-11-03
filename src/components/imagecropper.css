@@ -1,0 +1,81 @@
+.img-container {
+  width: 640px;
+  height: 480px;
+  float: left;
+}
+
+.img-preview {
+  width: 200px;
+  height: 200px;
+  float: left;
+  margin-left: 10px;
+}
+
+.modalcontent {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+.imageCropDiv {
+  display: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  /* width: 30% !important; */
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.croppedImage {
+  border: 1px sold red;
+  margin: 2%;
+  max-width: 40%;
+  border-style: solid;
+  border-color: #0000ff;
+}
+
+.DivButton {
+  width: 100%;
+  padding: 3% 0;
+  text-align: end;
+}

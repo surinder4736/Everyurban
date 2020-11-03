@@ -819,12 +819,12 @@ div.RICC > img.image {
 .ReactCrop > div { margin: auto !important; }
 
 .hidden {
-    display: none;
-}
-
-.cursur_ {
-    cursor: pointer;
-    color: #007bff;
-    text-decoration: none;
-    background-color: transparent;
-}
+	    display: none;
+	}
+	
+	.cursur_ {
+	    cursor: pointer;
+	    color: #007bff;
+	   text-decoration: none;
+	    background-color: transparent;
+	}

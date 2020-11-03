@@ -11,10 +11,11 @@ import specialties from './Specialties';
 import progress from './progress';
 import about from './about';
 import media from './media';
+import blog from './blog';
 // Combine reducers with routeReducer which keeps track of
 // router state
 const rootReducer = combineReducers({
-    users,profile,education,experience,language,code,contactUs,portfollo,specialties,progress,about,media
+    users,profile,education,experience,language,code,contactUs,portfollo,specialties,progress,about,media,blog
   });
   
   export default rootReducer;
