@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 // import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import logo from '../Images/logo.png';
 import './NavMenu.css';
+import {APIURL} from '../Config/config'
+import Axios from 'axios';
+import userAction from '../actions/user';
+const{logout} = userAction;
 var jQuery= require('jquery');
 //import { logo } from './img/logo.png'; // relative path to image 
 
 class Header extends Component {
   constructor (props) {
     super(props);
-   
   }
 
-  render(){
-		
-		
+  logOutHandle(e){
+	e.preventDefault();
+	const{dispatch}=this.props;
+	dispatch(logout());
+        // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
+        //     console.log("Logout Successfully");
+        //     window.location.href='/login';
+        // })
+	}
+
+  	render(){
+	const{user}=this.props;
     return(
 			<header>
 			<div className="container">
@@ -23,20 +36,32 @@ class Header extends Component {
 					<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
 					
 					<a href="/" className="logo"><img src={logo} alt="" /></a>
-					<div className="button">
-						<a href="/signup" className="signup">Sign Up</a>
-						<span className="headerbuttonmargin">|</span>
-						<a href="/login" className="login">Log In</a>
-					</div>
+					{user==null && user==undefined && 
+						<div className="button">
+							<a href="/signup" className="signup">Sign Up</a>
+							<span className="headerbuttonmargin">|</span>
+							<a href="/login" className="login">Log In</a>
+						</div>
+					}
+					{user!=null && user!=undefined &&
+						<div className='button' >
+							<a href="#" style={{cursor:'pointer'}} onClick={this.logOutHandle.bind(this)} className="signup">Logout</a>
+						</div>
+					}
 				
 				</div>
 			</div>
 		</header>
     )
   }
-  
- 
-
-
 }
-export default Header;
+Header.propTypes = {
+	user: PropTypes.object.isRequired
+};
+function mapStateToProps(state) {
+    return {
+      user: state.users.user,
+    };
+  }
+export default connect(mapStateToProps)(Header);
+// export default Header;

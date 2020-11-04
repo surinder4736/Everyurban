@@ -21,7 +21,7 @@ export class Projects extends Component {
     console.log(sessionStorage.getItem("isUserLogged"));
     return (
       <div>
-  {sessionStorage.getItem("isUserLogged")==="true" ? <ProfileHeader/> : <Header/>}        
+      {sessionStorage.getItem("isUserLogged")==="true" ? <ProfileHeader/> : <Header/>}        
         <section id="howitwork">
           <div className="howitwork-body" style={{ padding: "1%" }}>
             <h1>Project RFPs</h1>

@@ -19,17 +19,22 @@ class ProfileHeader extends Component {
    
   componentDidMount(){
     const{user}=this.props
-    if(user==null && user.auth===false){
+    if(user==null){
+      window.location.href='/login';
+    }
+    else if(user.auth===false){
       window.location.href='/login';
     }
   }
 
 	logOutHandle(e){
     e.preventDefault();
-        Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
-            console.log("Logout Successfully");
-            window.location.href='/login';
-        })
+    const{dispatch}=this.props;
+	  dispatch(logout());
+        // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
+        //     console.log("Logout Successfully");
+        //     window.location.href='/login';
+        // })
 	}
 
   render() {
