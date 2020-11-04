@@ -64,9 +64,9 @@ class Postlisting extends React.Component {
     const posts = this.props;
     console.log('welcoem to hoem blog');
     const totalNumberOfPost = 10
-    this.setState({
-      posts: posts.BlogList.user
-    })
+    // this.setState({
+    //   posts: posts.BlogList.user
+    // })
   }
   loadMore() {
     this.setState((prev) => {
@@ -82,7 +82,7 @@ class Postlisting extends React.Component {
   
   render() {
     console.log('welcoem to amks doftdhjcbcfd');
-    const { BlogList, post, dispatch } = this.props;
+    const { user, BlogList } = this.props;
     // const numberofPage = Math.ceil(
     //   this.state.totalNumberOfPost / this.state.postPerPage,
     // )
@@ -92,16 +92,16 @@ class Postlisting extends React.Component {
       <div className="main">
 
         <Grid item xs={7} style={{ margin: 'auto' }}>
-          {this.state.posts.length > 0
+          {BlogList.user.length > 0
            
-            ?  this.state.posts.slice(0,this.state.visible).map((post) => (
+            ?  BlogList.user.slice(0,this.state.visible).map((post) => (
               <PostList props={post} key={post.seno} />
             ))
             : ''}
 
 
           <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
-            {this.state.visible < this.state.posts.length &&
+            {this.state.visible < BlogList.user.length &&
            <span className={'useful-link'} >
               <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer'}} onClick={this.loadMore}>
                 load more...
@@ -115,10 +115,11 @@ class Postlisting extends React.Component {
           /> */}
         <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
            <span className={'useful-link'} ><br />
-              
-               <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px'}} onClick={this.signUp}>
+              {user==null && user==undefined && 
+                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px'}} onClick={this.signUp}>
                 Sign Up to Participate <img src={rightarrow} alt="" width="25px" />{' '}
-              </p>
+                </p>
+              }
             </span>           
           </Grid>
         </Grid>
@@ -127,12 +128,12 @@ class Postlisting extends React.Component {
   }
 }
 Postlisting.propTypes = {
-  post: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
 
   return {
-    post: state.users.user,
+    user: state.users.user,
     profile: state.profile.profile,
     isLoading: state.profile.isLoading,
     BlogList: state.users.AdminUserList,

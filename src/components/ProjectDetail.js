@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Header from './Header'
 import MenuComponent from './MenuComponent'
+import Grid from '@material-ui/core/Grid'
+import rightarrow from '../Images/rightarrow.png'
 import Footer from './Footer'
 import './App.css';
 import blogAction from '../actions/blog';
@@ -28,9 +30,7 @@ export class ProjectDetail extends Component {
     }
 
     render() {
-       const { blog_detail } = this.props;
-        console.log(this.props);
-
+       const { blog_detail,user } = this.props;
         return (
             <div>
                 <Header />
@@ -58,7 +58,16 @@ export class ProjectDetail extends Component {
                                  </div>
                             </div>
                         </div>
-                    </div>                        
+                    </div>
+                    <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
+                        <span className={'useful-link'} ><br />
+                            {user==null && user==undefined && 
+                                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px'}} onClick={this.signUp}>
+                                Sign Up to Participate <img src={rightarrow} alt="" width="25px" />{' '}
+                                </p>
+                            }
+                        </span>           
+                    </Grid>                        
                 </section>
                 }
                 <Footer />
@@ -71,7 +80,8 @@ ProjectDetail.propTypes = {
 }
 function mapStateToProps(state) {
   return {
-    blog_detail: state.blog.blogs
+    blog_detail: state.blog.blogs,
+    user: state.users.user,
   }
 }
 export default connect(mapStateToProps)(ProjectDetail)

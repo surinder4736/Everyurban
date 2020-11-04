@@ -123,7 +123,7 @@ class BlogList extends Component {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => alert("Delete is Pending")
+                    onClick: () =>dispatch(blogAction.removeProject(userid))
                 },
                 {
                     label: 'Cancel'
@@ -213,7 +213,7 @@ class BlogList extends Component {
                     {
                         name: 'Action',
                         cell: row => <div>
-                            <a onClick={curobj.handleDeleteUser.bind(curobj, row.userid)} style={{ cursor: 'pointer' }}><i className="fa fa-trash"></i></a>
+                            <a onClick={curobj.handleDeleteUser.bind(curobj, row.seno)} style={{ cursor: 'pointer' }}><i className="fa fa-trash"></i></a>
                         </div>,
                     },
                 ]}

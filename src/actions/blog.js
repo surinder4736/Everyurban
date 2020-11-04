@@ -69,6 +69,13 @@ const addBlogError = (data) => {
     return { type: actionTypes.BLOG_ADD_ERROR, data }
 }
 
+const removeBlogSuccess = (data) => {
+    return { type: actionTypes.BLOG_REMOVE_SUCCESS, data }
+}
+const removeBlogError = (data) => {
+    return { type: actionTypes.BLOG_REMOVE_ERROR, data }
+}
+
 
 const blogAction = {
 
@@ -121,7 +128,21 @@ const blogAction = {
             });
         };
         
-    }
+    },
+
+    removeProject(id){
+        return (dispatch) => {
+        dispatch(beginRequest());
+            axios.delete(`${APIURL}blog/deleteproject/${id}`)
+                .then(response => {
+                    var data=response.data;
+                    // dispatch(removeBlogSuccess(data));
+                    dispatch(getAdminuserListSuccess(data));                
+            }).catch((error) => {
+                dispatch(removeBlogError({message:error.response.data,dt:new Date()}));
+            });
+        };
+    },
 
 }
 export default blogAction;
