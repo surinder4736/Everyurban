@@ -36,13 +36,22 @@ class NewPost extends Component {
       backendMeta: '',
       keywords: '',
       publisher: '',
-      images_:''
+      images_: '',
+      updateproject: false,
+      edit_data_projectLisingcontent: '',
+      edit_data_projectContent: '',
+      old_image: '',
+      seno:''
 
     };
   }
 
+  
   componentDidMount() {
     let curobj = this;
+    console.log(this.props);
+    //  const { profileUrl } = this.props.match.params;
+
 
 
   }
@@ -73,8 +82,6 @@ class NewPost extends Component {
       projectLisingcontent !== '' &&
       projectContent !== '' &&
       backendUrl !== '' &&
-      imagepath !== '' &&
-      imagefile !== '' &&
       backendMeta !== '' &&
       keywords !== '' &&
       publisher !== '')
@@ -107,18 +114,33 @@ class NewPost extends Component {
         formData.set('keywords', data.keywords);
         formData.set('publisher',data.publisher);
         formData.set('imagepath', data.imagepath);        
+      if (images_!='') {
 		    formData.append("file",images_);
+      }
 			const config = {
 				headers: {
 					'content-type': 'multipart/form-data',
 				}
 			}
-        axios.post(`${APIURL}blog/save`, formData, config)
-            .then((response) => {
+      if (this.state.updateproject === true) {
+        var url = axios.put(`${APIURL}blog/${this.state.seno}`, formData, config);
+
+      } else {
+          var url=axios.post(`${APIURL}blog/save`, formData, config);
+      }
+      
+        url.then((response) => {
                 console.log(response.data);
                 if (response.data.success_msg == "OK") {
                   window.location.href = `/project`;
 
+      // Swal.fire({
+      //   title: 'A Project Post Sucess.',
+      //   text: 'Your project save sucess.',
+      //   icon: 'success',
+      //   confirmButtonText: 'OK'
+      // });
+      // this.clearForm();
                 }
                 else {
                   Swal.fire({
@@ -128,11 +150,12 @@ class NewPost extends Component {
                     icon: 'error',
                     confirmButtonText: 'Cancel'
                   });
-                }
-            }).catch((error) => {
+    }}).catch((error) => {
 						console.log(error);
 						return error;
 					  });
+       
+     
         }
   }
 
@@ -155,26 +178,10 @@ class NewPost extends Component {
 
   componentWillReceiveProps(nextProps) {
     // debugger
-    console.log(nextProps);
-    if (nextProps.blog.success_msg == "OK") {
- window.location.href = `/project`;
-      // Swal.fire({
-      //   title: 'A Blog Post Sucess.',
-      //   text: 'Please verify your email to complete your registration.',
-      //   icon: 'success',
-      //   confirmButtonText: 'OK'
-      // });
-      // this.clearForm();
-    }
-    else {
-      Swal.fire({
-        title: 'Error!',
-        // text: message.errorMessage,
-        text: "Some thing went wrong",
-        icon: 'error',
-        confirmButtonText: 'Cancel'
-      });
-    }
+    console.log(nextProps.setData);
+    const data_ = nextProps.setData;
+        this.setState({ edit_data_projectLisingcontent: data_.postlistcontent, projectTitle: data_.posttitle, edit_data_projectContent: data_.postcontent, backendUrl: data_.posturlextension, imagefile: data_.image, backendMeta: data_.postmetaextension, keywords: data_.keywords, publisher: data_.publisher, imagepath: '',old_image: `${BASE_URL}/images/${data_.image}`,updateproject:true,seno:data_.seno});
+
   }
   onimageChange = (event) => {
     this.setState({
@@ -302,7 +309,6 @@ class NewPost extends Component {
         contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
       }
     }
-
     return (
       <div className="container">
         {/* <form id="contact-form" method="POST" encType="multipart/form-data"> */}
@@ -329,7 +335,7 @@ class NewPost extends Component {
                <label>
                <h5> Project Preview <span className="mandatory">*</span></h5>
               </label>
-                        <ImageCropper getImage={this.getImage} setImage={this.setImage}/>
+              <ImageCropper getImage={this.getImage} setImage={this.setImage} old_image={this.state.old_image}/>
             </div>
             <div className="col-sm-8 setMobilemaring">
              
@@ -341,6 +347,7 @@ class NewPost extends Component {
                     projectLisingcontent: editor.getData(),
                   });
                 }}
+                data={this.state.edit_data_projectLisingcontent}
                 onBlur={(event, editor) => { }}
                 onFocus={(event, editor) => { }}
               />
@@ -360,6 +367,7 @@ class NewPost extends Component {
                     projectContent: editor.getData(),
                   });
                 }}
+                data={this.state.edit_data_projectContent}
                 className={'projectContent'}
                 onBlur={(event, editor) => { }}
                 onFocus={(event, editor) => { }}
@@ -375,8 +383,7 @@ class NewPost extends Component {
               <label>
                 Url Extension : <span className="mandatory">*</span>
               </label>
-              <input
-                type="text"
+              <input type="text"
                 className="form-control"
                 placeholder="Enter Url Extension"
                 name="backendUrl"

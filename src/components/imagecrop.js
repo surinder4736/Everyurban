@@ -26,7 +26,8 @@ export default class ImageCropper extends PureComponent {
     divMaxHeight: '100%',
     divMaxWidth: '100%',
     file: '',
-    profileUploadImageItem:null
+    profileUploadImageItem: null,
+    old_imageFile:null,
   };
 
   onSelectFile = (e) => {
@@ -163,7 +164,10 @@ export default class ImageCropper extends PureComponent {
 	// }
 
   render() {
-    const { crop, croppedImageUrl, src, profileUploadImageItem } = this.state;
+    if (this.props.old_image != "") {
+              this.setState({ old_imageFile: this.props.old_image });
+    }
+    const { crop, src, croppedImageUrl,profileUploadImageItem } = this.state;
 
     return (
       <div className="">
@@ -187,6 +191,8 @@ export default class ImageCropper extends PureComponent {
               >upload
               </label>
                  </div>
+              {this.state.old_imageFile != null ?
+                <img alt="Crop" style={{ paddingLeft: '13px' }} className="CroppedImage" src={this.state.old_imageFile} />:''}
             </div>
           </div>
         ) : (            <div className="row">
