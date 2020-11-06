@@ -80,7 +80,7 @@
 @media screen and (max-width: 1480px) and (min-width: 700px) {
   .makecenter {
     position: unset;
-    min-height: auto;
+    min-height: 10em;
     padding: 0;
   }
 }
@@ -98,12 +98,12 @@
   }
 
   .Projectlistdetails {
-    width: 42%;
+    width: 100%;
   }
 
   .makecenter {
     position: unset;
-    min-height: auto;
+    min-height: 10em;
   }
 
 }

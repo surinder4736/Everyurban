@@ -79,3 +79,15 @@ img {
   padding: 3% 0;
   text-align: end;
 }
+
+#myModal .ReactCrop__image {
+  max-height: 400px !important;
+  width: auto !important;
+}
+
+@media (min-width: 576px){
+  .modal-dialog {
+    max-width: fit-content !important;
+    margin: 0.75rem auto;
+}
+}
