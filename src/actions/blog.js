@@ -130,10 +130,10 @@ const blogAction = {
         
     },
 
-    removeProject(id){
+    removeBlog(id){
         return (dispatch) => {
         dispatch(beginRequest());
-            axios.delete(`${APIURL}blog/deleteproject/${id}`)
+            axios.delete(`${APIURL}blog/remove/${id}`)
                 .then(response => {
                     var data=response.data;
                     // dispatch(removeBlogSuccess(data));

@@ -22,7 +22,9 @@ import Blog from './components/Projects'
 import ProjectDetail from './components/ProjectDetail'
 import NewProject from './components/NewProject'
 import Postsdetails from './components/Posts_details'
-// import PrivacyPolicy from './components/Privacypolicy';
+import EditProject from './components/EditProject'
+
+// import PrivacyPolicy from './components/Privacypolicy'
 export default class App extends Component {
  // static displayName = App.name;
 
@@ -50,6 +52,7 @@ export default class App extends Component {
         <Route path="/projects" component={Blog} />
         <Route path="/newproject" component={NewProject} />
        <Route exact path="/:project_url/:name" component={ProjectDetail} />
+       <Route exact path="/edit/project/:posturl"  component={EditProject} />
         <Route exact path='*'  />
 
       </Layout>
