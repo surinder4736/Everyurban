@@ -866,7 +866,7 @@ div.RICC > img.image {
 	margin-top: auto;
 	margin-bottom: auto;
 	padding: 2% 5%;
-	position: absolute;
+	/* position: absolute; */
   }
   
   .posttitle {

@@ -78,7 +78,13 @@ class Postlisting extends React.Component {
   render() {
     console.log('welcoem to amks doftdhjcbcfd');
     const { user, BlogList } = this.props;
-    const newbloglist=BlogList.user.length > 0 ? BlogList.user.slice(0,this.state.visible):null;
+    let userexit= user;
+	  if(user!=null){
+      if(Object.keys(user).length == 0){
+        userexit= null
+      }
+	  }
+    const newbloglist=BlogList!=null && BlogList!=undefined && BlogList.user!=undefined && BlogList.user.length > 0 ? BlogList.user.slice(0,this.state.visible):null;
     return (
       <div className="postlistingmain">
          {/* <Grid item xs={7} style={{ margin: 'auto' }}> 
@@ -87,8 +93,8 @@ class Postlisting extends React.Component {
         {newbloglist !=null && newbloglist.length> 0 ?  newbloglist.map((post) => (
           <PostList props={post} key={post.seno} />
         )): ''} 
-        
-        <Grid item xs={12} style={{ textAlign: 'center' }} >
+        {BlogList!=null && BlogList!=undefined && BlogList.user!=undefined && 
+          <Grid item xs={12} style={{ textAlign: 'center' }} >
             {this.state.visible < BlogList.user.length &&
             <span className={'useful-link'} >
               <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',fontSize :'16px'}} onClick={this.loadMore}>
@@ -96,10 +102,12 @@ class Postlisting extends React.Component {
               </p>
             </span> }           
           </Grid>
+        }
+        
           
           <Grid item xs={12} style={{ textAlign: 'center' }}>
             <span className={'useful-link'} ><br />
-                {user==null && user==undefined && 
+                {userexit==null && userexit==undefined && 
                   <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px',fontSize: '17px'}} onClick={this.signUp}>
                   Sign Up to Participate <img src={rightarrow} alt="" width="25px" />
                   </p>
