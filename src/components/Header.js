@@ -29,6 +29,13 @@ class Header extends Component {
 
   	render(){
 	const{user}=this.props;
+	let userexit= user;
+	if(user!=null){
+		if(Object.keys(user).length == 0){
+			userexit= null
+		}
+	}
+	
     return(
 			<header>
 			<div className="container">
@@ -36,14 +43,14 @@ class Header extends Component {
 					<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
 					
 					<a href="/" className="logo"><img src={logo} alt="" /></a>
-					{user==null && user==undefined && 
+					{ userexit==null && userexit==undefined && 
 						<div className="button">
 							<a href="/signup" className="signup">Sign Up</a>
 							<span className="headerbuttonmargin">|</span>
 							<a href="/login" className="login">Log In</a>
 						</div>
 					}
-					{user!=null && user!=undefined &&
+					{userexit !=null && userexit !=undefined &&
 						<div className='button' >
 							<a href="#" style={{cursor:'pointer'}} onClick={this.logOutHandle.bind(this)} className="signup">Logout</a>
 						</div>

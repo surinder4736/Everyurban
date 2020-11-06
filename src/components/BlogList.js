@@ -216,7 +216,7 @@ class BlogList extends Component {
                         name: 'Action',
                         cell: row => <div>
                             
-                              <a href={row.editlink} target='_blank' style={{ cursor: 'pointer',paddingRight:'10px' }}> <i className="fa fa-edit"></i></a>
+                              <a href={row.editlink} style={{ cursor: 'pointer',paddingRight:'10px' }}> <i className="fa fa-edit"></i></a>
                             <a onClick={curobj.handleDeleteUser.bind(curobj, row.seno)} style={{ cursor: 'pointer' }}><i className="fa fa-trash"></i></a>
                         </div>,
                     },
