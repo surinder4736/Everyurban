@@ -330,18 +330,18 @@ class UserList extends Component {
   }
 	render() {
         const{AdminUserList,user,dispatch}=this.props;
-    console.log('maks oft');
-    console.log(user);
+        console.log('maks oft');
+        console.log(user);
         if(user!=null){
           if(user.auth===undefined || user.isadmin===false){
             window.location.href=`/`;
             return(<div></div>);
           }
         }
-    this.profileStatus = [
-    { value: 'true', name: 'true' },
-    { value: 'false', name: 'false' }            
-    ];
+        this.profileStatus = [
+        { value: 'true', name: 'true' },
+        { value: 'false', name: 'false' }            
+        ];
     
         let columndata=[];
         var data;

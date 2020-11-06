@@ -828,3 +828,124 @@ div.RICC > img.image {
 	   text-decoration: none;
 	    background-color: transparent;
 	}
+
+
+/* Project Listing page css	 */
+.listcontaner {
+	width: 100%;
+	float: left;
+	position: relative;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-bottom: 25px;
+  }
+  
+  .projectimage {
+	height: 250px;
+	float: left;
+  }
+  
+  .projectimage img {
+	width: 250px;
+	height: 250px;
+  }
+  
+  .Projectlistdetails {
+	width: 70%;
+	color: black !important;
+	float: left;
+  }
+  
+  .makecenter {
+  
+	/* padding: 7% 5%;
+	margin-top: 6%; */
+	bottom: 15%;
+	min-height: 10em;
+	margin-top: auto;
+	margin-bottom: auto;
+	padding: 2% 5%;
+	position: absolute;
+  }
+  
+  .posttitle {
+	font-size: 20px;
+	font-weight: 600;
+	width: 100%;
+	font-family: Arial !important;
+  }
+  
+  .postdetails {
+	font-size: 18px;
+	color: #6a6a6a;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	/* font-weight: 600; */
+  }
+  
+  .postshowlink {
+	float: left;
+  }
+  
+  .signuplink {
+	float: left;
+	text-align: center;
+  }
+  
+  .commentuserprofile {
+	height: 270px;
+	width: 250px;
+  }
+  
+  .image_responsive {
+	object-fit: cover;
+	width: 100%;
+	max-height: 400px;
+	height: auto;
+  }
+  
+  .px250_height {
+	height: 200px;
+  }
+  
+  
+  @media screen and (max-width: 1480px) and (min-width: 700px) {
+	.makecenter {
+	  position: unset;
+	  min-height: auto;
+	  padding: 0;
+	}
+  }
+  
+  @media only screen and (max-width: 700px) {
+	.projectimage {
+	  object-fit: cover;
+	  width: 250px;
+	  height: 250px;
+	  max-height: 400px;
+	}
+  
+	.px250_height {
+	  height: auto;
+	}
+  
+	.Projectlistdetails {
+	  width: 100%;
+	}
+  
+	.makecenter {
+	  position: unset;
+	  min-height: auto;
+	}
+  
+  }
+
+  .postlistingmain{
+	flex-grow: 0;
+    max-width: 58.333333%;
+    flex-basis: 58.333333%;
+	margin: auto;
+	display: grid;
+  }
+  

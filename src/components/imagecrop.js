@@ -207,13 +207,13 @@ export default class ImageCropper extends PureComponent {
                 accept="image/*"
                 onChange={this.onSelectFile}
             />
-            <label
+            {/* <label
                 className="image_edit"
                 htmlFor="getFile"
                 style={{cursor: 'pointer'}}
             >
                <i className="fa fa-camera" aria-hidden="true"></i>
-              </label>
+              </label> */}
              
             </div>
           )}

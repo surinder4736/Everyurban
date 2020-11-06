@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import { Link } from 'react-router-dom'
+// import './postlist.css'
 import rightarrow from '../../Images/rightarrow.png'
 import {APIURL,BASE_URL} from '../../Config/config'
 
@@ -38,16 +39,12 @@ export default function AutoGridNoWrap(props) {
           <span className={'postdetails useful-link'} dangerouslySetInnerHTML={{ __html: unescape(post.postlistcontent), }}>
           </span>  
           <span className={'postshowlink useful-link'}>
-            {/* /projectdetail */}
             <a style={{cursor: 'pointer',fontSize :'16px'}}  href={`/${post.posturlextension}/${toSeoUrl(post.posttitle)}`}
               className={'gradient learnmore useful-link'}
-            >learn more <img src={rightarrow} alt="" width="25px" />{' '}
-            </a>
+            >learn more <img src={rightarrow} alt="" width="25px" /></a>
           </span>
         </div>
       </div>
-      <br></br>
-     
     </div>
   )
 }

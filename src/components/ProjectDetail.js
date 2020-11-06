@@ -62,7 +62,7 @@ export class ProjectDetail extends Component {
                     <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
                         <span className={'useful-link'} ><br />
                             {user==null && user==undefined && 
-                                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px'}} onClick={this.signUp}>
+                                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px',fontSize: '17px'}} onClick={this.signUp}>
                                 Sign Up to Participate <img src={rightarrow} alt="" width="25px" />{' '}
                                 </p>
                             }

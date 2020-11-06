@@ -27,6 +27,14 @@ class ProfileHeader extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.user!=this.props.user){
+      if(nextProps.user==null){
+        window.location.href='/login';
+      }
+    }
+  }
+
 	logOutHandle(e){
     e.preventDefault();
     const{dispatch}=this.props;

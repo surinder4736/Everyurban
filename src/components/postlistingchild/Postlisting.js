@@ -1,7 +1,7 @@
 import React from 'react'
 import { getAllPosts, getPostByMinMax, searchPost } from '../../api/index'
 import PostList from './PostList'
-import './postlist.css'
+// import './postlist.css'
 import Grid from '@material-ui/core/Grid'
 import PaginationControlled from './Pagination'
 import PostSearching from './PostSearching'
@@ -31,48 +31,43 @@ class Postlisting extends React.Component {
     this.initialStage()
 
   }
-  getPageNumber = async (pageNumber) => {
-    pageNumber = pageNumber - 1
-    let { postPerPage } = this.state
-    let startingPost = postPerPage * pageNumber
-    // const posts = await getPostByMinMax(startingPost, postPerPage)
-    const posts = 20
-    console.log(posts);
-    this.setState({
-      posts: posts.rows,
-    })
-  }
+  // getPageNumber = async (pageNumber) => {
+  //   pageNumber = pageNumber - 1
+  //   let { postPerPage } = this.state
+  //   let startingPost = postPerPage * pageNumber
+  //   // const posts = await getPostByMinMax(startingPost, postPerPage)
+  //   const posts = 20
+  //   console.log(posts);
+  //   this.setState({
+  //     posts: posts.rows,
+  //   })
+  // }
 
-  searchContent = async (event) => {
-    const searchText = event.target.value
-    if (searchText !== '') {
-      const posts = await searchPost(searchText)
-      this.setState({
-        posts: posts.data.res,
-        postPerPage: posts.data.res.length,
-        totalNumberOfPost: posts.data.res.length,
-      })
-    } else {
-      await this.initialStage()
-    }
-  }
+  // searchContent = async (event) => {
+  //   const searchText = event.target.value
+  //   if (searchText !== '') {
+  //     const posts = await searchPost(searchText)
+  //     this.setState({
+  //       posts: posts.data.res,
+  //       postPerPage: posts.data.res.length,
+  //       totalNumberOfPost: posts.data.res.length,
+  //     })
+  //   } else {
+  //     await this.initialStage()
+  //   }
+  // }
+  
   initialStage = async () => {
-
     const { dispatch } = this.props;
     dispatch(blogAction.getBlogList());
-    // const posts = await getPostByMinMax(startingPost, postPerPage)
-    const posts = this.props;
-    console.log('welcoem to hoem blog');
-    const totalNumberOfPost = 10
-    // this.setState({
-    //   posts: posts.BlogList.user
-    // })
   }
+  
   loadMore() {
     this.setState((prev) => {
-      return {visible: prev.visible + 5};
+      return {visible: prev.visible + 1};
     });
   }
+  
   signUp() {
      localStorage.setItem('redriaction_session_url', "projects");
     localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
@@ -83,47 +78,35 @@ class Postlisting extends React.Component {
   render() {
     console.log('welcoem to amks doftdhjcbcfd');
     const { user, BlogList } = this.props;
-    // const numberofPage = Math.ceil(
-    //   this.state.totalNumberOfPost / this.state.postPerPage,
-    // )
-
-    
+    const newbloglist=BlogList.user.length > 0 ? BlogList.user.slice(0,this.state.visible):null;
     return (
-      <div className="main">
-
-        <Grid item xs={7} style={{ margin: 'auto' }}>
-          {BlogList.user.length > 0
-           
-            ?  BlogList.user.slice(0,this.state.visible).map((post) => (
-              <PostList props={post} key={post.seno} />
-            ))
-            : ''}
-
-
-          <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
+      <div className="postlistingmain">
+         {/* <Grid item xs={7} style={{ margin: 'auto' }}> 
+         <span>Load more</span>
+         </Grid> */}
+        {newbloglist !=null && newbloglist.length> 0 ?  newbloglist.map((post) => (
+          <PostList props={post} key={post.seno} />
+        )): ''} 
+        
+        <Grid item xs={12} style={{ textAlign: 'center' }} >
             {this.state.visible < BlogList.user.length &&
-           <span className={'useful-link'} >
-              <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer'}} onClick={this.loadMore}>
+            <span className={'useful-link'} >
+              <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',fontSize :'16px'}} onClick={this.loadMore}>
                 load more...
               </p>
             </span> }           
-        </Grid>
-         
-          {/* <PaginationControlled
-            maxpost={numberofPage}
-            getPageNumber={this.getPageNumber}
-          /> */}
-        <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
-           <span className={'useful-link'} ><br />
-              {user==null && user==undefined && 
-                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px'}} onClick={this.signUp}>
-                Sign Up to Participate <img src={rightarrow} alt="" width="25px" />{' '}
-                </p>
-              }
-            </span>           
           </Grid>
-        </Grid>
-        </div>
+          
+          <Grid item xs={12} style={{ textAlign: 'center' }}>
+            <span className={'useful-link'} ><br />
+                {user==null && user==undefined && 
+                  <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px',fontSize: '17px'}} onClick={this.signUp}>
+                  Sign Up to Participate <img src={rightarrow} alt="" width="25px" />
+                  </p>
+                }
+              </span>           
+          </Grid>
+      </div>
     )
   }
 }
