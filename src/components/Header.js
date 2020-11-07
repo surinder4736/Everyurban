@@ -17,14 +17,21 @@ class Header extends Component {
     super(props);
   }
 
-  logOutHandle(e){
+  	logOutHandle(e){
 	e.preventDefault();
 	const{dispatch}=this.props;
+	localStorage.setItem('redriaction_session_url', "");
+    localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
 	dispatch(logout());
         // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
         //     console.log("Logout Successfully");
         //     window.location.href='/login';
         // })
+	}
+
+	componentDidMount(){
+		localStorage.setItem('redriaction_session_url', "");
+        localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
 	}
 
   	render(){
@@ -41,8 +48,12 @@ class Header extends Component {
 			<div className="container">
 				<div className="d-flex justify-content-between align-items-center">
 					<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
-					
-					<a href="/" className="logo"><img src={logo} alt="" /></a>
+					{ userexit==null && userexit==undefined && 
+						<a href="/" className="logo"><img src={logo} alt="" /></a>
+					}
+					{ userexit!=null && userexit!=undefined && 
+						<a href="/" className="prfile-logo"><img src={logo} alt="" /></a>
+					}
 					{ userexit==null && userexit==undefined && 
 						<div className="button">
 							<a href="/signup" className="signup">Sign Up</a>

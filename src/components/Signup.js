@@ -76,6 +76,8 @@ class Signup extends Component {
 		//SignUp Button click Handle
 		signUpClickHandle(e){
 			e.preventDefault();
+			localStorage.setItem('redriaction_session_url', "");
+    		localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
 			let curObj=this;
 			let emailId=this.state.email;
 			let password=this.state.password;

@@ -59,6 +59,8 @@ class Postlisting extends React.Component {
   
   initialStage = async () => {
     const { dispatch } = this.props;
+    localStorage.setItem('redriaction_session_url', "");
+    localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
     dispatch(blogAction.getBlogList());
   }
   
@@ -69,9 +71,9 @@ class Postlisting extends React.Component {
   }
   
   signUp() {
-     localStorage.setItem('redriaction_session_url', "projects");
+    localStorage.setItem('redriaction_session_url', "/projects");
     localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
-     window.location.href = `/signup`;
+    window.location.href = `/signup`;
 
   }
   

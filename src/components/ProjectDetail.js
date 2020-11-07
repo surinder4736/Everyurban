@@ -23,10 +23,20 @@ export class ProjectDetail extends Component {
         const { dispatch } = this.props;
         console.log(this.props.match);
         const  project_id  = this.props.match.params.project_url;
+        localStorage.setItem('redriaction_session_url', "");
+        localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
         dispatch(blogAction.getBlogDetail({userId:project_id}));
     }
     componentWillReceiveProps(nextProps) {
         console.log("nextProps");
+    }
+
+    signUp(e) {
+        e.preventDefault();
+        let url=this.props.match.url;
+        localStorage.setItem('redriaction_session_url', url);
+        localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
+        window.location.href = `/signup`;
     }
 
     render() {
@@ -62,7 +72,7 @@ export class ProjectDetail extends Component {
                     <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
                         <span className={'useful-link'} ><br />
                             {user==null && user==undefined && 
-                                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px',fontSize: '17px'}} onClick={this.signUp}>
+                                <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px',fontSize: '17px'}} onClick={this.signUp.bind(this)}>
                                 Sign Up to Participate <img src={rightarrow} alt="" width="25px" />{' '}
                                 </p>
                             }
