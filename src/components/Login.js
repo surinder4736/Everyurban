@@ -72,12 +72,16 @@ class Login extends Component {
 			if(user!=null && user.auth===true && user.is_email_verified==="true" && user.isadmin===false){
 			const uid=user.unique_userid;
 			const randomID=user.random_id;
-			 if(user.role_type!=undefined && user.role_type=="developer"){
+			let localstorage=localStorage.getItem('redriaction_session_url');
+			if(localstorage!="" && localstorage!=null){
+				window.location.href=localstorage;
+			}
+			else if(user.role_type!=undefined && user.role_type=="developer"){
 				 //Developer can not access the profile page, in that case redirect on particular message page.
 				window.location.href=`/developer`;
-			 }else{
+			}else{
 				window.location.href=`/profile/${uid}/${randomID}`;
-			 }
+			}
 			this.setState({messageServerside:''});
 			}else if(user!=null && user.auth===true && user.is_email_verified==="true" && user.isadmin===true){
 				window.location.href="/admin";
