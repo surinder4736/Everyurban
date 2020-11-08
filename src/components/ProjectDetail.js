@@ -177,7 +177,7 @@ export class ProjectDetail extends Component {
                     </div>
                     <Grid item xs={12} style={{ textAlign: 'center' }} className={""}>
                         <span className={'useful-link'} ><br />
-                            {user==null && user==undefined && 
+                            {userexit==null && userexit==undefined && 
                                 <p className={'gradient learnmore useful-link'} style={{cursor: 'pointer',marginBottom: '60px',fontSize: '17px'}} onClick={this.signUp.bind(this)}>
                                 Sign Up to Participate <img src={rightarrow} alt="" width="25px" />{' '}
                                 </p>
