@@ -19,6 +19,8 @@ class ProfileHeader extends Component {
    
   componentDidMount(){
     const{user}=this.props
+    localStorage.setItem('redriaction_session_url', "");
+        localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
     if(user==null){
       window.location.href='/login';
     }
@@ -38,6 +40,8 @@ class ProfileHeader extends Component {
 	logOutHandle(e){
     e.preventDefault();
     const{dispatch}=this.props;
+    localStorage.setItem('redriaction_session_url', "");
+    localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
 	  dispatch(logout());
         // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
         //     console.log("Logout Successfully");

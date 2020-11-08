@@ -114,7 +114,7 @@ class BlogList extends Component {
 
 
 
-    handleDeleteUser(userid, e) {
+    handleDeleteUser(id, e) {
         const { dispatch } = this.props;
         e.preventDefault();
         confirmAlert({
@@ -123,7 +123,7 @@ class BlogList extends Component {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () =>dispatch(blogAction.removeProject(userid))
+                    onClick: () => dispatch(blogAction.removeBlog(id))
                 },
                 {
                     label: 'Cancel'
@@ -158,7 +158,9 @@ class BlogList extends Component {
                             postlistcontent: this.text_truncate(item.postlistcontent, 25),
                             postcontent: item.postcontent,
                             keywords: item.keywords,
-                            publisher: item.publisher
+                            publisher: item.publisher,
+                            editlink: "/edit/project/" + item.posturlextension
+
                         }
                         columndata.push(Objdata);
                     }
@@ -213,6 +215,8 @@ class BlogList extends Component {
                     {
                         name: 'Action',
                         cell: row => <div>
+                            
+                              <a href={row.editlink} style={{ cursor: 'pointer',paddingRight:'10px' }}> <i className="fa fa-edit"></i></a>
                             <a onClick={curobj.handleDeleteUser.bind(curobj, row.seno)} style={{ cursor: 'pointer' }}><i className="fa fa-trash"></i></a>
                         </div>,
                     },

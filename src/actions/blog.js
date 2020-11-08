@@ -76,6 +76,13 @@ const removeBlogError = (data) => {
     return { type: actionTypes.BLOG_REMOVE_ERROR, data }
 }
 
+const addBlogCommentSuccess = (data) => {
+    return { type: actionTypes.BLOG_COMMENT_SUCCESS, data }
+}
+const addBlogCommentError = (data) => {
+    return { type: actionTypes.BLOG_COMMENT_ERROR, data }
+}
+
 
 const blogAction = {
 
@@ -112,7 +119,7 @@ const blogAction = {
                 });
         };
     },
-     getBlogDetail(data){
+    getBlogDetail(data){
         //  console.log(data);
         return (dispatch) => {
             dispatch(beginRequest());
@@ -130,10 +137,10 @@ const blogAction = {
         
     },
 
-    removeProject(id){
+    removeBlog(id){
         return (dispatch) => {
         dispatch(beginRequest());
-            axios.delete(`${APIURL}blog/deleteproject/${id}`)
+            axios.delete(`${APIURL}blog/remove/${id}`)
                 .then(response => {
                     var data=response.data;
                     // dispatch(removeBlogSuccess(data));
@@ -142,6 +149,38 @@ const blogAction = {
                 dispatch(removeBlogError({message:error.response.data,dt:new Date()}));
             });
         };
+    },
+
+    addBlogComment(data) {
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.post(`${APIURL}blog/comment`, data)
+                .then(response => {
+                    var data = response.data;
+                    dispatch(addBlogCommentSuccess(data));
+
+                }).catch((error) => {
+                    dispatch(addBlogCommentError({ message: error.response.data, dt: new Date() }));
+                });
+        };
+    },
+
+    getBlogComment(data){
+        //  console.log(data);
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.get(`${APIURL}blog/getcomment/${data.blogId}` )
+                .then(response => {//debugger;
+                    var data=response.data;
+                    dispatch(addBlogCommentSuccess(data));
+                    dispatch(requestSuccess());
+                    
+            }).catch((error) => {//debugger;
+                dispatch(requestFailure());
+                dispatch(addBlogCommentError({message:error.response.data,dt:new Date()}));
+            });
+        };
+        
     },
 
 }

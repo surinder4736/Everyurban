@@ -866,11 +866,11 @@ div.RICC > img.image {
 	margin-top: auto;
 	margin-bottom: auto;
 	padding: 2% 5%;
-	position: absolute;
+	/* position: absolute; */
   }
   
   .posttitle {
-	font-size: 20px;
+	font-size: 22px;
 	font-weight: 600;
 	width: 100%;
 	font-family: Arial !important;
@@ -949,3 +949,28 @@ div.RICC > img.image {
 	display: grid;
   }
   
+  .commentsection{
+	  background: #ecebeb;
+	padding: 30px;
+}
+
+.btn.gradientcomment {
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0 15px;
+    background: #02aae3;
+    background:-moz-linear-gradient(left, #1571b2 0%, #02aae3 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#02aae3 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#02aae3 56%,#1571b2 100%);
+}
+.btn.gradientcomment:hover { background:#1571b2; background:-moz-linear-gradient(left, #1571b2 0%, #1571b2 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#1571b2 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#1571b2 56%,#1571b2 100%); }
+
+.commentimage{
+	float: left;
+    border-radius: 50%;
+	width: 75px;
+}
+.commentlist{margin-top: 20px;}
+.commentuser{margin-bottom: 0px;}
+.commenttime{margin-bottom: 10px;}

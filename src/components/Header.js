@@ -17,9 +17,11 @@ class Header extends Component {
     super(props);
   }
 
-  logOutHandle(e){
+  	logOutHandle(e){
 	e.preventDefault();
 	const{dispatch}=this.props;
+	localStorage.setItem('redriaction_session_url', "");
+    localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
 	dispatch(logout());
         // Axios.delete(`${APIURL}sessionsExpired`).then((resp)=>{
         //     console.log("Logout Successfully");
@@ -27,23 +29,39 @@ class Header extends Component {
         // })
 	}
 
+	componentDidMount(){
+		localStorage.setItem('redriaction_session_url', "");
+		localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
+	}
+
   	render(){
 	const{user}=this.props;
+	let userexit= user;
+	if(user!=null){
+		if(Object.keys(user).length == 0){
+			userexit= null
+		}
+	}
+	
     return(
 			<header>
 			<div className="container">
 				<div className="d-flex justify-content-between align-items-center">
 					<a id="hamburger" href="#"><i className="fas fa-bars"></i></a>
-					
-					<a href="/" className="logo"><img src={logo} alt="" /></a>
-					{user==null && user==undefined && 
+					{ userexit==null && userexit==undefined && 
+						<a href="/" className="logo"><img src={logo} alt="" /></a>
+					}
+					{ userexit!=null && userexit!=undefined && 
+						<a href="/" className="prfile-logo"><img src={logo} alt="" /></a>
+					}
+					{ userexit==null && userexit==undefined && 
 						<div className="button">
 							<a href="/signup" className="signup">Sign Up</a>
 							<span className="headerbuttonmargin">|</span>
 							<a href="/login" className="login">Log In</a>
 						</div>
 					}
-					{user!=null && user!=undefined &&
+					{userexit !=null && userexit !=undefined &&
 						<div className='button' >
 							<a href="#" style={{cursor:'pointer'}} onClick={this.logOutHandle.bind(this)} className="signup">Logout</a>
 						</div>
