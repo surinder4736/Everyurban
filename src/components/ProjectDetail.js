@@ -69,7 +69,6 @@ export class ProjectDetail extends Component {
 
     render() {
        const { blog_detail,user,comment_list } = this.props;
-       const { user, BlogList } = this.props;
         let userexit= user;
         if(user!=null){
             if(Object.keys(user).length == 0){
