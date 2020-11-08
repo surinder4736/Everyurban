@@ -95,14 +95,14 @@ export class ProjectDetail extends Component {
                         </p>
                     </div>
                     <div className="howitwork-content ">
-                        <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                        <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
                                     {blog_detail.blog.posturlextension == this.props.match.params.project_url ? <span className={'postdetails useful-link'} dangerouslySetInnerHTML={{ __html: unescape(blog_detail.blog.postcontent) }}></span> : "No record found"}
                                  </div>
                             </div>
                         </div>
-                        <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                        <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
                                    <hr/> 
@@ -110,7 +110,7 @@ export class ProjectDetail extends Component {
                             </div>
                         </div>
                         {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined && 
-                            <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                            <div className="row list-body">
                                 <div className="col-lg-12 ">
                                     <div className="bs-component">
                                         <span style={{fontSize:'16px'}}>({comment_list.comments.length}) comments</span> 
@@ -120,7 +120,7 @@ export class ProjectDetail extends Component {
                         }
                         {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined ? comment_list.comments.map((comment) => (
                                 <div className="commentlist">
-                                    <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                                    <div className="row list-body">
                                         <div className="col-lg-2">
                                         <img
                                         src={`${BASE_URL}/images/${unescape(comment.photo)}`}
@@ -129,7 +129,7 @@ export class ProjectDetail extends Component {
                                         />
                                         </div>
                                         <div className="col-lg-10">
-                                            <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                                            <div className="row list-body">
                                                 <div className="col-lg-12">
                                                     <p className="commentuser" style={{fontSize:'20px', fontWeight:'500'}}>{comment.firstName}</p>
                                                     <p className="commenttime">{comment.commentdate}</p>
@@ -146,14 +146,14 @@ export class ProjectDetail extends Component {
                                 </div>
                               )): ''
                         }
-                        <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                        <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
                                    <span style={{fontSize:'16px'}}>Leave a comment</span> 
                                 </div>
                             </div>
                         </div>
-                        <div className="row list-body" style={{fontSize:'25px',width:'35em'}}>
+                        <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <section id="comment" class="commentsection">
                                     <div className="row">
