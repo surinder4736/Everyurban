@@ -69,7 +69,13 @@ export class ProjectDetail extends Component {
 
     render() {
        const { blog_detail,user,comment_list } = this.props;
-    //    const{commentlist}=this.state;
+       const { user, BlogList } = this.props;
+        let userexit= user;
+        if(user!=null){
+            if(Object.keys(user).length == 0){
+                userexit= null
+            }
+        }
         return (
             <div>
                 <Header />
@@ -153,7 +159,7 @@ export class ProjectDetail extends Component {
                                 <section id="comment" class="commentsection">
                                     <div className="row">
                                         <div className="col-lg-12" style={{fontSize:'16px'}}>
-                                            <textarea id="w3review" name="w3review" rows="4" style={{width:'100%',opacity:(user==null && user==undefined)?0.5:1,pointerEvents:(user==null && user==undefined)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
+                                            <textarea id="w3review" name="w3review" rows="4" style={{width:'100%',opacity:(userexit==null && userexit==undefined)?0.5:1,pointerEvents:(userexit==null && userexit==undefined)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
                                                     
                                             </textarea>
                                         </div>
@@ -161,7 +167,7 @@ export class ProjectDetail extends Component {
                                     <div className="row">
                                         <div className="col-lg-12 ">
                                             <div style={{float:'right'}}>
-                                                <a className="btn gradientcomment" style={{ cursor:(user==null && user==undefined)?'default':'', opacity:(user==null && user==undefined)?0.5:1,pointerEvents:(user==null && user==undefined)?'none':'' }}  onClick={ this.clickCommentHandle.bind(this)}>Send</a>
+                                                <a className="btn gradientcomment" style={{ cursor:(userexit==null && userexit==undefined)?'default':'pointer', opacity:(userexit==null && userexit==undefined)?0.5:1,pointerEvents:(userexit==null && userexit==undefined)?'none':'' }}  onClick={ this.clickCommentHandle.bind(this)}>Send</a>
                                             </div>
                                         </div>
                                     </div>
