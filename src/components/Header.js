@@ -31,7 +31,7 @@ class Header extends Component {
 
 	componentDidMount(){
 		localStorage.setItem('redriaction_session_url', "");
-        localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
+		localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
 	}
 
   	render(){
