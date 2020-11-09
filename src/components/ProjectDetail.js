@@ -76,7 +76,7 @@ export class ProjectDetail extends Component {
                 userexit= null
             }
         }
-        if(userexit!=null && (userexit.is_profilestatus==true || profile.profile.isCompleted==true)){
+        if(userexit!=null && (userexit.is_profilestatus==true || (profile.profile!=undefined && profile.profile.isCompleted==true))){
             commentDisabled=true;
         }
         return (
