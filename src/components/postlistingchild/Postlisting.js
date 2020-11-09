@@ -66,7 +66,7 @@ class Postlisting extends React.Component {
   
   loadMore() {
     this.setState((prev) => {
-      return {visible: prev.visible + 1};
+      return {visible: prev.visible + 5};
     });
   }
   
