@@ -10,6 +10,7 @@ import './App.css';
 import blogAction from '../actions/blog';
 import profileAction from '../actions/profile';
 import MetaTags from 'react-meta-tags';
+import NoImage from '../Images/Ulogosquare.png';
 import {APIURL,BASE_URL} from '../Config/config'
 
 export class ProjectDetail extends Component {
@@ -17,7 +18,7 @@ export class ProjectDetail extends Component {
 
     constructor(props) {
         super(props)
-        this.state={comment:'',commentlist:null}
+        this.state={comment:'',commentlist:null,initailImage:NoImage}
     }
     componentDidMount() {
         const { dispatch,user } = this.props;
@@ -80,6 +81,7 @@ export class ProjectDetail extends Component {
     render() {
        const { blog_detail,user,comment_list,profile } = this.props;
         let userexit= user;
+        let curobj=this;
         let commentDisabled=false;
         if(user!=null){
             if(Object.keys(user).length == 0){
@@ -133,11 +135,13 @@ export class ProjectDetail extends Component {
                             </div>
                         }
                         {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined ? comment_list.comments.map((comment) => (
+                                
                                 <div className="commentlist">
                                     <div className="row list-body">
-                                        <div className="col-lg-2">
+                                        <div className="col-lg-2">  
                                         <img
-                                        src={`${BASE_URL}/images/${unescape(comment.photo)}`}
+                                        // src={`${BASE_URL}/images/${unescape(comment.photo==""?curobj.state.initailImage:comment.photo)}`}
+                                        src={comment.photo==""?curobj.state.initailImage:`${BASE_URL}/images/${unescape(comment.photo)}`}
                                         className={'commentimage'}
                                         alt="comment"
                                         />
@@ -151,7 +155,7 @@ export class ProjectDetail extends Component {
                                             </div>
                                             <div className="row" >
                                                 <div className="col-lg-12">
-                                                    <span style={{fontSize:'12px'}}>{comment.postcomment}</span>
+                                                    <p style={{fontSize:'12px'}}>{comment.postcomment}</p>
                                                 </div>
                                             </div>
                                         </div>
