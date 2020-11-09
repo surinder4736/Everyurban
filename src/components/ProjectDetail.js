@@ -26,7 +26,15 @@ export class ProjectDetail extends Component {
         localStorage.setItem('redriaction_session_url', "");
         localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
         dispatch(blogAction.getBlogDetail({userId:project_id}));
-        dispatch(profileAction.getProfile({userId:user.id}));
+        let userexit= user;
+        if(user!=null){
+            if(Object.keys(user).length == 0){
+                userexit= null
+            }
+        }
+        if(userexit!=null){
+            dispatch(profileAction.getProfile({userId:user.id}));
+        }
     }
     componentWillReceiveProps(nextProps) {
         const{dispatch}=this.props;
