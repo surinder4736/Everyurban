@@ -8,6 +8,7 @@ import rightarrow from '../Images/rightarrow.png'
 import Footer from './Footer'
 import './App.css';
 import blogAction from '../actions/blog';
+import profileAction from '../actions/profile';
 import MetaTags from 'react-meta-tags';
 import {APIURL,BASE_URL} from '../Config/config'
 
@@ -19,12 +20,13 @@ export class ProjectDetail extends Component {
         this.state={comment:'',commentlist:null}
     }
     componentDidMount() {
-        const { dispatch } = this.props;
+        const { dispatch,user } = this.props;
         console.log(this.props.match);
         const  project_id  = this.props.match.params.project_url;
         localStorage.setItem('redriaction_session_url', "");
         localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
         dispatch(blogAction.getBlogDetail({userId:project_id}));
+        dispatch(profileAction.getProfile({userId:user.id}));
     }
     componentWillReceiveProps(nextProps) {
         const{dispatch}=this.props;
