@@ -87,7 +87,7 @@ export class ProjectDetail extends Component {
                 <MenuComponent />
                 {/* Slider */}
                 {blog_detail.blog!=null && blog_detail.blog!=undefined &&
-                <section id="howitwork">
+                <section id="projectdetail">
                    <div className="howitwork-body">
                         <h1>Project RFPs</h1>
                         <p> {blog_detail.blog.posturlextension == this.props.match.params.project_url ?
@@ -113,7 +113,7 @@ export class ProjectDetail extends Component {
                             <div className="row list-body">
                                 <div className="col-lg-12 ">
                                     <div className="bs-component">
-                                        <span style={{fontSize:'16px'}}>({comment_list.comments.length}) comments</span> 
+                                        <span style={{fontSize:'16px',fontWeight:'400'}}>({comment_list.comments.length}) comment(s)</span> 
                                     </div>
                                 </div>
                             </div>
@@ -129,15 +129,15 @@ export class ProjectDetail extends Component {
                                         />
                                         </div>
                                         <div className="col-lg-10">
-                                            <div className="row list-body">
+                                            <div className="row">
                                                 <div className="col-lg-12">
-                                                    <p className="commentuser" style={{fontSize:'20px', fontWeight:'500'}}>{comment.firstName}</p>
+                                                    <p className="commentuser" style={{fontSize:'16px', fontWeight:'500'}}>{comment.firstName}</p>
                                                     <p className="commenttime">{comment.commentdate}</p>
                                                 </div>
                                             </div>
-                                            <div className="row list-body" style={{fontSize:'20px',width:'35em'}}>
+                                            <div className="row" >
                                                 <div className="col-lg-12">
-                                                    <span>{comment.postcomment}</span>
+                                                    <span style={{fontSize:'12px'}}>{comment.postcomment}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +149,7 @@ export class ProjectDetail extends Component {
                         <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
-                                   <span style={{fontSize:'16px'}}>Leave a comment</span> 
+                                   <span style={{fontSize:'16px',fontWeight:'400'}}>Leave a comment</span> 
                                 </div>
                             </div>
                         </div>
@@ -157,7 +157,7 @@ export class ProjectDetail extends Component {
                             <div className="col-lg-12 ">
                                 <section id="comment" class="commentsection">
                                     <div className="row">
-                                        <div className="col-lg-12" style={{fontSize:'16px'}}>
+                                        <div className="col-lg-12" style={{fontSize:'12px'}}>
                                             <textarea id="w3review" name="w3review" rows="4" style={{width:'100%',opacity:(userexit==null && userexit==undefined)?0.5:1,pointerEvents:(userexit==null && userexit==undefined)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
                                                     
                                             </textarea>
