@@ -68,12 +68,16 @@ export class ProjectDetail extends Component {
     }
 
     render() {
-       const { blog_detail,user,comment_list } = this.props;
+       const { blog_detail,user,comment_list,profile } = this.props;
         let userexit= user;
+        let commentDisabled=false;
         if(user!=null){
             if(Object.keys(user).length == 0){
                 userexit= null
             }
+        }
+        if(userexit!=null && (userexit.is_profilestatus==true || profile.profile.isCompleted==true)){
+            commentDisabled=true;
         }
         return (
             <div>
@@ -158,7 +162,7 @@ export class ProjectDetail extends Component {
                                 <section id="comment" class="commentsection">
                                     <div className="row">
                                         <div className="col-lg-12" style={{fontSize:'12px'}}>
-                                            <textarea id="w3review" name="w3review" rows="4" style={{width:'100%',opacity:(userexit==null && userexit==undefined)?0.5:1,pointerEvents:(userexit==null && userexit==undefined)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
+                                            <textarea id="w3review" name="w3review" rows="4" style={{width:'100%',opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
                                                     
                                             </textarea>
                                         </div>
@@ -166,7 +170,7 @@ export class ProjectDetail extends Component {
                                     <div className="row">
                                         <div className="col-lg-12 ">
                                             <div style={{float:'right'}}>
-                                                <a className="btn gradientcomment" style={{ cursor:(userexit==null && userexit==undefined)?'default':'pointer', opacity:(userexit==null && userexit==undefined)?0.5:1,pointerEvents:(userexit==null && userexit==undefined)?'none':'' }}  onClick={ this.clickCommentHandle.bind(this)}>Send</a>
+                                                <a className="btn gradientcomment" style={{ cursor:(commentDisabled==false)?'default':'pointer', opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':'' }}  onClick={ this.clickCommentHandle.bind(this)}>Send</a>
                                             </div>
                                         </div>
                                     </div>
@@ -199,6 +203,7 @@ function mapStateToProps(state) {
     blog_detail: state.blog.blogs,
     comment_list:state.blog.comment,
     user: state.users.user,
+    profile:state.profile.profile,
   }
 }
 export default connect(mapStateToProps)(ProjectDetail)
