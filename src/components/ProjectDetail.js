@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Header from './Header'
 import MenuComponent from './MenuComponent'
 import Grid from '@material-ui/core/Grid'
+import { confirmAlert } from 'react-confirm-alert';
 import rightarrow from '../Images/rightarrow.png'
 import Footer from './Footer'
 import './App.css';
@@ -18,7 +19,7 @@ export class ProjectDetail extends Component {
 
     constructor(props) {
         super(props)
-        this.state={comment:'',commentlist:null,initailImage:NoImage}
+        this.state={comment:'',commentlist:null,initailImage:NoImage,is_Editable:false,editCommentid:0}
     }
     componentDidMount() {
         const { dispatch,user } = this.props;
@@ -41,6 +42,9 @@ export class ProjectDetail extends Component {
         const{dispatch}=this.props;
         if(nextProps.blog_detail!=this.props.blog_detail){
             dispatch(blogAction.getBlogComment({blogId:nextProps.blog_detail.blog.seno}));
+        }
+        if(nextProps.comment_list!=this.props.comment_list){
+            this.setState({comment:'',is_Editable:false,editCommentid:0});
         }
     }
 
@@ -70,13 +74,47 @@ export class ProjectDetail extends Component {
             userid:user.id,
             postcomment:this.state.comment
         };
-        this.setState({comment:''});
-        dispatch(blogAction.addBlogComment(data));
+        
+        if(this.state.is_Editable==false){
+            dispatch(blogAction.addBlogComment(data));
+        }
+        else{
+            data.id=this.state.editCommentid;
+            dispatch(blogAction.editBlogComment(data))
+            
+        }
     }
 
     changeCommentHandle(e){
         this.setState({comment:e.target.value});
     }
+
+    deleteCommentHandle(commentid,e){
+        e.preventDefault();
+        console.log(commentid);
+        const{dispatch}=this.props;
+        confirmAlert({
+            title: 'Remove Comment',
+            message: 'Are you sure you want to delete this comment?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick:()=>dispatch(blogAction.removeComment(commentid))
+               },
+              {
+                label: 'Cancel'
+              }
+            ]
+        });
+        
+    }
+
+    editCommentHandle(comment,e){
+        e.preventDefault();
+        console.log(comment);
+        this.setState({comment:comment.postcomment,is_Editable:true,editCommentid:comment.id});
+    }
+
 
     render() {
        const { blog_detail,user,comment_list,profile } = this.props;
@@ -158,6 +196,14 @@ export class ProjectDetail extends Component {
                                                     <p style={{fontSize:'12px'}}>{comment.postcomment}</p>
                                                 </div>
                                             </div>
+                                            {commentDisabled==true && user.id== parseInt(comment.userid) &&
+                                                <div className="row" >
+                                                    <div className="col-lg-12">
+                                                        <p style={{color:'lightgray'}}><a alt="edit" style={{cursor:'pointer'}} onClick={this.editCommentHandle.bind(this,comment)}>Edit</a> | <a alt="delete" style={{cursor:'pointer'}} onClick={this.deleteCommentHandle.bind(this,comment.id)}>Delete</a></p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            
                                         </div>
                                     </div>
                                     

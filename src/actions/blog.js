@@ -165,6 +165,20 @@ const blogAction = {
         };
     },
 
+    editBlogComment(data) {
+        return (dispatch) => {
+            dispatch(beginRequest());
+            axios.put(`${APIURL}blog/editcomment/${data.id}`, data)
+                .then(response => {
+                    var data = response.data;
+                    dispatch(addBlogCommentSuccess(data));
+
+                }).catch((error) => {
+                    dispatch(addBlogCommentError({ message: error.response.data, dt: new Date() }));
+                });
+        };
+    },
+
     getBlogComment(data){
         //  console.log(data);
         return (dispatch) => {
@@ -181,6 +195,19 @@ const blogAction = {
             });
         };
         
+    },
+
+    removeComment(id){
+        return (dispatch) => {
+        dispatch(beginRequest());
+            axios.delete(`${APIURL}blog/removecomment/${id}`)
+                .then(response => {
+                    var data=response.data;
+                    dispatch(addBlogCommentSuccess(data));                
+            }).catch((error) => {
+                dispatch(removeBlogError({message:error.response.data,dt:new Date()}));
+            });
+        };
     },
 
 }
