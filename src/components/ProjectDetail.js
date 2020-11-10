@@ -129,6 +129,17 @@ export class ProjectDetail extends Component {
         if(userexit!=null && (userexit.is_profilestatus==true || (profile.profile!=undefined && profile.profile.isCompleted==true))){
             commentDisabled=true;
         }
+        let listingcomment=[];
+        if(comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined){
+            comment_list.comments.map((cmt)=>{
+                let dt=new Date(cmt.commentdate);
+                cmt.commentdate=(dt.getMonth()+1)+"/"+(dt.getDate())+"/"+dt.getFullYear();
+                let time=cmt.commenttime.split('.')[0];
+                cmt.commenttime=time;
+                listingcomment.push(cmt);
+            })
+        }
+
         return (
             <div>
                 <Header />
@@ -172,7 +183,7 @@ export class ProjectDetail extends Component {
                                 </div>
                             </div>
                         }
-                        {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined ? comment_list.comments.map((comment) => (
+                        {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined ? listingcomment.map((comment) => (
                                 
                                 <div className="commentlist">
                                     <div className="row list-body">
@@ -188,7 +199,7 @@ export class ProjectDetail extends Component {
                                             <div className="row">
                                                 <div className="col-lg-12">
                                                     <p className="commentuser" style={{fontSize:'16px', fontWeight:'500'}}>{comment.firstName}</p>
-                                                    <p className="commenttime">{comment.commentdate}</p>
+                                                    <p className="commenttime">{comment.commentdate +' '+comment.commenttime}</p>
                                                 </div>
                                             </div>
                                             <div className="row" >
