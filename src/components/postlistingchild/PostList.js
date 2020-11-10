@@ -25,14 +25,18 @@ export default function AutoGridNoWrap(props) {
   const post = props.props
   return (
     <div className={'listcontaner'}>
-      <div className={'projectimage'}>
+      <div className="row">
+        <div className="col-lg-3">
+        <div className={'projectimage'}>
         <img
           src={`${BASE_URL}/images/${unescape(post.image)}`}
           className={'projectimage'}
           alt="Project"
         />
       </div>
-      <div className={'Projectlistdetails'}>
+        </div>
+        <div className="col-lg-9">
+        <div className={'Projectlistdetails'}>
         <div className={'makecenter'}>
           <span className={'posttitle'} dangerouslySetInnerHTML={{ __html: unescape(post.posttitle) }}></span>
           <br/>
@@ -45,6 +49,10 @@ export default function AutoGridNoWrap(props) {
           </span>
         </div>
       </div>
+        </div>
+      </div>
+      
+      
     </div>
   )
 }

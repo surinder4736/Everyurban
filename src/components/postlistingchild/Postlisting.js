@@ -88,13 +88,13 @@ class Postlisting extends React.Component {
 	  }
     const newbloglist=BlogList!=null && BlogList!=undefined && BlogList.user!=undefined && BlogList.user.length > 0 ? BlogList.user.slice(0,this.state.visible):null;
     return (
-      <div className="main">
-         <Grid item xs={8} style={{ margin: 'auto',display:'grid' }}> 
-          {newbloglist !=null && newbloglist.length> 0 ?  newbloglist.map((post) => (
-            <PostList props={post} key={post.seno} />
-          )): ''} 
-         </Grid>
-        
+      <div className="postlistingmain">
+         {/* <Grid item xs={7} style={{ margin: 'auto' }}> 
+         <span>Load more</span>
+         </Grid> */}
+        {newbloglist !=null && newbloglist.length> 0 ?  newbloglist.map((post) => (
+          <PostList props={post} key={post.seno} />
+        )): ''} 
         {BlogList!=null && BlogList!=undefined && BlogList.user!=undefined && 
           <Grid item xs={12} style={{ textAlign: 'center' }} >
             {this.state.visible < BlogList.user.length &&
