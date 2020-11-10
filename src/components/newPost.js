@@ -5,9 +5,11 @@ import blogAction from '../actions/blog';
 import validator from 'validator';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CKEditorold from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+// import CKEditorold from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import SunEditor,{buttonList} from 'suneditor-react';
 
 import ImageCropper from './imagecrop';
 import ReactDOM from 'react-dom';
@@ -15,7 +17,10 @@ import CKEditor from 'ckeditor4-react';
 import './css/postDetails.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Swal from 'sweetalert2';
+// import katex from 'katex'
+// import 'katex/dist/katex.min.css'
 import 'sweetalert2/src/sweetalert2.scss';
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import './bodyStyle.css';
 import { APIURL, BASE_URL } from '../Config/config';
 const axios = require("axios");
@@ -209,109 +214,23 @@ class NewPost extends Component {
       this.signUpClickHandle(e);
     }
   }
-  MyCustomUploadAdapterPlugin(editor) {
-    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-    console.log(new MyUploadAdapter(loader))
-    return new MyUploadAdapter(loader)
-    
+  
+  handleChangeContentDetail(content){
+    this.setState({
+      projectContent: content
+    });
   }
-  } 
+
+  handleChangeListingContent(content){
+    this.setState({
+      projectLisingcontent: content
+    });
+  }
 
 
   render() {
-        const custom_config = {
-          extraPlugins: [this.MyCustomUploadAdapterPlugin],
-          // plugins: [ Font ],
-           fontFamily: {
-            options: [
-                'default',
-                'Ubuntu, Arial, sans-serif',
-                'Ubuntu Mono, Courier New, Courier, monospace'
-            ]
-        },
-      // toolbar: {
-      //   items: [
-      //     'heading',
-      //     '|',
-      //     'bold',
-      //     'italic',
-      //     'Alignment',
-      //     'List',
-      //     'ListUI',
-      //     'link',
-      //     'bulletedList',
-      //     'numberedList',
-      //     '|',
-      //     'blockQuote',
-      //     'insertTable',
-      //     '|',
-      //     'imageUpload',
-      //     'undo',
-      //     'redo',
-      //     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-      //   ]
-      //     }
-          toolbar: {
-        items: [
-          'heading',
-          '|',
-          'fontSize',
-          'fontFamily',
-          '|',
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          'highlight',
-          '|',
-          'alignment',
-          '|',
-          'numberedList',
-          'bulletedList',
-          '|',
-          'indent',
-          'outdent',
-          '|',
-          'todoList',
-          'link',
-          'blockQuote',
-          'imageUpload',
-          'insertTable',
-          '|',
-          'undo',
-           'redo',
-          'Paragraph'
-        ]
-      },
-      language: 'en',
-      image: {
-        toolbar: [
-          'imageTextAlternative',
-          'imageStyle:full',
-          'imageStyle:side'
-        ]
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn',
-          'tableRow',
-          'mergeTableCells'
-        ]
-      },
-      licenseKey: '',
-      wordCount: {
-        onUpdate: stats => {
-          this.charactersLength = stats.characters
-        }
-      }
-          ,
-      table: {
-        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-      }
-    }
     return (
       <div className="container">
-        {/* <form id="contact-form" method="POST" encType="multipart/form-data"> */}
         <hr />
         <div className="card-body">
           <div className="form-group row">
@@ -338,19 +257,28 @@ class NewPost extends Component {
               <ImageCropper getImage={this.getImage} setImage={this.setImage} old_image={this.state.old_image}/>
             </div>
             <div className="col-sm-8 setMobilemaring">
-             
-              <CKEditorold
-                editor={ClassicEditor}
-                onInit={(editor) => { ClassicEditor }}
-                onChange={(event, editor) => {
-                  this.setState({
-                    projectLisingcontent: editor.getData(),
-                  });
-                }}
-                data={this.state.edit_data_projectLisingcontent}
-                onBlur={(event, editor) => { }}
-                onFocus={(event, editor) => { }}
-              />
+              <SunEditor setOptions={{
+                    height: 200,
+                    // katex: katex,
+                    buttonList: [
+                      ['undo', 'redo'],
+                      ['font', 'fontSize', 'formatBlock'],
+                       ['paragraphStyle', 'blockquote'],
+                      ['bold', 'underline', 'italic', 'strike'],
+                      // [ 'subscript', 'superscript']
+                      ['fontColor', 'hiliteColor', 'textStyle'],
+                      ['removeFormat'],
+                      ['outdent', 'indent'],
+                      ['align', 'horizontalRule', 'list', 'lineHeight'],
+                       ['table', 'link', 'image'], 
+                      //  ['table', 'link', 'image', 'video', 'math'], // You must add the 'katex' library at options to use the 'math' plugin.
+                      // ['imageGallery'], // You must add the "imageGalleryUrl".
+                      ['fullScreen'],
+                      // ['showBlocks', 'codeView']
+                      ['preview', 'print'],
+                    ] // Or Array of button list, eg. [['font', 'align'], ['image']]
+              }}
+              onChange={this.handleChangeListingContent.bind(this)}/>
             </div>
           </div>
           <div className="form-group row">
@@ -358,20 +286,28 @@ class NewPost extends Component {
               <label>
                <h5> Project Content <span className="mandatory">*</span></h5>
               </label>
-              <CKEditorold
-                editor={ClassicEditor}
-                 config={custom_config}
-                onInit={(editor) => { }}
-                onChange={(event, editor) => {
-                  this.setState({
-                    projectContent: editor.getData(),
-                  });
-                }}
-                data={this.state.edit_data_projectContent}
-                className={'projectContent'}
-                onBlur={(event, editor) => { }}
-                onFocus={(event, editor) => { }}
-              />{' '}
+              <SunEditor setOptions={{
+                    height: 200,
+                    // katex: katex,
+                    buttonList: [
+                      ['undo', 'redo'],
+                      ['font', 'fontSize', 'formatBlock'],
+                       ['paragraphStyle', 'blockquote'],
+                      ['bold', 'underline', 'italic', 'strike'],
+                      // [ 'subscript', 'superscript']
+                      ['fontColor', 'hiliteColor', 'textStyle'],
+                      ['removeFormat'],
+                      ['outdent', 'indent'],
+                      ['align', 'horizontalRule', 'list', 'lineHeight'],
+                       ['table', 'link', 'image'], 
+                      //  ['table', 'link', 'image', 'video', 'math'], // You must add the 'katex' library at options to use the 'math' plugin.
+                      // ['imageGallery'], // You must add the "imageGalleryUrl".
+                      ['fullScreen'],
+                      // ['showBlocks', 'codeView']
+                      ['preview', 'print'],
+                    ] // Or Array of button list, eg. [['font', 'align'], ['image']]
+              }}
+              onChange={this.handleChangeContentDetail.bind(this)}/>
             </div>
           </div>
           <div className="form-group row">
@@ -464,101 +400,5 @@ function mapStateToProps(state) {
     blog: state.blog.blogs,
   };
 }
-
-class MyUploadAdapter {
-    constructor( loader ) {
-        // The file loader instance to use during the upload.
-        this.loader = loader;
-    }
-
-    // Starts the upload process.
-    upload() {
-        return this.loader.file
-            .then( file => new Promise( ( resolve, reject ) => {
-                this._initRequest();
-                this._initListeners( resolve, reject, file );
-                this._sendRequest( file );
-            } ) );
-    }
-
-    // Aborts the upload process.
-    abort() {
-        if ( this.xhr ) {
-            this.xhr.abort();
-        }
-    }
-
-    // Initializes the XMLHttpRequest object using the URL passed to the constructor.
-    _initRequest() {
-        const xhr = this.xhr = new XMLHttpRequest();
-
-        // Note that your request may look different. It is up to you and your editor
-        // integration to choose the right communication channel. This example uses
-        // a POST request with JSON as a data structure but your configuration
-        // could be different.
-        xhr.open( 'POST', `${APIURL}image_upload`, true );
-        xhr.responseType = 'json';
-    }
-
-    // Initializes XMLHttpRequest listeners.
-    _initListeners( resolve, reject, file ) {
-        const xhr = this.xhr;
-        const loader = this.loader;
-        const genericErrorText = `Couldn't upload file: ${ file.name }.`;
-
-        xhr.addEventListener( 'error', () => reject( genericErrorText ) );
-        xhr.addEventListener( 'abort', () => reject() );
-        xhr.addEventListener( 'load', () => {
-            const response = xhr.response;
-
-            // This example assumes the XHR server's "response" object will come with
-            // an "error" which has its own "message" that can be passed to reject()
-            // in the upload promise.
-            //
-            // Your integration may handle upload errors in a different way so make sure
-            // it is done properly. The reject() function must be called when the upload fails.
-            if ( !response || response.error ) {
-                return reject( response && response.error ? response.error.message : genericErrorText );
-            }
-
-            // If the upload is successful, resolve the upload promise with an object containing
-            // at least the "default" URL, pointing to the image on the server.
-            // This URL will be used to display the image in the content. Learn more in the
-            // UploadAdapter#upload documentation.
-            resolve( {
-                default: response.url
-            } );
-        } );
-
-        // Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
-        // properties which are used e.g. to display the upload progress bar in the editor
-        // user interface.
-        if ( xhr.upload ) {
-            xhr.upload.addEventListener( 'progress', evt => {
-                if ( evt.lengthComputable ) {
-                    loader.uploadTotal = evt.total;
-                    loader.uploaded = evt.loaded;
-                }
-            } );
-        }
-    }
-
-    // Prepares the data and sends the request.
-    _sendRequest( file ) {
-        // Prepare the form data.
-        const data = new FormData();
-
-        data.append( 'upload', file );
-
-        // Important note: This is the right place to implement security mechanisms
-        // like authentication and CSRF protection. For instance, you can use
-        // XMLHttpRequest.setRequestHeader() to set the request headers containing
-        // the CSRF token generated earlier by your application.
-
-        // Send the request.
-        this.xhr.send( data );
-    }
-}
-
 
 export default connect(mapStateToProps)(NewPost);
