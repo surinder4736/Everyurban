@@ -26,7 +26,7 @@ export default function AutoGridNoWrap(props) {
   return (
     <div className={'listcontaner'}>
       <div className="row">
-        <div className="col-lg-3">
+        <div className="col-lg-4">
         <div className={'projectimage'}>
         <img
           src={`${BASE_URL}/images/${unescape(post.image)}`}
@@ -35,7 +35,7 @@ export default function AutoGridNoWrap(props) {
         />
       </div>
         </div>
-        <div className="col-lg-9">
+        <div className="col-lg-8">
         <div className={'Projectlistdetails'}>
         <div className={'makecenter'}>
           <span className={'posttitle'} dangerouslySetInnerHTML={{ __html: unescape(post.posttitle) }}></span>
