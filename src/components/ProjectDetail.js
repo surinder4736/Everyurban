@@ -210,7 +210,7 @@ export class ProjectDetail extends Component {
                                             {commentDisabled==true && user.id== parseInt(comment.userid) &&
                                                 <div className="row" >
                                                     <div className="col-lg-12">
-                                                        <p style={{color:'lightgray'}}><a alt="edit" style={{cursor:'pointer'}} onClick={this.editCommentHandle.bind(this,comment)}>Edit</a> | <a alt="delete" style={{cursor:'pointer'}} onClick={this.deleteCommentHandle.bind(this,comment.id)}>Delete</a></p>
+                                                        <p style={{color:'#686868'}}><a alt="edit" style={{cursor:'pointer'}} onClick={this.editCommentHandle.bind(this,comment)}>Edit</a> | <a alt="delete" style={{cursor:'pointer'}} onClick={this.deleteCommentHandle.bind(this,comment.id)}>Delete</a></p>
                                                     </div>
                                                 </div>
                                             }

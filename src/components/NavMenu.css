@@ -963,6 +963,10 @@ div.RICC > img.image {
     display: flex;
     margin: auto;
 }
+
+.sun-editor-editable{
+	height: auto !important;
+}
   
   .postshowlink {
 	float: left;
