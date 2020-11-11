@@ -257,7 +257,7 @@ class NewPost extends Component {
               <ImageCropper getImage={this.getImage} setImage={this.setImage} old_image={this.state.old_image}/>
             </div>
             <div className="col-sm-8 setMobilemaring">
-              <SunEditor setOptions={{
+              <SunEditor setContents={this.state.edit_data_projectLisingcontent} setOptions={{
                     height: 200,
                     // katex: katex,
                     buttonList: [
@@ -286,7 +286,7 @@ class NewPost extends Component {
               <label>
                <h5> Project Content <span className="mandatory">*</span></h5>
               </label>
-              <SunEditor setOptions={{
+              <SunEditor setContents={this.state.edit_data_projectContent} setOptions={{
                     height: 200,
                     // katex: katex,
                     buttonList: [

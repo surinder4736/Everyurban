@@ -907,6 +907,19 @@ div.RICC > img.image {
 	width: 250px;
 	height: 250px;
   }
+
+  @media (min-width:992px) and (max-width:1150px){
+	.projectimage img {
+		width: 250px;
+		height: 174px;
+	  }
+}
+@media (min-width:1151px) and (max-width:1450px){
+	.projectimage img {
+		width: 250px;
+		height: 200px;
+	  }
+}
   
   .Projectlistdetails {
 	width: 70%;
@@ -940,6 +953,16 @@ div.RICC > img.image {
 	font-family: Arial, Helvetica, sans-serif;
 	/* font-weight: 600; */
   }
+
+  .postdetails figure{
+	  width: 100% !important;
+  }
+  .postdetails img{
+	width: 750px !important;
+    height: 375px !important;
+    display: flex;
+    margin: auto;
+}
   
   .postshowlink {
 	float: left;
