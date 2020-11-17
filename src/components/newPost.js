@@ -185,7 +185,8 @@ class NewPost extends Component {
     // debugger
     console.log(nextProps.setData);
     const data_ = nextProps.setData;
-        this.setState({ edit_data_projectLisingcontent: data_.postlistcontent, projectTitle: data_.posttitle, edit_data_projectContent: data_.postcontent, backendUrl: data_.posturlextension, imagefile: data_.image, backendMeta: data_.postmetaextension, keywords: data_.keywords, publisher: data_.publisher, imagepath: '',old_image: `${BASE_URL}/images/${data_.image}`,updateproject:true,seno:data_.seno});
+    let extenstion_url=data_.posturlextension.split('projects-')[1];
+        this.setState({ edit_data_projectLisingcontent: data_.postlistcontent, projectTitle: data_.posttitle, edit_data_projectContent: data_.postcontent, backendUrl: extenstion_url, imagefile: data_.image, backendMeta: data_.postmetaextension, keywords: data_.keywords, publisher: data_.publisher, imagepath: '',old_image: `${BASE_URL}/images/${data_.image}`,updateproject:true,seno:data_.seno});
 
   }
   onimageChange = (event) => {
