@@ -46,7 +46,9 @@ class NewPost extends Component {
       edit_data_projectLisingcontent: '',
       edit_data_projectContent: '',
       old_image: '',
-      seno:''
+      seno:'',
+      is_submit:false,
+      validation_message:''
 
     };
   }
@@ -67,7 +69,7 @@ class NewPost extends Component {
   };
 
   //SignUp Button click Handle
-  handleSubmit = async (e) => {
+  handleSubmit (e) {
     e.preventDefault();
     let curObj = this;
     const {
@@ -82,6 +84,38 @@ class NewPost extends Component {
         publisher,
       images_
     } = this.state;
+    if(projectTitle==''){
+      this.setState({validation_message:'Please enter project title name'});
+      return;
+    }
+    if(projectLisingcontent==''){
+      this.setState({validation_message:'Please enter project preview content'});
+      return;
+    }
+    if(projectContent==''){
+      this.setState({validation_message:'Please enter project content'});
+      return;
+    }
+    if(backendUrl==''){
+      this.setState({validation_message:'Please enter URL extension'});
+      return;
+    }
+    if(backendMeta==''){
+      this.setState({validation_message:'Please enter meta tags'});
+      return;
+    }
+    if(keywords==''){
+      this.setState({validation_message:'Please enter key words'});
+      return;
+    }
+    if(publisher==''){
+      this.setState({validation_message:'Please enter publisher'});
+      return;
+    }
+    if(images_==''){
+      this.setState({validation_message:'Please upload project preview image'});
+      return;
+    }
 
     let shouldSubmit = (projectTitle !== '' &&
       projectLisingcontent !== '' &&
@@ -97,6 +131,7 @@ class NewPost extends Component {
     if (shouldSubmit) {
       const { dispatch } = this.props;
       console.log(this.state);
+      this.setState({is_submit:true,validation_message:''});
       const data = {
         postlistcontent: projectLisingcontent,
         posttitle: projectTitle,
@@ -134,20 +169,14 @@ class NewPost extends Component {
           var url=axios.post(`${APIURL}blog/save`, formData, config);
       }
       
-        url.then((response) => {
+      url.then((response) => {
                 console.log(response.data);
                 if (response.data.success_msg == "OK") {
+                  curObj.setState({is_submit:false,validation_message:''});
                   window.location.href = `/project`;
-
-      // Swal.fire({
-      //   title: 'A Project Post Sucess.',
-      //   text: 'Your project save sucess.',
-      //   icon: 'success',
-      //   confirmButtonText: 'OK'
-      // });
-      // this.clearForm();
                 }
                 else {
+                  curObj.setState({is_submit:false});
                   Swal.fire({
                     title: 'Error!',
                     // text: message.errorMessage,
@@ -155,13 +184,19 @@ class NewPost extends Component {
                     icon: 'error',
                     confirmButtonText: 'Cancel'
                   });
-    }}).catch((error) => {
-						console.log(error);
+                  }
+        }).catch((error) => {
+            // console.log(error);
+            Swal.fire({
+              title: 'Error!',
+              // text: message.errorMessage,
+              text: error.message,
+              icon: 'error',
+              confirmButtonText: 'Cancel'
+            });
 						return error;
-					  });
-       
-     
-        }
+				});
+    }
   }
 
    toSeoUrl(url) {
@@ -374,18 +409,18 @@ class NewPost extends Component {
               />
             </div>
           </div>
-
-          <div className="col-md-12">
-            <button
-              type="submit"
-              className="btn btn-primary custom-btn"
-              // style={{float: 'right'}}
-              onClick={this.handleSubmit} id="btnContactUs"
-            >
-              Upload Post <i className="fa fa-paper-plane"></i>
-            </button>
+          <div className="row">
+            <div className="col-md-4">
+              <button
+                className="btn btn-primary custom-btn"
+                onClick={this.handleSubmit.bind(this)} id="btnContactUs" style={{pointerEvents: this.state.is_submit==true?'none':'default', cursor:this.state.is_submit==true?'not-allowed':'pointer'}}
+              >
+                <i class="fa fa-spinner fa-spin" style={{display: this.state.is_submit==true?'':'none'}}></i> Upload Post <i className="fa fa-paper-plane"></i>
+              </button>
+            </div>
+            <div className="col-md-8 text-danger">{this.state.validation_message}</div>
           </div>
-          <div className="col-md-12">&nbsp;</div>
+          
         </div>
       </div>
     );
