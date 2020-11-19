@@ -82,7 +82,8 @@ class NewPost extends Component {
       backendMeta,
       keywords,
         publisher,
-      images_
+      images_,
+      old_image
     } = this.state;
     if(projectTitle==''){
       this.setState({validation_message:'Please enter project title name'});
@@ -112,10 +113,16 @@ class NewPost extends Component {
       this.setState({validation_message:'Please enter publisher'});
       return;
     }
-    if(images_==''){
+    if(this.state.updateproject === false && images_==''){
       this.setState({validation_message:'Please upload project preview image'});
       return;
     }
+    if(this.state.updateproject === true && old_image==''){
+      this.setState({validation_message:'Please upload project preview image'});
+      return;
+    }
+
+    // old_image
 
     let shouldSubmit = (projectTitle !== '' &&
       projectLisingcontent !== '' &&
