@@ -24,7 +24,7 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import './bodyStyle.css';
 import { APIURL, BASE_URL } from '../Config/config';
 const axios = require("axios");
-
+let currentobj=null;
 //const Swal = require('sweetalert2');
 
 const { addNewBlog } = blogAction;
@@ -57,10 +57,8 @@ class NewPost extends Component {
   componentDidMount() {
     let curobj = this;
     console.log(this.props);
-    //  const { profileUrl } = this.props.match.params;
-
-
-
+    currentobj=this;
+    //  const { profileUrl } = this.props.match.params
   }
   onValueChange = (event) => {
     this.setState({
@@ -194,6 +192,7 @@ class NewPost extends Component {
                   }
         }).catch((error) => {
             // console.log(error);
+            curObj.setState({is_submit:false});
             Swal.fire({
               title: 'Error!',
               // text: message.errorMessage,
@@ -269,6 +268,60 @@ class NewPost extends Component {
       projectLisingcontent: content
     });
   }
+
+  handleImageUploadBefore(files, info, uploadHandler){
+    // uploadHandler is a function
+    try {
+      currentobj.ResizeImage(files, uploadHandler)
+    } catch (err) {
+        uploadHandler(err.toString())
+    }
+    console.log(files, info)
+}
+
+// image resize
+ ResizeImage (files, uploadHandler) {
+  const uploadFile = files[0];
+  const img = document.createElement('img');
+  const canvas = document.createElement('canvas');
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+      img.src = e.target.result
+      img.onload = function () {
+          let ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+
+          const MAX_WIDTH = 500;
+          const MAX_HEIGHT = 300;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+              if (width > MAX_WIDTH) {
+                  height *= MAX_WIDTH / width;
+                  width = MAX_WIDTH;
+              }
+          } else {
+              if (height > MAX_HEIGHT) {
+                  width *= MAX_HEIGHT / height;
+                  height = MAX_HEIGHT;
+              }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(function (blob) {
+              uploadHandler([new File([blob], uploadFile.name)])
+          }, uploadFile.type, 1);
+      }
+  }
+  reader.readAsDataURL(uploadFile);
+}
 
 
   render() {
@@ -350,6 +403,7 @@ class NewPost extends Component {
                       ['preview', 'print'],
                     ] // Or Array of button list, eg. [['font', 'align'], ['image']]
               }}
+              onImageUploadBefore={this.handleImageUploadBefore}
               onChange={this.handleChangeContentDetail.bind(this)}/>
             </div>
           </div>
