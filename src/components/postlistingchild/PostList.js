@@ -25,26 +25,34 @@ export default function AutoGridNoWrap(props) {
   const post = props.props
   return (
     <div className={'listcontaner'}>
-      <div className={'projectimage'}>
+      <div className="row">
+        <div className="col-lg-4">
+        <div className={'projectimage'}>
         <img
           src={`${BASE_URL}/images/${unescape(post.image)}`}
           className={'projectimage'}
           alt="Project"
         />
       </div>
-      <div className={'Projectlistdetails'}>
+        </div>
+        <div className="col-lg-8">
+        <div className={'Projectlistdetails'}>
         <div className={'makecenter'}>
           <span className={'posttitle'} dangerouslySetInnerHTML={{ __html: unescape(post.posttitle) }}></span>
           <br/>
           <span className={'postdetails useful-link'} dangerouslySetInnerHTML={{ __html: unescape(post.postlistcontent), }}>
           </span>  
           <span className={'postshowlink useful-link'}>
-            <a style={{cursor: 'pointer',fontSize :'16px'}} href={`/${post.posturlextension}/${toSeoUrl(post.posttitle)}`}
+            <a style={{cursor: 'pointer',fontSize :'14px'}} href={`/${post.posturlextension}/${toSeoUrl(post.posttitle)}`}
               className={'gradient learnmore useful-link'}
             >learn more <img src={rightarrow} alt="" width="25px" /></a>
           </span>
         </div>
       </div>
+        </div>
+      </div>
+      
+      
     </div>
   )
 }

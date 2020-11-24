@@ -5,9 +5,11 @@ import blogAction from '../actions/blog';
 import validator from 'validator';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CKEditorold from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+// import CKEditorold from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import SunEditor,{buttonList} from 'suneditor-react';
 
 import ImageCropper from './imagecrop';
 import ReactDOM from 'react-dom';
@@ -15,11 +17,14 @@ import CKEditor from 'ckeditor4-react';
 import './css/postDetails.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Swal from 'sweetalert2';
+// import katex from 'katex'
+// import 'katex/dist/katex.min.css'
 import 'sweetalert2/src/sweetalert2.scss';
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import './bodyStyle.css';
 import { APIURL, BASE_URL } from '../Config/config';
 const axios = require("axios");
-
+let currentobj=null;
 //const Swal = require('sweetalert2');
 
 const { addNewBlog } = blogAction;
@@ -41,7 +46,9 @@ class NewPost extends Component {
       edit_data_projectLisingcontent: '',
       edit_data_projectContent: '',
       old_image: '',
-      seno:''
+      seno:'',
+      is_submit:false,
+      validation_message:''
 
     };
   }
@@ -50,10 +57,8 @@ class NewPost extends Component {
   componentDidMount() {
     let curobj = this;
     console.log(this.props);
-    //  const { profileUrl } = this.props.match.params;
-
-
-
+    currentobj=this;
+    //  const { profileUrl } = this.props.match.params
   }
   onValueChange = (event) => {
     this.setState({
@@ -62,7 +67,7 @@ class NewPost extends Component {
   };
 
   //SignUp Button click Handle
-  handleSubmit = async (e) => {
+  handleSubmit (e) {
     e.preventDefault();
     let curObj = this;
     const {
@@ -75,8 +80,47 @@ class NewPost extends Component {
       backendMeta,
       keywords,
         publisher,
-      images_
+      images_,
+      old_image
     } = this.state;
+    if(projectTitle==''){
+      this.setState({validation_message:'Please enter project title name'});
+      return;
+    }
+    if(projectLisingcontent==''){
+      this.setState({validation_message:'Please enter project preview content'});
+      return;
+    }
+    if(projectContent==''){
+      this.setState({validation_message:'Please enter project content'});
+      return;
+    }
+    if(backendUrl==''){
+      this.setState({validation_message:'Please enter URL extension'});
+      return;
+    }
+    if(backendMeta==''){
+      this.setState({validation_message:'Please enter meta tags'});
+      return;
+    }
+    if(keywords==''){
+      this.setState({validation_message:'Please enter key words'});
+      return;
+    }
+    if(publisher==''){
+      this.setState({validation_message:'Please enter publisher'});
+      return;
+    }
+    if(this.state.updateproject === false && images_==''){
+      this.setState({validation_message:'Please upload project preview image'});
+      return;
+    }
+    if(this.state.updateproject === true && old_image==''){
+      this.setState({validation_message:'Please upload project preview image'});
+      return;
+    }
+
+    // old_image
 
     let shouldSubmit = (projectTitle !== '' &&
       projectLisingcontent !== '' &&
@@ -92,6 +136,7 @@ class NewPost extends Component {
     if (shouldSubmit) {
       const { dispatch } = this.props;
       console.log(this.state);
+      this.setState({is_submit:true,validation_message:''});
       const data = {
         postlistcontent: projectLisingcontent,
         posttitle: projectTitle,
@@ -129,20 +174,14 @@ class NewPost extends Component {
           var url=axios.post(`${APIURL}blog/save`, formData, config);
       }
       
-        url.then((response) => {
+      url.then((response) => {
                 console.log(response.data);
                 if (response.data.success_msg == "OK") {
+                  curObj.setState({is_submit:false,validation_message:''});
                   window.location.href = `/project`;
-
-      // Swal.fire({
-      //   title: 'A Project Post Sucess.',
-      //   text: 'Your project save sucess.',
-      //   icon: 'success',
-      //   confirmButtonText: 'OK'
-      // });
-      // this.clearForm();
                 }
                 else {
+                  curObj.setState({is_submit:false});
                   Swal.fire({
                     title: 'Error!',
                     // text: message.errorMessage,
@@ -150,13 +189,20 @@ class NewPost extends Component {
                     icon: 'error',
                     confirmButtonText: 'Cancel'
                   });
-    }}).catch((error) => {
-						console.log(error);
+                  }
+        }).catch((error) => {
+            // console.log(error);
+            curObj.setState({is_submit:false});
+            Swal.fire({
+              title: 'Error!',
+              // text: message.errorMessage,
+              text: error.message,
+              icon: 'error',
+              confirmButtonText: 'Cancel'
+            });
 						return error;
-					  });
-       
-     
-        }
+				});
+    }
   }
 
    toSeoUrl(url) {
@@ -180,7 +226,8 @@ class NewPost extends Component {
     // debugger
     console.log(nextProps.setData);
     const data_ = nextProps.setData;
-        this.setState({ edit_data_projectLisingcontent: data_.postlistcontent, projectTitle: data_.posttitle, edit_data_projectContent: data_.postcontent, backendUrl: data_.posturlextension, imagefile: data_.image, backendMeta: data_.postmetaextension, keywords: data_.keywords, publisher: data_.publisher, imagepath: '',old_image: `${BASE_URL}/images/${data_.image}`,updateproject:true,seno:data_.seno});
+    let extenstion_url=data_.posturlextension.split('projects-')[1];
+        this.setState({ edit_data_projectLisingcontent: data_.postlistcontent, projectTitle: data_.posttitle, edit_data_projectContent: data_.postcontent, backendUrl: extenstion_url, imagefile: data_.image, backendMeta: data_.postmetaextension, keywords: data_.keywords, publisher: data_.publisher, imagepath: '',old_image: `${BASE_URL}/images/${data_.image}`,updateproject:true,seno:data_.seno});
 
   }
   onimageChange = (event) => {
@@ -209,109 +256,77 @@ class NewPost extends Component {
       this.signUpClickHandle(e);
     }
   }
-  MyCustomUploadAdapterPlugin(editor) {
-    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-    console.log(new MyUploadAdapter(loader))
-    return new MyUploadAdapter(loader)
-    
+  
+  handleChangeContentDetail(content){
+    this.setState({
+      projectContent: content
+    });
   }
-  } 
+
+  handleChangeListingContent(content){
+    this.setState({
+      projectLisingcontent: content
+    });
+  }
+
+  handleImageUploadBefore(files, info, uploadHandler){
+    // uploadHandler is a function
+    try {
+      currentobj.ResizeImage(files, uploadHandler)
+    } catch (err) {
+        uploadHandler(err.toString())
+    }
+    console.log(files, info)
+}
+
+// image resize
+ ResizeImage (files, uploadHandler) {
+  const uploadFile = files[0];
+  const img = document.createElement('img');
+  const canvas = document.createElement('canvas');
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+      img.src = e.target.result
+      img.onload = function () {
+          let ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+
+          const MAX_WIDTH = 500;
+          const MAX_HEIGHT = 300;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+              if (width > MAX_WIDTH) {
+                  height *= MAX_WIDTH / width;
+                  width = MAX_WIDTH;
+              }
+          } else {
+              if (height > MAX_HEIGHT) {
+                  width *= MAX_HEIGHT / height;
+                  height = MAX_HEIGHT;
+              }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(function (blob) {
+              uploadHandler([new File([blob], uploadFile.name)])
+          }, uploadFile.type, 1);
+      }
+  }
+  reader.readAsDataURL(uploadFile);
+}
 
 
   render() {
-        const custom_config = {
-          extraPlugins: [this.MyCustomUploadAdapterPlugin],
-          // plugins: [ Font ],
-           fontFamily: {
-            options: [
-                'default',
-                'Ubuntu, Arial, sans-serif',
-                'Ubuntu Mono, Courier New, Courier, monospace'
-            ]
-        },
-      // toolbar: {
-      //   items: [
-      //     'heading',
-      //     '|',
-      //     'bold',
-      //     'italic',
-      //     'Alignment',
-      //     'List',
-      //     'ListUI',
-      //     'link',
-      //     'bulletedList',
-      //     'numberedList',
-      //     '|',
-      //     'blockQuote',
-      //     'insertTable',
-      //     '|',
-      //     'imageUpload',
-      //     'undo',
-      //     'redo',
-      //     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-      //   ]
-      //     }
-          toolbar: {
-        items: [
-          'heading',
-          '|',
-          'fontSize',
-          'fontFamily',
-          '|',
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          'highlight',
-          '|',
-          'alignment',
-          '|',
-          'numberedList',
-          'bulletedList',
-          '|',
-          'indent',
-          'outdent',
-          '|',
-          'todoList',
-          'link',
-          'blockQuote',
-          'imageUpload',
-          'insertTable',
-          '|',
-          'undo',
-           'redo',
-          'Paragraph'
-        ]
-      },
-      language: 'en',
-      image: {
-        toolbar: [
-          'imageTextAlternative',
-          'imageStyle:full',
-          'imageStyle:side'
-        ]
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn',
-          'tableRow',
-          'mergeTableCells'
-        ]
-      },
-      licenseKey: '',
-      wordCount: {
-        onUpdate: stats => {
-          this.charactersLength = stats.characters
-        }
-      }
-          ,
-      table: {
-        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-      }
-    }
     return (
       <div className="container">
-        {/* <form id="contact-form" method="POST" encType="multipart/form-data"> */}
         <hr />
         <div className="card-body">
           <div className="form-group row">
@@ -338,19 +353,28 @@ class NewPost extends Component {
               <ImageCropper getImage={this.getImage} setImage={this.setImage} old_image={this.state.old_image}/>
             </div>
             <div className="col-sm-8 setMobilemaring">
-             
-              <CKEditorold
-                editor={ClassicEditor}
-                onInit={(editor) => { ClassicEditor }}
-                onChange={(event, editor) => {
-                  this.setState({
-                    projectLisingcontent: editor.getData(),
-                  });
-                }}
-                data={this.state.edit_data_projectLisingcontent}
-                onBlur={(event, editor) => { }}
-                onFocus={(event, editor) => { }}
-              />
+              <SunEditor setContents={this.state.edit_data_projectLisingcontent} setOptions={{
+                    height: 200,
+                    // katex: katex,
+                    buttonList: [
+                      ['undo', 'redo'],
+                      ['font', 'fontSize', 'formatBlock'],
+                       ['paragraphStyle', 'blockquote'],
+                      ['bold', 'underline', 'italic', 'strike'],
+                      // [ 'subscript', 'superscript']
+                      ['fontColor', 'hiliteColor', 'textStyle'],
+                      ['removeFormat'],
+                      ['outdent', 'indent'],
+                      ['align', 'horizontalRule', 'list', 'lineHeight'],
+                       ['table', 'link', 'image'], 
+                      //  ['table', 'link', 'image', 'video', 'math'], // You must add the 'katex' library at options to use the 'math' plugin.
+                      // ['imageGallery'], // You must add the "imageGalleryUrl".
+                      ['fullScreen'],
+                      // ['showBlocks', 'codeView']
+                      ['preview', 'print'],
+                    ] // Or Array of button list, eg. [['font', 'align'], ['image']]
+              }}
+              onChange={this.handleChangeListingContent.bind(this)}/>
             </div>
           </div>
           <div className="form-group row">
@@ -358,20 +382,29 @@ class NewPost extends Component {
               <label>
                <h5> Project Content <span className="mandatory">*</span></h5>
               </label>
-              <CKEditorold
-                editor={ClassicEditor}
-                 config={custom_config}
-                onInit={(editor) => { }}
-                onChange={(event, editor) => {
-                  this.setState({
-                    projectContent: editor.getData(),
-                  });
-                }}
-                data={this.state.edit_data_projectContent}
-                className={'projectContent'}
-                onBlur={(event, editor) => { }}
-                onFocus={(event, editor) => { }}
-              />{' '}
+              <SunEditor setContents={this.state.edit_data_projectContent} setOptions={{
+                    height: 200,
+                    // katex: katex,
+                    buttonList: [
+                      ['undo', 'redo'],
+                      ['font', 'fontSize', 'formatBlock'],
+                       ['paragraphStyle', 'blockquote'],
+                      ['bold', 'underline', 'italic', 'strike'],
+                      // [ 'subscript', 'superscript']
+                      ['fontColor', 'hiliteColor', 'textStyle'],
+                      ['removeFormat'],
+                      ['outdent', 'indent'],
+                      ['align', 'horizontalRule', 'list', 'lineHeight'],
+                       ['table', 'link', 'image'], 
+                      //  ['table', 'link', 'image', 'video', 'math'], // You must add the 'katex' library at options to use the 'math' plugin.
+                      // ['imageGallery'], // You must add the "imageGalleryUrl".
+                      ['fullScreen'],
+                      // ['showBlocks', 'codeView']
+                      ['preview', 'print'],
+                    ] // Or Array of button list, eg. [['font', 'align'], ['image']]
+              }}
+              onImageUploadBefore={this.handleImageUploadBefore}
+              onChange={this.handleChangeContentDetail.bind(this)}/>
             </div>
           </div>
           <div className="form-group row">
@@ -437,18 +470,18 @@ class NewPost extends Component {
               />
             </div>
           </div>
-
-          <div className="col-md-12">
-            <button
-              type="submit"
-              className="btn btn-primary custom-btn"
-              // style={{float: 'right'}}
-              onClick={this.handleSubmit} id="btnContactUs"
-            >
-              Upload Post <i className="fa fa-paper-plane"></i>
-            </button>
+          <div className="row">
+            <div className="col-md-4">
+              <button
+                className="btn btn-primary custom-btn"
+                onClick={this.handleSubmit.bind(this)} id="btnContactUs" style={{pointerEvents: this.state.is_submit==true?'none':'default', cursor:this.state.is_submit==true?'not-allowed':'pointer'}}
+              >
+                <i class="fa fa-spinner fa-spin" style={{display: this.state.is_submit==true?'':'none'}}></i> Upload Post <i className="fa fa-paper-plane"></i>
+              </button>
+            </div>
+            <div className="col-md-8 text-danger">{this.state.validation_message}</div>
           </div>
-          <div className="col-md-12">&nbsp;</div>
+          
         </div>
       </div>
     );
@@ -464,101 +497,5 @@ function mapStateToProps(state) {
     blog: state.blog.blogs,
   };
 }
-
-class MyUploadAdapter {
-    constructor( loader ) {
-        // The file loader instance to use during the upload.
-        this.loader = loader;
-    }
-
-    // Starts the upload process.
-    upload() {
-        return this.loader.file
-            .then( file => new Promise( ( resolve, reject ) => {
-                this._initRequest();
-                this._initListeners( resolve, reject, file );
-                this._sendRequest( file );
-            } ) );
-    }
-
-    // Aborts the upload process.
-    abort() {
-        if ( this.xhr ) {
-            this.xhr.abort();
-        }
-    }
-
-    // Initializes the XMLHttpRequest object using the URL passed to the constructor.
-    _initRequest() {
-        const xhr = this.xhr = new XMLHttpRequest();
-
-        // Note that your request may look different. It is up to you and your editor
-        // integration to choose the right communication channel. This example uses
-        // a POST request with JSON as a data structure but your configuration
-        // could be different.
-        xhr.open( 'POST', `${APIURL}image_upload`, true );
-        xhr.responseType = 'json';
-    }
-
-    // Initializes XMLHttpRequest listeners.
-    _initListeners( resolve, reject, file ) {
-        const xhr = this.xhr;
-        const loader = this.loader;
-        const genericErrorText = `Couldn't upload file: ${ file.name }.`;
-
-        xhr.addEventListener( 'error', () => reject( genericErrorText ) );
-        xhr.addEventListener( 'abort', () => reject() );
-        xhr.addEventListener( 'load', () => {
-            const response = xhr.response;
-
-            // This example assumes the XHR server's "response" object will come with
-            // an "error" which has its own "message" that can be passed to reject()
-            // in the upload promise.
-            //
-            // Your integration may handle upload errors in a different way so make sure
-            // it is done properly. The reject() function must be called when the upload fails.
-            if ( !response || response.error ) {
-                return reject( response && response.error ? response.error.message : genericErrorText );
-            }
-
-            // If the upload is successful, resolve the upload promise with an object containing
-            // at least the "default" URL, pointing to the image on the server.
-            // This URL will be used to display the image in the content. Learn more in the
-            // UploadAdapter#upload documentation.
-            resolve( {
-                default: response.url
-            } );
-        } );
-
-        // Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
-        // properties which are used e.g. to display the upload progress bar in the editor
-        // user interface.
-        if ( xhr.upload ) {
-            xhr.upload.addEventListener( 'progress', evt => {
-                if ( evt.lengthComputable ) {
-                    loader.uploadTotal = evt.total;
-                    loader.uploaded = evt.loaded;
-                }
-            } );
-        }
-    }
-
-    // Prepares the data and sends the request.
-    _sendRequest( file ) {
-        // Prepare the form data.
-        const data = new FormData();
-
-        data.append( 'upload', file );
-
-        // Important note: This is the right place to implement security mechanisms
-        // like authentication and CSRF protection. For instance, you can use
-        // XMLHttpRequest.setRequestHeader() to set the request headers containing
-        // the CSRF token generated earlier by your application.
-
-        // Send the request.
-        this.xhr.send( data );
-    }
-}
-
 
 export default connect(mapStateToProps)(NewPost);
