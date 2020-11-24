@@ -59,7 +59,7 @@ header .button a:hover { color:#02aae3; }
 #menu .nav-item .nav-link { display:block; font-size:14px; color:#111; line-height:24px; height:30px; box-shadow:0 0 0 #2e76ee; padding:3px 10px; margin:3px 0; }
 #menu .nav-item .nav-link.active { box-shadow:-50px 0 0 #2e76ee; cursor:default; }
 #menu .nav-item .nav-link:not(.active):hover { color:#2e76ee; }
-#menu .nav-item .nav-link.gray { border-top:1px solid #ddd; border-bottom:1px solid #ddd; color:#aaa; }
+#menu .nav-item .nav-link.gray { border-top:1px solid #ddd; border-bottom:1px solid #ddd; color:#aaa; margin:10px 0px !important }
 #menu .nav-item .nav-link.gray:hover{color:#aaa;}
 #menu .nav-item .nav-link i { display:inline-block; width:30px; text-align:center; font-size:16px; padding-right:5px; }
 #menu .nav-item .nav-link i img { width:17px; height:17px; }
@@ -893,9 +893,7 @@ div.RICC > img.image {
 	float: left;
 	position: relative;
 	min-height: 1px;
-	padding-right: 15px;
-	padding-left: 15px;
-	padding-bottom: 25px;
+	padding:20px;
   }
   
   .projectimage {
@@ -922,25 +920,22 @@ div.RICC > img.image {
 }
   
   .Projectlistdetails {
-	width: 70%;
+	width: 100%;
 	color: black !important;
 	float: left;
   }
   
   .makecenter {
-  
-	/* padding: 7% 5%;
-	margin-top: 6%; */
 	bottom: 15%;
 	min-height: 10em;
 	margin-top: auto;
 	margin-bottom: auto;
 	padding: 2% 5%;
-	/* position: absolute; */
+	position: absolute;
   }
   
   .posttitle {
-	font-size: 22px;
+	font-size: 16px;
 	font-weight: 600;
 	width: 100%;
 	font-family: Arial !important;
@@ -953,6 +948,8 @@ div.RICC > img.image {
 	font-family: Arial, Helvetica, sans-serif;
 	/* font-weight: 600; */
   }
+
+  .postdetails p{margin-top: 1rem !important;}
 
   .postdetails figure{
 	  width: 100% !important;
@@ -1045,8 +1042,8 @@ div.RICC > img.image {
     font-size: 16px;
     font-weight: 400;
     padding: 0 15px;
-    background: #02aae3;
-    background:-moz-linear-gradient(left, #1571b2 0%, #02aae3 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#02aae3 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#02aae3 56%,#1571b2 100%);
+    background: #0056b3;
+    /* background:-moz-linear-gradient(left, #1571b2 0%, #02aae3 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#02aae3 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#02aae3 56%,#1571b2 100%); */
 }
 .btn.gradientcomment:hover { background:#1571b2; background:-moz-linear-gradient(left, #1571b2 0%, #1571b2 56%, #1571b2 100%); background:-webkit-linear-gradient(left, #1571b2 0%,#1571b2 56%,#1571b2 100%); background:linear-gradient(to right, #1571b2 0%,#1571b2 56%,#1571b2 100%); }
 
@@ -1055,6 +1052,7 @@ div.RICC > img.image {
     border-radius: 50%;
 	width: 75px;
 }
-.commentlist{margin-top: 20px;}
+.commentlist{margin-top: 15px;}
 .commentuser{margin-bottom: 0px;}
 .commenttime{margin-bottom: 10px;}
+.bs-component hr{margin-top: 15px !important; margin-bottom: 15px !important;}

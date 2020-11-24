@@ -43,7 +43,7 @@ export default function AutoGridNoWrap(props) {
           <span className={'postdetails useful-link'} dangerouslySetInnerHTML={{ __html: unescape(post.postlistcontent), }}>
           </span>  
           <span className={'postshowlink useful-link'}>
-            <a style={{cursor: 'pointer',fontSize :'16px'}} href={`/${post.posturlextension}/${toSeoUrl(post.posttitle)}`}
+            <a style={{cursor: 'pointer',fontSize :'14px'}} href={`/${post.posturlextension}/${toSeoUrl(post.posttitle)}`}
               className={'gradient learnmore useful-link'}
             >learn more <img src={rightarrow} alt="" width="25px" /></a>
           </span>

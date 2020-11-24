@@ -33,7 +33,7 @@ class MenuComponent extends Component {
 				</li>
 				<li class="nav-item">
                 <a class="nav-link" href="/projects">
-                  <i class="fas fa-lightbulb"></i> Projects
+				<i class="fas fa-pencil-ruler"></i> Projects
                 </a>
               </li>
              

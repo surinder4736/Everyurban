@@ -199,12 +199,12 @@ export class ProjectDetail extends Component {
                                             <div className="row">
                                                 <div className="col-lg-12">
                                                     <p className="commentuser" style={{fontSize:'16px', fontWeight:'500'}}>{comment.firstName}</p>
-                                                    <p className="commenttime">{comment.commentdate +' '+comment.commenttime}</p>
+                                                    {/* <p className="commenttime">{comment.commentdate +' '+comment.commenttime}</p> */}
                                                 </div>
                                             </div>
                                             <div className="row" >
                                                 <div className="col-lg-12">
-                                                    <p style={{fontSize:'12px'}}>{comment.postcomment}</p>
+                                                    <p style={{fontSize:'14px'}}>{comment.postcomment}</p>
                                                 </div>
                                             </div>
                                             {commentDisabled==true && user.id== parseInt(comment.userid) &&
@@ -224,7 +224,14 @@ export class ProjectDetail extends Component {
                         <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
-                                   <span style={{fontSize:'16px',fontWeight:'400'}}>Leave a comment</span> 
+                                   <hr/> 
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row list-body">
+                            <div className="col-lg-12 ">
+                                <div className="bs-component" style={{marginBottom:'15px'}}>
+                                   <span style={{fontSize:'16px',fontWeight:'400'}}>Leave a Comments</span> 
                                 </div>
                             </div>
                         </div>
@@ -233,14 +240,14 @@ export class ProjectDetail extends Component {
                                 <section id="comment" class="commentsection">
                                     <div className="row">
                                         <div className="col-lg-12" style={{fontSize:'12px'}}>
-                                            <textarea id="w3review" name="w3review" rows="4" style={{width:'100%',opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
+                                            <textarea id="w3review" placeholder="Send Text" name="w3review" rows="4" style={{width:'100%',opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
                                                     
                                             </textarea>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-lg-12 ">
-                                            <div style={{float:'right'}}>
+                                            <div style={{textAlign:'center'}}>
                                                 <a className="btn gradientcomment" style={{ cursor:(commentDisabled==false)?'default':'pointer', opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':'' }}  onClick={ this.clickCommentHandle.bind(this)}>Send</a>
                                             </div>
                                         </div>
