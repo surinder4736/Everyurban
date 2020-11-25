@@ -48,7 +48,8 @@ class NewPost extends Component {
       old_image: '',
       seno:'',
       is_submit:false,
-      validation_message:''
+      validation_message:'',
+      backgroundurlexist:false
 
     };
   }
@@ -65,6 +66,20 @@ class NewPost extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
+  checkDuplicateUrl=(event)=>{
+    axios.get(`${APIURL}blog/geturlextension/projects-`+event.target.value)
+                .then(response => {
+                    var data=response.data;
+                    if(response.data!=null && response.data.blog!=undefined){
+                      currentobj.setState({backgroundurlexist:true});
+                    }else{
+                      currentobj.setState({backgroundurlexist:false});
+                    }
+    }).catch((error) => {
+      console.log(error); 
+    });  
+  }
 
   //SignUp Button click Handle
   handleSubmit (e) {
@@ -119,7 +134,9 @@ class NewPost extends Component {
       this.setState({validation_message:'Please upload project preview image'});
       return;
     }
-
+    if(this.state.backgroundurlexist==true){
+      return; 
+    }
     // old_image
 
     let shouldSubmit = (projectTitle !== '' &&
@@ -177,7 +194,7 @@ class NewPost extends Component {
       url.then((response) => {
                 console.log(response.data);
                 if (response.data.success_msg == "OK") {
-                  curObj.setState({is_submit:false,validation_message:''});
+                  curObj.setState({is_submit:false,validation_message:'',backgroundurlexist:false});
                   window.location.href = `/project`;
                 }
                 else {
@@ -414,12 +431,13 @@ class NewPost extends Component {
               </label>
               <br />
               <label>
-                Url Extension : <span className="mandatory">*</span>
+            Url Extension : <span className="mandatory">* {this.state.backgroundurlexist==true?'URL already exist ':''}</span>
               </label>
               <input type="text"
                 className="form-control"
                 placeholder="Enter Url Extension"
                 name="backendUrl"
+                onBlur={this.checkDuplicateUrl}
                 onChange={this.onValueChange}
                 value={this.state.backendUrl}
               />

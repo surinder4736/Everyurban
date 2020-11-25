@@ -175,10 +175,10 @@ export class ProjectDetail extends Component {
                             </div>
                         </div>
                         {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined && 
-                            <div className="row list-body">
+                            <div className="row list-body commentcount">
                                 <div className="col-lg-12 ">
                                     <div className="bs-component">
-                                        <span style={{fontSize:'16px',fontWeight:'400'}}>({comment_list.comments.length}) comment(s)</span> 
+                                        <span style={{fontSize:'16px',fontWeight:'400'}}>({comment_list.comments.length}) Comments</span> 
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@ export class ProjectDetail extends Component {
                                             </div>
                                             <div className="row" >
                                                 <div className="col-lg-12">
-                                                    <p style={{fontSize:'14px'}}>{comment.postcomment}</p>
+                                                    <p style={{fontSize:'14px',margin:'0px'}}>{comment.postcomment}</p>
                                                 </div>
                                             </div>
                                             {commentDisabled==true && user.id== parseInt(comment.userid) &&
@@ -228,10 +228,10 @@ export class ProjectDetail extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row list-body">
+                        <div className="row leavecommnt">
                             <div className="col-lg-12 ">
-                                <div className="bs-component" style={{marginBottom:'15px'}}>
-                                   <span style={{fontSize:'16px',fontWeight:'400'}}>Leave a Comments</span> 
+                                <div className="bs-component">
+                                   <span style={{fontSize:'16px',fontWeight:'400'}}>Leave a Comment</span> 
                                 </div>
                             </div>
                         </div>
