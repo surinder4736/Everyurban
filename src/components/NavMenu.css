@@ -59,7 +59,7 @@ header .button a:hover { color:#02aae3; }
 #menu .nav-item .nav-link { display:block; font-size:14px; color:#111; line-height:24px; height:30px; box-shadow:0 0 0 #2e76ee; padding:3px 10px; margin:3px 0; }
 #menu .nav-item .nav-link.active { box-shadow:-50px 0 0 #2e76ee; cursor:default; }
 #menu .nav-item .nav-link:not(.active):hover { color:#2e76ee; }
-#menu .nav-item .nav-link.gray { border-top:1px solid #ddd; border-bottom:1px solid #ddd; color:#aaa; margin:10px 0px !important }
+#menu .nav-item .nav-link.gray { border-top:1px solid #ddd; line-height:18px !important; border-bottom:1px solid #ddd; color:#aaa; margin:10px 0px !important }
 #menu .nav-item .nav-link.gray:hover{color:#aaa;}
 #menu .nav-item .nav-link i { display:inline-block; width:30px; text-align:center; font-size:16px; padding-right:5px; }
 #menu .nav-item .nav-link i img { width:17px; height:17px; }
@@ -949,7 +949,7 @@ div.RICC > img.image {
 	/* font-weight: 600; */
   }
 
-  .postdetails p{margin-top: 1rem !important;}
+  .postdetails p{margin-top: 1rem !important; margin-bottom: 0px !important;}
 
   .postdetails figure{
 	  width: 100% !important;
@@ -1037,8 +1037,8 @@ div.RICC > img.image {
 
 .btn.gradientcomment {
     height: 30px;
-    line-height: 30px;
-    color: #fff;
+    line-height: 26px;
+    color: #fff !important;
     font-size: 16px;
     font-weight: 400;
     padding: 0 15px;
@@ -1056,3 +1056,13 @@ div.RICC > img.image {
 .commentuser{margin-bottom: 0px;}
 .commenttime{margin-bottom: 10px;}
 .bs-component hr{margin-top: 15px !important; margin-bottom: 15px !important;}
+.leavecommnt{font-size: 16px;
+    width: 56em;
+    margin-left: auto !important;
+    margin-right: auto !important;
+	margin-bottom: 15px;
+}
+.commentcount{
+	font-size: 16px !important;
+	width: 57em !important;
+}
