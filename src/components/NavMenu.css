@@ -927,7 +927,7 @@ div.RICC > img.image {
   
   .makecenter {
 	bottom: 15%;
-	min-height: 10em;
+	min-height: auto;
 	margin-top: auto;
 	margin-bottom: auto;
 	padding: 2% 5%;
@@ -993,7 +993,7 @@ div.RICC > img.image {
   
   @media screen and (max-width: 1480px) and (min-width: 700px) {
 	.makecenter {
-	  position: unset;
+	  position: absolute;
 	  min-height: auto;
 	  padding: 0;
 	}
@@ -1016,7 +1016,7 @@ div.RICC > img.image {
 	}
   
 	.makecenter {
-	  position: unset;
+	  position: absolute;
 	  min-height: auto;
 	}
   
