@@ -919,19 +919,24 @@ div.RICC > img.image {
 	  }
 }
   
-  .Projectlistdetails {
+  /* .Projectlistdetails {
 	width: 100%;
 	color: black !important;
 	float: left;
-  }
+  } */
+
+  .Projectlistdetails {
+    width: 100%;
+    color: black !important;
+    float: left;
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
   
   .makecenter {
-	bottom: 15%;
-	min-height: auto;
-	margin-top: auto;
-	margin-bottom: auto;
 	padding: 2% 5%;
-	position: absolute;
   }
   
   .posttitle {
@@ -993,8 +998,6 @@ div.RICC > img.image {
   
   @media screen and (max-width: 1480px) and (min-width: 700px) {
 	.makecenter {
-	  position: absolute;
-	  min-height: auto;
 	  padding: 0;
 	}
   }
@@ -1013,11 +1016,6 @@ div.RICC > img.image {
   
 	.Projectlistdetails {
 	  width: 100%;
-	}
-  
-	.makecenter {
-	  position: absolute;
-	  min-height: auto;
 	}
   
   }
