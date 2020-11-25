@@ -72,7 +72,9 @@ class NewPost extends Component {
                 .then(response => {
                     var data=response.data;
                     if(response.data!=null && response.data.blog!=undefined){
-                      currentobj.setState({backgroundurlexist:true});
+                      if(currentobj.state.updateproject==false){
+                        currentobj.setState({backgroundurlexist:true});
+                      }
                     }else{
                       currentobj.setState({backgroundurlexist:false});
                     }
