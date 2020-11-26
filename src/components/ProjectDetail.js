@@ -240,7 +240,7 @@ export class ProjectDetail extends Component {
                                 <section id="comment" class="commentsection">
                                     <div className="row">
                                         <div className="col-lg-12" style={{fontSize:'12px'}}>
-                                            <textarea id="w3review" placeholder="Send Text" name="w3review" rows="4" style={{width:'100%',opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
+                                            <textarea id="w3review" placeholder="Send Text" name="w3review" rows="4" style={{width:'100%',padding:'10px',opacity:(commentDisabled==false)?0.5:1,pointerEvents:(commentDisabled==false)?'none':''}}  onChange={this.changeCommentHandle.bind(this)} value={this.state.comment}>
                                                     
                                             </textarea>
                                         </div>

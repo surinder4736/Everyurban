@@ -31,34 +31,10 @@ class Postlisting extends React.Component {
     this.initialStage()
 
   }
-  // getPageNumber = async (pageNumber) => {
-  //   pageNumber = pageNumber - 1
-  //   let { postPerPage } = this.state
-  //   let startingPost = postPerPage * pageNumber
-  //   // const posts = await getPostByMinMax(startingPost, postPerPage)
-  //   const posts = 20
-  //   console.log(posts);
-  //   this.setState({
-  //     posts: posts.rows,
-  //   })
-  // }
-
-  // searchContent = async (event) => {
-  //   const searchText = event.target.value
-  //   if (searchText !== '') {
-  //     const posts = await searchPost(searchText)
-  //     this.setState({
-  //       posts: posts.data.res,
-  //       postPerPage: posts.data.res.length,
-  //       totalNumberOfPost: posts.data.res.length,
-  //     })
-  //   } else {
-  //     await this.initialStage()
-  //   }
-  // }
   
   initialStage = async () => {
     const { dispatch } = this.props;
+    dispatch(blogAction.cleanBlogList());
     localStorage.setItem('redriaction_session_url', "");
     localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
     dispatch(blogAction.getBlogList());
@@ -87,11 +63,15 @@ class Postlisting extends React.Component {
       }
 	  }
     const newbloglist=BlogList!=null && BlogList!=undefined && BlogList.user!=undefined && BlogList.user.length > 0 ? BlogList.user.slice(0,this.state.visible):null;
+    
     return (
       <div className="postlistingmain">
          {/* <Grid item xs={7} style={{ margin: 'auto' }}> 
          <span>Load more</span>
          </Grid> */}
+         {newbloglist == null &&
+          <div id="load" class="spinner-loader"> <div class="load-wrap"></div></div>
+         }
         {newbloglist !=null && newbloglist.length> 0 ?  newbloglist.map((post) => (
           <PostList props={post} key={post.seno} />
         )): ''} 

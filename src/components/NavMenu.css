@@ -919,19 +919,24 @@ div.RICC > img.image {
 	  }
 }
   
-  .Projectlistdetails {
+  /* .Projectlistdetails {
 	width: 100%;
 	color: black !important;
 	float: left;
-  }
+  } */
+
+  .Projectlistdetails {
+    width: 100%;
+    color: black !important;
+    float: left;
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
   
   .makecenter {
-	bottom: 15%;
-	min-height: 10em;
-	margin-top: auto;
-	margin-bottom: auto;
-	padding: 2% 5%;
-	position: absolute;
+	padding: 0% 5%;
   }
   
   .posttitle {
@@ -993,8 +998,6 @@ div.RICC > img.image {
   
   @media screen and (max-width: 1480px) and (min-width: 700px) {
 	.makecenter {
-	  position: unset;
-	  min-height: auto;
 	  padding: 0;
 	}
   }
@@ -1013,11 +1016,6 @@ div.RICC > img.image {
   
 	.Projectlistdetails {
 	  width: 100%;
-	}
-  
-	.makecenter {
-	  position: unset;
-	  min-height: auto;
 	}
   
   }
@@ -1066,3 +1064,15 @@ div.RICC > img.image {
 	font-size: 16px !important;
 	width: 57em !important;
 }
+
+:global(.load-wrap) {
+	width: 100%;
+	height: 100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	text-align: center;
+  }
+  :global(.load-wrap) {background-image: url('../Images/loading-icon.gif');background-repeat: no-repeat;background-size:70px 70px;
+	background-position: center;
+  	min-height: 600px;}
+  :global(.loader-removed){display: none};

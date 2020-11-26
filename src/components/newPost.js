@@ -67,20 +67,6 @@ class NewPost extends Component {
     });
   };
 
-  checkDuplicateUrl=(event)=>{
-    axios.get(`${APIURL}blog/geturlextension/projects-`+event.target.value)
-                .then(response => {
-                    var data=response.data;
-                    if(response.data!=null && response.data.blog!=undefined){
-                      currentobj.setState({backgroundurlexist:true});
-                    }else{
-                      currentobj.setState({backgroundurlexist:false});
-                    }
-    }).catch((error) => {
-      console.log(error); 
-    });  
-  }
-
   //SignUp Button click Handle
   handleSubmit (e) {
     e.preventDefault();
@@ -134,11 +120,54 @@ class NewPost extends Component {
       this.setState({validation_message:'Please upload project preview image'});
       return;
     }
-    if(this.state.backgroundurlexist==true){
-      return; 
-    }
-    // old_image
+    this.setState({is_submit:true,validation_message:''});
+    axios.get(`${APIURL}blog/geturlextension/projects-`+backendUrl)
+                .then(response => {
+                    var data=response.data;
+                    if(response.data!=null && response.data.blog!=undefined){
+                      if(currentobj.state.updateproject==false){
+                        currentobj.setState({backgroundurlexist:true,is_submit:false,validation_message:''});
+                      }
+                      else{
+                        if(currentobj.state.updateproject==true ){
+                          const data_ = currentobj.props.setData;
+                          let extenstion_url=data_.posturlextension;
+                          let newurl="projects-"+backendUrl;
+                          if(extenstion_url!=newurl){
+                            currentobj.setState({backgroundurlexist:true,is_submit:false,validation_message:''});
+                          }
+                          else{
+                            currentobj.setState({backgroundurlexist:false});
+                            currentobj.finalSaveData();
+                          }
+                        } 
+                      }
+                    }else{
+                      currentobj.setState({backgroundurlexist:false});
+                      currentobj.finalSaveData();
+                    }
+    }).catch((error) => {
+      console.log(error); 
+    });
+    
+  }
 
+  finalSaveData(){
+    let curObj = this;
+    const {
+      projectTitle,
+      imagepath,
+      imagefile,
+      projectLisingcontent,
+      projectContent,
+      backendUrl,
+      backendMeta,
+      keywords,
+        publisher,
+      images_,
+      old_image
+    } = this.state;
+    
     let shouldSubmit = (projectTitle !== '' &&
       projectLisingcontent !== '' &&
       projectContent !== '' &&
@@ -153,7 +182,7 @@ class NewPost extends Component {
     if (shouldSubmit) {
       const { dispatch } = this.props;
       console.log(this.state);
-      this.setState({is_submit:true,validation_message:''});
+      // this.setState({is_submit:true,validation_message:''});
       const data = {
         postlistcontent: projectLisingcontent,
         posttitle: projectTitle,
@@ -437,7 +466,6 @@ class NewPost extends Component {
                 className="form-control"
                 placeholder="Enter Url Extension"
                 name="backendUrl"
-                onBlur={this.checkDuplicateUrl}
                 onChange={this.onValueChange}
                 value={this.state.backendUrl}
               />
@@ -492,7 +520,7 @@ class NewPost extends Component {
             <div className="col-md-4">
               <button
                 className="btn btn-primary custom-btn"
-                onClick={this.handleSubmit.bind(this)} id="btnContactUs" style={{pointerEvents: this.state.is_submit==true?'none':'default', cursor:this.state.is_submit==true?'not-allowed':'pointer'}}
+                onClick={this.handleSubmit.bind(this)} id="btnContactUs" style={{pointerEvents: this.state.is_submit==true?'none':'', cursor:this.state.is_submit==true?'not-allowed':'pointer'}}
               >
                 <i class="fa fa-spinner fa-spin" style={{display: this.state.is_submit==true?'':'none'}}></i> Upload Post <i className="fa fa-paper-plane"></i>
               </button>
