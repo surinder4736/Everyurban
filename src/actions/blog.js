@@ -215,6 +215,13 @@ const blogAction = {
             dispatch(beginRequest());
             dispatch(getAdminuserListSuccess(null));
         };
+    },
+
+    cleanBlogCommentList(){
+        return (dispatch) => {
+            dispatch(beginRequest());
+            dispatch(addBlogCommentSuccess(null));
+        };
     }
 
 }

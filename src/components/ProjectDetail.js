@@ -27,6 +27,7 @@ export class ProjectDetail extends Component {
         const  project_id  = this.props.match.params.project_url;
         localStorage.setItem('redriaction_session_url', "");
         localStorage.setItem('redriaction_session_time', Math.round(new Date() / 1000)+30);
+        dispatch(blogAction.cleanBlogCommentList());
         dispatch(blogAction.getBlogDetail({userId:project_id}));
         let userexit= user;
         if(user!=null){
@@ -151,6 +152,7 @@ export class ProjectDetail extends Component {
                 </MetaTags>
                 <MenuComponent />
                 {/* Slider */}
+                
                 {blog_detail.blog!=null && blog_detail.blog!=undefined &&
                 <section id="projectdetail">
                    <div className="howitwork-body">
@@ -163,17 +165,18 @@ export class ProjectDetail extends Component {
                         <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
-                                    {blog_detail.blog.posturlextension == this.props.match.params.project_url ? <span className={'postdetails useful-link'} dangerouslySetInnerHTML={{ __html: unescape(blog_detail.blog.postcontent) }}></span> : "No record found"}
+                                    {blog_detail.blog.posturlextension == this.props.match.params.project_url ? <span className={'postdetails useful-link'} dangerouslySetInnerHTML={{ __html: unescape(blog_detail.blog.postcontent) }}></span> : <div id="load" class="spinner-loader"> <div class="load-wrap"></div></div>}
                                  </div>
                             </div>
                         </div>
+                        {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined && 
                         <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
                                    <hr/> 
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                         {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined && 
                             <div className="row list-body commentcount">
                                 <div className="col-lg-12 ">
@@ -221,13 +224,14 @@ export class ProjectDetail extends Component {
                                 </div>
                               )): ''
                         }
+                        {comment_list!=null && comment_list!=undefined && comment_list.comments!=undefined && 
                         <div className="row list-body">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">
                                    <hr/> 
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                         <div className="row leavecommnt">
                             <div className="col-lg-12 ">
                                 <div className="bs-component">

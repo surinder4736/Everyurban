@@ -345,6 +345,9 @@ class UserList extends Component {
     
         let columndata=[];
         var data;
+        if(AdminUserList==null){
+          data=<div id="load" class="spinner-loader"> <div class="load-wrap"></div></div>
+        }
         if(AdminUserList!=null){
           let userData=AdminUserList.user;
           if(userData!=null)
@@ -461,9 +464,9 @@ class UserList extends Component {
             customTheme={mySweetTheme}
           />
         }
-        else{
-          data= <div style={{color: "red", textAlign: "center", height: "100px", verticalAlign: "middle"}}>No Record Exist!!!</div>
-        }
+        // else{
+        //   data= <div style={{color: "red", textAlign: "center", height: "100px", verticalAlign: "middle"}}>No Record Exist!!!</div>
+        // }
         return ( 
             <div>
                 {/* Header components open */}

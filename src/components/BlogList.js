@@ -24,6 +24,7 @@ class BlogList extends Component {
     }
     componentDidMount() {
         const { dispatch } = this.props;
+        dispatch(blogAction.cleanBlogList());
         dispatch(blogAction.getBlogList());
     }
     txtHandleCode(e) {
@@ -145,6 +146,9 @@ class BlogList extends Component {
         }
         let columndata = [];
         var data;
+        if(AdminUserList==null){
+            data=<div id="load" class="spinner-loader"> <div class="load-wrap"></div></div>
+        }
         if (AdminUserList != null) {
 
             let userData = AdminUserList.user;
@@ -192,16 +196,6 @@ class BlogList extends Component {
                         selector: 'posttitle',
                         sortable: true,
                     },
-                    // {
-                    //     name: 'Content',
-                    //     selector: 'postlistcontent',
-                    //     sortable: true,
-                    // },
-                    // {
-                    //     name: 'Post Content',
-                    //     selector: 'postcontent',
-                    //     sortable: true,
-                    // },
                     {
                         name: 'Keywords',
                         selector: 'keywords',
@@ -227,9 +221,9 @@ class BlogList extends Component {
                 customTheme={mySweetTheme}
             />
         }
-        else {
-            data = <div style={{ color: "red", textAlign: "center", height: "100px", verticalAlign: "middle" }}>No Record Exist!!!</div>
-        }
+        // else {
+        //     data = <div style={{ color: "red", textAlign: "center", height: "100px", verticalAlign: "middle" }}>No Record Exist!!!</div>
+        // }
         return (
             <div>
                 <Header />
