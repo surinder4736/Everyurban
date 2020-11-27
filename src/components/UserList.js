@@ -34,6 +34,7 @@ class UserList extends Component {
 	  }
     componentDidMount(){
           const{dispatch}=this.props;
+          dispatch(userAction.cleanUserList());
           dispatch(userAction.getAdminuserList());
           dispatch(codeAction.getCodeList());
     }

@@ -66,6 +66,8 @@
       $("#banner").carousel({
         interval: false
       })
+
+      
     
       // HAMBURGER
       $("#hamburger").click(function (e) {
@@ -94,6 +96,15 @@
     
    
     </script>
+    <script type="text/javascript">
+      window.onload=function(){
+        setTimeout(function(){
+          debugger;
+          $(".__se__float-left").addClass('suneditorfloatleft');
+          $(".__se__float-right").addClass('suneditorfloatright');
+        },3000);
+       };
+       </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <!-- Start of HubSpot Embed Code -->
    <!-- <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7243285.js"></script>  -->

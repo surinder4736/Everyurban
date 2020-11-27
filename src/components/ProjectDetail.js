@@ -152,7 +152,9 @@ export class ProjectDetail extends Component {
                 </MetaTags>
                 <MenuComponent />
                 {/* Slider */}
-                
+                {blog_detail.blog==null && blog_detail.blog==undefined &&
+                    <div id="load" class="spinner-loader"> <div class="load-wrap"></div></div>
+                }
                 {blog_detail.blog!=null && blog_detail.blog!=undefined &&
                 <section id="projectdetail">
                    <div className="howitwork-body">

@@ -222,6 +222,13 @@ const blogAction = {
             dispatch(beginRequest());
             dispatch(addBlogCommentSuccess(null));
         };
+    },
+
+    cleanBlogDetail(){
+        return (dispatch) => {
+            dispatch(beginRequest());
+            dispatch(addBlogSuccess({blog:null}));
+        };
     }
 
 }

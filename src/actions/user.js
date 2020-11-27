@@ -217,5 +217,12 @@ const userAction = {
         };
     },
 
+    cleanUserList(){
+        return (dispatch) => {
+            dispatch(beginRequest());
+            dispatch(getAdminuserListSuccess(null));
+        };
+    },
+
 }
 export default userAction;
