@@ -899,6 +899,8 @@ div.RICC > img.image {
   .projectimage {
 	height: 250px;
 	float: left;
+	align-items: center;
+	display: flex;
   }
   
   .projectimage img {
@@ -915,7 +917,7 @@ div.RICC > img.image {
 @media (min-width:1151px) and (max-width:1450px){
 	.projectimage img {
 		width: 250px;
-		height: 200px;
+		height: 250px;
 	  }
 }
   
