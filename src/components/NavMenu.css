@@ -1024,8 +1024,8 @@ div.RICC > img.image {
 
   .postlistingmain{
 	flex-grow: 0;
-    max-width: 58.333333%;
-    flex-basis: 58.333333%;
+    max-width: 43.333333%;
+    flex-basis: 43.333333%;
 	margin: auto;
 	display: grid;
   }
