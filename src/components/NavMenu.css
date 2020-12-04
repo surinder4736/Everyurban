@@ -659,6 +659,7 @@ body.react-confirm-alert-body-element{overflow:hidden}.react-confirm-alert-blur{
 	opacity: 0;
 	letter-spacing: 1px;
 	margin: 0;
+	font-size: 15px;
   }
 
   .nature:hover h2 {
