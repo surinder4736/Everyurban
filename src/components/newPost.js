@@ -338,8 +338,8 @@ class NewPost extends Component {
           let ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0);
 
-          const MAX_WIDTH = 500;
-          const MAX_HEIGHT = 300;
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 1000;
           let width = img.width;
           let height = img.height;
 
